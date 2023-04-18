@@ -21,35 +21,12 @@ Target DLL:      CMSIS_AGDI.dll V1.32.13.0
 Dialog DLL:      TARMCM1.DLL V1.14.3.0
  
 <h2>Project:</h2>
-D:\SynologyDrive\A5441\Software\A5441_Master\A5441_CMS32L051_Master\A5441_Master_CMS32L051\Project\MDK\A5441_Master_CMS32L051.uvprojx
-Project File Date:  12/17/2022
+D:\SynologyDrive\L1001\Software\L1001_Master\L1001_Master_CMS32L051\Project\MDK\A5441_Master_CMS32L051.uvprojx
+Project File Date:  04/17/2023
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 7 (build 960)', folder: 'F:\APP\Keil\ARM\ARMCC\Bin'
-Rebuild target 'CMS32L051'
-compiling FIFO.c...
-compiling FFT.c...
-..\USER\Include\memory.h(265): warning:  #375-D: declaration requires a typedef name
-  } ;             // 用户数据单扇区512Byte
-..\USER\Source\FFT.c: 1 warning, 0 errors
-compiling image.c...
-..\USER\Include\memory.h(265): warning:  #375-D: declaration requires a typedef name
-  } ;             // 用户数据单扇区512Byte
-..\USER\Source\image.c: 1 warning, 0 errors
-compiling main.c...
-..\USER\Include\memory.h(265): warning:  #375-D: declaration requires a typedef name
-  } ;             // 用户数据单扇区512Byte
-..\USER\Source\main.c: 1 warning, 0 errors
-compiling uart.c...
-..\USER\Include\memory.h(265): warning:  #375-D: declaration requires a typedef name
-  } ;             // 用户数据单扇区512Byte
-..\USER\Source\uart.c(127): warning:  #513-D: a value of type "ModuleTypeDef (*)[16]" cannot be assigned to an entity of type "unsigned char *"
-      ptr = &Tangram;
-..\USER\Source\uart.c: 2 warnings, 0 errors
-compiling Light.c...
-..\USER\Include\memory.h(265): warning:  #375-D: declaration requires a typedef name
-  } ;             // 用户数据单扇区512Byte
-..\USER\Source\Light.c: 1 warning, 0 errors
+Build target 'CMS32L051'
 compiling KEY.C...
 ..\USER\Include\memory.h(265): warning:  #375-D: declaration requires a typedef name
   } ;             // 用户数据单扇区512Byte
@@ -58,10 +35,42 @@ compiling KEY.C...
 ..\USER\Source\KEY.C(207): warning:  #167-D: argument of type "const uint8_t (*)[10]" is incompatible with parameter of type "unsigned char *"
   			temp = KeyNum_Match(keyval, &Numboard_KeyTable, sizeof(Numboard_KeyTable));
 ..\USER\Source\KEY.C: 3 warnings, 0 errors
+compiling FFT.c...
+..\USER\Include\memory.h(265): warning:  #375-D: declaration requires a typedef name
+  } ;             // 用户数据单扇区512Byte
+..\USER\Source\FFT.c: 1 warning, 0 errors
+compiling main.c...
+..\USER\Include\memory.h(265): warning:  #375-D: declaration requires a typedef name
+  } ;             // 用户数据单扇区512Byte
+..\USER\Source\main.c: 1 warning, 0 errors
+compiling image.c...
+..\USER\Include\memory.h(265): warning:  #375-D: declaration requires a typedef name
+  } ;             // 用户数据单扇区512Byte
+..\USER\Source\image.c: 1 warning, 0 errors
+compiling IR.C...
+..\USER\Include\memory.h(265): warning:  #375-D: declaration requires a typedef name
+  } ;             // 用户数据单扇区512Byte
+..\USER\Source\IR.C(58): warning:  #167-D: argument of type "const uint8_t (*)[44]" is incompatible with parameter of type "unsigned char *"
+                  IR_KeyVal = KeyNum_Match(&IR_Data2, &IR_KeyTable, sizeof(IR_KeyTable));
+..\USER\Source\IR.C: 2 warnings, 0 errors
+compiling Sys.c...
+..\USER\Include\memory.h(265): warning:  #375-D: declaration requires a typedef name
+  } ;             // 用户数据单扇区512Byte
+..\USER\Source\Sys.c: 1 warning, 0 errors
+compiling Light.c...
+..\USER\Include\memory.h(265): warning:  #375-D: declaration requires a typedef name
+  } ;             // 用户数据单扇区512Byte
+..\USER\Source\Light.c: 1 warning, 0 errors
 compiling delay.c...
 ..\USER\Include\memory.h(265): warning:  #375-D: declaration requires a typedef name
   } ;             // 用户数据单扇区512Byte
 ..\USER\Source\delay.c: 1 warning, 0 errors
+compiling uart.c...
+..\USER\Include\memory.h(265): warning:  #375-D: declaration requires a typedef name
+  } ;             // 用户数据单扇区512Byte
+..\USER\Source\uart.c(127): warning:  #513-D: a value of type "ModuleTypeDef (*)[16]" cannot be assigned to an entity of type "unsigned char *"
+      ptr = &Tangram;
+..\USER\Source\uart.c: 2 warnings, 0 errors
 compiling Color.c...
 ..\USER\Include\memory.h(265): warning:  #375-D: declaration requires a typedef name
   } ;             // 用户数据单扇区512Byte
@@ -76,12 +85,80 @@ compiling Color.c...
 ..\USER\Source\Color.c(536): warning:  #167-D: argument of type "uint8_t (*)[modele_maxnum][2]" is incompatible with parameter of type "uint8_t *"
       Bubble_Sort_2D(&temp_array, modele_maxnum, 2, 1); // 根据优先级进行排序
 ..\USER\Source\Color.c: 6 warnings, 0 errors
-compiling IR.C...
+compiling A5441_Master.c...
 ..\USER\Include\memory.h(265): warning:  #375-D: declaration requires a typedef name
   } ;             // 用户数据单扇区512Byte
-..\USER\Source\IR.C(58): warning:  #167-D: argument of type "const uint8_t (*)[44]" is incompatible with parameter of type "unsigned char *"
-                  IR_KeyVal = KeyNum_Match(&IR_Data2, &IR_KeyTable, sizeof(IR_KeyTable));
-..\USER\Source\IR.C: 2 warnings, 0 errors
+..\USER\Source\A5441_Master.c(700): warning:  #177-D: variable "temp"  was declared but never referenced
+      static unsigned char temp;
+..\USER\Source\A5441_Master.c(702): warning:  #177-D: variable "str"  was declared but never referenced
+      unsigned char *str;
+..\USER\Source\A5441_Master.c(703): warning:  #177-D: variable "Level_Num_Temp"  was declared but never referenced
+      uint8_t Level_Num_Temp;
+..\USER\Source\A5441_Master.c(705): warning:  #177-D: variable "i"  was declared but never referenced
+      uint16_t i, j;
+..\USER\Source\A5441_Master.c(705): warning:  #177-D: variable "j"  was declared but never referenced
+      uint16_t i, j;
+..\USER\Source\A5441_Master.c(706): warning:  #177-D: variable "p"  was declared but never referenced
+      uint8_t *p;
+..\USER\Source\A5441_Master.c(1258): warning:  #177-D: variable "test"  was declared but never referenced
+      static unsigned char test;
+..\USER\Source\A5441_Master.c(1275): warning:  #223-D: function "delay_20ms" declared implicitly
+      delay_20ms();
+..\USER\Source\A5441_Master.c(1272): warning:  #177-D: variable "i"  was declared but never referenced
+      uint8_t i;
+..\USER\Source\A5441_Master.c(1373): warning:  #167-D: argument of type "const uint8_t (*)[44]" is incompatible with parameter of type "unsigned char *"
+      temp = KeyNum_Match(KeyVal, &IR_KeyTable, sizeof(IR_KeyTable));
+..\USER\Source\A5441_Master.c(1667): warning:  #550-D: variable "TimeCnt"  was set but never used
+      static uint8_t TimeCnt;
+..\USER\Source\A5441_Master.c(1668): warning:  #550-D: variable "timeFlag"  was set but never used
+      uint8_t timeFlag;
+..\USER\Source\A5441_Master.c(1669): warning:  #177-D: variable "k"  was declared but never referenced
+      uint8_t i, j, k;
+..\USER\Source\A5441_Master.c(2039): warning:  #223-D: function "delay_20ms" declared implicitly
+          delay_20ms();
+..\USER\Source\A5441_Master.c(2238): warning:  #167-D: argument of type "uint8_t (*)[1][6]" is incompatible with parameter of type "uint8_t *"
+      Data_DMA_load(&Bufferarray, SlaveDevive_Num);
+..\USER\Source\A5441_Master.c(1896): warning:  #177-D: variable "j"  was declared but never referenced
+      uint8_t i, j, k;
+..\USER\Source\A5441_Master.c(1896): warning:  #177-D: variable "k"  was declared but never referenced
+      uint8_t i, j, k;
+..\USER\Source\A5441_Master.c(2243): warning:  #177-D: variable "ProcessNum"  was declared but never referenced
+      static uint8_t ProcessNum;
+..\USER\Source\A5441_Master.c(2245): warning:  #177-D: variable "Cursor"  was declared but never referenced
+      static uint8_t Cursor;
+..\USER\Source\A5441_Master.c(2249): warning:  #550-D: variable "timeFlag"  was set but never used
+      uint8_t timeFlag;
+..\USER\Source\A5441_Master.c(2250): warning:  #177-D: variable "temp"  was declared but never referenced
+      static uint8_t temp;
+..\USER\Source\A5441_Master.c(2251): warning:  #177-D: variable "i"  was declared but never referenced
+      uint8_t i, j, k;
+..\USER\Source\A5441_Master.c(2251): warning:  #177-D: variable "j"  was declared but never referenced
+      uint8_t i, j, k;
+..\USER\Source\A5441_Master.c(2251): warning:  #177-D: variable "k"  was declared but never referenced
+      uint8_t i, j, k;
+..\USER\Source\A5441_Master.c(2387): warning:  #223-D: function "delay_500ms" declared implicitly
+          delay_500ms();
+..\USER\Source\A5441_Master.c(2417): warning:  #223-D: function "delay_500ms" declared implicitly
+              delay_500ms();
+..\USER\Source\A5441_Master.c(2420): warning:  #223-D: function "delay_500ms" declared implicitly
+          delay_500ms();
+..\USER\Source\A5441_Master.c(2498): warning:  #940-D: missing return statement at end of non-void function "MIC_Process" 
+  }
+..\USER\Source\A5441_Master.c(2451): warning:  #550-D: variable "Average"  was set but never used
+      uint16_t Max,Min,Average,BaseVal;
+..\USER\Source\A5441_Master.c(2453): warning:  #177-D: variable "j"  was declared but never referenced
+      uint8_t i, j;
+..\USER\Source\A5441_Master.c(2454): warning:  #177-D: variable "temp"  was declared but never referenced
+      uint16_t temp;
+..\USER\Source\A5441_Master.c(2455): warning:  #550-D: variable "Last_Max"  was set but never used
+      static uint16_t Last_Max = 0;
+..\USER\Source\A5441_Master.c(2521): warning:  #167-D: argument of type "uint8_t (*)[16][2]" is incompatible with parameter of type "uint8_t *"
+      Bubble_Sort_2D(&TempArray, TangramDevice.Device_sum, 2, 1); // 对灯光序号进行排序
+..\USER\Source\A5441_Master.c(2655): warning:  #111-D: statement is unreachable
+      DMA_Stop(DMA_VECTOR_ADC);
+..\USER\Source\A5441_Master.c(2662): warning:  #940-D: missing return statement at end of non-void function "Light_AD_Test" 
+  }
+..\USER\Source\A5441_Master.c: 36 warnings, 0 errors
 compiling Com.c...
 ..\USER\Include\memory.h(265): warning:  #375-D: declaration requires a typedef name
   } ;             // 用户数据单扇区512Byte
@@ -144,84 +221,6 @@ compiling Com.c...
 ..\USER\Source\Com.c(1107): warning:  #177-D: variable "temp"  was declared but never referenced
       uint8_t temp;
 ..\USER\Source\Com.c: 30 warnings, 0 errors
-compiling Sys.c...
-..\USER\Include\memory.h(265): warning:  #375-D: declaration requires a typedef name
-  } ;             // 用户数据单扇区512Byte
-..\USER\Source\Sys.c: 1 warning, 0 errors
-compiling A5441_Master.c...
-..\USER\Include\memory.h(265): warning:  #375-D: declaration requires a typedef name
-  } ;             // 用户数据单扇区512Byte
-..\USER\Source\A5441_Master.c(700): warning:  #177-D: variable "temp"  was declared but never referenced
-      static unsigned char temp;
-..\USER\Source\A5441_Master.c(702): warning:  #177-D: variable "str"  was declared but never referenced
-      unsigned char *str;
-..\USER\Source\A5441_Master.c(703): warning:  #177-D: variable "Level_Num_Temp"  was declared but never referenced
-      uint8_t Level_Num_Temp;
-..\USER\Source\A5441_Master.c(705): warning:  #177-D: variable "i"  was declared but never referenced
-      uint16_t i, j;
-..\USER\Source\A5441_Master.c(705): warning:  #177-D: variable "j"  was declared but never referenced
-      uint16_t i, j;
-..\USER\Source\A5441_Master.c(706): warning:  #177-D: variable "p"  was declared but never referenced
-      uint8_t *p;
-..\USER\Source\A5441_Master.c(1258): warning:  #177-D: variable "test"  was declared but never referenced
-      static unsigned char test;
-..\USER\Source\A5441_Master.c(1275): warning:  #223-D: function "delay_20ms" declared implicitly
-      delay_20ms();
-..\USER\Source\A5441_Master.c(1272): warning:  #177-D: variable "i"  was declared but never referenced
-      uint8_t i;
-..\USER\Source\A5441_Master.c(1373): warning:  #167-D: argument of type "const uint8_t (*)[44]" is incompatible with parameter of type "unsigned char *"
-      temp = KeyNum_Match(KeyVal, &IR_KeyTable, sizeof(IR_KeyTable));
-..\USER\Source\A5441_Master.c(1665): warning:  #550-D: variable "TimeCnt"  was set but never used
-      static uint8_t TimeCnt;
-..\USER\Source\A5441_Master.c(1666): warning:  #550-D: variable "timeFlag"  was set but never used
-      uint8_t timeFlag;
-..\USER\Source\A5441_Master.c(1667): warning:  #177-D: variable "k"  was declared but never referenced
-      uint8_t i, j, k;
-..\USER\Source\A5441_Master.c(2037): warning:  #223-D: function "delay_20ms" declared implicitly
-          delay_20ms();
-..\USER\Source\A5441_Master.c(2236): warning:  #167-D: argument of type "uint8_t (*)[1][6]" is incompatible with parameter of type "uint8_t *"
-      Data_DMA_load(&Bufferarray, SlaveDevive_Num);
-..\USER\Source\A5441_Master.c(1894): warning:  #177-D: variable "j"  was declared but never referenced
-      uint8_t i, j, k;
-..\USER\Source\A5441_Master.c(1894): warning:  #177-D: variable "k"  was declared but never referenced
-      uint8_t i, j, k;
-..\USER\Source\A5441_Master.c(2241): warning:  #177-D: variable "ProcessNum"  was declared but never referenced
-      static uint8_t ProcessNum;
-..\USER\Source\A5441_Master.c(2243): warning:  #177-D: variable "Cursor"  was declared but never referenced
-      static uint8_t Cursor;
-..\USER\Source\A5441_Master.c(2247): warning:  #550-D: variable "timeFlag"  was set but never used
-      uint8_t timeFlag;
-..\USER\Source\A5441_Master.c(2248): warning:  #177-D: variable "temp"  was declared but never referenced
-      static uint8_t temp;
-..\USER\Source\A5441_Master.c(2249): warning:  #177-D: variable "i"  was declared but never referenced
-      uint8_t i, j, k;
-..\USER\Source\A5441_Master.c(2249): warning:  #177-D: variable "j"  was declared but never referenced
-      uint8_t i, j, k;
-..\USER\Source\A5441_Master.c(2249): warning:  #177-D: variable "k"  was declared but never referenced
-      uint8_t i, j, k;
-..\USER\Source\A5441_Master.c(2385): warning:  #223-D: function "delay_500ms" declared implicitly
-          delay_500ms();
-..\USER\Source\A5441_Master.c(2415): warning:  #223-D: function "delay_500ms" declared implicitly
-              delay_500ms();
-..\USER\Source\A5441_Master.c(2418): warning:  #223-D: function "delay_500ms" declared implicitly
-          delay_500ms();
-..\USER\Source\A5441_Master.c(2496): warning:  #940-D: missing return statement at end of non-void function "MIC_Process" 
-  }
-..\USER\Source\A5441_Master.c(2449): warning:  #550-D: variable "Average"  was set but never used
-      uint16_t Max,Min,Average,BaseVal;
-..\USER\Source\A5441_Master.c(2451): warning:  #177-D: variable "j"  was declared but never referenced
-      uint8_t i, j;
-..\USER\Source\A5441_Master.c(2452): warning:  #177-D: variable "temp"  was declared but never referenced
-      uint16_t temp;
-..\USER\Source\A5441_Master.c(2453): warning:  #550-D: variable "Last_Max"  was set but never used
-      static uint16_t Last_Max = 0;
-..\USER\Source\A5441_Master.c(2519): warning:  #167-D: argument of type "uint8_t (*)[16][2]" is incompatible with parameter of type "uint8_t *"
-      Bubble_Sort_2D(&TempArray, TangramDevice.Device_sum, 2, 1); // 对灯光序号进行排序
-..\USER\Source\A5441_Master.c(2653): warning:  #111-D: statement is unreachable
-      DMA_Stop(DMA_VECTOR_ADC);
-..\USER\Source\A5441_Master.c(2660): warning:  #940-D: missing return statement at end of non-void function "Light_AD_Test" 
-  }
-..\USER\Source\A5441_Master.c: 36 warnings, 0 errors
 compiling wave.c...
 ..\USER\Include\memory.h(265): warning:  #375-D: declaration requires a typedef name
   } ;             // 用户数据单扇区512Byte
@@ -344,6 +343,18 @@ compiling OTA.c...
 ..\USER\Source\OTA.c(155): warning:  #167-D: argument of type "ota_data_TypeDef *" is incompatible with parameter of type "uint16_t"
       Edit_SectorData((uint32_t)UserData2_ADDR, &(((UserData_Sector2_TypeDef *)0)->data.ota_data), (uint8_t *)&ota_data, sizeof(ota_data));
 ..\USER\Source\OTA.c: 6 warnings, 0 errors
+compiling MEM.c...
+..\USER\Include\memory.h(265): warning:  #375-D: declaration requires a typedef name
+  } ;             // 用户数据单扇区512Byte
+..\USER\Source\MEM.c(64): warning:  #223-D: function "FlashSPI_Write" declared implicitly
+      FlashSPI_Write(buf, USER_RESERVED_SECTOR0_ADDR-0x10, sizeof(buf));
+..\USER\Source\MEM.c(93): warning:  #159-D: declaration is incompatible with previous "FlashSPI_Write"  (declared at line 64)
+  void FlashSPI_Write(uint8_t *pBuffer, uint32_t WriteAddr, uint16_t NumByteToWrite)
+..\USER\Source\MEM.c(98): warning:  #177-D: variable "i"  was declared but never referenced
+      uint16_t i;
+..\USER\Source\MEM.c(101): warning:  #550-D: variable "writedNum"  was set but never used
+      uint16_t writedNum;   // 已写的字节数
+..\USER\Source\MEM.c: 5 warnings, 0 errors
 compiling motion.c...
 ..\USER\Include\memory.h(265): warning:  #375-D: declaration requires a typedef name
   } ;             // 用户数据单扇区512Byte
@@ -376,10 +387,6 @@ compiling motion.c...
 ..\USER\Source\motion.c(826): warning:  #177-D: variable "temp"  was declared but never referenced
       uint8_t temp;
 ..\USER\Source\motion.c: 15 warnings, 0 errors
-compiling mcu_api.c...
-..\USER\Include\memory.h(265): warning:  #375-D: declaration requires a typedef name
-  } ;             // 用户数据单扇区512Byte
-..\USER\mcu_sdk\mcu_api.c: 1 warning, 0 errors
 compiling homekit.c...
 ..\USER\Include\memory.h(265): warning:  #375-D: declaration requires a typedef name
   } ;             // 用户数据单扇区512Byte
@@ -404,6 +411,10 @@ compiling homekit.c...
 ..\USER\mcu_sdk\homekit.c(1622): warning:  #111-D: statement is unreachable
                   break;
 ..\USER\mcu_sdk\homekit.c: 11 warnings, 0 errors
+compiling mcu_api.c...
+..\USER\Include\memory.h(265): warning:  #375-D: declaration requires a typedef name
+  } ;             // 用户数据单扇区512Byte
+..\USER\mcu_sdk\mcu_api.c: 1 warning, 0 errors
 compiling protocol.c...
 ..\USER\Include\memory.h(265): warning:  #375-D: declaration requires a typedef name
   } ;             // 用户数据单扇区512Byte
@@ -428,8 +439,16 @@ compiling system.c...
 ..\USER\mcu_sdk\system.c(294): warning:  #177-D: variable "module_memory"  was declared but never referenced
       u32 module_memory;
 ..\USER\mcu_sdk\system.c: 5 warnings, 0 errors
-compiling retarget.c...
-compiling gpio.c...
+compiling tim4_user.c...
+..\USER\Include\memory.h(265): warning:  #375-D: declaration requires a typedef name
+  } ;             // 用户数据单扇区512Byte
+..\..\Driver\src\tim4_user.c: 1 warning, 0 errors
+compiling rtc_user.c...
+..\USER\Include\memory.h(265): warning:  #375-D: declaration requires a typedef name
+  } ;             // 用户数据单扇区512Byte
+..\..\Driver\src\rtc_user.c(47): warning:  #177-D: function "str2bcdtime"  was declared but never referenced
+  static void str2bcdtime(char date_buf[], char bcd_buf[])
+..\..\Driver\src\rtc_user.c: 2 warnings, 0 errors
 compiling sci_user.c...
 ..\USER\Include\memory.h(265): warning:  #375-D: declaration requires a typedef name
   } ;             // 用户数据单扇区512Byte
@@ -452,51 +471,11 @@ compiling sci.c...
 ..\USER\Include\memory.h(265): warning:  #375-D: declaration requires a typedef name
   } ;             // 用户数据单扇区512Byte
 ..\..\Driver\src\sci.c: 1 warning, 0 errors
-compiling tim4.c...
-..\..\Driver\src\tim4.c(696): warning:  #188-D: enumerated type mixed with another type
-      TM40_Channel_Start(TM4_CHANNEL_0 | TM4_CHANNEL_1);
-..\..\Driver\src\tim4.c(725): warning:  #188-D: enumerated type mixed with another type
-      TM40_Channel_Start(TM4_CHANNEL_0 | TM4_CHANNEL_1);
-..\..\Driver\src\tim4.c(763): warning:  #188-D: enumerated type mixed with another type
-      TM40_Channel_Start(TM4_CHANNEL_0 | TM4_CHANNEL_1 | TM4_CHANNEL_2);
-..\..\Driver\src\tim4.c(810): warning:  #188-D: enumerated type mixed with another type
-      TM40_Channel_Start(TM4_CHANNEL_0 | TM4_CHANNEL_1 | TM4_CHANNEL_2 | TM4_CHANNEL_3);
-..\..\Driver\src\tim4.c(855): warning:  #188-D: enumerated type mixed with another type
-      TM40_Channel_Start(TM4_CHANNEL_0 | TM4_CHANNEL_1 | TM4_CHANNEL_2 | TM4_CHANNEL_3);
-..\..\Driver\src\tim4.c(1481): warning:  #188-D: enumerated type mixed with another type
-      TM41_Channel_Start(TM4_CHANNEL_0 | TM4_CHANNEL_1);
-..\..\Driver\src\tim4.c(1510): warning:  #188-D: enumerated type mixed with another type
-      TM41_Channel_Start(TM4_CHANNEL_0 | TM4_CHANNEL_1);
-..\..\Driver\src\tim4.c(1548): warning:  #188-D: enumerated type mixed with another type
-      TM41_Channel_Start(TM4_CHANNEL_0 | TM4_CHANNEL_1 | TM4_CHANNEL_2);
-..\..\Driver\src\tim4.c(1595): warning:  #188-D: enumerated type mixed with another type
-      TM41_Channel_Start(TM4_CHANNEL_0 | TM4_CHANNEL_1 | TM4_CHANNEL_2 | TM4_CHANNEL_3);
-..\..\Driver\src\tim4.c(1640): warning:  #188-D: enumerated type mixed with another type
-      TM41_Channel_Start(TM4_CHANNEL_0 | TM4_CHANNEL_1 | TM4_CHANNEL_2 | TM4_CHANNEL_3);
-..\..\Driver\src\tim4.c: 10 warnings, 0 errors
-compiling adc.c...
-compiling tim4_user.c...
-..\USER\Include\memory.h(265): warning:  #375-D: declaration requires a typedef name
-  } ;             // 用户数据单扇区512Byte
-..\..\Driver\src\tim4_user.c: 1 warning, 0 errors
-assembling startup_CMS32L051.s...
-compiling adc_user.c...
-compiling flash.c...
-compiling flash_user.c...
-compiling rtc.c...
-compiling dma.c...
-compiling rtc_user.c...
-..\USER\Include\memory.h(265): warning:  #375-D: declaration requires a typedef name
-  } ;             // 用户数据单扇区512Byte
-..\..\Driver\src\rtc_user.c(47): warning:  #177-D: function "str2bcdtime"  was declared but never referenced
-  static void str2bcdtime(char date_buf[], char bcd_buf[])
-..\..\Driver\src\rtc_user.c: 2 warnings, 0 errors
-compiling system_CMS32L051.c...
 linking...
-Program Size: Code=19348 RO-data=1200 RW-data=604 ZI-data=5604  
+Program Size: Code=17364 RO-data=1200 RW-data=604 ZI-data=5604  
 FromELF: creating hex file...
 After Build - User command #1: F:\APP\Keil\\ARM\ARMCC\bin\fromelf.exe --bin --output=uartSendReceive.bin .\Objects\uartSendReceive.axf
-".\Objects\uartSendReceive.axf" - 0 Error(s), 199 Warning(s).
+".\Objects\uartSendReceive.axf" - 0 Error(s), 194 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -523,10 +502,10 @@ Package Vendor: Cmsemicon
    * Component: ARM::CMSIS:CORE:5.4.0
 
    * Component: Cmsemicon::Device:Startup:1.0.0
-      Include file:  Device\Source\userdefine.h
-      Source file:   Device\Source\system_CMS32L051.c
       Source file:   Device\Source\ARM\startup_CMS32L051.s
-Build Time Elapsed:  00:00:05
+      Source file:   Device\Source\system_CMS32L051.c
+      Include file:  Device\Source\userdefine.h
+Build Time Elapsed:  00:00:03
 </pre>
 </body>
 </html>

@@ -15,7 +15,8 @@
 
 // #define SPI_Delay()     us_delay(30)    // Êµ²â10us×óÓÒ
 
-#define SPI_Delay()     us_delay(50) // Êµ²â15us×óÓÒ
+// // #define SPI_Delay()     us_delay(50) // Êµ²â15us×óÓÒ
+#define SPI_Delay()     us_delay(1)
 
 void us_delay(uint32_t us)
 {
@@ -23,6 +24,7 @@ void us_delay(uint32_t us)
     {
         us--;
     }
+    // __NOP();
 }
 
 void SPI_MOSI(uint8_t level)

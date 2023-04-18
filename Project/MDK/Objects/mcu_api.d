@@ -49,3 +49,4 @@
 .\objects\mcu_api.o: ..\USER\Include\motion.h
 .\objects\mcu_api.o: ..\USER\Include\colorbox.h
 .\objects\mcu_api.o: ..\USER\Include\OTA.h
+.\objects\mcu_api.o: ..\USER\Include\MEM.h

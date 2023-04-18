@@ -63,13 +63,14 @@ unsigned char ADC_DMA_EN;
 unsigned char FFT_OK;
 unsigned char FFT_Flash;	//
 
+uint16_t RunningTimeCnt;
 
 // int FFT_InjectCount = 0;						//数据注入次数
 // int FFT_InjectFinishFlag = 0;					//数据注入完成标志
 
 // Complex_TypeDef FFT_Date[FFT_N];					//创建一个复数数组，大小1024个，占用RAM有 8*1024 = 8.192KB 内存，单片机RAM建议大于10K ，否则程序运行不起来
 
-uint16_t runtime_cnt;
+// // uint16_t runtime_cnt;
 
 
 
@@ -225,7 +226,7 @@ int main()
 		{
 			T_20MS_FLAG_ClrBit();
 			// IR_Decode();
-			Motion_Output();
+			// Motion_Output();
 			MIC_Process();
 			KeyS_On();
 
@@ -268,7 +269,7 @@ int main()
 		if (T_500MS_FLAG_GetBit)
 		{
 			T_500MS_FLAG_ClrBit();
-
+			SPI_FlashDebug();
 			// OTA_ResetFlag();
 
 		}
@@ -277,13 +278,14 @@ int main()
 			T_1000MS_FLAG_ClrBit();
 			RTC_Task();
 			Debug();
-			LED1_REV();
+			// LED1_REV();
+			// printf("\r\nAPP running %d S\r\n",RunningTimeCnt++);
 			// KeyS_On();
 			// APP_checksum_verify(1);
 			// printf("test\r\n");
 			// APP_update_check();
 			// // // runtime_cnt=0x1234;
-			// printf("APP test:%d\r\n",runtime_cnt++);
+
 			// runtime_cnt++;
 			// printf("%d\r\n",sizeof(UserData_TypeDef));
 			// Memory_AutoUpdate();

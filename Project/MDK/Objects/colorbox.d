@@ -48,3 +48,4 @@
 .\objects\colorbox.o: ..\USER\Include\motion.h
 .\objects\colorbox.o: ..\USER\Include\colorbox.h
 .\objects\colorbox.o: ..\USER\Include\OTA.h
+.\objects\colorbox.o: ..\USER\Include\MEM.h

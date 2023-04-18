@@ -49,3 +49,4 @@
 .\objects\fft.o: ..\USER\Include\motion.h
 .\objects\fft.o: ..\USER\Include\colorbox.h
 .\objects\fft.o: ..\USER\Include\OTA.h
+.\objects\fft.o: ..\USER\Include\MEM.h

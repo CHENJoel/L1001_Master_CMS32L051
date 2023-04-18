@@ -49,3 +49,4 @@
 .\objects\driver_w25qxx.o: ..\USER\Include\motion.h
 .\objects\driver_w25qxx.o: ..\USER\Include\colorbox.h
 .\objects\driver_w25qxx.o: ..\USER\Include\OTA.h
+.\objects\driver_w25qxx.o: ..\USER\Include\MEM.h

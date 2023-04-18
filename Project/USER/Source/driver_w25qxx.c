@@ -17,8 +17,8 @@
 //#include "driver_timer.h"
 
 // 函数重定义
-#define W25_CS_ENABLE()         {W25_CS(0); us_delay(100);}
-#define W25_CS_DISABLE()        {W25_CS(1); us_delay(100);}
+#define W25_CS_ENABLE()         {W25_CS(0); us_delay(10);}
+#define W25_CS_DISABLE()        {W25_CS(1); us_delay(10);}
 #define W25_RW_Byte(data)       SPI_WriteReadByte(data)
 
 
@@ -247,13 +247,13 @@ void FLASH_BufferWrite(uint8_t* pBuffer, uint32_t WriteAddr, uint16_t NumByteToW
 
     Addr = WriteAddr % SPI_FLASH_PageSize;
 
-    count = SPI_FLASH_PageSize - Addr;
+    count = SPI_FLASH_PageSize - Addr;  // 距离页首地址的偏移量
 
-    NumOfPage =  NumByteToWrite / SPI_FLASH_PageSize;
+    NumOfPage =  NumByteToWrite / SPI_FLASH_PageSize;   // 要写的页数
 
     NumOfSingle = NumByteToWrite % SPI_FLASH_PageSize;
 
-    if (Addr == 0)
+    if (Addr == 0)  // 起始地址为页的首地址
     {
         if (NumOfPage == 0)
         {
@@ -271,11 +271,12 @@ void FLASH_BufferWrite(uint8_t* pBuffer, uint32_t WriteAddr, uint16_t NumByteToW
             FLASH_PageWrite(pBuffer, WriteAddr, NumOfSingle);
         }
     }
-    else
+    else    // 起始地址为页的中间地址
     {
-        if (NumOfPage == 0)
+        if (NumOfPage == 0) // 要写的字节数不足一页
         {
-            if (NumOfSingle > count)
+            if (NumOfSingle > count) // 要写的字节数大于地址偏移量
+
             {
                 temp = NumOfSingle - count;
 
@@ -352,4 +353,19 @@ void FLASH_StartReadSequence(uint32_t ReadAddr)
     W25_RW_Byte(ReadAddr & 0xFF);
 
     W25_CS_DISABLE();
+}
+/**************** Joel补充***************/
+void FLASH_PageErase(uint32_t PageAddr)
+{
+    Flash_WritenEN();
+    FLASH_WaitForWriteEnd();
+
+    W25_CS_ENABLE();
+    W25_RW_Byte(W25X_PageErase);
+    W25_RW_Byte((PageAddr & 0xFF0000) >> 16);
+    W25_RW_Byte((PageAddr & 0xFF00) >> 8);
+    W25_RW_Byte(PageAddr & 0xFF);
+    W25_CS_DISABLE();
+
+    FLASH_WaitForWriteEnd();
 }

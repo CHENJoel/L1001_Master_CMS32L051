@@ -55,7 +55,7 @@
 #include "motion.h"
 #include "colorbox.h"
 #include "OTA.h"
-
+#include "MEM.h"
 
 
 #define IR_Version 1
@@ -328,6 +328,6 @@ unsigned char Random_Generate(void);
 void Remote_Click(unsigned char *KeyVal);
 void HEX_Convert(unsigned int HEXtemp);
 
-
+void delayMS(uint32_t n);
 
 #endif

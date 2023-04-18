@@ -48,4 +48,5 @@
 .\objects\delay.o: ..\USER\Include\motion.h
 .\objects\delay.o: ..\USER\Include\colorbox.h
 .\objects\delay.o: ..\USER\Include\OTA.h
+.\objects\delay.o: ..\USER\Include\MEM.h
 .\objects\delay.o: ..\USER\Include\delay.H

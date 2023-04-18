@@ -42,6 +42,7 @@
 #define W25X_PageProgram		        0x02
 #define W25X_BlockErase			        0xD8
 #define W25X_SectorErase		        0x20
+#define W25X_PageErase		          0x81
 #define W25X_ChipErase			        0xC7
 #define W25X_PowerDown			        0xB9
 #define W25X_ReleasePowerDown       0xAB
@@ -150,4 +151,6 @@ extern void FLASH_BufferWrite(uint8_t* pBuffer, uint32_t WriteAddr, uint16_t Num
 */
 extern void FLASH_BufferRead(uint8_t* pBuffer, uint32_t ReadAddr, uint16_t NumByteToRead);
 extern void FLASH_StartReadSequence(uint32_t ReadAddr);
+/********************/
+void FLASH_PageErase(uint32_t PageAddr);
 #endif

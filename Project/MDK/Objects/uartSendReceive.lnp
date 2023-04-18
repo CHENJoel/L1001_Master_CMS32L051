@@ -19,6 +19,7 @@
 ".\objects\motion.o"
 ".\objects\colorbox.o"
 ".\objects\ota.o"
+".\objects\mem.o"
 ".\objects\homekit.o"
 ".\objects\mcu_api.o"
 ".\objects\protocol.o"

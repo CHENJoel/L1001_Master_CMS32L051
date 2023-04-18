@@ -48,3 +48,4 @@
 .\objects\tim4_user.o: ..\USER\Include\motion.h
 .\objects\tim4_user.o: ..\USER\Include\colorbox.h
 .\objects\tim4_user.o: ..\USER\Include\OTA.h
+.\objects\tim4_user.o: ..\USER\Include\MEM.h

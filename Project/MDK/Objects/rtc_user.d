@@ -48,3 +48,4 @@
 .\objects\rtc_user.o: ..\USER\Include\motion.h
 .\objects\rtc_user.o: ..\USER\Include\colorbox.h
 .\objects\rtc_user.o: ..\USER\Include\OTA.h
+.\objects\rtc_user.o: ..\USER\Include\MEM.h

@@ -483,6 +483,11 @@
               <FileType>1</FileType>
               <FilePath>..\USER\Source\OTA.c</FilePath>
             </File>
+            <File>
+              <FileName>MEM.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\USER\Source\MEM.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
