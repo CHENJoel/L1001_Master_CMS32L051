@@ -269,7 +269,7 @@ int main()
 		if (T_500MS_FLAG_GetBit)
 		{
 			T_500MS_FLAG_ClrBit();
-			SPI_FlashDebug();
+
 			// OTA_ResetFlag();
 
 		}
@@ -278,6 +278,7 @@ int main()
 			T_1000MS_FLAG_ClrBit();
 			RTC_Task();
 			Debug();
+			SPI_FlashDebug();
 			// LED1_REV();
 			// printf("\r\nAPP running %d S\r\n",RunningTimeCnt++);
 			// KeyS_On();
