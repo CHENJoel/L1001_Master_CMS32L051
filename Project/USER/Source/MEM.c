@@ -12,7 +12,7 @@ FLASH_BufferRead(bufR, 0, 256); 实测 16.7ms
 */
 
 SysRecord_TypeDef SysRecord;
-EffectInf_TypeDef EffectInf;
+// EffectInf_TypeDef EffectInf;
 /*
 
 打印NorFlash的存储数据

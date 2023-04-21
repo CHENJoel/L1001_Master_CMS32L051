@@ -26,14 +26,55 @@ Project File Date:  04/17/2023
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 7 (build 960)', folder: 'F:\APP\Keil\ARM\ARMCC\Bin'
-Rebuild target 'CMS32L051'
-compiling FIFO.c...
-compiling uart.c...
+Build target 'CMS32L051'
+compiling IR.C...
 ..\USER\Include\memory.h(265): warning:  #375-D: declaration requires a typedef name
   } ;             // 用户数据单扇区512Byte
-..\USER\Source\uart.c(127): warning:  #513-D: a value of type "ModuleTypeDef (*)[16]" cannot be assigned to an entity of type "unsigned char *"
-      ptr = &Tangram;
-..\USER\Source\uart.c: 2 warnings, 0 errors
+..\USER\Source\IR.C(58): warning:  #167-D: argument of type "const uint8_t (*)[44]" is incompatible with parameter of type "unsigned char *"
+                  IR_KeyVal = KeyNum_Match(&IR_Data2, &IR_KeyTable, sizeof(IR_KeyTable));
+..\USER\Source\IR.C: 2 warnings, 0 errors
+compiling Light.c...
+..\USER\Include\memory.h(265): warning:  #375-D: declaration requires a typedef name
+  } ;             // 用户数据单扇区512Byte
+..\USER\Source\Light.c: 1 warning, 0 errors
+compiling image.c...
+..\USER\Include\memory.h(265): warning:  #375-D: declaration requires a typedef name
+  } ;             // 用户数据单扇区512Byte
+..\USER\Source\image.c: 1 warning, 0 errors
+compiling FFT.c...
+..\USER\Include\memory.h(265): warning:  #375-D: declaration requires a typedef name
+  } ;             // 用户数据单扇区512Byte
+..\USER\Source\FFT.c: 1 warning, 0 errors
+compiling delay.c...
+..\USER\Include\memory.h(265): warning:  #375-D: declaration requires a typedef name
+  } ;             // 用户数据单扇区512Byte
+..\USER\Source\delay.c: 1 warning, 0 errors
+compiling Sys.c...
+..\USER\Include\memory.h(265): warning:  #375-D: declaration requires a typedef name
+  } ;             // 用户数据单扇区512Byte
+..\USER\Source\Sys.c: 1 warning, 0 errors
+compiling Color.c...
+..\USER\Include\memory.h(265): warning:  #375-D: declaration requires a typedef name
+  } ;             // 用户数据单扇区512Byte
+..\USER\Source\Color.c(112): warning:  #167-D: argument of type "DataTypeDef *" is incompatible with parameter of type "unsigned char *"
+      FrameInsert_Calculate(*(KF_Adr + (Currnt_KF * 4 * Frame_Px_Num) + (Pixel_Num * 4) + 0), *(KF_Adr + (Next_KF * 4 * Frame_Px_Num) + (Pixel_Num * 4) + 0), &struct_adr->R, Temp_FrameNum, Frame_In_Num);
+..\USER\Source\Color.c(113): warning:  #167-D: argument of type "DataTypeDef *" is incompatible with parameter of type "unsigned char *"
+      FrameInsert_Calculate(*(KF_Adr + (Currnt_KF * 4 * Frame_Px_Num) + (Pixel_Num * 4) + 1), *(KF_Adr + (Next_KF * 4 * Frame_Px_Num) + (Pixel_Num * 4) + 1), &struct_adr->G, Temp_FrameNum, Frame_In_Num);
+..\USER\Source\Color.c(114): warning:  #167-D: argument of type "DataTypeDef *" is incompatible with parameter of type "unsigned char *"
+      FrameInsert_Calculate(*(KF_Adr + (Currnt_KF * 4 * Frame_Px_Num) + (Pixel_Num * 4) + 2), *(KF_Adr + (Next_KF * 4 * Frame_Px_Num) + (Pixel_Num * 4) + 2), &struct_adr->B, Temp_FrameNum, Frame_In_Num);
+..\USER\Source\Color.c(115): warning:  #167-D: argument of type "DataTypeDef *" is incompatible with parameter of type "unsigned char *"
+      FrameInsert_Calculate(*(KF_Adr + (Currnt_KF * 4 * Frame_Px_Num) + (Pixel_Num * 4) + 3), *(KF_Adr + (Next_KF * 4 * Frame_Px_Num) + (Pixel_Num * 4) + 3), &struct_adr->W, Temp_FrameNum, Frame_In_Num);
+..\USER\Source\Color.c(536): warning:  #167-D: argument of type "uint8_t (*)[modele_maxnum][2]" is incompatible with parameter of type "uint8_t *"
+      Bubble_Sort_2D(&temp_array, modele_maxnum, 2, 1); // 根据优先级进行排序
+..\USER\Source\Color.c: 6 warnings, 0 errors
+compiling KEY.C...
+..\USER\Include\memory.h(265): warning:  #375-D: declaration requires a typedef name
+  } ;             // 用户数据单扇区512Byte
+..\USER\Source\KEY.C(190): warning:  #940-D: missing return statement at end of non-void function "Numeric_Keyboard" 
+  }
+..\USER\Source\KEY.C(207): warning:  #167-D: argument of type "const uint8_t (*)[10]" is incompatible with parameter of type "unsigned char *"
+  			temp = KeyNum_Match(keyval, &Numboard_KeyTable, sizeof(Numboard_KeyTable));
+..\USER\Source\KEY.C: 3 warnings, 0 errors
 compiling A5441_Master.c...
 ..\USER\Include\memory.h(265): warning:  #375-D: declaration requires a typedef name
   } ;             // 用户数据单扇区512Byte
@@ -108,58 +149,16 @@ compiling A5441_Master.c...
 ..\USER\Source\A5441_Master.c(2662): warning:  #940-D: missing return statement at end of non-void function "Light_AD_Test" 
   }
 ..\USER\Source\A5441_Master.c: 36 warnings, 0 errors
-compiling Light.c...
-..\USER\Include\memory.h(265): warning:  #375-D: declaration requires a typedef name
-  } ;             // 用户数据单扇区512Byte
-..\USER\Source\Light.c: 1 warning, 0 errors
-compiling FFT.c...
-..\USER\Include\memory.h(265): warning:  #375-D: declaration requires a typedef name
-  } ;             // 用户数据单扇区512Byte
-..\USER\Source\FFT.c: 1 warning, 0 errors
-compiling IR.C...
-..\USER\Include\memory.h(265): warning:  #375-D: declaration requires a typedef name
-  } ;             // 用户数据单扇区512Byte
-..\USER\Source\IR.C(58): warning:  #167-D: argument of type "const uint8_t (*)[44]" is incompatible with parameter of type "unsigned char *"
-                  IR_KeyVal = KeyNum_Match(&IR_Data2, &IR_KeyTable, sizeof(IR_KeyTable));
-..\USER\Source\IR.C: 2 warnings, 0 errors
-compiling delay.c...
-..\USER\Include\memory.h(265): warning:  #375-D: declaration requires a typedef name
-  } ;             // 用户数据单扇区512Byte
-..\USER\Source\delay.c: 1 warning, 0 errors
-compiling KEY.C...
-..\USER\Include\memory.h(265): warning:  #375-D: declaration requires a typedef name
-  } ;             // 用户数据单扇区512Byte
-..\USER\Source\KEY.C(190): warning:  #940-D: missing return statement at end of non-void function "Numeric_Keyboard" 
-  }
-..\USER\Source\KEY.C(207): warning:  #167-D: argument of type "const uint8_t (*)[10]" is incompatible with parameter of type "unsigned char *"
-  			temp = KeyNum_Match(keyval, &Numboard_KeyTable, sizeof(Numboard_KeyTable));
-..\USER\Source\KEY.C: 3 warnings, 0 errors
-compiling image.c...
-..\USER\Include\memory.h(265): warning:  #375-D: declaration requires a typedef name
-  } ;             // 用户数据单扇区512Byte
-..\USER\Source\image.c: 1 warning, 0 errors
 compiling main.c...
 ..\USER\Include\memory.h(265): warning:  #375-D: declaration requires a typedef name
   } ;             // 用户数据单扇区512Byte
 ..\USER\Source\main.c: 1 warning, 0 errors
-compiling Sys.c...
+compiling uart.c...
 ..\USER\Include\memory.h(265): warning:  #375-D: declaration requires a typedef name
   } ;             // 用户数据单扇区512Byte
-..\USER\Source\Sys.c: 1 warning, 0 errors
-compiling Color.c...
-..\USER\Include\memory.h(265): warning:  #375-D: declaration requires a typedef name
-  } ;             // 用户数据单扇区512Byte
-..\USER\Source\Color.c(112): warning:  #167-D: argument of type "DataTypeDef *" is incompatible with parameter of type "unsigned char *"
-      FrameInsert_Calculate(*(KF_Adr + (Currnt_KF * 4 * Frame_Px_Num) + (Pixel_Num * 4) + 0), *(KF_Adr + (Next_KF * 4 * Frame_Px_Num) + (Pixel_Num * 4) + 0), &struct_adr->R, Temp_FrameNum, Frame_In_Num);
-..\USER\Source\Color.c(113): warning:  #167-D: argument of type "DataTypeDef *" is incompatible with parameter of type "unsigned char *"
-      FrameInsert_Calculate(*(KF_Adr + (Currnt_KF * 4 * Frame_Px_Num) + (Pixel_Num * 4) + 1), *(KF_Adr + (Next_KF * 4 * Frame_Px_Num) + (Pixel_Num * 4) + 1), &struct_adr->G, Temp_FrameNum, Frame_In_Num);
-..\USER\Source\Color.c(114): warning:  #167-D: argument of type "DataTypeDef *" is incompatible with parameter of type "unsigned char *"
-      FrameInsert_Calculate(*(KF_Adr + (Currnt_KF * 4 * Frame_Px_Num) + (Pixel_Num * 4) + 2), *(KF_Adr + (Next_KF * 4 * Frame_Px_Num) + (Pixel_Num * 4) + 2), &struct_adr->B, Temp_FrameNum, Frame_In_Num);
-..\USER\Source\Color.c(115): warning:  #167-D: argument of type "DataTypeDef *" is incompatible with parameter of type "unsigned char *"
-      FrameInsert_Calculate(*(KF_Adr + (Currnt_KF * 4 * Frame_Px_Num) + (Pixel_Num * 4) + 3), *(KF_Adr + (Next_KF * 4 * Frame_Px_Num) + (Pixel_Num * 4) + 3), &struct_adr->W, Temp_FrameNum, Frame_In_Num);
-..\USER\Source\Color.c(536): warning:  #167-D: argument of type "uint8_t (*)[modele_maxnum][2]" is incompatible with parameter of type "uint8_t *"
-      Bubble_Sort_2D(&temp_array, modele_maxnum, 2, 1); // 根据优先级进行排序
-..\USER\Source\Color.c: 6 warnings, 0 errors
+..\USER\Source\uart.c(127): warning:  #513-D: a value of type "ModuleTypeDef (*)[16]" cannot be assigned to an entity of type "unsigned char *"
+      ptr = &Tangram;
+..\USER\Source\uart.c: 2 warnings, 0 errors
 compiling Com.c...
 ..\USER\Include\memory.h(265): warning:  #375-D: declaration requires a typedef name
   } ;             // 用户数据单扇区512Byte
@@ -330,20 +329,6 @@ compiling colorbox.c...
 ..\USER\Source\colorbox.c(306): warning:  #144-D: a value of type "const uint8_t (*)[4]" cannot be used to initialize an entity of type "uint8_t *"
       {arry(DanceParty),  size(DanceParty),   MOTION_RANDOM, MOVE_RIGHT, MODE_RHYTHM, speed(5)},/*29*/
 ..\USER\Source\colorbox.c: 31 warnings, 0 errors
-compiling OTA.c...
-..\USER\Include\memory.h(265): warning:  #375-D: declaration requires a typedef name
-  } ;             // 用户数据单扇区512Byte
-..\USER\Source\OTA.c(7): warning:  #177-D: variable "i"  was declared but never referenced
-      uint16_t i, j;
-..\USER\Source\OTA.c(7): warning:  #177-D: variable "j"  was declared but never referenced
-      uint16_t i, j;
-..\USER\Source\OTA.c(10): warning:  #177-D: variable "p"  was declared but never referenced
-      uint8_t *p;
-..\USER\Source\OTA.c(148): warning:  #167-D: argument of type "ota_data_TypeDef *" is incompatible with parameter of type "uint16_t"
-      Edit_SectorData((uint32_t)UserData2_ADDR, &(((UserData_Sector2_TypeDef *)0)->data.ota_data), (uint8_t *)&ota_data, sizeof(ota_data));
-..\USER\Source\OTA.c(155): warning:  #167-D: argument of type "ota_data_TypeDef *" is incompatible with parameter of type "uint16_t"
-      Edit_SectorData((uint32_t)UserData2_ADDR, &(((UserData_Sector2_TypeDef *)0)->data.ota_data), (uint8_t *)&ota_data, sizeof(ota_data));
-..\USER\Source\OTA.c: 6 warnings, 0 errors
 compiling motion.c...
 ..\USER\Include\memory.h(265): warning:  #375-D: declaration requires a typedef name
   } ;             // 用户数据单扇区512Byte
@@ -376,6 +361,20 @@ compiling motion.c...
 ..\USER\Source\motion.c(826): warning:  #177-D: variable "temp"  was declared but never referenced
       uint8_t temp;
 ..\USER\Source\motion.c: 15 warnings, 0 errors
+compiling OTA.c...
+..\USER\Include\memory.h(265): warning:  #375-D: declaration requires a typedef name
+  } ;             // 用户数据单扇区512Byte
+..\USER\Source\OTA.c(7): warning:  #177-D: variable "i"  was declared but never referenced
+      uint16_t i, j;
+..\USER\Source\OTA.c(7): warning:  #177-D: variable "j"  was declared but never referenced
+      uint16_t i, j;
+..\USER\Source\OTA.c(10): warning:  #177-D: variable "p"  was declared but never referenced
+      uint8_t *p;
+..\USER\Source\OTA.c(148): warning:  #167-D: argument of type "ota_data_TypeDef *" is incompatible with parameter of type "uint16_t"
+      Edit_SectorData((uint32_t)UserData2_ADDR, &(((UserData_Sector2_TypeDef *)0)->data.ota_data), (uint8_t *)&ota_data, sizeof(ota_data));
+..\USER\Source\OTA.c(155): warning:  #167-D: argument of type "ota_data_TypeDef *" is incompatible with parameter of type "uint16_t"
+      Edit_SectorData((uint32_t)UserData2_ADDR, &(((UserData_Sector2_TypeDef *)0)->data.ota_data), (uint8_t *)&ota_data, sizeof(ota_data));
+..\USER\Source\OTA.c: 6 warnings, 0 errors
 compiling MEM.c...
 ..\USER\Include\memory.h(265): warning:  #375-D: declaration requires a typedef name
   } ;             // 用户数据单扇区512Byte
@@ -384,10 +383,6 @@ compiling MEM.c...
 ..\USER\Source\MEM.c(79): warning:  #159-D: declaration is incompatible with previous "FlashSPI_Write"  (declared at line 69)
   void FlashSPI_Write(uint8_t *pBuffer, uint32_t WriteAddr, uint16_t NumByteToWrite)
 ..\USER\Source\MEM.c: 3 warnings, 0 errors
-compiling mcu_api.c...
-..\USER\Include\memory.h(265): warning:  #375-D: declaration requires a typedef name
-  } ;             // 用户数据单扇区512Byte
-..\USER\mcu_sdk\mcu_api.c: 1 warning, 0 errors
 compiling homekit.c...
 ..\USER\Include\memory.h(265): warning:  #375-D: declaration requires a typedef name
   } ;             // 用户数据单扇区512Byte
@@ -412,6 +407,10 @@ compiling homekit.c...
 ..\USER\mcu_sdk\homekit.c(1622): warning:  #111-D: statement is unreachable
                   break;
 ..\USER\mcu_sdk\homekit.c: 11 warnings, 0 errors
+compiling mcu_api.c...
+..\USER\Include\memory.h(265): warning:  #375-D: declaration requires a typedef name
+  } ;             // 用户数据单扇区512Byte
+..\USER\mcu_sdk\mcu_api.c: 1 warning, 0 errors
 compiling protocol.c...
 ..\USER\Include\memory.h(265): warning:  #375-D: declaration requires a typedef name
   } ;             // 用户数据单扇区512Byte
@@ -424,7 +423,6 @@ compiling protocol.c...
 ..\USER\mcu_sdk\protocol.c(606): warning:  #167-D: argument of type "const u8 *" is incompatible with parameter of type "uint8_t *"
           CheckSum_calculate(&checksum, value);
 ..\USER\mcu_sdk\protocol.c: 5 warnings, 0 errors
-compiling retarget.c...
 compiling system.c...
 ..\USER\Include\memory.h(265): warning:  #375-D: declaration requires a typedef name
   } ;             // 用户数据单扇区512Byte
@@ -437,7 +435,16 @@ compiling system.c...
 ..\USER\mcu_sdk\system.c(294): warning:  #177-D: variable "module_memory"  was declared but never referenced
       u32 module_memory;
 ..\USER\mcu_sdk\system.c: 5 warnings, 0 errors
-compiling gpio.c...
+compiling tim4_user.c...
+..\USER\Include\memory.h(265): warning:  #375-D: declaration requires a typedef name
+  } ;             // 用户数据单扇区512Byte
+..\..\Driver\src\tim4_user.c: 1 warning, 0 errors
+compiling rtc_user.c...
+..\USER\Include\memory.h(265): warning:  #375-D: declaration requires a typedef name
+  } ;             // 用户数据单扇区512Byte
+..\..\Driver\src\rtc_user.c(47): warning:  #177-D: function "str2bcdtime"  was declared but never referenced
+  static void str2bcdtime(char date_buf[], char bcd_buf[])
+..\..\Driver\src\rtc_user.c: 2 warnings, 0 errors
 compiling sci_user.c...
 ..\USER\Include\memory.h(265): warning:  #375-D: declaration requires a typedef name
   } ;             // 用户数据单扇区512Byte
@@ -460,51 +467,11 @@ compiling sci.c...
 ..\USER\Include\memory.h(265): warning:  #375-D: declaration requires a typedef name
   } ;             // 用户数据单扇区512Byte
 ..\..\Driver\src\sci.c: 1 warning, 0 errors
-compiling tim4_user.c...
-..\USER\Include\memory.h(265): warning:  #375-D: declaration requires a typedef name
-  } ;             // 用户数据单扇区512Byte
-..\..\Driver\src\tim4_user.c: 1 warning, 0 errors
-compiling tim4.c...
-..\..\Driver\src\tim4.c(696): warning:  #188-D: enumerated type mixed with another type
-      TM40_Channel_Start(TM4_CHANNEL_0 | TM4_CHANNEL_1);
-..\..\Driver\src\tim4.c(725): warning:  #188-D: enumerated type mixed with another type
-      TM40_Channel_Start(TM4_CHANNEL_0 | TM4_CHANNEL_1);
-..\..\Driver\src\tim4.c(763): warning:  #188-D: enumerated type mixed with another type
-      TM40_Channel_Start(TM4_CHANNEL_0 | TM4_CHANNEL_1 | TM4_CHANNEL_2);
-..\..\Driver\src\tim4.c(810): warning:  #188-D: enumerated type mixed with another type
-      TM40_Channel_Start(TM4_CHANNEL_0 | TM4_CHANNEL_1 | TM4_CHANNEL_2 | TM4_CHANNEL_3);
-..\..\Driver\src\tim4.c(855): warning:  #188-D: enumerated type mixed with another type
-      TM40_Channel_Start(TM4_CHANNEL_0 | TM4_CHANNEL_1 | TM4_CHANNEL_2 | TM4_CHANNEL_3);
-..\..\Driver\src\tim4.c(1481): warning:  #188-D: enumerated type mixed with another type
-      TM41_Channel_Start(TM4_CHANNEL_0 | TM4_CHANNEL_1);
-..\..\Driver\src\tim4.c(1510): warning:  #188-D: enumerated type mixed with another type
-      TM41_Channel_Start(TM4_CHANNEL_0 | TM4_CHANNEL_1);
-..\..\Driver\src\tim4.c(1548): warning:  #188-D: enumerated type mixed with another type
-      TM41_Channel_Start(TM4_CHANNEL_0 | TM4_CHANNEL_1 | TM4_CHANNEL_2);
-..\..\Driver\src\tim4.c(1595): warning:  #188-D: enumerated type mixed with another type
-      TM41_Channel_Start(TM4_CHANNEL_0 | TM4_CHANNEL_1 | TM4_CHANNEL_2 | TM4_CHANNEL_3);
-..\..\Driver\src\tim4.c(1640): warning:  #188-D: enumerated type mixed with another type
-      TM41_Channel_Start(TM4_CHANNEL_0 | TM4_CHANNEL_1 | TM4_CHANNEL_2 | TM4_CHANNEL_3);
-..\..\Driver\src\tim4.c: 10 warnings, 0 errors
-compiling adc.c...
-compiling adc_user.c...
-compiling flash.c...
-assembling startup_CMS32L051.s...
-compiling flash_user.c...
-compiling rtc.c...
-compiling dma.c...
-compiling rtc_user.c...
-..\USER\Include\memory.h(265): warning:  #375-D: declaration requires a typedef name
-  } ;             // 用户数据单扇区512Byte
-..\..\Driver\src\rtc_user.c(47): warning:  #177-D: function "str2bcdtime"  was declared but never referenced
-  static void str2bcdtime(char date_buf[], char bcd_buf[])
-..\..\Driver\src\rtc_user.c: 2 warnings, 0 errors
-compiling system_CMS32L051.c...
 linking...
 Program Size: Code=16004 RO-data=1200 RW-data=612 ZI-data=5348  
 FromELF: creating hex file...
 After Build - User command #1: F:\APP\Keil\\ARM\ARMCC\bin\fromelf.exe --bin --output=uartSendReceive.bin .\Objects\uartSendReceive.axf
-".\Objects\uartSendReceive.axf" - 0 Error(s), 202 Warning(s).
+".\Objects\uartSendReceive.axf" - 0 Error(s), 192 Warning(s).
 
 <h2>Software Packages used:</h2>
 

@@ -44,18 +44,14 @@ Flash芯片 P25T22 ，内存2Mkbit(256KByte)，地址：0x00000~0x3FFFF
 
 /*灯效信息*/
 
-typedef struct
-{
-    uint8_t EfNum; // 灯效数量
-} EfIndex_TypeDef;
+// typedef struct
+// {
+//     uint8_t EfNum; // 灯效数量
+// } EfIndex_TypeDef;
 
-typedef struct
-{
-    EfIndex_TypeDef EfIndex;
-    Efdata_TypeDef Efdata[100];
-} EffectInf_TypeDef;
 
-extern EffectInf_TypeDef EffectInf;
+
+// extern EffectInf_TypeDef EffectInf;
 
 /**/
 
