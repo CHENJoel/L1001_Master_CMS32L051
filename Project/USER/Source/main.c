@@ -192,7 +192,7 @@ int main()
 	SPI_Init();
 
 	// MemoryStruct_Read();
-
+/*
 	Slave_DataInit();
 	// slave_data_debug();
 	Slave_SelfTest();
@@ -204,6 +204,7 @@ int main()
 	Effect_DefaultParaData_Init();
 	Verify_EF_data();
 	Verify_PlayList_data();
+	*/
 	printf("V1.0.0\r\n");
 
 	// DMA_Stop(DMA_VECTOR_ST0);
@@ -279,7 +280,8 @@ int main()
 			RTC_Task();
 			Debug();
 			SPI_FlashDebug();
-			// LED1_REV();
+			SYS_Record();
+			LED1_REV();
 			// printf("\r\nAPP running %d S\r\n",RunningTimeCnt++);
 			// KeyS_On();
 			// APP_checksum_verify(1);

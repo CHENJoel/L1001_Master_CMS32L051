@@ -1469,8 +1469,8 @@ void Remote_Click(unsigned char *KeyVal)
 
 void Debug(void)
 {
-    static uint8_t i;
-    printf("%03x\r\n",i++);
+    // static uint8_t i;
+    // printf("%03x\r\n",i++);
     // app_pack.checksum=0x12345678;
     // printf("checksum: %x\r",app_pack.checksum);
     // printf("check0: %x\r",app_pack.check0);

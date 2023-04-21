@@ -50,3 +50,4 @@
 .\objects\system.o: ..\USER\Include\colorbox.h
 .\objects\system.o: ..\USER\Include\OTA.h
 .\objects\system.o: ..\USER\Include\MEM.h
+.\objects\system.o: ..\USER\Include\Inf.h

@@ -50,3 +50,4 @@
 .\objects\fft.o: ..\USER\Include\colorbox.h
 .\objects\fft.o: ..\USER\Include\OTA.h
 .\objects\fft.o: ..\USER\Include\MEM.h
+.\objects\fft.o: ..\USER\Include\Inf.h

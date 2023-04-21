@@ -49,3 +49,4 @@
 .\objects\a5441_master.o: ..\USER\Include\colorbox.h
 .\objects\a5441_master.o: ..\USER\Include\OTA.h
 .\objects\a5441_master.o: ..\USER\Include\MEM.h
+.\objects\a5441_master.o: ..\USER\Include\Inf.h

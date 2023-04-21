@@ -152,73 +152,9 @@
         <Bp>
           <Number>0</Number>
           <Type>0</Type>
-          <LineNumber>88</LineNumber>
-          <EnabledFlag>0</EnabledFlag>
-          <Address>30588</Address>
-          <ByteObject>0</ByteObject>
-          <HtxType>0</HtxType>
-          <ManyObjects>0</ManyObjects>
-          <SizeOfObject>0</SizeOfObject>
-          <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>1</BreakIfRCount>
-          <Filename>..\USER\Source\motion.c</Filename>
-          <ExecCommand></ExecCommand>
-          <Expression>\\uartSendReceive\../USER/Source/motion.c\88</Expression>
-        </Bp>
-        <Bp>
-          <Number>1</Number>
-          <Type>0</Type>
-          <LineNumber>104</LineNumber>
-          <EnabledFlag>0</EnabledFlag>
-          <Address>30672</Address>
-          <ByteObject>0</ByteObject>
-          <HtxType>0</HtxType>
-          <ManyObjects>0</ManyObjects>
-          <SizeOfObject>0</SizeOfObject>
-          <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>1</BreakIfRCount>
-          <Filename>..\USER\Source\motion.c</Filename>
-          <ExecCommand></ExecCommand>
-          <Expression>\\uartSendReceive\../USER/Source/motion.c\104</Expression>
-        </Bp>
-        <Bp>
-          <Number>2</Number>
-          <Type>0</Type>
-          <LineNumber>96</LineNumber>
-          <EnabledFlag>0</EnabledFlag>
-          <Address>30626</Address>
-          <ByteObject>0</ByteObject>
-          <HtxType>0</HtxType>
-          <ManyObjects>0</ManyObjects>
-          <SizeOfObject>0</SizeOfObject>
-          <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>1</BreakIfRCount>
-          <Filename>..\USER\Source\motion.c</Filename>
-          <ExecCommand></ExecCommand>
-          <Expression>\\uartSendReceive\../USER/Source/motion.c\96</Expression>
-        </Bp>
-        <Bp>
-          <Number>3</Number>
-          <Type>0</Type>
-          <LineNumber>357</LineNumber>
-          <EnabledFlag>0</EnabledFlag>
-          <Address>24526</Address>
-          <ByteObject>0</ByteObject>
-          <HtxType>0</HtxType>
-          <ManyObjects>0</ManyObjects>
-          <SizeOfObject>0</SizeOfObject>
-          <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>1</BreakIfRCount>
-          <Filename>..\USER\Source\motion.c</Filename>
-          <ExecCommand></ExecCommand>
-          <Expression>\\uartSendReceive\../USER/Source/motion.c\357</Expression>
-        </Bp>
-        <Bp>
-          <Number>4</Number>
-          <Type>0</Type>
-          <LineNumber>58</LineNumber>
+          <LineNumber>95</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>32078</Address>
+          <Address>26062</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
@@ -227,7 +163,7 @@
           <BreakIfRCount>1</BreakIfRCount>
           <Filename>..\USER\Source\MEM.c</Filename>
           <ExecCommand></ExecCommand>
-          <Expression>\\uartSendReceive\../USER/Source/MEM.c\58</Expression>
+          <Expression>\\uartSendReceive\../USER/Source/MEM.c\95</Expression>
         </Bp>
       </Breakpoint>
       <WatchWindow1>
@@ -280,6 +216,11 @@
           <count>9</count>
           <WinNumber>1</WinNumber>
           <ItemText>hh</ItemText>
+        </Ww>
+        <Ww>
+          <count>10</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>i</ItemText>
         </Ww>
       </WatchWindow1>
       <WatchWindow2>
@@ -365,7 +306,7 @@
 
   <Group>
     <GroupName>Source</GroupName>
-    <tvExp>1</tvExp>
+    <tvExp>0</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -625,7 +566,7 @@
 
   <Group>
     <GroupName>SDK</GroupName>
-    <tvExp>1</tvExp>
+    <tvExp>0</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>

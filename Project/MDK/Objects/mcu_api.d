@@ -50,3 +50,4 @@
 .\objects\mcu_api.o: ..\USER\Include\colorbox.h
 .\objects\mcu_api.o: ..\USER\Include\OTA.h
 .\objects\mcu_api.o: ..\USER\Include\MEM.h
+.\objects\mcu_api.o: ..\USER\Include\Inf.h

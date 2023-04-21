@@ -49,3 +49,4 @@
 .\objects\wave.o: ..\USER\Include\colorbox.h
 .\objects\wave.o: ..\USER\Include\OTA.h
 .\objects\wave.o: ..\USER\Include\MEM.h
+.\objects\wave.o: ..\USER\Include\Inf.h

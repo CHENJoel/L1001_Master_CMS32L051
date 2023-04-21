@@ -1,6 +1,6 @@
 Dependencies for Project 'A5441_Master_CMS32L051', Target 'CMS32L051': (DO NOT MODIFY !)
 CompilerVersion: 5060960::V5.06 update 7 (build 960)::.\ARMCC
-F (..\USER\Source\main.c)(0x643E00E5)(--c99 --gnu -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\USER\Include -I ..\..\Driver\inc -I ..\USER\mcu_sdk-I.\RTE\Device\CMS32L051TS20-I.\RTE\_CMS32L051-IF:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IF:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include-D__UVISION_VERSION="534" -D_RTE_ -D_RTE_-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
+F (..\USER\Source\main.c)(0x6440F0E8)(--c99 --gnu -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\USER\Include -I ..\..\Driver\inc -I ..\USER\mcu_sdk-I.\RTE\Device\CMS32L051TS20-I.\RTE\_CMS32L051-IF:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IF:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include-D__UVISION_VERSION="534" -D_RTE_ -D_RTE_-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
 I (F:\APP\Keil\ARM\ARMCC\include\stdio.h)(0x5E8E3CC2)
 I (F:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include\CMS32L051.h)(0x61EF8A2A)
 I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm0plus.h)(0x5E8ED122)
@@ -14,7 +14,7 @@ I (..\..\Driver\inc\sci.h)(0x61EF8A2A)
 I (..\..\Driver\inc\tim4.h)(0x61EF8A2A)
 I (F:\APP\Keil\ARM\ARMCC\include\math.h)(0x5E8E3CC2)
 I (..\USER\Include\Light.H)(0x63477CA4)
-I (..\USER\Include\Function_Init.H)(0x643CF553)
+I (..\USER\Include\Function_Init.H)(0x643F7F78)
 I (F:\APP\Keil\ARM\ARMCC\include\stdlib.h)(0x5E8E3CC2)
 I (..\..\Driver\inc\gpio.h)(0x624CEB27)
 I (..\..\Driver\inc\adc.h)(0x61EF8A2A)
@@ -24,7 +24,7 @@ I (..\..\Driver\inc\dma.h)(0x61EF8A2A)
 I (F:\APP\Keil\ARM\ARMCC\include\string.h)(0x5E8E3CC2)
 I (..\USER\Include\FIFO.h)(0x63071284)
 I (..\USER\Include\IR.H)(0x63DB5A2D)
-I (..\USER\Include\image.H)(0x6396C09F)
+I (..\USER\Include\image.H)(0x643F826D)
 I (..\USER\Include\Color.H)(0x639144EC)
 I (..\USER\Include\key.h)(0x62DF8050)
 I (..\USER\Include\Com.H)(0x63AEAC1F)
@@ -45,9 +45,10 @@ I (..\USER\Include\driver_w25qxx.h)(0x643D0B0F)
 I (..\USER\Include\motion.h)(0x63982176)
 I (..\USER\Include\colorbox.h)(0x636333FB)
 I (..\USER\Include\OTA.h)(0x63A11D1B)
-I (..\USER\Include\MEM.h)(0x643DFBBB)
-F (..\USER\Source\A5441_Master.c)(0x643D2FE3)(--c99 --gnu -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\USER\Include -I ..\..\Driver\inc -I ..\USER\mcu_sdk-I.\RTE\Device\CMS32L051TS20-I.\RTE\_CMS32L051-IF:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IF:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include-D__UVISION_VERSION="534" -D_RTE_ -D_RTE_-o .\objects\a5441_master.o --omf_browse .\objects\a5441_master.crf --depend .\objects\a5441_master.d)
-I (..\USER\Include\Function_Init.H)(0x643CF553)
+I (..\USER\Include\MEM.h)(0x6440F8DB)
+I (..\USER\Include\Inf.h)(0x644201AF)
+F (..\USER\Source\A5441_Master.c)(0x643E5135)(--c99 --gnu -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\USER\Include -I ..\..\Driver\inc -I ..\USER\mcu_sdk-I.\RTE\Device\CMS32L051TS20-I.\RTE\_CMS32L051-IF:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IF:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include-D__UVISION_VERSION="534" -D_RTE_ -D_RTE_-o .\objects\a5441_master.o --omf_browse .\objects\a5441_master.crf --depend .\objects\a5441_master.d)
+I (..\USER\Include\Function_Init.H)(0x643F7F78)
 I (F:\APP\Keil\ARM\ARMCC\include\stdlib.h)(0x5E8E3CC2)
 I (F:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include\CMS32L051.h)(0x61EF8A2A)
 I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm0plus.h)(0x5E8ED122)
@@ -69,7 +70,7 @@ I (F:\APP\Keil\ARM\ARMCC\include\string.h)(0x5E8E3CC2)
 I (F:\APP\Keil\ARM\ARMCC\include\math.h)(0x5E8E3CC2)
 I (..\USER\Include\FIFO.h)(0x63071284)
 I (..\USER\Include\IR.H)(0x63DB5A2D)
-I (..\USER\Include\image.H)(0x6396C09F)
+I (..\USER\Include\image.H)(0x643F826D)
 I (..\USER\Include\Color.H)(0x639144EC)
 I (..\USER\Include\Light.H)(0x63477CA4)
 I (..\USER\Include\key.h)(0x62DF8050)
@@ -91,12 +92,13 @@ I (..\USER\Include\driver_w25qxx.h)(0x643D0B0F)
 I (..\USER\Include\motion.h)(0x63982176)
 I (..\USER\Include\colorbox.h)(0x636333FB)
 I (..\USER\Include\OTA.h)(0x63A11D1B)
-I (..\USER\Include\MEM.h)(0x643DFBBB)
+I (..\USER\Include\MEM.h)(0x6440F8DB)
+I (..\USER\Include\Inf.h)(0x644201AF)
 F (..\USER\Source\FIFO.c)(0x63071BF3)(--c99 --gnu -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\USER\Include -I ..\..\Driver\inc -I ..\USER\mcu_sdk-I.\RTE\Device\CMS32L051TS20-I.\RTE\_CMS32L051-IF:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IF:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include-D__UVISION_VERSION="534" -D_RTE_ -D_RTE_-o .\objects\fifo.o --omf_browse .\objects\fifo.crf --depend .\objects\fifo.d)
 I (..\USER\Include\FIFO.H)(0x63071284)
 F (..\USER\Source\Color.c)(0x6392ED24)(--c99 --gnu -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\USER\Include -I ..\..\Driver\inc -I ..\USER\mcu_sdk-I.\RTE\Device\CMS32L051TS20-I.\RTE\_CMS32L051-IF:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IF:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include-D__UVISION_VERSION="534" -D_RTE_ -D_RTE_-o .\objects\color.o --omf_browse .\objects\color.crf --depend .\objects\color.d)
 I (..\USER\Include\Color.H)(0x639144EC)
-I (..\USER\Include\Function_Init.H)(0x643CF553)
+I (..\USER\Include\Function_Init.H)(0x643F7F78)
 I (F:\APP\Keil\ARM\ARMCC\include\stdlib.h)(0x5E8E3CC2)
 I (F:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include\CMS32L051.h)(0x61EF8A2A)
 I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm0plus.h)(0x5E8ED122)
@@ -118,7 +120,7 @@ I (F:\APP\Keil\ARM\ARMCC\include\string.h)(0x5E8E3CC2)
 I (F:\APP\Keil\ARM\ARMCC\include\math.h)(0x5E8E3CC2)
 I (..\USER\Include\FIFO.h)(0x63071284)
 I (..\USER\Include\IR.H)(0x63DB5A2D)
-I (..\USER\Include\image.H)(0x6396C09F)
+I (..\USER\Include\image.H)(0x643F826D)
 I (..\USER\Include\Light.H)(0x63477CA4)
 I (..\USER\Include\key.h)(0x62DF8050)
 I (..\USER\Include\Com.H)(0x63AEAC1F)
@@ -139,10 +141,11 @@ I (..\USER\Include\driver_w25qxx.h)(0x643D0B0F)
 I (..\USER\Include\motion.h)(0x63982176)
 I (..\USER\Include\colorbox.h)(0x636333FB)
 I (..\USER\Include\OTA.h)(0x63A11D1B)
-I (..\USER\Include\MEM.h)(0x643DFBBB)
+I (..\USER\Include\MEM.h)(0x6440F8DB)
+I (..\USER\Include\Inf.h)(0x644201AF)
 F (..\USER\Source\image.c)(0x6358D3D7)(--c99 --gnu -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\USER\Include -I ..\..\Driver\inc -I ..\USER\mcu_sdk-I.\RTE\Device\CMS32L051TS20-I.\RTE\_CMS32L051-IF:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IF:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include-D__UVISION_VERSION="534" -D_RTE_ -D_RTE_-o .\objects\image.o --omf_browse .\objects\image.crf --depend .\objects\image.d)
 I (..\USER\Include\Color.H)(0x639144EC)
-I (..\USER\Include\Function_Init.H)(0x643CF553)
+I (..\USER\Include\Function_Init.H)(0x643F7F78)
 I (F:\APP\Keil\ARM\ARMCC\include\stdlib.h)(0x5E8E3CC2)
 I (F:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include\CMS32L051.h)(0x61EF8A2A)
 I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm0plus.h)(0x5E8ED122)
@@ -164,7 +167,7 @@ I (F:\APP\Keil\ARM\ARMCC\include\string.h)(0x5E8E3CC2)
 I (F:\APP\Keil\ARM\ARMCC\include\math.h)(0x5E8E3CC2)
 I (..\USER\Include\FIFO.h)(0x63071284)
 I (..\USER\Include\IR.H)(0x63DB5A2D)
-I (..\USER\Include\image.H)(0x6396C09F)
+I (..\USER\Include\image.H)(0x643F826D)
 I (..\USER\Include\Light.H)(0x63477CA4)
 I (..\USER\Include\key.h)(0x62DF8050)
 I (..\USER\Include\Com.H)(0x63AEAC1F)
@@ -185,9 +188,10 @@ I (..\USER\Include\driver_w25qxx.h)(0x643D0B0F)
 I (..\USER\Include\motion.h)(0x63982176)
 I (..\USER\Include\colorbox.h)(0x636333FB)
 I (..\USER\Include\OTA.h)(0x63A11D1B)
-I (..\USER\Include\MEM.h)(0x643DFBBB)
+I (..\USER\Include\MEM.h)(0x6440F8DB)
+I (..\USER\Include\Inf.h)(0x644201AF)
 F (..\USER\Source\IR.C)(0x63DB5C9E)(--c99 --gnu -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\USER\Include -I ..\..\Driver\inc -I ..\USER\mcu_sdk-I.\RTE\Device\CMS32L051TS20-I.\RTE\_CMS32L051-IF:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IF:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include-D__UVISION_VERSION="534" -D_RTE_ -D_RTE_-o .\objects\ir.o --omf_browse .\objects\ir.crf --depend .\objects\ir.d)
-I (..\USER\Include\Function_Init.H)(0x643CF553)
+I (..\USER\Include\Function_Init.H)(0x643F7F78)
 I (F:\APP\Keil\ARM\ARMCC\include\stdlib.h)(0x5E8E3CC2)
 I (F:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include\CMS32L051.h)(0x61EF8A2A)
 I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm0plus.h)(0x5E8ED122)
@@ -209,7 +213,7 @@ I (F:\APP\Keil\ARM\ARMCC\include\string.h)(0x5E8E3CC2)
 I (F:\APP\Keil\ARM\ARMCC\include\math.h)(0x5E8E3CC2)
 I (..\USER\Include\FIFO.h)(0x63071284)
 I (..\USER\Include\IR.H)(0x63DB5A2D)
-I (..\USER\Include\image.H)(0x6396C09F)
+I (..\USER\Include\image.H)(0x643F826D)
 I (..\USER\Include\Color.H)(0x639144EC)
 I (..\USER\Include\Light.H)(0x63477CA4)
 I (..\USER\Include\key.h)(0x62DF8050)
@@ -231,10 +235,11 @@ I (..\USER\Include\driver_w25qxx.h)(0x643D0B0F)
 I (..\USER\Include\motion.h)(0x63982176)
 I (..\USER\Include\colorbox.h)(0x636333FB)
 I (..\USER\Include\OTA.h)(0x63A11D1B)
-I (..\USER\Include\MEM.h)(0x643DFBBB)
+I (..\USER\Include\MEM.h)(0x6440F8DB)
+I (..\USER\Include\Inf.h)(0x644201AF)
 F (..\USER\Source\Light.c)(0x63477D41)(--c99 --gnu -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\USER\Include -I ..\..\Driver\inc -I ..\USER\mcu_sdk-I.\RTE\Device\CMS32L051TS20-I.\RTE\_CMS32L051-IF:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IF:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include-D__UVISION_VERSION="534" -D_RTE_ -D_RTE_-o .\objects\light.o --omf_browse .\objects\light.crf --depend .\objects\light.d)
 I (..\USER\Include\Light.H)(0x63477CA4)
-I (..\USER\Include\Function_Init.H)(0x643CF553)
+I (..\USER\Include\Function_Init.H)(0x643F7F78)
 I (F:\APP\Keil\ARM\ARMCC\include\stdlib.h)(0x5E8E3CC2)
 I (F:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include\CMS32L051.h)(0x61EF8A2A)
 I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm0plus.h)(0x5E8ED122)
@@ -256,7 +261,7 @@ I (F:\APP\Keil\ARM\ARMCC\include\string.h)(0x5E8E3CC2)
 I (F:\APP\Keil\ARM\ARMCC\include\math.h)(0x5E8E3CC2)
 I (..\USER\Include\FIFO.h)(0x63071284)
 I (..\USER\Include\IR.H)(0x63DB5A2D)
-I (..\USER\Include\image.H)(0x6396C09F)
+I (..\USER\Include\image.H)(0x643F826D)
 I (..\USER\Include\Color.H)(0x639144EC)
 I (..\USER\Include\key.h)(0x62DF8050)
 I (..\USER\Include\Com.H)(0x63AEAC1F)
@@ -277,10 +282,11 @@ I (..\USER\Include\driver_w25qxx.h)(0x643D0B0F)
 I (..\USER\Include\motion.h)(0x63982176)
 I (..\USER\Include\colorbox.h)(0x636333FB)
 I (..\USER\Include\OTA.h)(0x63A11D1B)
-I (..\USER\Include\MEM.h)(0x643DFBBB)
+I (..\USER\Include\MEM.h)(0x6440F8DB)
+I (..\USER\Include\Inf.h)(0x644201AF)
 F (..\USER\Source\KEY.C)(0x62D7B50A)(--c99 --gnu -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\USER\Include -I ..\..\Driver\inc -I ..\USER\mcu_sdk-I.\RTE\Device\CMS32L051TS20-I.\RTE\_CMS32L051-IF:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IF:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include-D__UVISION_VERSION="534" -D_RTE_ -D_RTE_-o .\objects\key.o --omf_browse .\objects\key.crf --depend .\objects\key.d)
 I (..\USER\Include\KEY.H)(0x62DF8050)
-I (..\USER\Include\Function_Init.H)(0x643CF553)
+I (..\USER\Include\Function_Init.H)(0x643F7F78)
 I (F:\APP\Keil\ARM\ARMCC\include\stdlib.h)(0x5E8E3CC2)
 I (F:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include\CMS32L051.h)(0x61EF8A2A)
 I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm0plus.h)(0x5E8ED122)
@@ -302,7 +308,7 @@ I (F:\APP\Keil\ARM\ARMCC\include\string.h)(0x5E8E3CC2)
 I (F:\APP\Keil\ARM\ARMCC\include\math.h)(0x5E8E3CC2)
 I (..\USER\Include\FIFO.h)(0x63071284)
 I (..\USER\Include\IR.H)(0x63DB5A2D)
-I (..\USER\Include\image.H)(0x6396C09F)
+I (..\USER\Include\image.H)(0x643F826D)
 I (..\USER\Include\Color.H)(0x639144EC)
 I (..\USER\Include\Light.H)(0x63477CA4)
 I (..\USER\Include\Com.H)(0x63AEAC1F)
@@ -323,9 +329,10 @@ I (..\USER\Include\driver_w25qxx.h)(0x643D0B0F)
 I (..\USER\Include\motion.h)(0x63982176)
 I (..\USER\Include\colorbox.h)(0x636333FB)
 I (..\USER\Include\OTA.h)(0x63A11D1B)
-I (..\USER\Include\MEM.h)(0x643DFBBB)
+I (..\USER\Include\MEM.h)(0x6440F8DB)
+I (..\USER\Include\Inf.h)(0x644201AF)
 F (..\USER\Source\Com.c)(0x64070828)(--c99 --gnu -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\USER\Include -I ..\..\Driver\inc -I ..\USER\mcu_sdk-I.\RTE\Device\CMS32L051TS20-I.\RTE\_CMS32L051-IF:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IF:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include-D__UVISION_VERSION="534" -D_RTE_ -D_RTE_-o .\objects\com.o --omf_browse .\objects\com.crf --depend .\objects\com.d)
-I (..\USER\Include\Function_Init.H)(0x643CF553)
+I (..\USER\Include\Function_Init.H)(0x643F7F78)
 I (F:\APP\Keil\ARM\ARMCC\include\stdlib.h)(0x5E8E3CC2)
 I (F:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include\CMS32L051.h)(0x61EF8A2A)
 I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm0plus.h)(0x5E8ED122)
@@ -347,7 +354,7 @@ I (F:\APP\Keil\ARM\ARMCC\include\string.h)(0x5E8E3CC2)
 I (F:\APP\Keil\ARM\ARMCC\include\math.h)(0x5E8E3CC2)
 I (..\USER\Include\FIFO.h)(0x63071284)
 I (..\USER\Include\IR.H)(0x63DB5A2D)
-I (..\USER\Include\image.H)(0x6396C09F)
+I (..\USER\Include\image.H)(0x643F826D)
 I (..\USER\Include\Color.H)(0x639144EC)
 I (..\USER\Include\Light.H)(0x63477CA4)
 I (..\USER\Include\key.h)(0x62DF8050)
@@ -369,9 +376,10 @@ I (..\USER\Include\driver_w25qxx.h)(0x643D0B0F)
 I (..\USER\Include\motion.h)(0x63982176)
 I (..\USER\Include\colorbox.h)(0x636333FB)
 I (..\USER\Include\OTA.h)(0x63A11D1B)
-I (..\USER\Include\MEM.h)(0x643DFBBB)
+I (..\USER\Include\MEM.h)(0x6440F8DB)
+I (..\USER\Include\Inf.h)(0x644201AF)
 F (..\USER\Source\delay.c)(0x62E4CE53)(--c99 --gnu -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\USER\Include -I ..\..\Driver\inc -I ..\USER\mcu_sdk-I.\RTE\Device\CMS32L051TS20-I.\RTE\_CMS32L051-IF:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IF:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include-D__UVISION_VERSION="534" -D_RTE_ -D_RTE_-o .\objects\delay.o --omf_browse .\objects\delay.crf --depend .\objects\delay.d)
-I (..\USER\Include\Function_Init.H)(0x643CF553)
+I (..\USER\Include\Function_Init.H)(0x643F7F78)
 I (F:\APP\Keil\ARM\ARMCC\include\stdlib.h)(0x5E8E3CC2)
 I (F:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include\CMS32L051.h)(0x61EF8A2A)
 I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm0plus.h)(0x5E8ED122)
@@ -393,7 +401,7 @@ I (F:\APP\Keil\ARM\ARMCC\include\string.h)(0x5E8E3CC2)
 I (F:\APP\Keil\ARM\ARMCC\include\math.h)(0x5E8E3CC2)
 I (..\USER\Include\FIFO.h)(0x63071284)
 I (..\USER\Include\IR.H)(0x63DB5A2D)
-I (..\USER\Include\image.H)(0x6396C09F)
+I (..\USER\Include\image.H)(0x643F826D)
 I (..\USER\Include\Color.H)(0x639144EC)
 I (..\USER\Include\Light.H)(0x63477CA4)
 I (..\USER\Include\key.h)(0x62DF8050)
@@ -415,11 +423,12 @@ I (..\USER\Include\driver_w25qxx.h)(0x643D0B0F)
 I (..\USER\Include\motion.h)(0x63982176)
 I (..\USER\Include\colorbox.h)(0x636333FB)
 I (..\USER\Include\OTA.h)(0x63A11D1B)
-I (..\USER\Include\MEM.h)(0x643DFBBB)
+I (..\USER\Include\MEM.h)(0x6440F8DB)
+I (..\USER\Include\Inf.h)(0x644201AF)
 I (..\USER\Include\delay.H)(0x62E4CE5F)
 F (..\USER\Source\FFT.c)(0x63735ACD)(--c99 --gnu -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\USER\Include -I ..\..\Driver\inc -I ..\USER\mcu_sdk-I.\RTE\Device\CMS32L051TS20-I.\RTE\_CMS32L051-IF:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IF:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include-D__UVISION_VERSION="534" -D_RTE_ -D_RTE_-o .\objects\fft.o --omf_browse .\objects\fft.crf --depend .\objects\fft.d)
 I (..\USER\Include\fft.h)(0x63735AD5)
-I (..\USER\Include\Function_Init.H)(0x643CF553)
+I (..\USER\Include\Function_Init.H)(0x643F7F78)
 I (F:\APP\Keil\ARM\ARMCC\include\stdlib.h)(0x5E8E3CC2)
 I (F:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include\CMS32L051.h)(0x61EF8A2A)
 I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm0plus.h)(0x5E8ED122)
@@ -441,7 +450,7 @@ I (F:\APP\Keil\ARM\ARMCC\include\string.h)(0x5E8E3CC2)
 I (F:\APP\Keil\ARM\ARMCC\include\math.h)(0x5E8E3CC2)
 I (..\USER\Include\FIFO.h)(0x63071284)
 I (..\USER\Include\IR.H)(0x63DB5A2D)
-I (..\USER\Include\image.H)(0x6396C09F)
+I (..\USER\Include\image.H)(0x643F826D)
 I (..\USER\Include\Color.H)(0x639144EC)
 I (..\USER\Include\Light.H)(0x63477CA4)
 I (..\USER\Include\key.h)(0x62DF8050)
@@ -462,9 +471,10 @@ I (..\USER\Include\driver_w25qxx.h)(0x643D0B0F)
 I (..\USER\Include\motion.h)(0x63982176)
 I (..\USER\Include\colorbox.h)(0x636333FB)
 I (..\USER\Include\OTA.h)(0x63A11D1B)
-I (..\USER\Include\MEM.h)(0x643DFBBB)
+I (..\USER\Include\MEM.h)(0x6440F8DB)
+I (..\USER\Include\Inf.h)(0x644201AF)
 F (..\USER\Source\uart.c)(0x6391B0BD)(--c99 --gnu -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\USER\Include -I ..\..\Driver\inc -I ..\USER\mcu_sdk-I.\RTE\Device\CMS32L051TS20-I.\RTE\_CMS32L051-IF:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IF:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include-D__UVISION_VERSION="534" -D_RTE_ -D_RTE_-o .\objects\uart.o --omf_browse .\objects\uart.crf --depend .\objects\uart.d)
-I (..\USER\Include\Function_Init.H)(0x643CF553)
+I (..\USER\Include\Function_Init.H)(0x643F7F78)
 I (F:\APP\Keil\ARM\ARMCC\include\stdlib.h)(0x5E8E3CC2)
 I (F:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include\CMS32L051.h)(0x61EF8A2A)
 I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm0plus.h)(0x5E8ED122)
@@ -486,7 +496,7 @@ I (F:\APP\Keil\ARM\ARMCC\include\string.h)(0x5E8E3CC2)
 I (F:\APP\Keil\ARM\ARMCC\include\math.h)(0x5E8E3CC2)
 I (..\USER\Include\FIFO.h)(0x63071284)
 I (..\USER\Include\IR.H)(0x63DB5A2D)
-I (..\USER\Include\image.H)(0x6396C09F)
+I (..\USER\Include\image.H)(0x643F826D)
 I (..\USER\Include\Color.H)(0x639144EC)
 I (..\USER\Include\Light.H)(0x63477CA4)
 I (..\USER\Include\key.h)(0x62DF8050)
@@ -508,10 +518,11 @@ I (..\USER\Include\driver_w25qxx.h)(0x643D0B0F)
 I (..\USER\Include\motion.h)(0x63982176)
 I (..\USER\Include\colorbox.h)(0x636333FB)
 I (..\USER\Include\OTA.h)(0x63A11D1B)
-I (..\USER\Include\MEM.h)(0x643DFBBB)
+I (..\USER\Include\MEM.h)(0x6440F8DB)
+I (..\USER\Include\Inf.h)(0x644201AF)
 F (..\USER\Source\Sys.c)(0x62E78E5D)(--c99 --gnu -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\USER\Include -I ..\..\Driver\inc -I ..\USER\mcu_sdk-I.\RTE\Device\CMS32L051TS20-I.\RTE\_CMS32L051-IF:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IF:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include-D__UVISION_VERSION="534" -D_RTE_ -D_RTE_-o .\objects\sys.o --omf_browse .\objects\sys.crf --depend .\objects\sys.d)
 I (..\USER\Include\Sys.h)(0x62D4F6E8)
-I (..\USER\Include\Function_Init.H)(0x643CF553)
+I (..\USER\Include\Function_Init.H)(0x643F7F78)
 I (F:\APP\Keil\ARM\ARMCC\include\stdlib.h)(0x5E8E3CC2)
 I (F:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include\CMS32L051.h)(0x61EF8A2A)
 I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm0plus.h)(0x5E8ED122)
@@ -533,7 +544,7 @@ I (F:\APP\Keil\ARM\ARMCC\include\string.h)(0x5E8E3CC2)
 I (F:\APP\Keil\ARM\ARMCC\include\math.h)(0x5E8E3CC2)
 I (..\USER\Include\FIFO.h)(0x63071284)
 I (..\USER\Include\IR.H)(0x63DB5A2D)
-I (..\USER\Include\image.H)(0x6396C09F)
+I (..\USER\Include\image.H)(0x643F826D)
 I (..\USER\Include\Color.H)(0x639144EC)
 I (..\USER\Include\Light.H)(0x63477CA4)
 I (..\USER\Include\key.h)(0x62DF8050)
@@ -554,9 +565,10 @@ I (..\USER\Include\driver_w25qxx.h)(0x643D0B0F)
 I (..\USER\Include\motion.h)(0x63982176)
 I (..\USER\Include\colorbox.h)(0x636333FB)
 I (..\USER\Include\OTA.h)(0x63A11D1B)
-I (..\USER\Include\MEM.h)(0x643DFBBB)
+I (..\USER\Include\MEM.h)(0x6440F8DB)
+I (..\USER\Include\Inf.h)(0x644201AF)
 F (..\USER\Source\wave.c)(0x635FAD65)(--c99 --gnu -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\USER\Include -I ..\..\Driver\inc -I ..\USER\mcu_sdk-I.\RTE\Device\CMS32L051TS20-I.\RTE\_CMS32L051-IF:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IF:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include-D__UVISION_VERSION="534" -D_RTE_ -D_RTE_-o .\objects\wave.o --omf_browse .\objects\wave.crf --depend .\objects\wave.d)
-I (..\USER\Include\Function_Init.H)(0x643CF553)
+I (..\USER\Include\Function_Init.H)(0x643F7F78)
 I (F:\APP\Keil\ARM\ARMCC\include\stdlib.h)(0x5E8E3CC2)
 I (F:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include\CMS32L051.h)(0x61EF8A2A)
 I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm0plus.h)(0x5E8ED122)
@@ -578,7 +590,7 @@ I (F:\APP\Keil\ARM\ARMCC\include\string.h)(0x5E8E3CC2)
 I (F:\APP\Keil\ARM\ARMCC\include\math.h)(0x5E8E3CC2)
 I (..\USER\Include\FIFO.h)(0x63071284)
 I (..\USER\Include\IR.H)(0x63DB5A2D)
-I (..\USER\Include\image.H)(0x6396C09F)
+I (..\USER\Include\image.H)(0x643F826D)
 I (..\USER\Include\Color.H)(0x639144EC)
 I (..\USER\Include\Light.H)(0x63477CA4)
 I (..\USER\Include\key.h)(0x62DF8050)
@@ -600,9 +612,10 @@ I (..\USER\Include\driver_w25qxx.h)(0x643D0B0F)
 I (..\USER\Include\motion.h)(0x63982176)
 I (..\USER\Include\colorbox.h)(0x636333FB)
 I (..\USER\Include\OTA.h)(0x63A11D1B)
-I (..\USER\Include\MEM.h)(0x643DFBBB)
+I (..\USER\Include\MEM.h)(0x6440F8DB)
+I (..\USER\Include\Inf.h)(0x644201AF)
 F (..\USER\Source\memory.c)(0x63A15524)(--c99 --gnu -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\USER\Include -I ..\..\Driver\inc -I ..\USER\mcu_sdk-I.\RTE\Device\CMS32L051TS20-I.\RTE\_CMS32L051-IF:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IF:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include-D__UVISION_VERSION="534" -D_RTE_ -D_RTE_-o .\objects\memory.o --omf_browse .\objects\memory.crf --depend .\objects\memory.d)
-I (..\USER\Include\Function_Init.H)(0x643CF553)
+I (..\USER\Include\Function_Init.H)(0x643F7F78)
 I (F:\APP\Keil\ARM\ARMCC\include\stdlib.h)(0x5E8E3CC2)
 I (F:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include\CMS32L051.h)(0x61EF8A2A)
 I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm0plus.h)(0x5E8ED122)
@@ -624,7 +637,7 @@ I (F:\APP\Keil\ARM\ARMCC\include\string.h)(0x5E8E3CC2)
 I (F:\APP\Keil\ARM\ARMCC\include\math.h)(0x5E8E3CC2)
 I (..\USER\Include\FIFO.h)(0x63071284)
 I (..\USER\Include\IR.H)(0x63DB5A2D)
-I (..\USER\Include\image.H)(0x6396C09F)
+I (..\USER\Include\image.H)(0x643F826D)
 I (..\USER\Include\Color.H)(0x639144EC)
 I (..\USER\Include\Light.H)(0x63477CA4)
 I (..\USER\Include\key.h)(0x62DF8050)
@@ -646,10 +659,11 @@ I (..\USER\Include\driver_w25qxx.h)(0x643D0B0F)
 I (..\USER\Include\motion.h)(0x63982176)
 I (..\USER\Include\colorbox.h)(0x636333FB)
 I (..\USER\Include\OTA.h)(0x63A11D1B)
-I (..\USER\Include\MEM.h)(0x643DFBBB)
-F (..\USER\Source\driver_spi.c)(0x643CEF50)(--c99 --gnu -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\USER\Include -I ..\..\Driver\inc -I ..\USER\mcu_sdk-I.\RTE\Device\CMS32L051TS20-I.\RTE\_CMS32L051-IF:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IF:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include-D__UVISION_VERSION="534" -D_RTE_ -D_RTE_-o .\objects\driver_spi.o --omf_browse .\objects\driver_spi.crf --depend .\objects\driver_spi.d)
+I (..\USER\Include\MEM.h)(0x6440F8DB)
+I (..\USER\Include\Inf.h)(0x644201AF)
+F (..\USER\Source\driver_spi.c)(0x643F4E0E)(--c99 --gnu -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\USER\Include -I ..\..\Driver\inc -I ..\USER\mcu_sdk-I.\RTE\Device\CMS32L051TS20-I.\RTE\_CMS32L051-IF:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IF:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include-D__UVISION_VERSION="534" -D_RTE_ -D_RTE_-o .\objects\driver_spi.o --omf_browse .\objects\driver_spi.crf --depend .\objects\driver_spi.d)
 I (..\USER\Include\driver_spi.h)(0x636B5512)
-I (..\USER\Include\Function_Init.H)(0x643CF553)
+I (..\USER\Include\Function_Init.H)(0x643F7F78)
 I (F:\APP\Keil\ARM\ARMCC\include\stdlib.h)(0x5E8E3CC2)
 I (F:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include\CMS32L051.h)(0x61EF8A2A)
 I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm0plus.h)(0x5E8ED122)
@@ -671,7 +685,7 @@ I (F:\APP\Keil\ARM\ARMCC\include\string.h)(0x5E8E3CC2)
 I (F:\APP\Keil\ARM\ARMCC\include\math.h)(0x5E8E3CC2)
 I (..\USER\Include\FIFO.h)(0x63071284)
 I (..\USER\Include\IR.H)(0x63DB5A2D)
-I (..\USER\Include\image.H)(0x6396C09F)
+I (..\USER\Include\image.H)(0x643F826D)
 I (..\USER\Include\Color.H)(0x639144EC)
 I (..\USER\Include\Light.H)(0x63477CA4)
 I (..\USER\Include\key.h)(0x62DF8050)
@@ -692,10 +706,11 @@ I (..\USER\Include\driver_w25qxx.h)(0x643D0B0F)
 I (..\USER\Include\motion.h)(0x63982176)
 I (..\USER\Include\colorbox.h)(0x636333FB)
 I (..\USER\Include\OTA.h)(0x63A11D1B)
-I (..\USER\Include\MEM.h)(0x643DFBBB)
-F (..\USER\Source\driver_w25qxx.c)(0x643D0B0F)(--c99 --gnu -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\USER\Include -I ..\..\Driver\inc -I ..\USER\mcu_sdk-I.\RTE\Device\CMS32L051TS20-I.\RTE\_CMS32L051-IF:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IF:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include-D__UVISION_VERSION="534" -D_RTE_ -D_RTE_-o .\objects\driver_w25qxx.o --omf_browse .\objects\driver_w25qxx.crf --depend .\objects\driver_w25qxx.d)
+I (..\USER\Include\MEM.h)(0x6440F8DB)
+I (..\USER\Include\Inf.h)(0x644201AF)
+F (..\USER\Source\driver_w25qxx.c)(0x643F4E11)(--c99 --gnu -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\USER\Include -I ..\..\Driver\inc -I ..\USER\mcu_sdk-I.\RTE\Device\CMS32L051TS20-I.\RTE\_CMS32L051-IF:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IF:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include-D__UVISION_VERSION="534" -D_RTE_ -D_RTE_-o .\objects\driver_w25qxx.o --omf_browse .\objects\driver_w25qxx.crf --depend .\objects\driver_w25qxx.d)
 I (..\USER\Include\driver_spi.h)(0x636B5512)
-I (..\USER\Include\Function_Init.H)(0x643CF553)
+I (..\USER\Include\Function_Init.H)(0x643F7F78)
 I (F:\APP\Keil\ARM\ARMCC\include\stdlib.h)(0x5E8E3CC2)
 I (F:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include\CMS32L051.h)(0x61EF8A2A)
 I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm0plus.h)(0x5E8ED122)
@@ -717,7 +732,7 @@ I (F:\APP\Keil\ARM\ARMCC\include\string.h)(0x5E8E3CC2)
 I (F:\APP\Keil\ARM\ARMCC\include\math.h)(0x5E8E3CC2)
 I (..\USER\Include\FIFO.h)(0x63071284)
 I (..\USER\Include\IR.H)(0x63DB5A2D)
-I (..\USER\Include\image.H)(0x6396C09F)
+I (..\USER\Include\image.H)(0x643F826D)
 I (..\USER\Include\Color.H)(0x639144EC)
 I (..\USER\Include\Light.H)(0x63477CA4)
 I (..\USER\Include\key.h)(0x62DF8050)
@@ -738,9 +753,10 @@ I (..\USER\Include\driver_w25qxx.h)(0x643D0B0F)
 I (..\USER\Include\motion.h)(0x63982176)
 I (..\USER\Include\colorbox.h)(0x636333FB)
 I (..\USER\Include\OTA.h)(0x63A11D1B)
-I (..\USER\Include\MEM.h)(0x643DFBBB)
+I (..\USER\Include\MEM.h)(0x6440F8DB)
+I (..\USER\Include\Inf.h)(0x644201AF)
 F (..\USER\Source\motion.c)(0x64070292)(--c99 --gnu -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\USER\Include -I ..\..\Driver\inc -I ..\USER\mcu_sdk-I.\RTE\Device\CMS32L051TS20-I.\RTE\_CMS32L051-IF:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IF:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include-D__UVISION_VERSION="534" -D_RTE_ -D_RTE_-o .\objects\motion.o --omf_browse .\objects\motion.crf --depend .\objects\motion.d)
-I (..\USER\Include\Function_Init.H)(0x643CF553)
+I (..\USER\Include\Function_Init.H)(0x643F7F78)
 I (F:\APP\Keil\ARM\ARMCC\include\stdlib.h)(0x5E8E3CC2)
 I (F:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include\CMS32L051.h)(0x61EF8A2A)
 I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm0plus.h)(0x5E8ED122)
@@ -762,7 +778,7 @@ I (F:\APP\Keil\ARM\ARMCC\include\string.h)(0x5E8E3CC2)
 I (F:\APP\Keil\ARM\ARMCC\include\math.h)(0x5E8E3CC2)
 I (..\USER\Include\FIFO.h)(0x63071284)
 I (..\USER\Include\IR.H)(0x63DB5A2D)
-I (..\USER\Include\image.H)(0x6396C09F)
+I (..\USER\Include\image.H)(0x643F826D)
 I (..\USER\Include\Color.H)(0x639144EC)
 I (..\USER\Include\Light.H)(0x63477CA4)
 I (..\USER\Include\key.h)(0x62DF8050)
@@ -784,9 +800,10 @@ I (..\USER\Include\driver_w25qxx.h)(0x643D0B0F)
 I (..\USER\Include\motion.h)(0x63982176)
 I (..\USER\Include\colorbox.h)(0x636333FB)
 I (..\USER\Include\OTA.h)(0x63A11D1B)
-I (..\USER\Include\MEM.h)(0x643DFBBB)
+I (..\USER\Include\MEM.h)(0x6440F8DB)
+I (..\USER\Include\Inf.h)(0x644201AF)
 F (..\USER\Source\colorbox.c)(0x63B91FAA)(--c99 --gnu -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\USER\Include -I ..\..\Driver\inc -I ..\USER\mcu_sdk-I.\RTE\Device\CMS32L051TS20-I.\RTE\_CMS32L051-IF:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IF:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include-D__UVISION_VERSION="534" -D_RTE_ -D_RTE_-o .\objects\colorbox.o --omf_browse .\objects\colorbox.crf --depend .\objects\colorbox.d)
-I (..\USER\Include\Function_Init.H)(0x643CF553)
+I (..\USER\Include\Function_Init.H)(0x643F7F78)
 I (F:\APP\Keil\ARM\ARMCC\include\stdlib.h)(0x5E8E3CC2)
 I (F:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include\CMS32L051.h)(0x61EF8A2A)
 I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm0plus.h)(0x5E8ED122)
@@ -808,7 +825,7 @@ I (F:\APP\Keil\ARM\ARMCC\include\string.h)(0x5E8E3CC2)
 I (F:\APP\Keil\ARM\ARMCC\include\math.h)(0x5E8E3CC2)
 I (..\USER\Include\FIFO.h)(0x63071284)
 I (..\USER\Include\IR.H)(0x63DB5A2D)
-I (..\USER\Include\image.H)(0x6396C09F)
+I (..\USER\Include\image.H)(0x643F826D)
 I (..\USER\Include\Color.H)(0x639144EC)
 I (..\USER\Include\Light.H)(0x63477CA4)
 I (..\USER\Include\key.h)(0x62DF8050)
@@ -830,9 +847,10 @@ I (..\USER\Include\driver_w25qxx.h)(0x643D0B0F)
 I (..\USER\Include\motion.h)(0x63982176)
 I (..\USER\Include\colorbox.h)(0x636333FB)
 I (..\USER\Include\OTA.h)(0x63A11D1B)
-I (..\USER\Include\MEM.h)(0x643DFBBB)
+I (..\USER\Include\MEM.h)(0x6440F8DB)
+I (..\USER\Include\Inf.h)(0x644201AF)
 F (..\USER\Source\OTA.c)(0x643CC02B)(--c99 --gnu -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\USER\Include -I ..\..\Driver\inc -I ..\USER\mcu_sdk-I.\RTE\Device\CMS32L051TS20-I.\RTE\_CMS32L051-IF:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IF:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include-D__UVISION_VERSION="534" -D_RTE_ -D_RTE_-o .\objects\ota.o --omf_browse .\objects\ota.crf --depend .\objects\ota.d)
-I (..\USER\Include\Function_Init.H)(0x643CF553)
+I (..\USER\Include\Function_Init.H)(0x643F7F78)
 I (F:\APP\Keil\ARM\ARMCC\include\stdlib.h)(0x5E8E3CC2)
 I (F:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include\CMS32L051.h)(0x61EF8A2A)
 I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm0plus.h)(0x5E8ED122)
@@ -854,7 +872,7 @@ I (F:\APP\Keil\ARM\ARMCC\include\string.h)(0x5E8E3CC2)
 I (F:\APP\Keil\ARM\ARMCC\include\math.h)(0x5E8E3CC2)
 I (..\USER\Include\FIFO.h)(0x63071284)
 I (..\USER\Include\IR.H)(0x63DB5A2D)
-I (..\USER\Include\image.H)(0x6396C09F)
+I (..\USER\Include\image.H)(0x643F826D)
 I (..\USER\Include\Color.H)(0x639144EC)
 I (..\USER\Include\Light.H)(0x63477CA4)
 I (..\USER\Include\key.h)(0x62DF8050)
@@ -876,9 +894,10 @@ I (..\USER\Include\driver_w25qxx.h)(0x643D0B0F)
 I (..\USER\Include\motion.h)(0x63982176)
 I (..\USER\Include\colorbox.h)(0x636333FB)
 I (..\USER\Include\OTA.h)(0x63A11D1B)
-I (..\USER\Include\MEM.h)(0x643DFBBB)
-F (..\USER\Source\MEM.c)(0x643E0393)(--c99 --gnu -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\USER\Include -I ..\..\Driver\inc -I ..\USER\mcu_sdk-I.\RTE\Device\CMS32L051TS20-I.\RTE\_CMS32L051-IF:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IF:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include-D__UVISION_VERSION="534" -D_RTE_ -D_RTE_-o .\objects\mem.o --omf_browse .\objects\mem.crf --depend .\objects\mem.d)
-I (..\USER\Include\Function_Init.H)(0x643CF553)
+I (..\USER\Include\MEM.h)(0x6440F8DB)
+I (..\USER\Include\Inf.h)(0x644201AF)
+F (..\USER\Source\MEM.c)(0x64410051)(--c99 --gnu -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\USER\Include -I ..\..\Driver\inc -I ..\USER\mcu_sdk-I.\RTE\Device\CMS32L051TS20-I.\RTE\_CMS32L051-IF:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IF:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include-D__UVISION_VERSION="534" -D_RTE_ -D_RTE_-o .\objects\mem.o --omf_browse .\objects\mem.crf --depend .\objects\mem.d)
+I (..\USER\Include\Function_Init.H)(0x643F7F78)
 I (F:\APP\Keil\ARM\ARMCC\include\stdlib.h)(0x5E8E3CC2)
 I (F:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include\CMS32L051.h)(0x61EF8A2A)
 I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm0plus.h)(0x5E8ED122)
@@ -900,7 +919,7 @@ I (F:\APP\Keil\ARM\ARMCC\include\string.h)(0x5E8E3CC2)
 I (F:\APP\Keil\ARM\ARMCC\include\math.h)(0x5E8E3CC2)
 I (..\USER\Include\FIFO.h)(0x63071284)
 I (..\USER\Include\IR.H)(0x63DB5A2D)
-I (..\USER\Include\image.H)(0x6396C09F)
+I (..\USER\Include\image.H)(0x643F826D)
 I (..\USER\Include\Color.H)(0x639144EC)
 I (..\USER\Include\Light.H)(0x63477CA4)
 I (..\USER\Include\key.h)(0x62DF8050)
@@ -922,7 +941,8 @@ I (..\USER\Include\driver_w25qxx.h)(0x643D0B0F)
 I (..\USER\Include\motion.h)(0x63982176)
 I (..\USER\Include\colorbox.h)(0x636333FB)
 I (..\USER\Include\OTA.h)(0x63A11D1B)
-I (..\USER\Include\MEM.h)(0x643DFBBB)
+I (..\USER\Include\MEM.h)(0x6440F8DB)
+I (..\USER\Include\Inf.h)(0x644201AF)
 F (..\USER\mcu_sdk\homekit.c)(0x638AE69A)(--c99 --gnu -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\USER\Include -I ..\..\Driver\inc -I ..\USER\mcu_sdk-I.\RTE\Device\CMS32L051TS20-I.\RTE\_CMS32L051-IF:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IF:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include-D__UVISION_VERSION="534" -D_RTE_ -D_RTE_-o .\objects\homekit.o --omf_browse .\objects\homekit.crf --depend .\objects\homekit.d)
 I (..\USER\mcu_sdk\wifi.h)(0x638ADD1E)
 I (F:\APP\Keil\ARM\ARMCC\include\stdio.h)(0x5E8E3CC2)
@@ -933,7 +953,7 @@ I (..\USER\mcu_sdk\protocol.h)(0x63900AB8)
 I (..\USER\mcu_sdk\system.h)(0x638AC3E6)
 I (..\USER\mcu_sdk\mcu_api.h)(0x6390096A)
 I (..\USER\mcu_sdk\homekit.h)(0x638AC3E6)
-I (..\USER\Include\Function_Init.H)(0x643CF553)
+I (..\USER\Include\Function_Init.H)(0x643F7F78)
 I (F:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include\CMS32L051.h)(0x61EF8A2A)
 I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm0plus.h)(0x5E8ED122)
 I (F:\APP\Keil\ARM\ARMCC\include\stdint.h)(0x5E8E3CC2)
@@ -952,7 +972,7 @@ I (..\..\Driver\inc\dma.h)(0x61EF8A2A)
 I (F:\APP\Keil\ARM\ARMCC\include\math.h)(0x5E8E3CC2)
 I (..\USER\Include\FIFO.h)(0x63071284)
 I (..\USER\Include\IR.H)(0x63DB5A2D)
-I (..\USER\Include\image.H)(0x6396C09F)
+I (..\USER\Include\image.H)(0x643F826D)
 I (..\USER\Include\Color.H)(0x639144EC)
 I (..\USER\Include\Light.H)(0x63477CA4)
 I (..\USER\Include\key.h)(0x62DF8050)
@@ -968,7 +988,8 @@ I (..\USER\Include\driver_w25qxx.h)(0x643D0B0F)
 I (..\USER\Include\motion.h)(0x63982176)
 I (..\USER\Include\colorbox.h)(0x636333FB)
 I (..\USER\Include\OTA.h)(0x63A11D1B)
-I (..\USER\Include\MEM.h)(0x643DFBBB)
+I (..\USER\Include\MEM.h)(0x6440F8DB)
+I (..\USER\Include\Inf.h)(0x644201AF)
 F (..\USER\mcu_sdk\mcu_api.c)(0x638AC8EE)(--c99 --gnu -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\USER\Include -I ..\..\Driver\inc -I ..\USER\mcu_sdk-I.\RTE\Device\CMS32L051TS20-I.\RTE\_CMS32L051-IF:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IF:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include-D__UVISION_VERSION="534" -D_RTE_ -D_RTE_-o .\objects\mcu_api.o --omf_browse .\objects\mcu_api.crf --depend .\objects\mcu_api.d)
 I (..\USER\mcu_sdk\wifi.h)(0x638ADD1E)
 I (F:\APP\Keil\ARM\ARMCC\include\stdio.h)(0x5E8E3CC2)
@@ -979,7 +1000,7 @@ I (..\USER\mcu_sdk\protocol.h)(0x63900AB8)
 I (..\USER\mcu_sdk\system.h)(0x638AC3E6)
 I (..\USER\mcu_sdk\mcu_api.h)(0x6390096A)
 I (..\USER\mcu_sdk\homekit.h)(0x638AC3E6)
-I (..\USER\Include\Function_Init.H)(0x643CF553)
+I (..\USER\Include\Function_Init.H)(0x643F7F78)
 I (F:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include\CMS32L051.h)(0x61EF8A2A)
 I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm0plus.h)(0x5E8ED122)
 I (F:\APP\Keil\ARM\ARMCC\include\stdint.h)(0x5E8E3CC2)
@@ -998,7 +1019,7 @@ I (..\..\Driver\inc\dma.h)(0x61EF8A2A)
 I (F:\APP\Keil\ARM\ARMCC\include\math.h)(0x5E8E3CC2)
 I (..\USER\Include\FIFO.h)(0x63071284)
 I (..\USER\Include\IR.H)(0x63DB5A2D)
-I (..\USER\Include\image.H)(0x6396C09F)
+I (..\USER\Include\image.H)(0x643F826D)
 I (..\USER\Include\Color.H)(0x639144EC)
 I (..\USER\Include\Light.H)(0x63477CA4)
 I (..\USER\Include\key.h)(0x62DF8050)
@@ -1014,7 +1035,8 @@ I (..\USER\Include\driver_w25qxx.h)(0x643D0B0F)
 I (..\USER\Include\motion.h)(0x63982176)
 I (..\USER\Include\colorbox.h)(0x636333FB)
 I (..\USER\Include\OTA.h)(0x63A11D1B)
-I (..\USER\Include\MEM.h)(0x643DFBBB)
+I (..\USER\Include\MEM.h)(0x6440F8DB)
+I (..\USER\Include\Inf.h)(0x644201AF)
 F (..\USER\mcu_sdk\protocol.c)(0x63A50CFE)(--c99 --gnu -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\USER\Include -I ..\..\Driver\inc -I ..\USER\mcu_sdk-I.\RTE\Device\CMS32L051TS20-I.\RTE\_CMS32L051-IF:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IF:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include-D__UVISION_VERSION="534" -D_RTE_ -D_RTE_-o .\objects\protocol.o --omf_browse .\objects\protocol.crf --depend .\objects\protocol.d)
 I (..\USER\mcu_sdk\wifi.h)(0x638ADD1E)
 I (F:\APP\Keil\ARM\ARMCC\include\stdio.h)(0x5E8E3CC2)
@@ -1025,7 +1047,7 @@ I (..\USER\mcu_sdk\protocol.h)(0x63900AB8)
 I (..\USER\mcu_sdk\system.h)(0x638AC3E6)
 I (..\USER\mcu_sdk\mcu_api.h)(0x6390096A)
 I (..\USER\mcu_sdk\homekit.h)(0x638AC3E6)
-I (..\USER\Include\Function_Init.H)(0x643CF553)
+I (..\USER\Include\Function_Init.H)(0x643F7F78)
 I (F:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include\CMS32L051.h)(0x61EF8A2A)
 I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm0plus.h)(0x5E8ED122)
 I (F:\APP\Keil\ARM\ARMCC\include\stdint.h)(0x5E8E3CC2)
@@ -1044,7 +1066,7 @@ I (..\..\Driver\inc\dma.h)(0x61EF8A2A)
 I (F:\APP\Keil\ARM\ARMCC\include\math.h)(0x5E8E3CC2)
 I (..\USER\Include\FIFO.h)(0x63071284)
 I (..\USER\Include\IR.H)(0x63DB5A2D)
-I (..\USER\Include\image.H)(0x6396C09F)
+I (..\USER\Include\image.H)(0x643F826D)
 I (..\USER\Include\Color.H)(0x639144EC)
 I (..\USER\Include\Light.H)(0x63477CA4)
 I (..\USER\Include\key.h)(0x62DF8050)
@@ -1060,7 +1082,8 @@ I (..\USER\Include\driver_w25qxx.h)(0x643D0B0F)
 I (..\USER\Include\motion.h)(0x63982176)
 I (..\USER\Include\colorbox.h)(0x636333FB)
 I (..\USER\Include\OTA.h)(0x63A11D1B)
-I (..\USER\Include\MEM.h)(0x643DFBBB)
+I (..\USER\Include\MEM.h)(0x6440F8DB)
+I (..\USER\Include\Inf.h)(0x644201AF)
 F (..\USER\mcu_sdk\system.c)(0x638AC3E6)(--c99 --gnu -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\USER\Include -I ..\..\Driver\inc -I ..\USER\mcu_sdk-I.\RTE\Device\CMS32L051TS20-I.\RTE\_CMS32L051-IF:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IF:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include-D__UVISION_VERSION="534" -D_RTE_ -D_RTE_-o .\objects\system.o --omf_browse .\objects\system.crf --depend .\objects\system.d)
 I (..\USER\mcu_sdk\wifi.h)(0x638ADD1E)
 I (F:\APP\Keil\ARM\ARMCC\include\stdio.h)(0x5E8E3CC2)
@@ -1071,7 +1094,7 @@ I (..\USER\mcu_sdk\protocol.h)(0x63900AB8)
 I (..\USER\mcu_sdk\system.h)(0x638AC3E6)
 I (..\USER\mcu_sdk\mcu_api.h)(0x6390096A)
 I (..\USER\mcu_sdk\homekit.h)(0x638AC3E6)
-I (..\USER\Include\Function_Init.H)(0x643CF553)
+I (..\USER\Include\Function_Init.H)(0x643F7F78)
 I (F:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include\CMS32L051.h)(0x61EF8A2A)
 I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm0plus.h)(0x5E8ED122)
 I (F:\APP\Keil\ARM\ARMCC\include\stdint.h)(0x5E8E3CC2)
@@ -1090,7 +1113,7 @@ I (..\..\Driver\inc\dma.h)(0x61EF8A2A)
 I (F:\APP\Keil\ARM\ARMCC\include\math.h)(0x5E8E3CC2)
 I (..\USER\Include\FIFO.h)(0x63071284)
 I (..\USER\Include\IR.H)(0x63DB5A2D)
-I (..\USER\Include\image.H)(0x6396C09F)
+I (..\USER\Include\image.H)(0x643F826D)
 I (..\USER\Include\Color.H)(0x639144EC)
 I (..\USER\Include\Light.H)(0x63477CA4)
 I (..\USER\Include\key.h)(0x62DF8050)
@@ -1106,7 +1129,8 @@ I (..\USER\Include\driver_w25qxx.h)(0x643D0B0F)
 I (..\USER\Include\motion.h)(0x63982176)
 I (..\USER\Include\colorbox.h)(0x636333FB)
 I (..\USER\Include\OTA.h)(0x63A11D1B)
-I (..\USER\Include\MEM.h)(0x643DFBBB)
+I (..\USER\Include\MEM.h)(0x6440F8DB)
+I (..\USER\Include\Inf.h)(0x644201AF)
 F (..\..\Driver\src\retarget.c)(0x61EF8A2A)(--c99 --gnu -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\USER\Include -I ..\..\Driver\inc -I ..\USER\mcu_sdk-I.\RTE\Device\CMS32L051TS20-I.\RTE\_CMS32L051-IF:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IF:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include-D__UVISION_VERSION="534" -D_RTE_ -D_RTE_-o .\objects\retarget.o --omf_browse .\objects\retarget.crf --depend .\objects\retarget.d)
 I (F:\APP\Keil\ARM\ARMCC\include\stdio.h)(0x5E8E3CC2)
 I (F:\APP\Keil\ARM\ARMCC\include\rt_misc.h)(0x5E8E3CC2)
@@ -1132,7 +1156,7 @@ I (F:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include\system_CMS32L051.h)(0x61
 I (.\RTE\Device\CMS32L051TS20\userdefine.h)(0x638B161D)
 I (..\..\Driver\inc\sci.h)(0x61EF8A2A)
 I (..\..\Driver\inc\dma.h)(0x61EF8A2A)
-I (..\USER\Include\Function_Init.H)(0x643CF553)
+I (..\USER\Include\Function_Init.H)(0x643F7F78)
 I (..\..\Driver\inc\gpio.h)(0x624CEB27)
 I (..\..\Driver\inc\tim4.h)(0x61EF8A2A)
 I (..\..\Driver\inc\adc.h)(0x61EF8A2A)
@@ -1143,7 +1167,7 @@ I (F:\APP\Keil\ARM\ARMCC\include\string.h)(0x5E8E3CC2)
 I (F:\APP\Keil\ARM\ARMCC\include\math.h)(0x5E8E3CC2)
 I (..\USER\Include\FIFO.h)(0x63071284)
 I (..\USER\Include\IR.H)(0x63DB5A2D)
-I (..\USER\Include\image.H)(0x6396C09F)
+I (..\USER\Include\image.H)(0x643F826D)
 I (..\USER\Include\Color.H)(0x639144EC)
 I (..\USER\Include\Light.H)(0x63477CA4)
 I (..\USER\Include\key.h)(0x62DF8050)
@@ -1165,7 +1189,8 @@ I (..\USER\Include\driver_w25qxx.h)(0x643D0B0F)
 I (..\USER\Include\motion.h)(0x63982176)
 I (..\USER\Include\colorbox.h)(0x636333FB)
 I (..\USER\Include\OTA.h)(0x63A11D1B)
-I (..\USER\Include\MEM.h)(0x643DFBBB)
+I (..\USER\Include\MEM.h)(0x6440F8DB)
+I (..\USER\Include\Inf.h)(0x644201AF)
 F (..\..\Driver\src\sci_user.c)(0x6323EE7E)(--c99 --gnu -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\USER\Include -I ..\..\Driver\inc -I ..\USER\mcu_sdk-I.\RTE\Device\CMS32L051TS20-I.\RTE\_CMS32L051-IF:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IF:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include-D__UVISION_VERSION="534" -D_RTE_ -D_RTE_-o .\objects\sci_user.o --omf_browse .\objects\sci_user.crf --depend .\objects\sci_user.d)
 I (.\RTE\Device\CMS32L051TS20\userdefine.h)(0x638B161D)
 I (F:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include\CMS32L051.h)(0x61EF8A2A)
@@ -1176,7 +1201,7 @@ I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_compiler.h)(0x5E8306C2)
 I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_armcc.h)(0x5E8ED122)
 I (F:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include\system_CMS32L051.h)(0x61EF8A2A)
 I (..\..\Driver\inc\sci.h)(0x61EF8A2A)
-I (..\USER\Include\Function_Init.H)(0x643CF553)
+I (..\USER\Include\Function_Init.H)(0x643F7F78)
 I (F:\APP\Keil\ARM\ARMCC\include\stdlib.h)(0x5E8E3CC2)
 I (..\..\Driver\inc\gpio.h)(0x624CEB27)
 I (..\..\Driver\inc\tim4.h)(0x61EF8A2A)
@@ -1189,7 +1214,7 @@ I (F:\APP\Keil\ARM\ARMCC\include\string.h)(0x5E8E3CC2)
 I (F:\APP\Keil\ARM\ARMCC\include\math.h)(0x5E8E3CC2)
 I (..\USER\Include\FIFO.h)(0x63071284)
 I (..\USER\Include\IR.H)(0x63DB5A2D)
-I (..\USER\Include\image.H)(0x6396C09F)
+I (..\USER\Include\image.H)(0x643F826D)
 I (..\USER\Include\Color.H)(0x639144EC)
 I (..\USER\Include\Light.H)(0x63477CA4)
 I (..\USER\Include\key.h)(0x62DF8050)
@@ -1211,7 +1236,8 @@ I (..\USER\Include\driver_w25qxx.h)(0x643D0B0F)
 I (..\USER\Include\motion.h)(0x63982176)
 I (..\USER\Include\colorbox.h)(0x636333FB)
 I (..\USER\Include\OTA.h)(0x63A11D1B)
-I (..\USER\Include\MEM.h)(0x643DFBBB)
+I (..\USER\Include\MEM.h)(0x6440F8DB)
+I (..\USER\Include\Inf.h)(0x644201AF)
 F (..\..\Driver\src\gpio.c)(0x62481940)(--c99 --gnu -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\USER\Include -I ..\..\Driver\inc -I ..\USER\mcu_sdk-I.\RTE\Device\CMS32L051TS20-I.\RTE\_CMS32L051-IF:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IF:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include-D__UVISION_VERSION="534" -D_RTE_ -D_RTE_-o .\objects\gpio.o --omf_browse .\objects\gpio.crf --depend .\objects\gpio.d)
 I (F:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include\CMS32L051.h)(0x61EF8A2A)
 I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm0plus.h)(0x5E8ED122)
@@ -1240,7 +1266,7 @@ I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_compiler.h)(0x5E8306C2)
 I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_armcc.h)(0x5E8ED122)
 I (F:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include\system_CMS32L051.h)(0x61EF8A2A)
 I (..\..\Driver\inc\tim4.h)(0x61EF8A2A)
-I (..\USER\Include\Function_Init.H)(0x643CF553)
+I (..\USER\Include\Function_Init.H)(0x643F7F78)
 I (F:\APP\Keil\ARM\ARMCC\include\stdlib.h)(0x5E8E3CC2)
 I (.\RTE\Device\CMS32L051TS20\userdefine.h)(0x638B161D)
 I (..\..\Driver\inc\sci.h)(0x61EF8A2A)
@@ -1254,7 +1280,7 @@ I (F:\APP\Keil\ARM\ARMCC\include\string.h)(0x5E8E3CC2)
 I (F:\APP\Keil\ARM\ARMCC\include\math.h)(0x5E8E3CC2)
 I (..\USER\Include\FIFO.h)(0x63071284)
 I (..\USER\Include\IR.H)(0x63DB5A2D)
-I (..\USER\Include\image.H)(0x6396C09F)
+I (..\USER\Include\image.H)(0x643F826D)
 I (..\USER\Include\Color.H)(0x639144EC)
 I (..\USER\Include\Light.H)(0x63477CA4)
 I (..\USER\Include\key.h)(0x62DF8050)
@@ -1276,7 +1302,8 @@ I (..\USER\Include\driver_w25qxx.h)(0x643D0B0F)
 I (..\USER\Include\motion.h)(0x63982176)
 I (..\USER\Include\colorbox.h)(0x636333FB)
 I (..\USER\Include\OTA.h)(0x63A11D1B)
-I (..\USER\Include\MEM.h)(0x643DFBBB)
+I (..\USER\Include\MEM.h)(0x6440F8DB)
+I (..\USER\Include\Inf.h)(0x644201AF)
 F (..\..\Driver\src\adc.c)(0x636C6D6F)(--c99 --gnu -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\USER\Include -I ..\..\Driver\inc -I ..\USER\mcu_sdk-I.\RTE\Device\CMS32L051TS20-I.\RTE\_CMS32L051-IF:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IF:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include-D__UVISION_VERSION="534" -D_RTE_ -D_RTE_-o .\objects\adc.o --omf_browse .\objects\adc.crf --depend .\objects\adc.d)
 I (F:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include\CMS32L051.h)(0x61EF8A2A)
 I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm0plus.h)(0x5E8ED122)
@@ -1340,7 +1367,7 @@ I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_compiler.h)(0x5E8306C2)
 I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_armcc.h)(0x5E8ED122)
 I (F:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include\system_CMS32L051.h)(0x61EF8A2A)
 I (..\..\Driver\inc\rtc.h)(0x639040FD)
-I (..\USER\Include\Function_Init.H)(0x643CF553)
+I (..\USER\Include\Function_Init.H)(0x643F7F78)
 I (F:\APP\Keil\ARM\ARMCC\include\stdlib.h)(0x5E8E3CC2)
 I (.\RTE\Device\CMS32L051TS20\userdefine.h)(0x638B161D)
 I (..\..\Driver\inc\sci.h)(0x61EF8A2A)
@@ -1351,7 +1378,7 @@ I (..\..\Driver\inc\flash.h)(0x61EF8A2A)
 I (..\..\Driver\inc\dma.h)(0x61EF8A2A)
 I (..\USER\Include\FIFO.h)(0x63071284)
 I (..\USER\Include\IR.H)(0x63DB5A2D)
-I (..\USER\Include\image.H)(0x6396C09F)
+I (..\USER\Include\image.H)(0x643F826D)
 I (..\USER\Include\Color.H)(0x639144EC)
 I (..\USER\Include\Light.H)(0x63477CA4)
 I (..\USER\Include\key.h)(0x62DF8050)
@@ -1373,7 +1400,8 @@ I (..\USER\Include\driver_w25qxx.h)(0x643D0B0F)
 I (..\USER\Include\motion.h)(0x63982176)
 I (..\USER\Include\colorbox.h)(0x636333FB)
 I (..\USER\Include\OTA.h)(0x63A11D1B)
-I (..\USER\Include\MEM.h)(0x643DFBBB)
+I (..\USER\Include\MEM.h)(0x6440F8DB)
+I (..\USER\Include\Inf.h)(0x644201AF)
 F (..\..\Driver\src\dma.c)(0x62CBC175)(--c99 --gnu -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\USER\Include -I ..\..\Driver\inc -I ..\USER\mcu_sdk-I.\RTE\Device\CMS32L051TS20-I.\RTE\_CMS32L051-IF:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IF:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include-D__UVISION_VERSION="534" -D_RTE_ -D_RTE_-o .\objects\dma.o --omf_browse .\objects\dma.crf --depend .\objects\dma.d)
 I (F:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include\CMS32L051.h)(0x61EF8A2A)
 I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm0plus.h)(0x5E8ED122)

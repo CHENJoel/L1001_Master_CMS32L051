@@ -50,3 +50,4 @@
 .\objects\driver_w25qxx.o: ..\USER\Include\colorbox.h
 .\objects\driver_w25qxx.o: ..\USER\Include\OTA.h
 .\objects\driver_w25qxx.o: ..\USER\Include\MEM.h
+.\objects\driver_w25qxx.o: ..\USER\Include\Inf.h

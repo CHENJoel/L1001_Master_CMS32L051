@@ -50,3 +50,4 @@
 .\objects\homekit.o: ..\USER\Include\colorbox.h
 .\objects\homekit.o: ..\USER\Include\OTA.h
 .\objects\homekit.o: ..\USER\Include\MEM.h
+.\objects\homekit.o: ..\USER\Include\Inf.h

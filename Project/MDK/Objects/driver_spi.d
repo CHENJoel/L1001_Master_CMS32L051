@@ -50,3 +50,4 @@
 .\objects\driver_spi.o: ..\USER\Include\colorbox.h
 .\objects\driver_spi.o: ..\USER\Include\OTA.h
 .\objects\driver_spi.o: ..\USER\Include\MEM.h
+.\objects\driver_spi.o: ..\USER\Include\Inf.h

@@ -56,9 +56,9 @@
 #include "colorbox.h"
 #include "OTA.h"
 #include "MEM.h"
+#include "Inf.h"
 
-
-#define IR_Version 1
+#define IR_Version 0
 
 
 

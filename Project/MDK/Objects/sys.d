@@ -49,3 +49,4 @@
 .\objects\sys.o: ..\USER\Include\colorbox.h
 .\objects\sys.o: ..\USER\Include\OTA.h
 .\objects\sys.o: ..\USER\Include\MEM.h
+.\objects\sys.o: ..\USER\Include\Inf.h

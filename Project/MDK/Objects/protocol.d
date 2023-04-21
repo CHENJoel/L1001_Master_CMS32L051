@@ -50,3 +50,4 @@
 .\objects\protocol.o: ..\USER\Include\colorbox.h
 .\objects\protocol.o: ..\USER\Include\OTA.h
 .\objects\protocol.o: ..\USER\Include\MEM.h
+.\objects\protocol.o: ..\USER\Include\Inf.h
