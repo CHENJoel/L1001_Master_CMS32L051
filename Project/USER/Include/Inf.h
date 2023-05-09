@@ -73,7 +73,7 @@ typedef struct
 
 typedef struct
 {
-    uint8_t Name[30];              /* 灯效名字 */
+    uint8_t Name[32];              /* 灯效名字 */
     uint8_t Speed;                 /* 速度 */
     uint8_t Brightness1;           /* 亮度1 初始亮度/律动的最低亮度 */
     uint8_t Brightness2;           /* 亮度2 律动最高亮度*/
@@ -85,17 +85,18 @@ typedef struct
     EfColorInf_TypeDef EfColorInf; /* 颜色数据区 */
 } Efdata_TypeDef;
 
+/******************************************************************************************************************/
 typedef struct
 {
     Efdata_TypeDef Default_Efdata[Ef_SizeNum];  // 内置灯效 索引号0~127
-    Efdata_TypeDef Original_Efdata[Ef_SizeNum]; // 自定义灯效 索引号128~256
+    Efdata_TypeDef Original_Efdata[Ef_SizeNum]; // 自定义灯效 索引号128~255
 } EffectInf_TypeDef;
-
+/******************************************************************************************************************/
 /******************************************************************/
 
-typedef struct /* 播放列表信息 */
+typedef struct /*  */
 {
-    uint8_t Name[30];               /* 列表名字 */
+    uint8_t Name[32];               /* 列表名字 */
     uint8_t Num;                    /* 灯效列表中有效数据的数量 */
     Time_TypeDef DurationTime;      /* 持续时间 */
     uint8_t List[PlayList_SizeNum]; /* 灯效列表 */
@@ -111,10 +112,11 @@ typedef struct /* 灯效的顺序表 */
 
 typedef struct /* 播放列表的顺序表 */
 {
-    uint8_t Num;              /* 播放列表中有效数据的数量 */
-    uint8_t List[Ef_SizeNum]; /* 播放列表.存储播放表的索引号 */
+    uint8_t Num;              /* 顺序列表中有效数据的数量 */
+    uint8_t List[Ef_SizeNum]; /* 顺序列表.存储播放表的索引号 */
 } PlayList_RankList_TypeDef;
 
+/******************************************************************************************************************/
 typedef struct
 {
     Ef_RankList_TypeDef Default_Ef_RankList;     /* 内置灯效的顺序列表*/
@@ -122,16 +124,17 @@ typedef struct
     Ef_RankList_TypeDef Favorites_Ef_RankList;   /* 收藏灯效的顺序列表*/
     PlayList_RankList_TypeDef PlayList_RankList; /* 播放列表的顺序列表*/
 } List_TypeDef;
+/******************************************************************************************************************/
 /*********************************************************/
 /*定时表*/
 
-typedef enum /* 播放列表信息 */
+typedef enum /*  */
 {
     TURN_OFF,
     TURN_ON,
 } Action_Enum;
 
-typedef struct /* 播放列表信息 */
+typedef struct /*  */
 {
     Action_Enum Action;        // 动作类型
     uint8_t Ef_id;             // 灯效的索引号
@@ -153,6 +156,14 @@ typedef struct /* 播放列表信息 */
         } day;
     } RepeatTime; // 重复时间
 } Routine_TypeDef;
+
+/******************************************************************************************************************/
+typedef struct /*  */
+{
+    uint8_t Num;              /* 有效数据的数量 */
+    Routine_TypeDef List[30]; /* 定时信息 */
+} RoutineList_TypeDef;
+/******************************************************************************************************************/
 /*********************************************/
 typedef struct
 {

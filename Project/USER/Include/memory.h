@@ -259,10 +259,10 @@ typedef struct
 {
     RGBW_TypeDef color[16]; // 每个灯效最多包含16个颜色
 } color_group_TypeDef;
-typedef struct
-{
-    color_group_TypeDef group[8]; // 8组灯效的颜色信息
-} ;             // 用户数据单扇区512Byte
+//typedef struct
+//{
+//    color_group_TypeDef group[8]; // 8组灯效的颜色信息
+//} ;             // 用户数据单扇区512Byte
 
 typedef struct
 {

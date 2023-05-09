@@ -925,7 +925,8 @@ void KeyS_Click(void)
 
     if (KEY1_LongOnce)
     {
-        // mcu_reset_wifi();
+        mcu_reset_wifi();
+        printf("reset wifi\r\n");
     }
     if (KEY2_LongOnce)
     {

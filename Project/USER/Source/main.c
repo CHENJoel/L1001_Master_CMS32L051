@@ -214,7 +214,7 @@ int main()
 		if (T_4MS_FLAG_GetBit)
 		{
 			T_4MS_FLAG_ClrBit();
-			// wifi_uart_service();
+			wifi_uart_service();
 			// OTA_ResetFlag();
 
 		}
@@ -252,7 +252,7 @@ int main()
 		{
 			T_28MS_FLAG_ClrBit();
 
-			// LED_Display();
+			LED_Display();
 
 			// UART1_Send(&UART_TEST,9);
 		}
@@ -279,10 +279,10 @@ int main()
 			T_1000MS_FLAG_ClrBit();
 			RTC_Task();
 			Debug();
-			SPI_FlashDebug();
-			SYS_Record();
-			LED1_REV();
-			// printf("\r\nAPP running %d S\r\n",RunningTimeCnt++);
+			// SPI_FlashDebug();
+			// SYS_Record();
+			// LED1_REV();
+			 printf("\r\nAPP running %d S\r\n",RunningTimeCnt++);
 			// KeyS_On();
 			// APP_checksum_verify(1);
 			// printf("test\r\n");
