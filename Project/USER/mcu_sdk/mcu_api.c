@@ -30,16 +30,16 @@
 u8 hex_to_bcd(u8 Value_H,u8 Value_L)
 {
     u8 bcd_value;
-
+    
     if((Value_H >= '0') && (Value_H <= '9'))
         Value_H -= '0';
     else if((Value_H >= 'A') && (Value_H <= 'F'))
         Value_H = Value_H - 'A' + 10;
     else if((Value_H >= 'a') && (Value_H <= 'f'))
         Value_H = Value_H - 'a' + 10;
-
+     
     bcd_value = Value_H & 0x0f;
-
+    
     bcd_value <<= 4;
     if((Value_L >= '0') && (Value_L <= '9'))
         Value_L -= '0';
@@ -47,7 +47,7 @@ u8 hex_to_bcd(u8 Value_H,u8 Value_L)
         Value_L = Value_L - 'a' + 10;
     else if((Value_L >= 'a') && (Value_L <= 'f'))
         Value_L = Value_L - 'a' + 10;
-
+    
     bcd_value |= Value_L & 0x0f;
 
     return bcd_value;
@@ -83,7 +83,7 @@ u32 byte_to_int(const u8 value[4])
     nubmer |= (u32)value[2];
     nubmer <<= 8;
     nubmer |= (u32)value[3];
-
+    
     return nubmer;
 }
 
@@ -97,15 +97,15 @@ u32 byte_to_int(const u8 value[4])
 void *my_memset(void *src,u8 ch,u16 count)
 {
     u8 *tmp = (u8 *)src;
-
+    
     if(src == NULL) {
         return NULL;
     }
-
+    
     while(count --) {
         *tmp ++ = ch;
     }
-
+    
     return src;
 }
 
@@ -116,27 +116,27 @@ void *my_memset(void *src,u8 ch,u16 count)
  * @param[in] {count} 拷贝数据个数
  * @return 数据处理完后的源地址
  */
-void *my_memcpy(void *dest, const void *src, u16 count)
-{
-    u8 *pdest = (u8 *)dest;
-    const u8 *psrc  = (const u8 *)src;
+void *my_memcpy(void *dest, const void *src, u16 count)  
+{  
+    u8 *pdest = (u8 *)dest;  
+    const u8 *psrc  = (const u8 *)src;  
     u16 i;
-
-    if(dest == NULL || src == NULL) {
+    
+    if(dest == NULL || src == NULL) { 
         return NULL;
     }
-
-    if((pdest <= psrc) || (pdest > psrc + count)) {
-        for(i = 0; i < count; i ++) {
-            pdest[i] = psrc[i];
-        }
+    
+    if((pdest <= psrc) || (pdest > psrc + count)) {  
+        for(i = 0; i < count; i ++) {  
+            pdest[i] = psrc[i];  
+        }  
     }else {
-        for(i = count; i > 0; i --) {
-            pdest[i - 1] = psrc[i - 1];
-        }
-    }
-
-    return dest;
+        for(i = count; i > 0; i --) {  
+            pdest[i - 1] = psrc[i - 1];  
+        }  
+    }  
+    
+    return dest;  
 }
 
 /**
@@ -144,17 +144,17 @@ void *my_memcpy(void *dest, const void *src, u16 count)
  * @param[in] {str} 字符串地址
  * @return 数据长度
  */
-u32 my_strlen(i8 *str)
+u32 my_strlen(i8 *str)  
 {
     u32 len = 0;
-    if(str == NULL) {
+    if(str == NULL) { 
         return 0;
     }
-
+    
     for(len = 0; *str ++ != '\0'; ) {
         len ++;
     }
-
+    
     return len;
 }
 
@@ -164,14 +164,14 @@ u32 my_strlen(i8 *str)
  * @param[in] {src} 源地址
  * @return 数据处理完后的源地址
  */
-i8 *my_strcpy(i8 *dest, const i8 *src)
+i8 *my_strcpy(i8 *dest, const i8 *src)  
 {
     i8 *p = dest;
-
-    if(dest == NULL || src == NULL) {
+    
+    if(dest == NULL || src == NULL) { 
         return NULL;
     }
-
+    
     while(*src!='\0') {
         *dest++ = *src++;
     }
@@ -208,7 +208,7 @@ i32 my_strcmp(i8 *s1 , i8 *s2)
 u8 mcu_dp_raw_update(u8 dpid,const u8 value[],u16 len)
 {
     u16 send_len = 0;
-
+    
     if(stop_update_flag == ENABLE)
       return SUCCESS;
     //
@@ -219,9 +219,9 @@ u8 mcu_dp_raw_update(u8 dpid,const u8 value[],u16 len)
     send_len = set_wifi_uart_byte(send_len,len % 0x100);
     //
     send_len = set_wifi_uart_buffer(send_len,(u8 *)value,len);
-
+    
     wifi_uart_write_frame(STATE_UPLOAD_CMD,MCU_TX_VER,send_len);
-
+    
     return SUCCESS;
 }
 
@@ -235,10 +235,10 @@ u8 mcu_dp_raw_update(u8 dpid,const u8 value[],u16 len)
 u8 mcu_dp_bool_update(u8 dpid,u8 value)
 {
     u16 send_len = 0;
-
+    
     if(stop_update_flag == ENABLE)
         return SUCCESS;
-
+    
     send_len = set_wifi_uart_byte(send_len,dpid);
     send_len = set_wifi_uart_byte(send_len,DP_TYPE_BOOL);
     //
@@ -250,9 +250,9 @@ u8 mcu_dp_bool_update(u8 dpid,u8 value)
     }else {
         send_len = set_wifi_uart_byte(send_len,1);
     }
-
+    
     wifi_uart_write_frame(STATE_UPLOAD_CMD, MCU_TX_VER, send_len);
-
+    
     return SUCCESS;
 }
 
@@ -266,10 +266,10 @@ u8 mcu_dp_bool_update(u8 dpid,u8 value)
 u8 mcu_dp_value_update(u8 dpid,u32 value)
 {
     u16 send_len = 0;
-
+    
     if(stop_update_flag == ENABLE)
         return SUCCESS;
-
+    
     send_len = set_wifi_uart_byte(send_len,dpid);
     send_len = set_wifi_uart_byte(send_len,DP_TYPE_VALUE);
     //
@@ -280,9 +280,9 @@ u8 mcu_dp_value_update(u8 dpid,u32 value)
     send_len = set_wifi_uart_byte(send_len,value >> 16);
     send_len = set_wifi_uart_byte(send_len,value >> 8);
     send_len = set_wifi_uart_byte(send_len,value & 0xff);
-
+    
     wifi_uart_write_frame(STATE_UPLOAD_CMD,MCU_TX_VER,send_len);
-
+    
     return SUCCESS;
 }
 
@@ -297,7 +297,7 @@ u8 mcu_dp_value_update(u8 dpid,u32 value)
 u8 mcu_dp_string_update(u8 dpid,const u8 value[],u16 len)
 {
     u16 send_len = 0;
-
+    
     if(stop_update_flag == ENABLE)
         return SUCCESS;
     //
@@ -308,9 +308,9 @@ u8 mcu_dp_string_update(u8 dpid,const u8 value[],u16 len)
     send_len = set_wifi_uart_byte(send_len,len % 0x100);
     //
     send_len = set_wifi_uart_buffer(send_len,(u8 *)value,len);
-
+    
     wifi_uart_write_frame(STATE_UPLOAD_CMD,MCU_TX_VER,send_len);
-
+    
     return SUCCESS;
 }
 
@@ -324,10 +324,10 @@ u8 mcu_dp_string_update(u8 dpid,const u8 value[],u16 len)
 u8 mcu_dp_enum_update(u8 dpid,u8 value)
 {
     u16 send_len = 0;
-
+    
     if(stop_update_flag == ENABLE)
         return SUCCESS;
-
+    
     send_len = set_wifi_uart_byte(send_len,dpid);
     send_len = set_wifi_uart_byte(send_len,DP_TYPE_ENUM);
     //
@@ -335,9 +335,9 @@ u8 mcu_dp_enum_update(u8 dpid,u8 value)
     send_len = set_wifi_uart_byte(send_len,1);
     //
     send_len = set_wifi_uart_byte(send_len,value);
-
+    
     wifi_uart_write_frame(STATE_UPLOAD_CMD,MCU_TX_VER,send_len);
-
+    
     return SUCCESS;
 }
 
@@ -351,15 +351,15 @@ u8 mcu_dp_enum_update(u8 dpid,u8 value)
 u8 mcu_dp_fault_update(u8 dpid,u32 value)
 {
     u16 send_len = 0;
-
+     
     if(stop_update_flag == ENABLE)
         return SUCCESS;
-
+    
     send_len = set_wifi_uart_byte(send_len,dpid);
     send_len = set_wifi_uart_byte(send_len,DP_TYPE_BITMAP);
     //
     send_len = set_wifi_uart_byte(send_len,0);
-
+    
     if((value | 0xff) == 0xff) {
         send_len = set_wifi_uart_byte(send_len,1);
         send_len = set_wifi_uart_byte(send_len,value);
@@ -373,8 +373,8 @@ u8 mcu_dp_fault_update(u8 dpid,u32 value)
         send_len = set_wifi_uart_byte(send_len,value >> 16);
         send_len = set_wifi_uart_byte(send_len,value >> 8);
         send_len = set_wifi_uart_byte(send_len,value & 0xff);
-    }
-
+    }    
+    
     wifi_uart_write_frame(STATE_UPLOAD_CMD, MCU_TX_VER, send_len);
 
     return SUCCESS;
@@ -425,8 +425,8 @@ u32 mcu_get_dp_download_value(const u8 value[],u16 len)
  */
 void uart_receive_input(u8 value)
 {
-    //#error "请在串口接收中断中调用uart_receive_input(value),串口数据由MCU_SDK处理,用户请勿再另行处理,完成后删除该行"
-
+    //#error "请在串口接收中断中调用uart_receive_input(value),串口数据由MCU_SDK处理,用户请勿再另行处理,完成后删除该行" 
+    
     if(1 == rx_buf_out - rx_buf_in) {
         //串口接收缓存已满
     }else if((rx_buf_in > rx_buf_out) && ((rx_buf_in - rx_buf_out) >= sizeof(wifi_uart_rx_buf))) {
@@ -436,7 +436,7 @@ void uart_receive_input(u8 value)
         if(rx_buf_in >= (u8 *)(wifi_uart_rx_buf + sizeof(wifi_uart_rx_buf))) {
             rx_buf_in = (u8 *)(wifi_uart_rx_buf);
         }
-
+        
         *rx_buf_in ++ = value;
     }
 }
@@ -449,45 +449,45 @@ void uart_receive_input(u8 value)
  */
 void wifi_uart_service(void)
 {
-    //#error "请直接在main函数的while(1){}中添加wifi_uart_service(),调用该函数不要加任何条件判断,完成后删除该行"
+    //#error "请直接在main函数的while(1){}中添加wifi_uart_service(),调用该函数不要加任何条件判断,完成后删除该行" 
     static u16 rx_in = 0;
     u16 offset = 0;
     u16 rx_value_len = 0;
-
+    
     while((rx_in < sizeof(wifi_data_process_buf)) && with_data_rxbuff() > 0) {
         wifi_data_process_buf[rx_in ++] = take_byte_rxbuff();
     }
-
+    
     if(rx_in < PROTOCOL_HEAD)
         return;
-
+    
     while((rx_in - offset) >= PROTOCOL_HEAD) {
         if(wifi_data_process_buf[offset + HEAD_FIRST] != FRAME_FIRST) {
             offset ++;
             continue;
         }
-
+        
         if(wifi_data_process_buf[offset + HEAD_SECOND] != FRAME_SECOND) {
             offset ++;
             continue;
-        }
-
+        }  
+        
         if(wifi_data_process_buf[offset + PROTOCOL_VERSION] != MCU_RX_VER) {
             offset += 2;
             continue;
-        }
-
+        }      
+        
         rx_value_len = wifi_data_process_buf[offset + LENGTH_HIGH] * 0x100;
         rx_value_len += (wifi_data_process_buf[offset + LENGTH_LOW] + PROTOCOL_HEAD);
         if(rx_value_len > sizeof(wifi_data_process_buf) + PROTOCOL_HEAD) {
             offset += 3;
             continue;
         }
-
+        
         if((rx_in - offset) < rx_value_len) {
             break;
         }
-
+        
         //数据接收完成
         if(get_check_sum((u8 *)wifi_data_process_buf + offset,rx_value_len - 1) != wifi_data_process_buf[offset + rx_value_len - 1]) {
             //校验出错
@@ -495,7 +495,7 @@ void wifi_uart_service(void)
             offset += 3;
             continue;
         }
-
+        
         data_handle(offset);
         offset += rx_value_len;
     }//end while
@@ -514,12 +514,12 @@ void wifi_uart_service(void)
  */
 void wifi_protocol_init(void)
 {
-    // // // #error " 请在main函数中添加wifi_protocol_init()完成wifi协议初始化,并删除该行"
+    #error " 请在main函数中添加wifi_protocol_init()完成wifi协议初始化,并删除该行"
     rx_buf_in = (u8 *)wifi_uart_rx_buf;
     rx_buf_out = (u8 *)wifi_uart_rx_buf;
-
+    
     stop_update_flag = DISABLE;
-
+    
 #ifndef WIFI_CONTROL_SELF_MODE
     ty_wifi_work_state = WIFI_SATE_UNKNOW;
     hk_wifi_work_state = WIFI_SATE_UNKNOW;
@@ -553,7 +553,7 @@ u8 mcu_get_reset_wifi_flag(void)
 void mcu_reset_wifi(void)
 {
     reset_wifi_flag = RESET_WIFI_ERROR;
-
+    
     wifi_uart_write_frame(WIFI_RESET_CMD, MCU_TX_VER, 0);
 }
 
@@ -706,3 +706,4 @@ void mcu_get_module_infor(u8 p_get_inf[], u16 data_len)
     wifi_uart_write_frame(MODULE_EXTEND_FUN_CMD, MCU_TX_VER, send_len);
 }
 #endif
+

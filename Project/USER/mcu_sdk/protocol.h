@@ -9,7 +9,7 @@
  * @author  涂鸦综合协议开发组
  * @version v1.0.4
  * @date    2021.6.1
- * @brief
+ * @brief   
  *                       *******非常重要，一定要看哦！！！********
  *          1. 用户在此文件中实现数据下发/上报功能
  *          2. DP的ID/TYPE及数据处理函数都需要用户按照实际定义实现
@@ -39,7 +39,7 @@
 /* HomeKit产品品类选择。 服务配置选择和特性配置选择请在homekit.c中进行 */
 //#define HOMEKIT_PRODUCT_TYPE    3             //风扇
 //#define HOMEKIT_PRODUCT_TYPE    4             //车库门开启器
-#define HOMEKIT_PRODUCT_TYPE    5             //照明
+//#define HOMEKIT_PRODUCT_TYPE    5             //照明
 //#define HOMEKIT_PRODUCT_TYPE    9             //恒温器
 //#define HOMEKIT_PRODUCT_TYPE    12            //门
 //#define HOMEKIT_PRODUCT_TYPE    13            //窗户
@@ -54,7 +54,7 @@
 
 #ifdef HOMEKIT_PRODUCT_TYPE
 /* 是否需要配置特性有效值 */
-#define HOMEKIT_CHARACTER_VALID_CFG_ENABLE
+//#define HOMEKIT_CHARACTER_VALID_CFG_ENABLE
 #endif
 
 /******************************************************************************
@@ -65,7 +65,7 @@ MCU可调用mcu_api.c文件内的mcu_firm_update_query()函数获取当前MCU固
 当前接收缓冲区为关闭固件更新功能的大小,固件升级包可选择，默认256字节大小
 如需要开启该功能,需要较大的串口接收缓冲区
 ******************************************************************************/
-#define         SUPPORT_MCU_FIRM_UPDATE                 //开启MCU固件升级功能(默认关闭)
+//#define         SUPPORT_MCU_FIRM_UPDATE                 //开启MCU固件升级功能(默认关闭)
 #ifdef SUPPORT_MCU_FIRM_UPDATE
 /*  固件包大小选择  */
 #define PACKAGE_SIZE                   0        //包大小为256字节
@@ -116,7 +116,7 @@ MCU与模块配合处理:
 mcu_write_rtctime内部有#err提示,完成函数后请删除该#err
 mcu在wifi模块正确联网后可调用mcu_get_system_time()函数发起校时功能
 ******************************************************************************/
-#define         SUPPORT_MCU_RTC_CHECK                //开启校时功能
+//#define         SUPPORT_MCU_RTC_CHECK                //开启校时功能
 
 /******************************************************************************
                       MCU是否需要支持wifi功能测试
@@ -155,7 +155,7 @@ get_router_rssi_result内部有#err提示,完成函数后请删除该#err
 并在protocol.c文件wifi_test_result函数内查看结果,
 wifi_test_result内部有#err提示,完成函数后请删除该#err
 ******************************************************************************/
-#define         GET_WIFI_STATUS_ENABLE                  //开启获取当前WIFI联网状态功能
+//#define         GET_WIFI_STATUS_ENABLE                  //开启获取当前WIFI联网状态功能
 #endif
 
 /******************************************************************************
@@ -173,7 +173,7 @@ mcu_get_mac内部有#err提示,完成函数后请删除该#err
 mcu_get_greentime内部有#err提示,完成函数后请删除该#err
 mcu在wifi模块正确联网后可调用mcu_get_green_time()函数发起校时功能
 ******************************************************************************/
-// #define         SUPPORT_GREEN_TIME                      //开启格林时间功能
+//#define         SUPPORT_GREEN_TIME                      //开启格林时间功能
 
 /******************************************************************************
                       MCU是否需要支持模块拓展服务
@@ -188,7 +188,7 @@ mcu在wifi模块正确联网后可调用mcu_get_green_time()函数发起校时�
 
 /******************************************************************************
                         1:dp数据点序列号重新定义
-          **此为自动生成代码,如在开发平台有相关修改请重新下载MCU_SDK**
+          **此为自动生成代码,如在开发平台有相关修改请重新下载MCU_SDK**         
 ******************************************************************************/
 //开关(可下发可上报)
 //备注:
@@ -196,6 +196,44 @@ mcu在wifi模块正确联网后可调用mcu_get_green_time()函数发起校时�
 //工作模式(可下发可上报)
 //备注:
 #define DPID_WORK_MODE 21
+//白光亮度(可下发可上报)
+//备注:
+#define DPID_BRIGHT_VALUE 22
+//倒计时(可下发可上报)
+//备注:
+#define DPID_COUNTDOWN 26
+//特效名字列表1(可下发可上报)
+//备注:设备特效列表名字1
+#define DPID_EFFECT_NAME_1 101
+//设备名字(可下发可上报)
+//备注:设置页面，设备名字
+#define DPID_DEVICE_NAME 102
+//特效列表数据(可下发可上报)
+//备注:与返回参数一致，可下发可上报、透传型（Raw）、格式如下:
+//索引	0	1	0-32 所有effects的序号，查询详情效果详情入参	
+//动作类型	1	1	0:Static,、1:Dynamic、2：Rhythm	
+//效果类型	2	1	1：Origin、2：favorites、0：其他	
+//形状数量	2	1	效果中七灯块的数量	
+//色调1	3、4	2	0-360，0X0000-0X0168	
+//饱和度1	5、6	2	0-1000, 0X0000-0X03E8	
+//色调2	7、8	2	0-360，0X0000-0X0168	
+//饱和度2	9、10	2	0-1000, 0X0000-0X03E8	
+#define DPID_EFFECT_LIST 103
+//某个特效的详情(可下发可上报)
+//备注:索引	0	1	0-16
+//效果类型	1	1	1：Origin、2：favorites、0：其他	
+//动作类型	2	1	0:Static,、1:Dynamic、2：Rhythm	
+//motion 类型	3	1	0:breath,、1:stream、2：reverberate，3Hopscotch,4lighting,5:lgnite,6Random	
+//亮度1	4	1	0-100%，百分比的值	
+//亮度2	5	1	0-100%，如若不是 Rhthm，则传值101	
+//麦克风	6	1	0-100%，如若不是 Rhthm，则传值101	
+//方向	7	1	0、1、2、3、4、5（上/下/左/右/内聚/外扩）	
+//形状类型	8	1	0、1、2、3
+//位置	9	2	0x0000,高位代表x，地位代表y	
+//角度	10	2	0-360 	
+//...
+//颜色序列
+#define DPID_EFFECT_DETIAL 104
 //自定义协议(可下发可上报)
 //备注:自定义协议透传
 #define DPID_USER_PROTOCOL 105
@@ -223,6 +261,35 @@ mcu在wifi模块正确联网后可调用mcu_get_green_time()函数发起校时�
 //运行状态标志(可下发可上报)
 //备注:16bit标志位
 #define DPID_RUNNING_STATE 113
+//播放列表(可下发可上报)
+//备注:索引1	0	1	播放列表索引，用来记录	
+//播放状态1	1	1	0:暂停 1:播放	
+//循环模式1	2	1	0：循环模式1，1:循环模式2	
+//索引2	4	1	播放列表索引，用来记录	
+//播放状态2	5	1	0:暂停 1:播放	
+//循环模式2	6	1	0：循环模式1，1:循环模式2	
+#define DPID_PLAY_LIST 114
+//播放详情(可下发可上报)
+//备注:索引	0	1	播放列表索引，用来记录	
+//播放状态	1	1	0:暂停 1:播放	
+//循环模式	2	1	0：循环模式1，1:循环模式2	
+//效果索引1	3	1	0-所有效果个数	
+//duration1	4	1	0-240s	
+//效果索引2	5		0-所有效果个数	
+//duration12	6	1	0-所有效果个数	
+#define DPID_PLAY_DETIAL 115
+//连接状态(可下发可上报)
+//备注:0	1	保留	
+//1	1	0:断开，1连接	
+#define DPID_LINK_STATUS 116
+//全局状态(可下发可上报)
+//备注:效果索引	0	1	0- 百分比	
+//当前效果索引	1	1		
+//色调1	2、3	2	0-360，0X0000-0X0168	
+//饱和度1	4、5	2	0-1000, 0X0000-0X03E8	
+//色调2	6、7	2	0-360，0X0000-0X0168	
+//饱和度2	8、5	2	0-1000, 0X0000-0X03E8	
+#define DPID_GLOBAL_STATUS 117
 
 
 
@@ -370,7 +437,7 @@ void mcu_get_mac(u8 mac[]);
  * @param[in] {p_data} 串口数据
  * @param[in] {data_len} 数据长度
  * @return Null
- * @note
+ * @note   
  */
 void module_extend_function(u8 p_data[], u16 data_len);
 #endif
@@ -382,7 +449,7 @@ void module_extend_function(u8 p_data[], u16 data_len);
  * @param[in] {p_data} 串口数据
  * @param[in] {data_len} 数据长度
  * @return Null
- * @note
+ * @note   
  */
 void mcu_set_new_func_result(u8 p_data[], u16 data_len);
 #endif
@@ -390,3 +457,4 @@ void mcu_set_new_func_result(u8 p_data[], u16 data_len);
 
 
 #endif
+

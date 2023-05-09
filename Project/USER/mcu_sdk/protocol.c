@@ -9,7 +9,7 @@
  * @author  涂鸦综合协议开发组
  * @version v1.0.4
  * @date    2021.6.1
- * @brief
+ * @brief   
  *                       *******非常重要，一定要看哦！！！********
  *          1. 用户在此文件中实现数据下发/上报功能
  *          2. DP的ID/TYPE及数据处理函数都需要用户按照实际定义实现
@@ -41,12 +41,18 @@
 
 /******************************************************************************
                         1:dp数据点序列类型对照表
-          **此为自动生成代码,如在开发平台有相关修改请重新下载MCU_SDK**
+          **此为自动生成代码,如在开发平台有相关修改请重新下载MCU_SDK**         
 ******************************************************************************/
 const DOWNLOAD_CMD_S download_cmd[] =
 {
   {DPID_SWITCH_LED, DP_TYPE_BOOL},
   {DPID_WORK_MODE, DP_TYPE_ENUM},
+  {DPID_BRIGHT_VALUE, DP_TYPE_VALUE},
+  {DPID_COUNTDOWN, DP_TYPE_VALUE},
+  {DPID_EFFECT_NAME_1, DP_TYPE_STRING},
+  {DPID_DEVICE_NAME, DP_TYPE_STRING},
+  {DPID_EFFECT_LIST, DP_TYPE_RAW},
+  {DPID_EFFECT_DETIAL, DP_TYPE_RAW},
   {DPID_USER_PROTOCOL, DP_TYPE_RAW},
   {DPID_BRIGHT_VAL, DP_TYPE_VALUE},
   {DPID_SWITCH_MIC, DP_TYPE_BOOL},
@@ -56,6 +62,10 @@ const DOWNLOAD_CMD_S download_cmd[] =
   {DPID_BRIGHTNESS_AUTO, DP_TYPE_VALUE},
   {DPID_SYSTEM_STATE, DP_TYPE_VALUE},
   {DPID_RUNNING_STATE, DP_TYPE_VALUE},
+  {DPID_PLAY_LIST, DP_TYPE_RAW},
+  {DPID_PLAY_DETIAL, DP_TYPE_RAW},
+  {DPID_LINK_STATUS, DP_TYPE_RAW},
+  {DPID_GLOBAL_STATUS, DP_TYPE_RAW},
 };
 
 
@@ -71,8 +81,8 @@ const DOWNLOAD_CMD_S download_cmd[] =
  */
 void uart_transmit_output(u8 value)
 {
-    // #error "请将MCU串口发送函数填入该函数,并删除该行"
-    UART1_Send(&value, 1);
+    #error "请将MCU串口发送函数填入该函数,并删除该行"
+    
 /*
     //Example:
     extern void Uart_PutChar(u8 value);
@@ -106,13 +116,18 @@ void uart_transmit_output(u8 value)
  */
 void all_data_update(void)
 {
-    // #error "请在此处理可下发可上报数据及只上报数据示例,处理完成后删除该行"
-    mcu_dp_bool_update(DPID_SWITCH_LED,SYS.POWER_SW); //BOOL型数据上报;
-    mcu_dp_value_update(DPID_BRIGHT_VAL,SYS.Brightness.Set); //VALUE型数据上报;
+    #error "请在此处理可下发可上报数据及只上报数据示例,处理完成后删除该行"
+    
     /*
     //此代码为平台自动生成，请按照实际数据修改每个可下发可上报函数和只上报函数
     mcu_dp_bool_update(DPID_SWITCH_LED,当前开关); //BOOL型数据上报;
     mcu_dp_enum_update(DPID_WORK_MODE,当前工作模式); //枚举型数据上报;
+    mcu_dp_value_update(DPID_BRIGHT_VALUE,当前白光亮度); //VALUE型数据上报;
+    mcu_dp_value_update(DPID_COUNTDOWN,当前倒计时); //VALUE型数据上报;
+    mcu_dp_string_update(DPID_EFFECT_NAME_1,当前特效名字列表1指针,当前特效名字列表1数据长度); //STRING型数据上报;
+    mcu_dp_string_update(DPID_DEVICE_NAME,当前设备名字指针,当前设备名字数据长度); //STRING型数据上报;
+    mcu_dp_raw_update(DPID_EFFECT_LIST,当前特效列表数据指针,当前特效列表数据数据长度); //RAW型数据上报;
+    mcu_dp_raw_update(DPID_EFFECT_DETIAL,当前某个特效的详情指针,当前某个特效的详情数据长度); //RAW型数据上报;
     mcu_dp_raw_update(DPID_USER_PROTOCOL,当前自定义协议指针,当前自定义协议数据长度); //RAW型数据上报;
     mcu_dp_value_update(DPID_BRIGHT_VAL,当前亮度值); //VALUE型数据上报;
     mcu_dp_bool_update(DPID_SWITCH_MIC,当前麦克风开关); //BOOL型数据上报;
@@ -122,6 +137,10 @@ void all_data_update(void)
     mcu_dp_value_update(DPID_BRIGHTNESS_AUTO,当前自动亮度调节); //VALUE型数据上报;
     mcu_dp_value_update(DPID_SYSTEM_STATE,当前系统状态标志); //VALUE型数据上报;
     mcu_dp_value_update(DPID_RUNNING_STATE,当前运行状态标志); //VALUE型数据上报;
+    mcu_dp_raw_update(DPID_PLAY_LIST,当前播放列表指针,当前播放列表数据长度); //RAW型数据上报;
+    mcu_dp_raw_update(DPID_PLAY_DETIAL,当前播放详情指针,当前播放详情数据长度); //RAW型数据上报;
+    mcu_dp_raw_update(DPID_LINK_STATUS,当前连接状态指针,当前连接状态数据长度); //RAW型数据上报;
+    mcu_dp_raw_update(DPID_GLOBAL_STATUS,当前全局状态指针,当前全局状态数据长度); //RAW型数据上报;
 
     */
 #ifdef HOMEKIT_FUN_ENABLE
@@ -131,7 +150,7 @@ void all_data_update(void)
 
 
 /******************************************************************************
-                                WARNING!!!
+                                WARNING!!!    
                             2:所有数据上报处理
 自动化代码模板函数,具体请用户自行实现数据处理
 ******************************************************************************/
@@ -149,16 +168,14 @@ static unsigned char dp_download_switch_led_handle(const unsigned char value[], 
     unsigned char ret;
     //0:off/1:on
     unsigned char switch_led;
-
+    
     switch_led = mcu_get_dp_download_bool(value,length);
     if(switch_led == 0) {
         //bool off
-        SYS.POWER_SW = STA_OFF;
     }else {
         //bool on
-        SYS.POWER_SW = STA_ON;
     }
-
+  
     //There should be a report after processing the DP
     ret = mcu_dp_bool_update(DPID_SWITCH_LED,switch_led);
     if(ret == SUCCESS)
@@ -179,28 +196,196 @@ static unsigned char dp_download_work_mode_handle(const unsigned char value[], u
     //示例:当前DP类型为ENUM
     unsigned char ret;
     unsigned char work_mode;
-
+    
     work_mode = mcu_get_dp_download_enum(value,length);
     switch(work_mode) {
         case 0:
         break;
-
+        
         case 1:
         break;
-
+        
         case 2:
         break;
-
+        
         case 3:
         break;
-
+        
         default:
-
+    
         break;
     }
-
+    
     //There should be a report after processing the DP
     ret = mcu_dp_enum_update(DPID_WORK_MODE, work_mode);
+    if(ret == SUCCESS)
+        return SUCCESS;
+    else
+        return ERROR;
+}
+/*****************************************************************************
+函数名称 : dp_download_bright_value_handle
+功能描述 : 针对DPID_BRIGHT_VALUE的处理函数
+输入参数 : value:数据源数据
+        : length:数据长度
+返回参数 : 成功返回:SUCCESS/失败返回:ERROR
+使用说明 : 可下发可上报类型,需要在处理完数据后上报处理结果至app
+*****************************************************************************/
+static unsigned char dp_download_bright_value_handle(const unsigned char value[], unsigned short length)
+{
+    //示例:当前DP类型为VALUE
+    unsigned char ret;
+    unsigned long bright_value;
+    
+    bright_value = mcu_get_dp_download_value(value,length);
+    /*
+    //VALUE type data processing
+    
+    */
+    
+    //There should be a report after processing the DP
+    ret = mcu_dp_value_update(DPID_BRIGHT_VALUE,bright_value);
+    if(ret == SUCCESS)
+        return SUCCESS;
+    else
+        return ERROR;
+}
+/*****************************************************************************
+函数名称 : dp_download_countdown_handle
+功能描述 : 针对DPID_COUNTDOWN的处理函数
+输入参数 : value:数据源数据
+        : length:数据长度
+返回参数 : 成功返回:SUCCESS/失败返回:ERROR
+使用说明 : 可下发可上报类型,需要在处理完数据后上报处理结果至app
+*****************************************************************************/
+static unsigned char dp_download_countdown_handle(const unsigned char value[], unsigned short length)
+{
+    //示例:当前DP类型为VALUE
+    unsigned char ret;
+    unsigned long countdown;
+    
+    countdown = mcu_get_dp_download_value(value,length);
+    /*
+    //VALUE type data processing
+    
+    */
+    
+    //There should be a report after processing the DP
+    ret = mcu_dp_value_update(DPID_COUNTDOWN,countdown);
+    if(ret == SUCCESS)
+        return SUCCESS;
+    else
+        return ERROR;
+}
+/*****************************************************************************
+函数名称 : dp_download_effect_name_1_handle
+功能描述 : 针对DPID_EFFECT_NAME_1的处理函数
+输入参数 : value:数据源数据
+        : length:数据长度
+返回参数 : 成功返回:SUCCESS/失败返回:ERROR
+使用说明 : 可下发可上报类型,需要在处理完数据后上报处理结果至app
+*****************************************************************************/
+static unsigned char dp_download_effect_name_1_handle(const unsigned char value[], unsigned short length)
+{
+    //示例:当前DP类型为STRING
+    unsigned char ret;
+    /*
+    //STRING type data processing
+    unsigned char string_data[8];
+    
+    string_data[0] = value[0];
+    string_data[1] = value[1];
+    string_data[2] = value[2];
+    string_data[3] = value[3];
+    string_data[4] = value[4];
+    string_data[5] = value[5];
+    string_data[6] = value[6];
+    string_data[7] = value[7];
+    */
+    
+    //There should be a report after processing the DP
+    ret = mcu_dp_string_update(DPID_EFFECT_NAME_1,value, length);
+    if(ret == SUCCESS)
+        return SUCCESS;
+    else
+        return ERROR;
+}
+/*****************************************************************************
+函数名称 : dp_download_device_name_handle
+功能描述 : 针对DPID_DEVICE_NAME的处理函数
+输入参数 : value:数据源数据
+        : length:数据长度
+返回参数 : 成功返回:SUCCESS/失败返回:ERROR
+使用说明 : 可下发可上报类型,需要在处理完数据后上报处理结果至app
+*****************************************************************************/
+static unsigned char dp_download_device_name_handle(const unsigned char value[], unsigned short length)
+{
+    //示例:当前DP类型为STRING
+    unsigned char ret;
+    /*
+    //STRING type data processing
+    unsigned char string_data[8];
+    
+    string_data[0] = value[0];
+    string_data[1] = value[1];
+    string_data[2] = value[2];
+    string_data[3] = value[3];
+    string_data[4] = value[4];
+    string_data[5] = value[5];
+    string_data[6] = value[6];
+    string_data[7] = value[7];
+    */
+    
+    //There should be a report after processing the DP
+    ret = mcu_dp_string_update(DPID_DEVICE_NAME,value, length);
+    if(ret == SUCCESS)
+        return SUCCESS;
+    else
+        return ERROR;
+}
+/*****************************************************************************
+函数名称 : dp_download_effect_list_handle
+功能描述 : 针对DPID_EFFECT_LIST的处理函数
+输入参数 : value:数据源数据
+        : length:数据长度
+返回参数 : 成功返回:SUCCESS/失败返回:ERROR
+使用说明 : 可下发可上报类型,需要在处理完数据后上报处理结果至app
+*****************************************************************************/
+static unsigned char dp_download_effect_list_handle(const unsigned char value[], unsigned short length)
+{
+    //示例:当前DP类型为RAW
+    unsigned char ret;
+    /*
+    //RAW type data processing
+    
+    */
+    
+    //There should be a report after processing the DP
+    ret = mcu_dp_raw_update(DPID_EFFECT_LIST,value,length);
+    if(ret == SUCCESS)
+        return SUCCESS;
+    else
+        return ERROR;
+}
+/*****************************************************************************
+函数名称 : dp_download_effect_detial_handle
+功能描述 : 针对DPID_EFFECT_DETIAL的处理函数
+输入参数 : value:数据源数据
+        : length:数据长度
+返回参数 : 成功返回:SUCCESS/失败返回:ERROR
+使用说明 : 可下发可上报类型,需要在处理完数据后上报处理结果至app
+*****************************************************************************/
+static unsigned char dp_download_effect_detial_handle(const unsigned char value[], unsigned short length)
+{
+    //示例:当前DP类型为RAW
+    unsigned char ret;
+    /*
+    //RAW type data processing
+    
+    */
+    
+    //There should be a report after processing the DP
+    ret = mcu_dp_raw_update(DPID_EFFECT_DETIAL,value,length);
     if(ret == SUCCESS)
         return SUCCESS;
     else
@@ -220,9 +405,9 @@ static unsigned char dp_download_user_protocol_handle(const unsigned char value[
     unsigned char ret;
     /*
     //RAW type data processing
-
+    
     */
-    RAW_processing(value,length);
+    
     //There should be a report after processing the DP
     ret = mcu_dp_raw_update(DPID_USER_PROTOCOL,value,length);
     if(ret == SUCCESS)
@@ -243,14 +428,14 @@ static unsigned char dp_download_bright_val_handle(const unsigned char value[], 
     //示例:当前DP类型为VALUE
     unsigned char ret;
     unsigned long bright_val;
-
+    
     bright_val = mcu_get_dp_download_value(value,length);
     /*
     //VALUE type data processing
-
+    
     */
-    SYS.Brightness.Set = bright_val;
-    // There should be a report after processing the DP
+    
+    //There should be a report after processing the DP
     ret = mcu_dp_value_update(DPID_BRIGHT_VAL,bright_val);
     if(ret == SUCCESS)
         return SUCCESS;
@@ -271,14 +456,14 @@ static unsigned char dp_download_switch_mic_handle(const unsigned char value[], 
     unsigned char ret;
     //0:off/1:on
     unsigned char switch_mic;
-
+    
     switch_mic = mcu_get_dp_download_bool(value,length);
     if(switch_mic == 0) {
         //bool off
     }else {
         //bool on
     }
-
+  
     //There should be a report after processing the DP
     ret = mcu_dp_bool_update(DPID_SWITCH_MIC,switch_mic);
     if(ret == SUCCESS)
@@ -300,14 +485,14 @@ static unsigned char dp_download_switch_indicator_handle(const unsigned char val
     unsigned char ret;
     //0:off/1:on
     unsigned char switch_indicator;
-
+    
     switch_indicator = mcu_get_dp_download_bool(value,length);
     if(switch_indicator == 0) {
         //bool off
     }else {
         //bool on
     }
-
+  
     //There should be a report after processing the DP
     ret = mcu_dp_bool_update(DPID_SWITCH_INDICATOR,switch_indicator);
     if(ret == SUCCESS)
@@ -328,13 +513,13 @@ static unsigned char dp_download_effect_num_handle(const unsigned char value[], 
     //示例:当前DP类型为VALUE
     unsigned char ret;
     unsigned long effect_num;
-
+    
     effect_num = mcu_get_dp_download_value(value,length);
     /*
     //VALUE type data processing
-
+    
     */
-
+    
     //There should be a report after processing the DP
     ret = mcu_dp_value_update(DPID_EFFECT_NUM,effect_num);
     if(ret == SUCCESS)
@@ -355,13 +540,13 @@ static unsigned char dp_download_playlist_num_handle(const unsigned char value[]
     //示例:当前DP类型为VALUE
     unsigned char ret;
     unsigned long playlist_num;
-
+    
     playlist_num = mcu_get_dp_download_value(value,length);
     /*
     //VALUE type data processing
-
+    
     */
-
+    
     //There should be a report after processing the DP
     ret = mcu_dp_value_update(DPID_PLAYLIST_NUM,playlist_num);
     if(ret == SUCCESS)
@@ -382,13 +567,13 @@ static unsigned char dp_download_brightness_auto_handle(const unsigned char valu
     //示例:当前DP类型为VALUE
     unsigned char ret;
     unsigned long brightness_auto;
-
+    
     brightness_auto = mcu_get_dp_download_value(value,length);
     /*
     //VALUE type data processing
-
+    
     */
-
+    
     //There should be a report after processing the DP
     ret = mcu_dp_value_update(DPID_BRIGHTNESS_AUTO,brightness_auto);
     if(ret == SUCCESS)
@@ -409,13 +594,13 @@ static unsigned char dp_download_system_state_handle(const unsigned char value[]
     //示例:当前DP类型为VALUE
     unsigned char ret;
     unsigned long system_state;
-
+    
     system_state = mcu_get_dp_download_value(value,length);
     /*
     //VALUE type data processing
-
+    
     */
-
+    
     //There should be a report after processing the DP
     ret = mcu_dp_value_update(DPID_SYSTEM_STATE,system_state);
     if(ret == SUCCESS)
@@ -436,15 +621,111 @@ static unsigned char dp_download_running_state_handle(const unsigned char value[
     //示例:当前DP类型为VALUE
     unsigned char ret;
     unsigned long running_state;
-
+    
     running_state = mcu_get_dp_download_value(value,length);
     /*
     //VALUE type data processing
-
+    
     */
-
+    
     //There should be a report after processing the DP
     ret = mcu_dp_value_update(DPID_RUNNING_STATE,running_state);
+    if(ret == SUCCESS)
+        return SUCCESS;
+    else
+        return ERROR;
+}
+/*****************************************************************************
+函数名称 : dp_download_play_list_handle
+功能描述 : 针对DPID_PLAY_LIST的处理函数
+输入参数 : value:数据源数据
+        : length:数据长度
+返回参数 : 成功返回:SUCCESS/失败返回:ERROR
+使用说明 : 可下发可上报类型,需要在处理完数据后上报处理结果至app
+*****************************************************************************/
+static unsigned char dp_download_play_list_handle(const unsigned char value[], unsigned short length)
+{
+    //示例:当前DP类型为RAW
+    unsigned char ret;
+    /*
+    //RAW type data processing
+    
+    */
+    
+    //There should be a report after processing the DP
+    ret = mcu_dp_raw_update(DPID_PLAY_LIST,value,length);
+    if(ret == SUCCESS)
+        return SUCCESS;
+    else
+        return ERROR;
+}
+/*****************************************************************************
+函数名称 : dp_download_play_detial_handle
+功能描述 : 针对DPID_PLAY_DETIAL的处理函数
+输入参数 : value:数据源数据
+        : length:数据长度
+返回参数 : 成功返回:SUCCESS/失败返回:ERROR
+使用说明 : 可下发可上报类型,需要在处理完数据后上报处理结果至app
+*****************************************************************************/
+static unsigned char dp_download_play_detial_handle(const unsigned char value[], unsigned short length)
+{
+    //示例:当前DP类型为RAW
+    unsigned char ret;
+    /*
+    //RAW type data processing
+    
+    */
+    
+    //There should be a report after processing the DP
+    ret = mcu_dp_raw_update(DPID_PLAY_DETIAL,value,length);
+    if(ret == SUCCESS)
+        return SUCCESS;
+    else
+        return ERROR;
+}
+/*****************************************************************************
+函数名称 : dp_download_link_status_handle
+功能描述 : 针对DPID_LINK_STATUS的处理函数
+输入参数 : value:数据源数据
+        : length:数据长度
+返回参数 : 成功返回:SUCCESS/失败返回:ERROR
+使用说明 : 可下发可上报类型,需要在处理完数据后上报处理结果至app
+*****************************************************************************/
+static unsigned char dp_download_link_status_handle(const unsigned char value[], unsigned short length)
+{
+    //示例:当前DP类型为RAW
+    unsigned char ret;
+    /*
+    //RAW type data processing
+    
+    */
+    
+    //There should be a report after processing the DP
+    ret = mcu_dp_raw_update(DPID_LINK_STATUS,value,length);
+    if(ret == SUCCESS)
+        return SUCCESS;
+    else
+        return ERROR;
+}
+/*****************************************************************************
+函数名称 : dp_download_global_status_handle
+功能描述 : 针对DPID_GLOBAL_STATUS的处理函数
+输入参数 : value:数据源数据
+        : length:数据长度
+返回参数 : 成功返回:SUCCESS/失败返回:ERROR
+使用说明 : 可下发可上报类型,需要在处理完数据后上报处理结果至app
+*****************************************************************************/
+static unsigned char dp_download_global_status_handle(const unsigned char value[], unsigned short length)
+{
+    //示例:当前DP类型为RAW
+    unsigned char ret;
+    /*
+    //RAW type data processing
+    
+    */
+    
+    //There should be a report after processing the DP
+    ret = mcu_dp_raw_update(DPID_GLOBAL_STATUS,value,length);
     if(ret == SUCCESS)
         return SUCCESS;
     else
@@ -455,7 +736,7 @@ static unsigned char dp_download_running_state_handle(const unsigned char value[
 
 
 /******************************************************************************
-                                WARNING!!!
+                                WARNING!!!                     
 此部分函数用户请勿修改!!
 ******************************************************************************/
 
@@ -472,7 +753,7 @@ static unsigned char dp_download_running_state_handle(const unsigned char value[
 u8 dp_download_handle(u8 dpid,const u8 value[], u16 length)
 {
     /*********************************
-    当前函数处理可下发/可上报数据调用
+    当前函数处理可下发/可上报数据调用                    
     具体函数内需要实现下发数据处理
     完成用需要将处理结果反馈至APP端,否则APP会认为下发失败
     ***********************************/
@@ -485,6 +766,30 @@ u8 dp_download_handle(u8 dpid,const u8 value[], u16 length)
         case DPID_WORK_MODE:
             //工作模式处理函数
             ret = dp_download_work_mode_handle(value,length);
+        break;
+        case DPID_BRIGHT_VALUE:
+            //白光亮度处理函数
+            ret = dp_download_bright_value_handle(value,length);
+        break;
+        case DPID_COUNTDOWN:
+            //倒计时处理函数
+            ret = dp_download_countdown_handle(value,length);
+        break;
+        case DPID_EFFECT_NAME_1:
+            //特效名字列表1处理函数
+            ret = dp_download_effect_name_1_handle(value,length);
+        break;
+        case DPID_DEVICE_NAME:
+            //设备名字处理函数
+            ret = dp_download_device_name_handle(value,length);
+        break;
+        case DPID_EFFECT_LIST:
+            //特效列表数据处理函数
+            ret = dp_download_effect_list_handle(value,length);
+        break;
+        case DPID_EFFECT_DETIAL:
+            //某个特效的详情处理函数
+            ret = dp_download_effect_detial_handle(value,length);
         break;
         case DPID_USER_PROTOCOL:
             //自定义协议处理函数
@@ -522,8 +827,24 @@ u8 dp_download_handle(u8 dpid,const u8 value[], u16 length)
             //运行状态标志处理函数
             ret = dp_download_running_state_handle(value,length);
         break;
+        case DPID_PLAY_LIST:
+            //播放列表处理函数
+            ret = dp_download_play_list_handle(value,length);
+        break;
+        case DPID_PLAY_DETIAL:
+            //播放详情处理函数
+            ret = dp_download_play_detial_handle(value,length);
+        break;
+        case DPID_LINK_STATUS:
+            //连接状态处理函数
+            ret = dp_download_link_status_handle(value,length);
+        break;
+        case DPID_GLOBAL_STATUS:
+            //全局状态处理函数
+            ret = dp_download_global_status_handle(value,length);
+        break;
 
-
+        
         default:
         break;
     }
@@ -543,7 +864,7 @@ u8 get_download_cmd_total(void)
 
 
 /******************************************************************************
-                                WARNING!!!
+                                WARNING!!!                     
 此代码为SDK内部调用,请按照实际dp数据实现函数内部数据
 ******************************************************************************/
 
@@ -559,7 +880,7 @@ u8 get_download_cmd_total(void)
  */
 void upgrade_package_choose(u8 package_sz)
 {
-// // //    #error "请自行实现请自行实现升级包大小选择代码,完成后请删除该行"
+   #error "请自行实现请自行实现升级包大小选择代码,完成后请删除该行"
     u16 send_len = 0;
     send_len = set_wifi_uart_byte(send_len, package_sz);
     wifi_uart_write_frame(UPDATE_START_CMD, MCU_TX_VER, send_len);
@@ -575,37 +896,15 @@ void upgrade_package_choose(u8 package_sz)
  */
 u8 mcu_firm_update_handle(const u8 value[],u32 position,u16 length)
 {
-    // // #error "请自行完成MCU固件升级代码,完成后请删除该行"
-    static uint32_t checksum;   // 升级包校验和
-    if (length == 0)
-    {
+    #error "请自行完成MCU固件升级代码,完成后请删除该行"
+    if(length == 0) {
         //固件数据发送完成
-        if (Download_checksum_verify(checksum)) // 校验
-        {
-            printf("\rdownload finish!\r\n");
-            printf("buffer checksum is 0x%04x\r", checksum);
-            OTA_SetFlag(checksum);
-            /* 重启*/
-            printf("\rSystemReset\r\n");
-            __NVIC_SystemReset();
-        }
-        else
-        {
-            printf("please restart !\r\n");
-        }
-    }
-    else
-    {
+      
+    }else {
         //固件数据处理
-        if (position == 0)
-        {
-            checksum = 0;
-            printf("CheckSum init \r\n", checksum);
-        }
-        Download_app(position, value);
-        CheckSum_calculate(&checksum, value);
+      
     }
-
+    
     return SUCCESS;
 }
 #endif
@@ -619,7 +918,7 @@ u8 mcu_firm_update_handle(const u8 value[],u32 position,u16 length)
  */
 void mcu_get_greentime(u8 time[])
 {
-    // #error "请自行完成相关代码,并删除该行"
+    #error "请自行完成相关代码,并删除该行"
     /*
     time[0] 为是否获取时间成功标志，为 0 表示失败，为 1表示成功
     time[1] 为年份，0x00 表示 2000 年
@@ -631,11 +930,9 @@ void mcu_get_greentime(u8 time[])
     */
     if(time[0] == 1) {
         //正确接收到wifi模块返回的格林数据
-        // printf("get greentime\r\n");
-
+        
     }else {
         //获取格林时间出错,有可能是当前wifi模块未联网
-
     }
 }
 #endif
@@ -649,7 +946,7 @@ void mcu_get_greentime(u8 time[])
  */
 void mcu_write_rtctime(u8 time[])
 {
-    // // // #error "请自行完成RTC时钟写入代码,并删除该行"
+    #error "请自行完成RTC时钟写入代码,并删除该行"
     /*
     Time[0] 为是否获取时间成功标志，为 0 表示失败，为 1表示成功
     Time[1] 为年份，0x00 表示 2000 年
@@ -661,12 +958,10 @@ void mcu_write_rtctime(u8 time[])
     Time[7] 为星期，从 1 开始到 7 结束，1代表星期一
    */
     if(time[0] == 1) {
-        RTC_Check(&time[0]);
         //正确接收到wifi模块返回的本地时钟数据
-        // printf("20%d/%d/%d   %d:%d:%d\n",time[1],time[2],time[3],time[4],time[5],time[6]);
+     
     }else {
         //获取本地时钟数据出错,有可能是当前wifi模块未联网
-        // printf("get time ERROR!\r\n");
     }
 }
 #endif
@@ -683,7 +978,7 @@ void mcu_write_rtctime(u8 time[])
  */
 void wifi_test_result(u8 result,u8 rssi)
 {
-    // // #error "请自行实现wifi功能测试成功/失败代码,完成后请删除该行"
+    #error "请自行实现wifi功能测试成功/失败代码,完成后请删除该行"
     if(result == 0) {
         //测试失败
         if(rssi == 0x00) {
@@ -708,7 +1003,7 @@ void wifi_test_result(u8 result,u8 rssi)
 void remain_memory_result(u32 module_memory)
 {
     //#error "请自行实现获取模块内存处理代码,完成后请删除该行"
-
+    
 }
 #endif
 
@@ -744,26 +1039,26 @@ void get_router_rssi_result(u8 rssi)
  */
 void update_wifi_status(u8 wifi_state_flag, u8 wifi_state)
 {
-    // // // #error "请自行完成获取 WIFI 状态结果代码,并删除该行"
+    #error "请自行完成获取 WIFI 状态结果代码,并删除该行"
     if(0x00 == wifi_state_flag) { //tuya网络状态
         ty_wifi_work_state = wifi_state;
         switch(wifi_state) {
             case 0:
                 //配置状态
             break;
-
+        
             case 1:
                 //WIFI 已配置但未连上路由器
             break;
-
+            
             case 2:
                 //WIFI 已配置且连上路由器
             break;
-
+            
             case 3:
                 //已连上路由器且连接到云端
             break;
-
+            
             default:break;
         }
     }else {
@@ -772,22 +1067,22 @@ void update_wifi_status(u8 wifi_state_flag, u8 wifi_state)
                 hk_wifi_work_state = wifi_state;
                 //待绑定或绑定中
             break;
-
+        
             case 1:
                 hk_wifi_work_state = wifi_state;
                 //WIFI 已配置但未连接APP
             break;
-
+            
             case 2:
                 hk_wifi_work_state = wifi_state;
                 //WIFI 已配置且已连接APP
             break;
-
+            
             case 3:
                 //配件连接提示
                 //收到此状态，表示用户发送了配件识别，需要设备5s内有所反馈，例如网络指示灯闪烁3次，或蜂鸣器响3声
             break;
-
+            
             default:break;
         }
     }
@@ -810,7 +1105,7 @@ void mcu_get_mac(u8 mac[])
     mac[0]为是否获取mac成功标志，0x00 表示成功，为0x01表示失败
     mac[1]~mac[6]:当获取 MAC地址标志位如果mac[0]为成功，则表示模块有效的MAC地址
    */
-
+   
     if(mac[0] == 1) {
         //获取mac出错
     }else {
@@ -825,14 +1120,14 @@ void mcu_get_mac(u8 mac[])
  * @param[in] {p_data} 串口数据
  * @param[in] {data_len} 数据长度
  * @return Null
- * @note
+ * @note   
  */
 static void get_module_infor_result(u8 p_data[], u16 data_len)
 {
     #error "请自行完成获取WIFI模块相关数据信息结果处理代码,并删除该行"
-
+    
     char *p_str = NULL;
-
+    
     if(0 != p_data[0]) {
         //失败
     }else {
@@ -849,7 +1144,7 @@ static void get_module_infor_result(u8 p_data[], u16 data_len)
             //2：表示JP，包含区域为：日本（1-14）。
             //3：表示EU，包含区域为：欧洲。
             //请在此添加国家码处理代码
-
+            
         }
     }
 }
@@ -859,7 +1154,7 @@ static void get_module_infor_result(u8 p_data[], u16 data_len)
  * @param[in] {p_data} 串口数据
  * @param[in] {data_len} 数据长度
  * @return Null
- * @note
+ * @note   
  */
 void module_extend_function(u8 p_data[], u16 data_len)
 {
@@ -879,7 +1174,7 @@ void module_extend_function(u8 p_data[], u16 data_len)
  * @brief  设备新功能设置通知结果
  * @param[in] {result} 结果
  * @return Null
- * @note
+ * @note   
  */
 static void mcu_set_module_new_func_info_result(u8 result)
 {
@@ -887,15 +1182,15 @@ static void mcu_set_module_new_func_info_result(u8 result)
         case 0:
             //成功
         break;
-
+        
         case 1:
             //数据字段内容不合法
         break;
-
+        
         case 2:
             //设置执行失败
         break;
-
+        
         default:break;
     }
 }
@@ -905,7 +1200,7 @@ static void mcu_set_module_new_func_info_result(u8 result)
  * @param[in] {p_data} 串口数据
  * @param[in] {data_len} 数据长度
  * @return Null
- * @note
+ * @note   
  */
 void mcu_set_new_func_result(u8 p_data[], u16 data_len)
 {
@@ -919,3 +1214,10 @@ void mcu_set_new_func_result(u8 p_data[], u16 data_len)
 }
 #endif
 #endif
+
+
+
+
+
+
+

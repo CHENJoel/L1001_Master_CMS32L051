@@ -9,7 +9,7 @@
  * @author  涂鸦综合协议开发组
  * @version v1.0.4
  * @date    2021.6.1
- * @brief
+ * @brief   
  *          此文件包含HomeKit功能实现
  */
 
@@ -34,7 +34,7 @@
 #ifdef HOMEKIT_PRODUCT_TYPE
 //#define HOMEKIT_SERV_FAN_V2                                         //风扇
 //#define HOMEKIT_SERV_GARAGE_DOOR_OPENER                             //车库门开启器
-#define HOMEKIT_SERV_LIGHTBULB                                      //灯泡
+//#define HOMEKIT_SERV_LIGHTBULB                                      //灯泡
 //#define HOMEKIT_SERV_THERMOSTAT                                     //恒温器
 //#define HOMEKIT_SERV_DOOR                                           //门
 //#define HOMEKIT_SERV_WINDOW                                         //窗户
@@ -1078,7 +1078,7 @@ HOMEKIT_SERVICE_S homekit_service[] = {
  * @brief  数值换算成小数部分
  * @param[in] {val} int类型数据
  * @return 转换之后的float类型数据
- * @note
+ * @note   
  */
 float int_change_fraction(u32 val)
 {
@@ -1095,7 +1095,7 @@ float int_change_fraction(u32 val)
  * @brief  小数部分换算成数值
  * @param[in] {f_val} float类型数据
  * @return 转换之后的int类型数据
- * @note
+ * @note   
  */
 u32 fractional_part_change_int(float f_val)
 {
@@ -1126,7 +1126,7 @@ u32 fractional_part_change_int(float f_val)
  * @brief  特性有效值配置
  * @param  Null
  * @return Null
- * @note
+ * @note   
  */
 static void char_valid_value_cfg(void)
 {
@@ -1135,18 +1135,18 @@ static void char_valid_value_cfg(void)
     u16 send_len = 0;
     char strbuff[80] = {0};
     u8 strlen = 0;
-
+    
     switch(cfg_count++) {
         case 0:
             //请在此处配置有效值配置字符串
             //例如:strlen = sprintf(strbuff, "{\"service_serial\":7,\"char_str\":\"A9\",\"val_type\":0,\"valid_val\":[0,2]}");
         break;
-
+        
         //如果需要配置多个，请添加case
 //        case 1:
 //            //请在此处配置有效值配置字符串
 //        break;
-
+        
         default:
             //有效值配置完成，结束服务配置
             send_len = set_wifi_uart_byte(send_len, HK_SUB_CMD_CFG_QUERY);
@@ -1155,7 +1155,7 @@ static void char_valid_value_cfg(void)
             return;
         break;
     }
-
+    
     send_len = set_wifi_uart_byte(send_len, HK_SUB_CMD_CHARACTER_VALID_CFG);
     send_len = set_wifi_uart_buffer(send_len, strbuff, strlen);
     wifi_uart_write_frame(HOMEKIT_FUN_CMD, MCU_TX_VER, send_len);
@@ -1166,15 +1166,15 @@ static void char_valid_value_cfg(void)
  * @brief  HomeKit相关功能处理
  * @param[in] {p_data} 串口数据
  * @return Null
- * @note
+ * @note   
  */
 static void homekit_service_cfg(u8 p_data[], u16 data_len)
 {
     static u8 service_cfg_count = 0;
-
+    
     u16 send_len = 0;
     u16 i = 0;
-
+    
     switch(p_data[0]) { //子命令
         case HK_SUB_CMD_CFG_QUERY:
             if(0 != CNTSOF(homekit_service)) {
@@ -1187,29 +1187,29 @@ static void homekit_service_cfg(u8 p_data[], u16 data_len)
                 wifi_uart_write_frame(HOMEKIT_FUN_CMD, MCU_TX_VER, send_len);
             }
         break;
-
+        
         case HK_SUB_CMD_SERVICE_CFG:
             if(0x00 == p_data[1]) {
                 //服务配置成功
                 homekit_service[service_cfg_count].config_flag = !p_data[1];
-
+                
                 //发送可选特性配置
                 send_len = 0;
                 send_len = set_wifi_uart_byte(send_len, HK_SUB_CMD_CHARACTER_CFG);
                 send_len = set_wifi_uart_byte(send_len, homekit_service[service_cfg_count].serial);
-
+                
                 for(i = 0; i < homekit_service[service_cfg_count].character_amount; i++) {
                     if(TRUE == homekit_service[service_cfg_count].p_character_arr[i].character_sort_flag) {
                         continue; //必选特性不必发送
                     }
-
+                    
                     send_len = set_wifi_uart_byte(send_len, my_strlen(homekit_service[service_cfg_count].p_character_arr[i].p_character_str));
                     send_len = set_wifi_uart_buffer(send_len, homekit_service[service_cfg_count].p_character_arr[i].p_character_str, my_strlen(homekit_service[service_cfg_count].p_character_arr[i].p_character_str));
                 }
-
+                
                 if(2 == send_len) { //无可选特性配置
                     service_cfg_count++; //此服务完成配置
-
+                
                     //判断是否还有服务配置要发送，如果有则继续发送
                     if(service_cfg_count < CNTSOF(homekit_service)) { //还有服务需要配置
                         send_len = 0;
@@ -1238,12 +1238,12 @@ static void homekit_service_cfg(u8 p_data[], u16 data_len)
                 //服务配置失败
             }
         break;
-
+        
         case HK_SUB_CMD_CHARACTER_CFG:
             if(0x00 == p_data[1]) {
                 //可选特性配置成功
                 u8 character_cfg_num = 0;
-
+                
                 for(i = 0; i < homekit_service[service_cfg_count].character_amount; i++) {
                     if(TRUE == homekit_service[service_cfg_count].p_character_arr[i].character_sort_flag) {
                         continue; //必选特性不必处理
@@ -1251,15 +1251,15 @@ static void homekit_service_cfg(u8 p_data[], u16 data_len)
                     character_cfg_num++;
                     if(data_len - 2 < character_cfg_num) {
                         //接收的数据有误
-
+                        
                         service_cfg_count = 0;
                         return;
                     }
                     homekit_service[service_cfg_count].p_character_arr[i].character_config_flag = TRUE;
                 }
-
+                
                 service_cfg_count++; //此服务完成配置
-
+                
                 //判断是否还有服务配置要发送，如果有则继续发送
                 if(service_cfg_count < CNTSOF(homekit_service)) { //还有服务需要配置
                     send_len = 0;
@@ -1284,7 +1284,7 @@ static void homekit_service_cfg(u8 p_data[], u16 data_len)
                 //可选特性配置失败
             }
         break;
-
+        
         default:break;
     }
 }
@@ -1295,7 +1295,7 @@ static void homekit_service_cfg(u8 p_data[], u16 data_len)
  * @param[in] {p_data} 串口数据
  * @param[in] {data_len} 数据长度
  * @return Null
- * @note
+ * @note   
  */
 void homekit_character_parse(u8 p_data[], u16 data_len)
 {
@@ -1308,7 +1308,7 @@ void homekit_character_parse(u8 p_data[], u16 data_len)
     u16 char_val_len = 0;
     u8 *p_char_data_val = NULL;
     HAP_VALUE_T char_val = {0};
-
+    
     for(offset = 1;offset < data_len; ) {
         serv_serial = p_data[offset];
         char_str_len = p_data[offset + 1];
@@ -1316,20 +1316,20 @@ void homekit_character_parse(u8 p_data[], u16 data_len)
         char_data_type = p_data[offset + 2 + char_str_len];
         char_val_len = (p_data[offset + 3 + char_str_len] << 8) | p_data[offset + 4 + char_str_len];
         p_char_data_val = p_data + offset + 5 + char_str_len;
-
+        
         switch(char_data_type) {
             case HAP_DATA_TYPE_BOOL:
                 char_val.b = p_char_data_val[0]? TRUE : FALSE;
             break;
-
+            
             case HAP_DATA_TYPE_UINT:
                 char_val.u = (p_char_data_val[0] << 24) | (p_char_data_val[1] << 16) | (p_char_data_val[2] << 8) | p_char_data_val[3];
             break;
-
+            
             case HAP_DATA_TYPE_INT:
                 char_val.i = (p_char_data_val[0] << 24) | (p_char_data_val[1] << 16) | (p_char_data_val[2] << 8) | p_char_data_val[3];
             break;
-
+            
             case HAP_DATA_TYPE_UINT64:
                 char_val.i64 = p_char_data_val[0];
                 char_val.i64 = (char_val.i64 << 8) | p_char_data_val[1];
@@ -1340,11 +1340,11 @@ void homekit_character_parse(u8 p_data[], u16 data_len)
                 char_val.i64 = (char_val.i64 << 8) | p_char_data_val[6];
                 char_val.i64 = (char_val.i64 << 8) | p_char_data_val[7];
             break;
-
+            
             case HAP_DATA_TYPE_FLOAT:
                 char_val.f = ((p_char_data_val[0] << 8) | p_char_data_val[1]) + int_change_fraction((p_char_data_val[2] << 8) | p_char_data_val[3]);
             break;
-
+            
             case HAP_DATA_TYPE_STRING:
                 char_val.s = (i8 *)malloc(char_val_len + 1);
                 if(NULL == char_val.s) {
@@ -1354,7 +1354,7 @@ void homekit_character_parse(u8 p_data[], u16 data_len)
                 memset(char_val.s, 0, char_val_len + 1);
                 my_memcpy(char_val.s, p_char_data_val, char_val_len + 1);
             break;
-
+            
             case HAP_DATA_TYPE_RAW:
                 char_val.d.buf = (u8 *)malloc(char_val_len);
                 if(NULL == char_val.s) {
@@ -1367,14 +1367,14 @@ void homekit_character_parse(u8 p_data[], u16 data_len)
 
             default:break;
         }
-
+        
         ret = homekit_character_ctrl(serv_serial, char_str, char_data_type, char_val_len, &char_val);
         if(SUCCESS == ret) {
             //成功提示
         }else {
             //错误提示
         }
-
+        
         if(HAP_DATA_TYPE_STRING == char_data_type) {
             free(char_val.s);
         }
@@ -1392,7 +1392,7 @@ void homekit_character_parse(u8 p_data[], u16 data_len)
  * @param[in] {p_data} 串口数据
  * @param[in] {data_len} 数据长度
  * @return Null
- * @note
+ * @note   
  */
 void homekit_function(u8 p_data[], u16 data_len)
 {
@@ -1409,9 +1409,9 @@ void homekit_function(u8 p_data[], u16 data_len)
         case HK_SUB_CMD_CHARACTER_VALID_CFG:
             if(0 != p_data[1]) {
                 //可选特性配置失败，可在此添加失败提示和处理代码
-
+                
             }
-
+            
             char_valid_value_cfg(); //HomeKit特性有效值配置
         break;
 #endif
@@ -1430,14 +1430,14 @@ void homekit_function(u8 p_data[], u16 data_len)
  * @param[in] {char_val_len} 特性数据长度
  * @param[in] {p_char_val} 特性数据
  * @return SUCCESS/ERROR
- * @note
+ * @note   
  */
 u8 homekit_character_ctrl(u8 serv_serial, i8 p_char_str[], u8 char_data_type, u16 char_val_len, HAP_VALUE_T *p_char_val)
 {
-//    #error "请自行完成 homekit 命令下发处理代码,并删除该行"
-
+    #error "请自行完成 homekit 命令下发处理代码,并删除该行"
+    
     u8 serv_i = 0, char_j = 0;
-
+    
     for(serv_i = 0; serv_i < CNTSOF(homekit_service); serv_i++) {
         if(serv_serial == homekit_service[serv_i].serial) {
             for(char_j = 0; char_j < homekit_service[serv_i].character_amount; char_j++) {
@@ -1450,9 +1450,9 @@ u8 homekit_character_ctrl(u8 serv_serial, i8 p_char_str[], u8 char_data_type, u1
                         //char_data_type:数据类型
                         //char_val_len:数据长度
                         //p_char_val:数据
-
-
-
+                        
+                        
+                        
                         //可在此添加状态上报。例如：
                         //homekit_character_upload(serv_serial, homekit_service[serv_i].p_character_arr[char_j].p_character_str, char_data_type, char_val_len, p_char_val);
                         return SUCCESS;
@@ -1479,7 +1479,7 @@ u8 homekit_character_upload(u8 serv_serial, i8 p_char_str[], u8 char_data_type, 
 {
     u8 serv_i = 0, char_j = 0;
     u16 send_len = 0;
-
+    
     for(serv_i = 0; serv_i < CNTSOF(homekit_service); serv_i++) {
         if(serv_serial == homekit_service[serv_i].serial) {
             for(char_j = 0; char_j < homekit_service[serv_i].character_amount; char_j++) {
@@ -1493,7 +1493,7 @@ u8 homekit_character_upload(u8 serv_serial, i8 p_char_str[], u8 char_data_type, 
                         send_len = set_wifi_uart_byte(send_len, char_data_type);
                         send_len = set_wifi_uart_byte(send_len, (char_val_len >> 8) & 0xff);
                         send_len = set_wifi_uart_byte(send_len, char_val_len & 0xff);
-
+                        
                         switch(char_data_type) {
                             case HAP_DATA_TYPE_BOOL: {
                                 send_len = set_wifi_uart_byte(send_len, p_char_val->b);
@@ -1533,7 +1533,7 @@ u8 homekit_character_upload(u8 serv_serial, i8 p_char_str[], u8 char_data_type, 
                                 u16 float_val_integer = 0, float_val_fraction = 0;
                                 float_val_integer = (u16)p_char_val->f;
                                 float_val_fraction = fractional_part_change_int(p_char_val->f); //小数部分转换成整数
-
+                                
                                 send_len = set_wifi_uart_byte(send_len, (float_val_integer >> 8) & 0xff);
                                 send_len = set_wifi_uart_byte(send_len, float_val_integer & 0xff);
                                 send_len = set_wifi_uart_byte(send_len, (float_val_fraction >> 8) & 0xff);
@@ -1555,9 +1555,9 @@ u8 homekit_character_upload(u8 serv_serial, i8 p_char_str[], u8 char_data_type, 
                                 return ERROR;
                             break;
                         }
-
+                        
                         wifi_uart_write_frame(HOMEKIT_FUN_CMD, MCU_TX_VER, send_len);
-
+                        
                         return SUCCESS;
                     }
                 }
@@ -1572,13 +1572,13 @@ u8 homekit_character_upload(u8 serv_serial, i8 p_char_str[], u8 char_data_type, 
  * @brief  HomeKit特性上报所有状态
  * @param[in] Null
  * @return Null
- * @note
+ * @note   
  */
 void homekit_character_upload_all(void)
 {
     u8 serv_i = 0, char_j = 0;
     u8 data_len = 0;
-
+    
     for(serv_i = 0; serv_i < CNTSOF(homekit_service); serv_i++) {
         for(char_j = 0; char_j < homekit_service[serv_i].character_amount; char_j++) {
             switch(homekit_service[serv_i].p_character_arr[char_j].hap_val_type) {
@@ -1621,9 +1621,10 @@ void homekit_character_upload_all(void)
                     return;
                 break;
             }
-            homekit_character_upload(homekit_service[serv_i].serial, homekit_service[serv_i].p_character_arr[char_j].p_character_str, homekit_service[serv_i].p_character_arr[char_j].hap_val_type,
+            homekit_character_upload(homekit_service[serv_i].serial, homekit_service[serv_i].p_character_arr[char_j].p_character_str, homekit_service[serv_i].p_character_arr[char_j].hap_val_type, 
                                         data_len, &homekit_service[serv_i].p_character_arr[char_j].hap_val);
         }
     }
 }
 #endif
+
