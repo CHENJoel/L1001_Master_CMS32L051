@@ -43,6 +43,7 @@
 .\objects\color.o: ..\USER\mcu_sdk\system.h
 .\objects\color.o: ..\USER\mcu_sdk\mcu_api.h
 .\objects\color.o: ..\USER\mcu_sdk\homekit.h
+.\objects\color.o: ..\USER\Include\Inf.h
 .\objects\color.o: ..\USER\Include\memory.h
 .\objects\color.o: ..\USER\Include\driver_spi.h
 .\objects\color.o: ..\USER\Include\driver_w25qxx.h
@@ -50,4 +51,3 @@
 .\objects\color.o: ..\USER\Include\colorbox.h
 .\objects\color.o: ..\USER\Include\OTA.h
 .\objects\color.o: ..\USER\Include\MEM.h
-.\objects\color.o: ..\USER\Include\Inf.h

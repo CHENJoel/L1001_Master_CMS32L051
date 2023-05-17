@@ -42,6 +42,7 @@
 .\objects\a5441_master.o: ..\USER\mcu_sdk\system.h
 .\objects\a5441_master.o: ..\USER\mcu_sdk\mcu_api.h
 .\objects\a5441_master.o: ..\USER\mcu_sdk\homekit.h
+.\objects\a5441_master.o: ..\USER\Include\Inf.h
 .\objects\a5441_master.o: ..\USER\Include\memory.h
 .\objects\a5441_master.o: ..\USER\Include\driver_spi.h
 .\objects\a5441_master.o: ..\USER\Include\driver_w25qxx.h
@@ -49,4 +50,3 @@
 .\objects\a5441_master.o: ..\USER\Include\colorbox.h
 .\objects\a5441_master.o: ..\USER\Include\OTA.h
 .\objects\a5441_master.o: ..\USER\Include\MEM.h
-.\objects\a5441_master.o: ..\USER\Include\Inf.h

@@ -43,6 +43,7 @@
 .\objects\fft.o: ..\USER\mcu_sdk\system.h
 .\objects\fft.o: ..\USER\mcu_sdk\mcu_api.h
 .\objects\fft.o: ..\USER\mcu_sdk\homekit.h
+.\objects\fft.o: ..\USER\Include\Inf.h
 .\objects\fft.o: ..\USER\Include\memory.h
 .\objects\fft.o: ..\USER\Include\driver_spi.h
 .\objects\fft.o: ..\USER\Include\driver_w25qxx.h
@@ -50,4 +51,3 @@
 .\objects\fft.o: ..\USER\Include\colorbox.h
 .\objects\fft.o: ..\USER\Include\OTA.h
 .\objects\fft.o: ..\USER\Include\MEM.h
-.\objects\fft.o: ..\USER\Include\Inf.h

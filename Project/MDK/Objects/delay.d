@@ -42,6 +42,7 @@
 .\objects\delay.o: ..\USER\mcu_sdk\system.h
 .\objects\delay.o: ..\USER\mcu_sdk\mcu_api.h
 .\objects\delay.o: ..\USER\mcu_sdk\homekit.h
+.\objects\delay.o: ..\USER\Include\Inf.h
 .\objects\delay.o: ..\USER\Include\memory.h
 .\objects\delay.o: ..\USER\Include\driver_spi.h
 .\objects\delay.o: ..\USER\Include\driver_w25qxx.h
@@ -49,5 +50,4 @@
 .\objects\delay.o: ..\USER\Include\colorbox.h
 .\objects\delay.o: ..\USER\Include\OTA.h
 .\objects\delay.o: ..\USER\Include\MEM.h
-.\objects\delay.o: ..\USER\Include\Inf.h
 .\objects\delay.o: ..\USER\Include\delay.H

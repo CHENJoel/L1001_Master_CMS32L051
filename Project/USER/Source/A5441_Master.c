@@ -721,12 +721,14 @@ void KeyS_Click(void)
         if (SYS.POWER_SW == STA_ON)
         {
             SYS.POWER_SW = STA_OFF;
+            printf("off\r");
         }
         else
         {
             SYS.POWER_SW = STA_ON;
+            printf("on\r");
         }
-        // DataUpdata_TO_APP(&SYS.POWER_SW);
+        DataUpdata_TO_APP(&SYS.POWER_SW);
 
         // NorFlash_Write_debugtest();
         // temp++;
@@ -2731,4 +2733,17 @@ void RTC_Task(void)
         RTC_Get_CounterValue(&counter_val);
         // // // printf("     20%d/%d/%d  %d %d:%d:%d\r\n",BCD_To_DATA(counter_val.year),BCD_To_DATA(counter_val.month),BCD_To_DATA(counter_val.day),BCD_To_DATA(counter_val.week),BCD_To_DATA(counter_val.hour),BCD_To_DATA(counter_val.min),BCD_To_DATA(counter_val.sec));
     }
+}
+
+
+/*计算校验和*/
+uint16_t CheckSum_Calu(uint8_t *sur, uint16_t len)
+{
+	uint16_t i;
+	uint16_t sum = 0;
+	for (i = 0; i < len; i++)
+	{
+		sum += *sur++;
+	}
+	return sum;
 }

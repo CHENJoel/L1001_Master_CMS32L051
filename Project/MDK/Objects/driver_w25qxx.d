@@ -43,6 +43,7 @@
 .\objects\driver_w25qxx.o: ..\USER\mcu_sdk\system.h
 .\objects\driver_w25qxx.o: ..\USER\mcu_sdk\mcu_api.h
 .\objects\driver_w25qxx.o: ..\USER\mcu_sdk\homekit.h
+.\objects\driver_w25qxx.o: ..\USER\Include\Inf.h
 .\objects\driver_w25qxx.o: ..\USER\Include\memory.h
 .\objects\driver_w25qxx.o: ..\USER\Include\driver_spi.h
 .\objects\driver_w25qxx.o: ..\USER\Include\driver_w25qxx.h
@@ -50,4 +51,3 @@
 .\objects\driver_w25qxx.o: ..\USER\Include\colorbox.h
 .\objects\driver_w25qxx.o: ..\USER\Include\OTA.h
 .\objects\driver_w25qxx.o: ..\USER\Include\MEM.h
-.\objects\driver_w25qxx.o: ..\USER\Include\Inf.h

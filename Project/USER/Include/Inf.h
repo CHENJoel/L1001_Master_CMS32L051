@@ -58,6 +58,7 @@ typedef enum /*灯效属性*/
     OTHER,     // 其他，删除
 } Attribute_Enum;
 
+/******************************************************************************************************************/
 /********************灯效数据********************/
 typedef struct
 {
@@ -69,11 +70,11 @@ typedef struct
     uint8_t colorNum;                         // 颜色数量
     ColorID_TypeDef ColorID[EfColor_SizeNum]; // 静态灯效的颜色信息
 } EfColorInf_TypeDef;
-/******************************************************************************************************/
+
 
 typedef struct
 {
-    uint8_t Name[32];              /* 灯效名字 */
+    uint8_t Name[16];              /* 灯效名字 */
     uint8_t Speed;                 /* 速度 */
     uint8_t Brightness1;           /* 亮度1 初始亮度/律动的最低亮度 */
     uint8_t Brightness2;           /* 亮度2 律动最高亮度*/
@@ -83,7 +84,7 @@ typedef struct
     Direction_Enum Direction;      /* 运动方向 */
     Flow_Enum Flow;                /* 动态效果 */
     EfColorInf_TypeDef EfColorInf; /* 颜色数据区 */
-} Efdata_TypeDef;
+} Efdata_TypeDef; // 灯效详情
 
 /******************************************************************************************************************/
 typedef struct

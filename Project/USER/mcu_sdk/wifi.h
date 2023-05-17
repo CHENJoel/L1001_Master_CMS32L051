@@ -29,8 +29,8 @@
 #include "mcu_api.h"
 #include "homekit.h"
 
-
-
+#include "Function_Init.H"
+#include "Inf.h"
 //=============================================================================
 //定义常量
 //If an error occurs during compilation: #40: expected an identifier DISABLE = 0, you can include the header file where the DISABLE definition is located. Error prompts like this are handled in the same way.
@@ -103,8 +103,8 @@
 //=============================================================================
 //wifi配网的方式
 //=============================================================================
-#define         SMART_CONFIG                    0x0  
-#define         AP_CONFIG                       0x1   
+#define         SMART_CONFIG                    0x0
+#define         AP_CONFIG                       0x1
 
 //=============================================================================
 //wifi复位状态
@@ -128,7 +128,7 @@
 #define         FIRM_STATE_START                0x04                            //需升级，等待模块发起升级操作
 
 //=============================================================================
-//WIFI和mcu的工作方式 
+//WIFI和mcu的工作方式
 //=============================================================================
 #define         UNION_WORK                      0x0                             //mcu模块与wifi配合处理
 #define         WIFI_ALONE                      0x1                             //wifi模块自处理
@@ -137,15 +137,15 @@
 //系统工作模式
 //=============================================================================
 #define         NORMAL_MODE                     0x00                            //正常工作状态
-#define         FACTORY_MODE                    0x01                            //工厂模式	
-#define         UPDATE_MODE                     0x02                            //升级模式	 
+#define         FACTORY_MODE                    0x01                            //工厂模式
+#define         UPDATE_MODE                     0x02                            //升级模式
 
 //=============================================================================
 //配网方式选择
 //=============================================================================
 #define         CONFIG_MODE_DEFAULT             "0"                             //默认配网方式
 #define         CONFIG_MODE_LOWPOWER            "1"                             //低功耗配网方式
-#define         CONFIG_MODE_SPECIAL             "2"                             //特殊配网方式  
+#define         CONFIG_MODE_SPECIAL             "2"                             //特殊配网方式
 
 
 
@@ -162,4 +162,3 @@ typedef struct {
 
 
 #endif
-

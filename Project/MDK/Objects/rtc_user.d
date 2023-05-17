@@ -42,6 +42,7 @@
 .\objects\rtc_user.o: ..\USER\mcu_sdk\system.h
 .\objects\rtc_user.o: ..\USER\mcu_sdk\mcu_api.h
 .\objects\rtc_user.o: ..\USER\mcu_sdk\homekit.h
+.\objects\rtc_user.o: ..\USER\Include\Inf.h
 .\objects\rtc_user.o: ..\USER\Include\memory.h
 .\objects\rtc_user.o: ..\USER\Include\driver_spi.h
 .\objects\rtc_user.o: ..\USER\Include\driver_w25qxx.h
@@ -49,4 +50,3 @@
 .\objects\rtc_user.o: ..\USER\Include\colorbox.h
 .\objects\rtc_user.o: ..\USER\Include\OTA.h
 .\objects\rtc_user.o: ..\USER\Include\MEM.h
-.\objects\rtc_user.o: ..\USER\Include\Inf.h

@@ -282,7 +282,7 @@ int main()
 			// SPI_FlashDebug();
 			// SYS_Record();
 			// LED1_REV();
-			 printf("\r\nAPP running %d S\r\n",RunningTimeCnt++);
+			//  printf("\r\nAPP running %d S\r\n",RunningTimeCnt++);
 			// KeyS_On();
 			// APP_checksum_verify(1);
 			// printf("test\r\n");

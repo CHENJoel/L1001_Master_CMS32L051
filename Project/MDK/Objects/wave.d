@@ -42,6 +42,7 @@
 .\objects\wave.o: ..\USER\mcu_sdk\system.h
 .\objects\wave.o: ..\USER\mcu_sdk\mcu_api.h
 .\objects\wave.o: ..\USER\mcu_sdk\homekit.h
+.\objects\wave.o: ..\USER\Include\Inf.h
 .\objects\wave.o: ..\USER\Include\memory.h
 .\objects\wave.o: ..\USER\Include\driver_spi.h
 .\objects\wave.o: ..\USER\Include\driver_w25qxx.h
@@ -49,4 +50,3 @@
 .\objects\wave.o: ..\USER\Include\colorbox.h
 .\objects\wave.o: ..\USER\Include\OTA.h
 .\objects\wave.o: ..\USER\Include\MEM.h
-.\objects\wave.o: ..\USER\Include\Inf.h
