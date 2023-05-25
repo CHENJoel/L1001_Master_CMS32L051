@@ -29,7 +29,7 @@
 ******************************************************************************/
 
 #include "wifi.h"
-
+#include "Function_Init.H"
 /******************************************************************************
                               第一步:初始化
 1:在需要使用到wifi相关文件的文件中include "wifi.h"
@@ -66,6 +66,13 @@ const DOWNLOAD_CMD_S download_cmd[] =
   {DPID_PLAY_DETIAL, DP_TYPE_RAW},
   {DPID_LINK_STATUS, DP_TYPE_RAW},
   {DPID_GLOBAL_STATUS, DP_TYPE_RAW},
+  {DPID_ISSUE_CMD, DP_TYPE_RAW},
+  {DPID_EFFECT_PREVIEW, DP_TYPE_RAW},
+  {DPID_ALL_EFFECT_RANKLIST, DP_TYPE_RAW},
+  {DPID_ORIGINAL_EFFECT_RANKLIST, DP_TYPE_RAW},
+  {DPID_FAVORITES_EFFECT_RANKLIST, DP_TYPE_RAW},
+  {DPID_PLAYLIST_RANKLIST, DP_TYPE_RAW},
+  {DPID_EFFECT_SKETCH, DP_TYPE_RAW},
 };
 
 
@@ -83,6 +90,7 @@ void uart_transmit_output(u8 value)
 {
     // #error "请将MCU串口发送函数填入该函数,并删除该行"
     UART1_Send(&value, 1);
+
 /*
     //Example:
     extern void Uart_PutChar(u8 value);
@@ -141,6 +149,13 @@ void all_data_update(void)
     mcu_dp_raw_update(DPID_PLAY_DETIAL,当前播放详情指针,当前播放详情数据长度); //RAW型数据上报;
     mcu_dp_raw_update(DPID_LINK_STATUS,当前连接状态指针,当前连接状态数据长度); //RAW型数据上报;
     mcu_dp_raw_update(DPID_GLOBAL_STATUS,当前全局状态指针,当前全局状态数据长度); //RAW型数据上报;
+    mcu_dp_raw_update(DPID_ISSUE_CMD,当前下发指令指针,当前下发指令数据长度); //RAW型数据上报;
+    mcu_dp_raw_update(DPID_EFFECT_PREVIEW,当前效果预览指针,当前效果预览数据长度); //RAW型数据上报;
+    mcu_dp_raw_update(DPID_ALL_EFFECT_RANKLIST,当前全部灯效的顺序列表指针,当前全部灯效的顺序列表数据长度); //RAW型数据上报;
+    mcu_dp_raw_update(DPID_ORIGINAL_EFFECT_RANKLIST,当前自定义灯效的顺序列表指针,当前自定义灯效的顺序列表数据长度); //RAW型数据上报;
+    mcu_dp_raw_update(DPID_FAVORITES_EFFECT_RANKLIST,当前收藏灯效的顺序列表指针,当前收藏灯效的顺序列表数据长度); //RAW型数据上报;
+    mcu_dp_raw_update(DPID_PLAYLIST_RANKLIST,当前播放列表的顺序列表指针,当前播放列表的顺序列表数据长度); //RAW型数据上报;
+    mcu_dp_raw_update(DPID_EFFECT_SKETCH,当前灯效概述指针,当前灯效概述数据长度); //RAW型数据上报;
 
     */
 #ifdef HOMEKIT_FUN_ENABLE
@@ -170,14 +185,14 @@ static unsigned char dp_download_switch_led_handle(const unsigned char value[], 
     unsigned char switch_led;
 
     switch_led = mcu_get_dp_download_bool(value,length);
-    if(switch_led == 0) {
-        //bool off
-        SYS.POWER_SW = STA_OFF;
-    }else {
-        //bool on
-        SYS.POWER_SW = STA_ON;
-    }
-
+    // // if(switch_led == 0) {
+    // //     //bool off
+    // // }else {
+    // //     //bool on
+    // // }
+    mcu_download_switch_led(switch_led);
+    // printlog("dp_download_switch_led_handle\r");
+    // printhex_my(value,length);
     //There should be a report after processing the DP
     ret = mcu_dp_bool_update(DPID_SWITCH_LED,switch_led);
     if(ret == SUCCESS)
@@ -381,104 +396,14 @@ static unsigned char dp_download_effect_detial_handle(const unsigned char value[
 {
     //示例:当前DP类型为RAW
     unsigned char ret;
-    uint8_t sum;
-    Efdata_TypeDef Efdata;
-    // uint8_t str[20];
-    uint8_t i;
     /*
     //RAW type data processing
 
     */
-    uint8_t *sur;
-    memcpy(&Efdata, &value[1], sizeof(Efdata));
-
-    // sur = (uint8_t *)value;
-    // for (i = 0; i < length; i++)
-    // {
-    //     printf("%x ", *sur);
-    //     sur++;
-    // }
-    // // // printf("\r");
-    // // // sur=(uint8_t *)&Efdata;
-    // // // for ( i = 0; i < length; i++)
-    // // // {
-    // // //     printf("%x ",*sur);
-    // // //     sur++;
-    // // // }
-    // printf("\r\r\r");
-    // // memcpy(str, &Efdata.Name, sizeof(Efdata.Name));
-    // // printf("\r", Efdata.Name);
-
-    // for (i = 0; i < sizeof(Efdata.Name); i++)
-    // {
-    //     printf("0x%2x :{%c}\r", Efdata.Name[i],Efdata.Name[i]);
-    // }
-    // printf("\r\r\r");
-
-    printf("num:%d\r", value[0]);
-    printf("name:");
-    for ( i = 0; i < sizeof(Efdata.Name); i++)
-    {
-        printf("%c",Efdata.Name[i]);
-    }
-    printf("\r");
-    printf("Speed:%d\r", Efdata.Speed);
-    printf("Brightness1:%d\r", Efdata.Brightness1);
-    printf("Brightness2:%d\r", Efdata.Brightness2);
-    printf("MicSensitivity:%d\r", Efdata.MicSensitivity);
-    printf("EffectType:%d\r", Efdata.EffectType);
-    printf("MotionType:%d\r", Efdata.MotionType);
-    printf("Direction:%d\r", Efdata.Direction);
-    printf("Flow:%d\r", Efdata.Flow);
-    printf("colorNum:%d\r", Efdata.EfColorInf.colorNum);
-
-    printf("[%2d] ID:%3d [%3d] [%3d] [%3d] [%3d]\r", 0, Efdata.EfColorInf.ColorID[0].id, Efdata.EfColorInf.ColorID[0].color.R, Efdata.EfColorInf.ColorID[0].color.G, Efdata.EfColorInf.ColorID[0].color.B, Efdata.EfColorInf.ColorID[0].color.W);
-    printf("[%2d] ID:%3d [%3d] [%3d] [%3d] [%3d]\r", 1, Efdata.EfColorInf.ColorID[1].id, Efdata.EfColorInf.ColorID[1].color.R, Efdata.EfColorInf.ColorID[1].color.G, Efdata.EfColorInf.ColorID[1].color.B, Efdata.EfColorInf.ColorID[1].color.W);
-    printf("[%2d] ID:%3d [%3d] [%3d] [%3d] [%3d]\r", 2, Efdata.EfColorInf.ColorID[2].id, Efdata.EfColorInf.ColorID[2].color.R, Efdata.EfColorInf.ColorID[2].color.G, Efdata.EfColorInf.ColorID[2].color.B, Efdata.EfColorInf.ColorID[2].color.W);
-    printf("[%2d] ID:%3d [%3d] [%3d] [%3d] [%3d]\r", 3, Efdata.EfColorInf.ColorID[3].id, Efdata.EfColorInf.ColorID[3].color.R, Efdata.EfColorInf.ColorID[3].color.G, Efdata.EfColorInf.ColorID[3].color.B, Efdata.EfColorInf.ColorID[3].color.W);
-    printf("[%2d] ID:%3d [%3d] [%3d] [%3d] [%3d]\r", 4, Efdata.EfColorInf.ColorID[4].id, Efdata.EfColorInf.ColorID[4].color.R, Efdata.EfColorInf.ColorID[4].color.G, Efdata.EfColorInf.ColorID[4].color.B, Efdata.EfColorInf.ColorID[4].color.W);
-    printf("[%2d] ID:%3d [%3d] [%3d] [%3d] [%3d]\r", 5, Efdata.EfColorInf.ColorID[5].id, Efdata.EfColorInf.ColorID[5].color.R, Efdata.EfColorInf.ColorID[5].color.G, Efdata.EfColorInf.ColorID[5].color.B, Efdata.EfColorInf.ColorID[5].color.W);
-    printf("[%2d] ID:%3d [%3d] [%3d] [%3d] [%3d]\r", 6, Efdata.EfColorInf.ColorID[6].id, Efdata.EfColorInf.ColorID[6].color.R, Efdata.EfColorInf.ColorID[6].color.G, Efdata.EfColorInf.ColorID[6].color.B, Efdata.EfColorInf.ColorID[6].color.W);
-    printf("[%2d] ID:%3d [%3d] [%3d] [%3d] [%3d]\r", 7, Efdata.EfColorInf.ColorID[7].id, Efdata.EfColorInf.ColorID[7].color.R, Efdata.EfColorInf.ColorID[7].color.G, Efdata.EfColorInf.ColorID[7].color.B, Efdata.EfColorInf.ColorID[7].color.W);
-
-    printf("[%2d] ID:%3d [%3d] [%3d] [%3d] [%3d]\r", 8, Efdata.EfColorInf.ColorID[8].id, Efdata.EfColorInf.ColorID[8].color.R, Efdata.EfColorInf.ColorID[8].color.G, Efdata.EfColorInf.ColorID[8].color.B, Efdata.EfColorInf.ColorID[8].color.W);
-    printf("[%2d] ID:%3d [%3d] [%3d] [%3d] [%3d]\r", 9, Efdata.EfColorInf.ColorID[9].id, Efdata.EfColorInf.ColorID[9].color.R, Efdata.EfColorInf.ColorID[9].color.G, Efdata.EfColorInf.ColorID[9].color.B, Efdata.EfColorInf.ColorID[9].color.W);
-    printf("[%2d] ID:%3d [%3d] [%3d] [%3d] [%3d]\r", 10, Efdata.EfColorInf.ColorID[10].id, Efdata.EfColorInf.ColorID[10].color.R, Efdata.EfColorInf.ColorID[10].color.G, Efdata.EfColorInf.ColorID[10].color.B, Efdata.EfColorInf.ColorID[10].color.W);
-    printf("[%2d] ID:%3d [%3d] [%3d] [%3d] [%3d]\r", 11, Efdata.EfColorInf.ColorID[11].id, Efdata.EfColorInf.ColorID[11].color.R, Efdata.EfColorInf.ColorID[11].color.G, Efdata.EfColorInf.ColorID[11].color.B, Efdata.EfColorInf.ColorID[11].color.W);
-    printf("[%2d] ID:%3d [%3d] [%3d] [%3d] [%3d]\r", 12, Efdata.EfColorInf.ColorID[12].id, Efdata.EfColorInf.ColorID[12].color.R, Efdata.EfColorInf.ColorID[12].color.G, Efdata.EfColorInf.ColorID[12].color.B, Efdata.EfColorInf.ColorID[12].color.W);
-    printf("[%2d] ID:%3d [%3d] [%3d] [%3d] [%3d]\r", 13, Efdata.EfColorInf.ColorID[13].id, Efdata.EfColorInf.ColorID[13].color.R, Efdata.EfColorInf.ColorID[13].color.G, Efdata.EfColorInf.ColorID[13].color.B, Efdata.EfColorInf.ColorID[13].color.W);
-    printf("[%2d] ID:%3d [%3d] [%3d] [%3d] [%3d]\r", 14, Efdata.EfColorInf.ColorID[14].id, Efdata.EfColorInf.ColorID[14].color.R, Efdata.EfColorInf.ColorID[14].color.G, Efdata.EfColorInf.ColorID[14].color.B, Efdata.EfColorInf.ColorID[14].color.W);
-    printf("[%2d] ID:%3d [%3d] [%3d] [%3d] [%3d]\r", 15, Efdata.EfColorInf.ColorID[15].id, Efdata.EfColorInf.ColorID[15].color.R, Efdata.EfColorInf.ColorID[15].color.G, Efdata.EfColorInf.ColorID[15].color.B, Efdata.EfColorInf.ColorID[15].color.W);
-
-    printf("[%2d] ID:%3d [%3d] [%3d] [%3d] [%3d]\r", 16, Efdata.EfColorInf.ColorID[16].id, Efdata.EfColorInf.ColorID[16].color.R, Efdata.EfColorInf.ColorID[16].color.G, Efdata.EfColorInf.ColorID[16].color.B, Efdata.EfColorInf.ColorID[16].color.W);
-    printf("[%2d] ID:%3d [%3d] [%3d] [%3d] [%3d]\r", 17, Efdata.EfColorInf.ColorID[17].id, Efdata.EfColorInf.ColorID[17].color.R, Efdata.EfColorInf.ColorID[17].color.G, Efdata.EfColorInf.ColorID[17].color.B, Efdata.EfColorInf.ColorID[17].color.W);
-    printf("[%2d] ID:%3d [%3d] [%3d] [%3d] [%3d]\r", 18, Efdata.EfColorInf.ColorID[18].id, Efdata.EfColorInf.ColorID[18].color.R, Efdata.EfColorInf.ColorID[18].color.G, Efdata.EfColorInf.ColorID[18].color.B, Efdata.EfColorInf.ColorID[18].color.W);
-    printf("[%2d] ID:%3d [%3d] [%3d] [%3d] [%3d]\r", 19, Efdata.EfColorInf.ColorID[19].id, Efdata.EfColorInf.ColorID[19].color.R, Efdata.EfColorInf.ColorID[19].color.G, Efdata.EfColorInf.ColorID[19].color.B, Efdata.EfColorInf.ColorID[19].color.W);
-
-    printf("[%2d] ID:%3d [%3d] [%3d] [%3d] [%3d]\r", 20, Efdata.EfColorInf.ColorID[20].id, Efdata.EfColorInf.ColorID[20].color.R, Efdata.EfColorInf.ColorID[20].color.G, Efdata.EfColorInf.ColorID[20].color.B, Efdata.EfColorInf.ColorID[20].color.W);
-    printf("[%2d] ID:%3d [%3d] [%3d] [%3d] [%3d]\r", 21, Efdata.EfColorInf.ColorID[21].id, Efdata.EfColorInf.ColorID[21].color.R, Efdata.EfColorInf.ColorID[21].color.G, Efdata.EfColorInf.ColorID[21].color.B, Efdata.EfColorInf.ColorID[21].color.W);
-    printf("[%2d] ID:%3d [%3d] [%3d] [%3d] [%3d]\r", 22, Efdata.EfColorInf.ColorID[22].id, Efdata.EfColorInf.ColorID[22].color.R, Efdata.EfColorInf.ColorID[22].color.G, Efdata.EfColorInf.ColorID[22].color.B, Efdata.EfColorInf.ColorID[22].color.W);
-    printf("[%2d] ID:%3d [%3d] [%3d] [%3d] [%3d]\r", 23, Efdata.EfColorInf.ColorID[23].id, Efdata.EfColorInf.ColorID[23].color.R, Efdata.EfColorInf.ColorID[23].color.G, Efdata.EfColorInf.ColorID[23].color.B, Efdata.EfColorInf.ColorID[23].color.W);
-    printf("[%2d] ID:%3d [%3d] [%3d] [%3d] [%3d]\r", 24, Efdata.EfColorInf.ColorID[24].id, Efdata.EfColorInf.ColorID[24].color.R, Efdata.EfColorInf.ColorID[24].color.G, Efdata.EfColorInf.ColorID[24].color.B, Efdata.EfColorInf.ColorID[24].color.W);
-    printf("[%2d] ID:%3d [%3d] [%3d] [%3d] [%3d]\r", 25, Efdata.EfColorInf.ColorID[25].id, Efdata.EfColorInf.ColorID[25].color.R, Efdata.EfColorInf.ColorID[25].color.G, Efdata.EfColorInf.ColorID[25].color.B, Efdata.EfColorInf.ColorID[25].color.W);
-
-    printf("[%2d] ID:%3d [%3d] [%3d] [%3d] [%3d]\r", 26, Efdata.EfColorInf.ColorID[26].id, Efdata.EfColorInf.ColorID[26].color.R, Efdata.EfColorInf.ColorID[26].color.G, Efdata.EfColorInf.ColorID[26].color.B, Efdata.EfColorInf.ColorID[26].color.W);
-    printf("[%2d] ID:%3d [%3d] [%3d] [%3d] [%3d]\r", 27, Efdata.EfColorInf.ColorID[27].id, Efdata.EfColorInf.ColorID[27].color.R, Efdata.EfColorInf.ColorID[27].color.G, Efdata.EfColorInf.ColorID[27].color.B, Efdata.EfColorInf.ColorID[27].color.W);
-    printf("[%2d] ID:%3d [%3d] [%3d] [%3d] [%3d]\r", 28, Efdata.EfColorInf.ColorID[28].id, Efdata.EfColorInf.ColorID[28].color.R, Efdata.EfColorInf.ColorID[28].color.G, Efdata.EfColorInf.ColorID[28].color.B, Efdata.EfColorInf.ColorID[28].color.W);
-    printf("[%2d] ID:%3d [%3d] [%3d] [%3d] [%3d]\r", 29, Efdata.EfColorInf.ColorID[29].id, Efdata.EfColorInf.ColorID[29].color.R, Efdata.EfColorInf.ColorID[29].color.G, Efdata.EfColorInf.ColorID[29].color.B, Efdata.EfColorInf.ColorID[29].color.W);
-    printf("[%2d] ID:%3d [%3d] [%3d] [%3d] [%3d]\r", 30, Efdata.EfColorInf.ColorID[30].id, Efdata.EfColorInf.ColorID[30].color.R, Efdata.EfColorInf.ColorID[30].color.G, Efdata.EfColorInf.ColorID[30].color.B, Efdata.EfColorInf.ColorID[30].color.W);
-    printf("[%2d] ID:%3d [%3d] [%3d] [%3d] [%3d]\r", 31, Efdata.EfColorInf.ColorID[31].id, Efdata.EfColorInf.ColorID[31].color.R, Efdata.EfColorInf.ColorID[31].color.G, Efdata.EfColorInf.ColorID[31].color.B, Efdata.EfColorInf.ColorID[31].color.W);
-    // // printf("\r\n\r\n\r\n\r\n\r\n");
-    printf("\r");
-    // // printf("Speed:%d\r",Efdata);
-    // // printf("Speed:%d\r",Efdata);
-    // // printf("Speed:%d\r",Efdata);
-    // sum = CheckSum_Calu(value, length - 1);
-    // printf("len:%d sum:%d cs:%d\r", length, sum, value[length - 1]);
-    // Uart0_Send_String(value,length);
-    // There should be a report after processing the DP
-    ret = mcu_dp_raw_update(DPID_EFFECT_DETIAL, value, length);
-    if (ret == SUCCESS)
+    mcu_download_effect_detail_handle(value, length);
+    //There should be a report after processing the DP
+    ret = mcu_dp_raw_update(DPID_EFFECT_DETIAL,value,length);
+    if(ret == SUCCESS)
         return SUCCESS;
     else
         return ERROR;
@@ -823,6 +748,175 @@ static unsigned char dp_download_global_status_handle(const unsigned char value[
     else
         return ERROR;
 }
+/*****************************************************************************
+函数名称 : dp_download_issue_cmd_handle
+功能描述 : 针对DPID_ISSUE_CMD的处理函数
+输入参数 : value:数据源数据
+        : length:数据长度
+返回参数 : 成功返回:SUCCESS/失败返回:ERROR
+使用说明 : 可下发可上报类型,需要在处理完数据后上报处理结果至app
+*****************************************************************************/
+static unsigned char dp_download_issue_cmd_handle(const unsigned char value[], unsigned short length)
+{
+    //示例:当前DP类型为RAW
+    unsigned char ret;
+    /*
+    //RAW type data processing
+
+    */
+    mcu_download_issue_cmd_handle(value, length);
+    //There should be a report after processing the DP
+    ret = mcu_dp_raw_update(DPID_ISSUE_CMD,value,length);
+    if(ret == SUCCESS)
+        return SUCCESS;
+    else
+        return ERROR;
+}
+/*****************************************************************************
+函数名称 : dp_download_effect_preview_handle
+功能描述 : 针对DPID_EFFECT_PREVIEW的处理函数
+输入参数 : value:数据源数据
+        : length:数据长度
+返回参数 : 成功返回:SUCCESS/失败返回:ERROR
+使用说明 : 可下发可上报类型,需要在处理完数据后上报处理结果至app
+*****************************************************************************/
+static unsigned char dp_download_effect_preview_handle(const unsigned char value[], unsigned short length)
+{
+    //示例:当前DP类型为RAW
+    unsigned char ret;
+    /*
+    //RAW type data processing
+
+    */
+
+    mcu_download_effect_preview(value, length);
+    // There should be a report after processing the DP
+    ret = mcu_dp_raw_update(DPID_EFFECT_PREVIEW,value,length);
+    if(ret == SUCCESS)
+        return SUCCESS;
+    else
+        return ERROR;
+}
+/*****************************************************************************
+函数名称 : dp_download_all_effect_ranklist_handle
+功能描述 : 针对DPID_ALL_EFFECT_RANKLIST的处理函数
+输入参数 : value:数据源数据
+        : length:数据长度
+返回参数 : 成功返回:SUCCESS/失败返回:ERROR
+使用说明 : 可下发可上报类型,需要在处理完数据后上报处理结果至app
+*****************************************************************************/
+static unsigned char dp_download_all_effect_ranklist_handle(const unsigned char value[], unsigned short length)
+{
+    //示例:当前DP类型为RAW
+    unsigned char ret;
+    /*
+    //RAW type data processing
+
+    */
+
+    //There should be a report after processing the DP
+    ret = mcu_dp_raw_update(DPID_ALL_EFFECT_RANKLIST,value,length);
+    if(ret == SUCCESS)
+        return SUCCESS;
+    else
+        return ERROR;
+}
+/*****************************************************************************
+函数名称 : dp_download_original_effect_ranklist_handle
+功能描述 : 针对DPID_ORIGINAL_EFFECT_RANKLIST的处理函数
+输入参数 : value:数据源数据
+        : length:数据长度
+返回参数 : 成功返回:SUCCESS/失败返回:ERROR
+使用说明 : 可下发可上报类型,需要在处理完数据后上报处理结果至app
+*****************************************************************************/
+static unsigned char dp_download_original_effect_ranklist_handle(const unsigned char value[], unsigned short length)
+{
+    //示例:当前DP类型为RAW
+    unsigned char ret;
+    /*
+    //RAW type data processing
+
+    */
+    mcu_update_originalef_ranklist();
+    // There should be a report after processing the DP
+    ret = mcu_dp_raw_update(DPID_ORIGINAL_EFFECT_RANKLIST,value,length);
+    if(ret == SUCCESS)
+        return SUCCESS;
+    else
+        return ERROR;
+}
+/*****************************************************************************
+函数名称 : dp_download_favorites_effect_ranklist_handle
+功能描述 : 针对DPID_FAVORITES_EFFECT_RANKLIST的处理函数
+输入参数 : value:数据源数据
+        : length:数据长度
+返回参数 : 成功返回:SUCCESS/失败返回:ERROR
+使用说明 : 可下发可上报类型,需要在处理完数据后上报处理结果至app
+*****************************************************************************/
+static unsigned char dp_download_favorites_effect_ranklist_handle(const unsigned char value[], unsigned short length)
+{
+    //示例:当前DP类型为RAW
+    unsigned char ret;
+    /*
+    //RAW type data processing
+
+    */
+
+    //There should be a report after processing the DP
+    ret = mcu_dp_raw_update(DPID_FAVORITES_EFFECT_RANKLIST,value,length);
+    if(ret == SUCCESS)
+        return SUCCESS;
+    else
+        return ERROR;
+}
+/*****************************************************************************
+函数名称 : dp_download_playlist_ranklist_handle
+功能描述 : 针对DPID_PLAYLIST_RANKLIST的处理函数
+输入参数 : value:数据源数据
+        : length:数据长度
+返回参数 : 成功返回:SUCCESS/失败返回:ERROR
+使用说明 : 可下发可上报类型,需要在处理完数据后上报处理结果至app
+*****************************************************************************/
+static unsigned char dp_download_playlist_ranklist_handle(const unsigned char value[], unsigned short length)
+{
+    //示例:当前DP类型为RAW
+    unsigned char ret;
+    /*
+    //RAW type data processing
+
+    */
+
+    //There should be a report after processing the DP
+    ret = mcu_dp_raw_update(DPID_PLAYLIST_RANKLIST,value,length);
+    if(ret == SUCCESS)
+        return SUCCESS;
+    else
+        return ERROR;
+}
+/*****************************************************************************
+函数名称 : dp_download_effect_sketch_handle
+功能描述 : 针对DPID_EFFECT_SKETCH的处理函数
+输入参数 : value:数据源数据
+        : length:数据长度
+返回参数 : 成功返回:SUCCESS/失败返回:ERROR
+使用说明 : 可下发可上报类型,需要在处理完数据后上报处理结果至app
+*****************************************************************************/
+static unsigned char dp_download_effect_sketch_handle(const unsigned char value[], unsigned short length)
+{
+    //示例:当前DP类型为RAW
+    unsigned char ret;
+    /*
+    //RAW type data processing
+
+    */
+
+    //There should be a report after processing the DP
+    ret = mcu_dp_raw_update(DPID_EFFECT_SKETCH,value,length);
+    if(ret == SUCCESS)
+        return SUCCESS;
+    else
+        return ERROR;
+}
 
 
 
@@ -935,6 +1029,34 @@ u8 dp_download_handle(u8 dpid,const u8 value[], u16 length)
             //全局状态处理函数
             ret = dp_download_global_status_handle(value,length);
         break;
+        case DPID_ISSUE_CMD:
+            //下发指令处理函数
+            ret = dp_download_issue_cmd_handle(value,length);
+        break;
+        case DPID_EFFECT_PREVIEW:
+            //效果预览处理函数
+            ret = dp_download_effect_preview_handle(value,length);
+        break;
+        case DPID_ALL_EFFECT_RANKLIST:
+            //全部灯效的顺序列表处理函数
+            ret = dp_download_all_effect_ranklist_handle(value,length);
+        break;
+        case DPID_ORIGINAL_EFFECT_RANKLIST:
+            //自定义灯效的顺序列表处理函数
+            ret = dp_download_original_effect_ranklist_handle(value,length);
+        break;
+        case DPID_FAVORITES_EFFECT_RANKLIST:
+            //收藏灯效的顺序列表处理函数
+            ret = dp_download_favorites_effect_ranklist_handle(value,length);
+        break;
+        case DPID_PLAYLIST_RANKLIST:
+            //播放列表的顺序列表处理函数
+            ret = dp_download_playlist_ranklist_handle(value,length);
+        break;
+        case DPID_EFFECT_SKETCH:
+            //灯效概述处理函数
+            ret = dp_download_effect_sketch_handle(value,length);
+        break;
 
 
         default:
@@ -972,7 +1094,7 @@ u8 get_download_cmd_total(void)
  */
 void upgrade_package_choose(u8 package_sz)
 {
-// //    #error "请自行实现请自行实现升级包大小选择代码,完成后请删除该行"
+//    #error "请自行实现请自行实现升级包大小选择代码,完成后请删除该行"
     u16 send_len = 0;
     send_len = set_wifi_uart_byte(send_len, package_sz);
     wifi_uart_write_frame(UPDATE_START_CMD, MCU_TX_VER, send_len);
@@ -988,7 +1110,7 @@ void upgrade_package_choose(u8 package_sz)
  */
 u8 mcu_firm_update_handle(const u8 value[],u32 position,u16 length)
 {
-    // // #error "请自行完成MCU固件升级代码,完成后请删除该行"
+    // #error "请自行完成MCU固件升级代码,完成后请删除该行"
     static uint32_t checksum;   // 升级包校验和
     if (length == 0)
     {
@@ -1092,7 +1214,7 @@ void mcu_write_rtctime(u8 time[])
  */
 void wifi_test_result(u8 result,u8 rssi)
 {
-    // // // #error "请自行实现wifi功能测试成功/失败代码,完成后请删除该行"
+    // #error "请自行实现wifi功能测试成功/失败代码,完成后请删除该行"
     if(result == 0) {
         //测试失败
         if(rssi == 0x00) {

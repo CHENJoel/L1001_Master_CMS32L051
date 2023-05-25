@@ -50,3 +50,9 @@
 .\objects\motion.o: ..\USER\Include\colorbox.h
 .\objects\motion.o: ..\USER\Include\OTA.h
 .\objects\motion.o: ..\USER\Include\MEM.h
+.\objects\motion.o: ..\USER\Include\printlog.h
+.\objects\motion.o: ..\USER\Include\comapp.h
+.\objects\motion.o: ..\USER\Include\user_memory.h
+.\objects\motion.o: ..\USER\Include\debug.h
+.\objects\motion.o: ..\USER\Include\flashapp.h
+.\objects\motion.o: ..\USER\Include\default_data.h

@@ -43,10 +43,10 @@ void SPI_FlashDebug(void)
 
     // // // NorFalsh_RW_Test(0x4FFFFF);
 
-    printf("Efdata_TypeDef");
-    Print_StuctSize(Efdata_TypeDef);
-    // printf("Efdata_TypeDef size:%d[0x%x]\r\n",sizeof(Efdata_TypeDef),sizeof(Efdata_TypeDef));
-    // printf("Efdata_TypeDef size:%d[0x%x]\r\n",sizeof(Efdata_TypeDef),sizeof(Efdata_TypeDef));
+    printf("Efdetail_TypeDef");
+    Print_StuctSize(Efdetail_TypeDef);
+    // printf("Efdetail_TypeDef size:%d[0x%x]\r\n",sizeof(Efdetail_TypeDef),sizeof(Efdetail_TypeDef));
+    // printf("Efdetail_TypeDef size:%d[0x%x]\r\n",sizeof(Efdetail_TypeDef),sizeof(Efdetail_TypeDef));
     // // printf("size:%d[0x%x]|%d%%\r\n",sizeof(EffectInf_TypeDef),sizeof(EffectInf_TypeDef),(sizeof(EffectInf_TypeDef)*100)/0x10000);
 }
 

@@ -58,6 +58,12 @@
 #include "MEM.h"
 #include "Inf.h"
 
+#include "printlog.h"
+#include "comapp.h"
+#include "user_memory.h"
+#include "debug.h"
+#include "flashapp.h"
+#include "default_data.h"
 #define IR_Version 0
 
 

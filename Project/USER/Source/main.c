@@ -145,7 +145,7 @@ int main()
 	}
 
 
-	printf("\nHello,I am Matser\n\r\n");
+	printf("\nHello,I am Matser\n");
 	INTC_EnableIRQ(SR0_IRQn); // 开串口接收中断
 
 	tempR = 0;
@@ -205,10 +205,11 @@ int main()
 	Verify_EF_data();
 	Verify_PlayList_data();
 	*/
-	printf("V1.0.0\r\n");
+	// printf("V1.0.0\r\n");
 
 	// DMA_Stop(DMA_VECTOR_ST0);
 	// Debug();
+	norflash_data_init();
 	while (1)
 	{
 		if (T_4MS_FLAG_GetBit)
@@ -227,7 +228,7 @@ int main()
 		{
 			T_20MS_FLAG_ClrBit();
 			// IR_Decode();
-			// Motion_Output();
+			Motion_Output();
 			MIC_Process();
 			KeyS_On();
 
@@ -278,7 +279,7 @@ int main()
 		{
 			T_1000MS_FLAG_ClrBit();
 			RTC_Task();
-			Debug();
+			// Debug();
 			// SPI_FlashDebug();
 			// SYS_Record();
 			// LED1_REV();

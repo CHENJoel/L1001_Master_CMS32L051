@@ -51,3 +51,9 @@
 .\objects\protocol.o: ..\USER\Include\OTA.h
 .\objects\protocol.o: ..\USER\Include\MEM.h
 .\objects\protocol.o: ..\USER\Include\Inf.h
+.\objects\protocol.o: ..\USER\Include\printlog.h
+.\objects\protocol.o: ..\USER\Include\comapp.h
+.\objects\protocol.o: ..\USER\Include\user_memory.h
+.\objects\protocol.o: ..\USER\Include\debug.h
+.\objects\protocol.o: ..\USER\Include\flashapp.h
+.\objects\protocol.o: ..\USER\Include\default_data.h

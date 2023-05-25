@@ -50,3 +50,9 @@
 .\objects\wave.o: ..\USER\Include\colorbox.h
 .\objects\wave.o: ..\USER\Include\OTA.h
 .\objects\wave.o: ..\USER\Include\MEM.h
+.\objects\wave.o: ..\USER\Include\printlog.h
+.\objects\wave.o: ..\USER\Include\comapp.h
+.\objects\wave.o: ..\USER\Include\user_memory.h
+.\objects\wave.o: ..\USER\Include\debug.h
+.\objects\wave.o: ..\USER\Include\flashapp.h
+.\objects\wave.o: ..\USER\Include\default_data.h

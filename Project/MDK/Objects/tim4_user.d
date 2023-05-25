@@ -50,3 +50,9 @@
 .\objects\tim4_user.o: ..\USER\Include\colorbox.h
 .\objects\tim4_user.o: ..\USER\Include\OTA.h
 .\objects\tim4_user.o: ..\USER\Include\MEM.h
+.\objects\tim4_user.o: ..\USER\Include\printlog.h
+.\objects\tim4_user.o: ..\USER\Include\comapp.h
+.\objects\tim4_user.o: ..\USER\Include\user_memory.h
+.\objects\tim4_user.o: ..\USER\Include\debug.h
+.\objects\tim4_user.o: ..\USER\Include\flashapp.h
+.\objects\tim4_user.o: ..\USER\Include\default_data.h

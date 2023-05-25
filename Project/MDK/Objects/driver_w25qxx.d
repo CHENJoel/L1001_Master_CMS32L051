@@ -51,3 +51,9 @@
 .\objects\driver_w25qxx.o: ..\USER\Include\colorbox.h
 .\objects\driver_w25qxx.o: ..\USER\Include\OTA.h
 .\objects\driver_w25qxx.o: ..\USER\Include\MEM.h
+.\objects\driver_w25qxx.o: ..\USER\Include\printlog.h
+.\objects\driver_w25qxx.o: ..\USER\Include\comapp.h
+.\objects\driver_w25qxx.o: ..\USER\Include\user_memory.h
+.\objects\driver_w25qxx.o: ..\USER\Include\debug.h
+.\objects\driver_w25qxx.o: ..\USER\Include\flashapp.h
+.\objects\driver_w25qxx.o: ..\USER\Include\default_data.h

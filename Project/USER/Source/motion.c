@@ -650,7 +650,7 @@ void Motion_Output(void)
         // printf("%d,%d,%d,%d\r\n",Tangram[0].R.Now,Tangram[0].G.Now,Tangram[0].B.Now,Tangram[0].W.Now);
     }
 
-    Slave_ColorData_DMA();
+    // Slave_ColorData_DMA();
     Last_Light_Owner = Light_Owner;
 }
 void Motion_Static(void) /*ºôÎü*/

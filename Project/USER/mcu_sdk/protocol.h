@@ -34,7 +34,7 @@
 ******************************************************************************/
 #define PRODUCT_KEY "8vb1nbz2e9vb1sxv"    //开发平台创建产品后生成的16位字符产品唯一标识
 
-#define MCU_VER "1.0.0"         //用户的软件版本,用于MCU固件升级,MCU升级版本需修改
+#define MCU_VER "1.0.3"         //用户的软件版本,用于MCU固件升级,MCU升级版本需修改
 
 /* HomeKit产品品类选择。 服务配置选择和特性配置选择请在homekit.c中进行 */
 //#define HOMEKIT_PRODUCT_TYPE    3             //风扇
@@ -85,7 +85,7 @@ MCU可调用mcu_api.c文件内的mcu_firm_update_query()函数获取当前MCU固
 #define WIFI_UART_RECV_BUF_LMT          16              //串口数据接收缓存区大小,如MCU的RAM不够,可根据MCU实际情况适当缩小
 #define WIFI_DATA_PROCESS_LMT           24              //串口数据处理缓存区大小,根据用户DP数据大小量定,建议大于24
 #else
-#define WIFI_UART_RECV_BUF_LMT          128             //串口数据接收缓存区大小,如MCU的RAM不够,可缩小
+#define WIFI_UART_RECV_BUF_LMT          300             //串口数据接收缓存区大小,如MCU的RAM不够,可缩小
 
 //请在此处选择合适的串口数据处理缓存大小（根据上面MCU固件升级包选择的大小和是否开启天气服务来选择开启多大的缓存）
 #define WIFI_DATA_PROCESS_LMT           300             //串口数据处理缓存大小,如需MCU固件升级,若单包大小选择256,则缓存必须大于260,若开启天气服务,则需要更大
@@ -290,6 +290,27 @@ mcu在wifi模块正确联网后可调用mcu_get_green_time()函数发起校时�
 //色调2	6、7	2	0-360，0X0000-0X0168
 //饱和度2	8、5	2	0-1000, 0X0000-0X03E8
 #define DPID_GLOBAL_STATUS 117
+//下发指令(可下发可上报)
+//备注:
+#define DPID_ISSUE_CMD 118
+//效果预览(可下发可上报)
+//备注:效果编辑界面预览,操作任意参数下发上报
+#define DPID_EFFECT_PREVIEW 119
+//全部灯效的顺序列表(可下发可上报)
+//备注:
+#define DPID_ALL_EFFECT_RANKLIST 120
+//自定义灯效的顺序列表(可下发可上报)
+//备注:
+#define DPID_ORIGINAL_EFFECT_RANKLIST 121
+//收藏灯效的顺序列表(可下发可上报)
+//备注:
+#define DPID_FAVORITES_EFFECT_RANKLIST 122
+//播放列表的顺序列表(可下发可上报)
+//备注:
+#define DPID_PLAYLIST_RANKLIST 123
+//灯效概述(可下发可上报)
+//备注:
+#define DPID_EFFECT_SKETCH 124
 
 
 

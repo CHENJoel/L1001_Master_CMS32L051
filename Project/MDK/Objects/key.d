@@ -51,3 +51,9 @@
 .\objects\key.o: ..\USER\Include\colorbox.h
 .\objects\key.o: ..\USER\Include\OTA.h
 .\objects\key.o: ..\USER\Include\MEM.h
+.\objects\key.o: ..\USER\Include\printlog.h
+.\objects\key.o: ..\USER\Include\comapp.h
+.\objects\key.o: ..\USER\Include\user_memory.h
+.\objects\key.o: ..\USER\Include\debug.h
+.\objects\key.o: ..\USER\Include\flashapp.h
+.\objects\key.o: ..\USER\Include\default_data.h

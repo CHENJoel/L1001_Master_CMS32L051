@@ -49,7 +49,7 @@
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
           <OutputDirectory>.\Objects\</OutputDirectory>
-          <OutputName>uartSendReceive</OutputName>
+          <OutputName>L1001_Master</OutputName>
           <CreateExecutable>1</CreateExecutable>
           <CreateLib>0</CreateLib>
           <CreateHexFile>1</CreateHexFile>
@@ -454,21 +454,6 @@
               <FilePath>..\USER\Source\wave.c</FilePath>
             </File>
             <File>
-              <FileName>memory.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\USER\Source\memory.c</FilePath>
-            </File>
-            <File>
-              <FileName>driver_spi.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\USER\Source\driver_spi.c</FilePath>
-            </File>
-            <File>
-              <FileName>driver_w25qxx.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\USER\Source\driver_w25qxx.c</FilePath>
-            </File>
-            <File>
               <FileName>motion.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\USER\Source\motion.c</FilePath>
@@ -484,9 +469,24 @@
               <FilePath>..\USER\Source\OTA.c</FilePath>
             </File>
             <File>
-              <FileName>MEM.c</FileName>
+              <FileName>comapp.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\USER\Source\MEM.c</FilePath>
+              <FilePath>..\USER\Source\comapp.c</FilePath>
+            </File>
+            <File>
+              <FileName>printlog.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\USER\Source\printlog.c</FilePath>
+            </File>
+            <File>
+              <FileName>flashapp.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\USER\Source\flashapp.c</FilePath>
+            </File>
+            <File>
+              <FileName>debug.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\USER\Source\debug.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -582,6 +582,51 @@
               <FileName>dma.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\Driver\src\dma.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>storage</GroupName>
+          <Files>
+            <File>
+              <FileName>driver_spi.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\USER\Source\driver_spi.c</FilePath>
+            </File>
+            <File>
+              <FileName>driver_w25qxx.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\USER\Source\driver_w25qxx.c</FilePath>
+            </File>
+            <File>
+              <FileName>MEM.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\USER\Source\MEM.c</FilePath>
+            </File>
+            <File>
+              <FileName>memory.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\USER\Source\memory.c</FilePath>
+            </File>
+            <File>
+              <FileName>user_memory.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\USER\Source\user_memory.c</FilePath>
+            </File>
+            <File>
+              <FileName>default_data.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\USER\Source\default_data.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>app</GroupName>
+          <Files>
+            <File>
+              <FileName>appfunction.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\USER\Source\appfunction.c</FilePath>
             </File>
           </Files>
         </Group>

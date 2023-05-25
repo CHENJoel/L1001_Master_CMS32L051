@@ -50,3 +50,9 @@
 .\objects\rtc_user.o: ..\USER\Include\colorbox.h
 .\objects\rtc_user.o: ..\USER\Include\OTA.h
 .\objects\rtc_user.o: ..\USER\Include\MEM.h
+.\objects\rtc_user.o: ..\USER\Include\printlog.h
+.\objects\rtc_user.o: ..\USER\Include\comapp.h
+.\objects\rtc_user.o: ..\USER\Include\user_memory.h
+.\objects\rtc_user.o: ..\USER\Include\debug.h
+.\objects\rtc_user.o: ..\USER\Include\flashapp.h
+.\objects\rtc_user.o: ..\USER\Include\default_data.h

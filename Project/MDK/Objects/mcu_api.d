@@ -51,3 +51,9 @@
 .\objects\mcu_api.o: ..\USER\Include\OTA.h
 .\objects\mcu_api.o: ..\USER\Include\MEM.h
 .\objects\mcu_api.o: ..\USER\Include\Inf.h
+.\objects\mcu_api.o: ..\USER\Include\printlog.h
+.\objects\mcu_api.o: ..\USER\Include\comapp.h
+.\objects\mcu_api.o: ..\USER\Include\user_memory.h
+.\objects\mcu_api.o: ..\USER\Include\debug.h
+.\objects\mcu_api.o: ..\USER\Include\flashapp.h
+.\objects\mcu_api.o: ..\USER\Include\default_data.h

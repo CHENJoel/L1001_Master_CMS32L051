@@ -50,3 +50,9 @@
 .\objects\mem.o: ..\USER\Include\colorbox.h
 .\objects\mem.o: ..\USER\Include\OTA.h
 .\objects\mem.o: ..\USER\Include\MEM.h
+.\objects\mem.o: ..\USER\Include\printlog.h
+.\objects\mem.o: ..\USER\Include\comapp.h
+.\objects\mem.o: ..\USER\Include\user_memory.h
+.\objects\mem.o: ..\USER\Include\debug.h
+.\objects\mem.o: ..\USER\Include\flashapp.h
+.\objects\mem.o: ..\USER\Include\default_data.h

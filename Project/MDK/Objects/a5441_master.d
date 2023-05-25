@@ -50,3 +50,9 @@
 .\objects\a5441_master.o: ..\USER\Include\colorbox.h
 .\objects\a5441_master.o: ..\USER\Include\OTA.h
 .\objects\a5441_master.o: ..\USER\Include\MEM.h
+.\objects\a5441_master.o: ..\USER\Include\printlog.h
+.\objects\a5441_master.o: ..\USER\Include\comapp.h
+.\objects\a5441_master.o: ..\USER\Include\user_memory.h
+.\objects\a5441_master.o: ..\USER\Include\debug.h
+.\objects\a5441_master.o: ..\USER\Include\flashapp.h
+.\objects\a5441_master.o: ..\USER\Include\default_data.h

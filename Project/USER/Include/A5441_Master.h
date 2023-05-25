@@ -155,7 +155,7 @@ extern unsigned char ModuleLight_Num; // 灯光序列数量
 extern unsigned char Module_Num;      // 已链接的从机序列数量
 
 
-void Debug(void);
+
 void KeyS_On(void);
 void Scene_MOD(void);
 void Paring_Mod(uint8_t *keyval,uint8_t reset);

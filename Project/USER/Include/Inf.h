@@ -4,9 +4,23 @@
 
 #pragma pack(push, 1) // 结构体按1字节对齐
 
-#define EfColor_SizeNum 32 // 灯效的颜色容量（数量）
-#define Ef_SizeNum 30      // 灯效容量（数量），预留256
+#define EfColor_SizeNum 32    // 灯效的颜色容量（数量）
+#define EfColor_miniSizeNum 8 // 灯效概述的颜色容量（数量）
+#define Ef_SizeNum 256        // 灯效容量（数量），预留256
 #define PlayList_SizeNum Ef_SizeNum * 2
+
+#define original_ef_basenum 128 // 自定义灯效的基编号
+#define original_ef_num 30      // 自定义灯效数量
+#define all_ef_num 60           // 全部灯效数量
+
+#define built_in_ef_num (sizeof(dfdata) / sizeof(df_data_TypeDef)) // 内置灯效数量
+
+#define default_ef_Speed 50
+#define default_ef_Brightness1 50
+#define default_ef_Brightness2 100
+#define default_ef_MicSensitivity 100
+#define default_ef_Attribute ORIGIN
+#define default_ef_Direction DIRECTION_UP
 
 typedef struct
 {
@@ -40,8 +54,8 @@ typedef enum /*运动方向*/
     DIRECTION_DOWN,     // 向下移动
     DIRECTION_LEFT,     // 向左移动
     DIRECTION_RIGHT,    // 向右移动
-    DIRECTION_SEPARATE, // 四周发散
     DIRECTION_CONVERGE, // 中心汇聚
+    DIRECTION_SEPARATE, // 四周发散
 } Direction_Enum;
 
 typedef enum /*灯效类型*/
@@ -53,9 +67,9 @@ typedef enum /*灯效类型*/
 
 typedef enum /*灯效属性*/
 {
-    ORIGIN,    // 原始
+    ORIGIN,    // 原始（未收藏）
     FAVORITES, // 收藏
-    OTHER,     // 其他，删除
+    EMPTY,     // 空
 } Attribute_Enum;
 
 /******************************************************************************************************************/
@@ -70,8 +84,13 @@ typedef struct
     uint8_t colorNum;                         // 颜色数量
     ColorID_TypeDef ColorID[EfColor_SizeNum]; // 静态灯效的颜色信息
 } EfColorInf_TypeDef;
+typedef struct
+{
+    uint8_t colorNum;                         // 颜色数量
+    ColorID_TypeDef ColorID[EfColor_miniSizeNum]; // 静态灯效的颜色信息
+} EfColorminiInf_TypeDef;/*灯效概述/简易信息*/
 
-
+#pragma pack(push, 1)
 typedef struct
 {
     uint8_t Name[16];              /* 灯效名字 */
@@ -80,17 +99,20 @@ typedef struct
     uint8_t Brightness2;           /* 亮度2 律动最高亮度*/
     uint8_t MicSensitivity;        /* 咪头灵敏度*/
     EffectType_Enum EffectType;    /* 灯效类型 */
-    Attribute_Enum MotionType;     /* 灯效属性 */
+    Attribute_Enum Attribute;      /* 灯效属性 */
     Direction_Enum Direction;      /* 运动方向 */
     Flow_Enum Flow;                /* 动态效果 */
     EfColorInf_TypeDef EfColorInf; /* 颜色数据区 */
-} Efdata_TypeDef; // 灯效详情
+} Efdetail_TypeDef; // 灯效详情
+#pragma pack(pop)
+
 
 /******************************************************************************************************************/
 typedef struct
 {
-    Efdata_TypeDef Default_Efdata[Ef_SizeNum];  // 内置灯效 索引号0~127
-    Efdata_TypeDef Original_Efdata[Ef_SizeNum]; // 自定义灯效 索引号128~255
+    // // // Efdetail_TypeDef Default_Efdata[128];  // 内置灯效 索引号0~127
+    // // // Efdetail_TypeDef Original_Efdata[128]; // 自定义灯效 索引号128~255
+    Efdetail_TypeDef efdata[256]; // 内置灯效 索引号0~127     -自定义灯效 索引号128~255
 } EffectInf_TypeDef;
 /******************************************************************************************************************/
 /******************************************************************/
@@ -98,33 +120,33 @@ typedef struct
 typedef struct /*  */
 {
     uint8_t Name[32];               /* 列表名字 */
-    uint8_t Num;                    /* 灯效列表中有效数据的数量 */
+    uint8_t num;                    /* 灯效列表中有效数据的数量 */
     Time_TypeDef DurationTime;      /* 持续时间 */
-    uint8_t List[PlayList_SizeNum]; /* 灯效列表 */
+    uint8_t list[PlayList_SizeNum]; /* 灯效列表 */
 } PlayList_TypeDef;
 
 /******************************************************************/
 
 typedef struct /* 灯效的顺序表 */
 {
-    uint8_t Num;              /* 灯效列表中有效数据的数量 */
-    uint8_t List[Ef_SizeNum]; /* 灯效列表.存储灯效索引号 */
-} Ef_RankList_TypeDef;
+    uint8_t num;             /* 灯效列表中有效数据的数量 */
+    uint8_t list[60];       /* 灯效列表.存储灯效索引号 */
+} ef_ranklist_TypeDef; /*存储区内空间分布*/
 
 typedef struct /* 播放列表的顺序表 */
 {
-    uint8_t Num;              /* 顺序列表中有效数据的数量 */
-    uint8_t List[Ef_SizeNum]; /* 顺序列表.存储播放表的索引号 */
-} PlayList_RankList_TypeDef;
+    uint8_t num;                   /* 顺序列表中有效数据的数量 */
+    uint8_t list[60];             /* 顺序列表.存储播放表的索引号 */
+} playList_ranklist_TypeDef; /*存储区内空间分布*/
 
 /******************************************************************************************************************/
 typedef struct
 {
-    Ef_RankList_TypeDef Default_Ef_RankList;     /* 内置灯效的顺序列表*/
-    Ef_RankList_TypeDef Original_Ef_RankList;    /* 自定义灯效的顺序列表*/
-    Ef_RankList_TypeDef Favorites_Ef_RankList;   /* 收藏灯效的顺序列表*/
-    PlayList_RankList_TypeDef PlayList_RankList; /* 播放列表的顺序列表*/
-} List_TypeDef;
+    ef_ranklist_TypeDef all_ef_ranklist;         /* 全部灯效的顺序列表*/
+    ef_ranklist_TypeDef original_ef_ranklist;    /* 自定义灯效的顺序列表*/
+    ef_ranklist_TypeDef favorites_ef_ranklist;   /* 收藏灯效的顺序列表*/
+    playList_ranklist_TypeDef PlayList_ranklist; /* 播放列表的顺序列表*/
+} ranklist_TypeDef;
 /******************************************************************************************************************/
 /*********************************************************/
 /*定时表*/
@@ -162,7 +184,7 @@ typedef struct /*  */
 typedef struct /*  */
 {
     uint8_t Num;              /* 有效数据的数量 */
-    Routine_TypeDef List[30]; /* 定时信息 */
+    Routine_TypeDef list[30]; /* 定时信息 */
 } RoutineList_TypeDef;
 /******************************************************************************************************************/
 /*********************************************/

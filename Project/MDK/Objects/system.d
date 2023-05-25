@@ -51,3 +51,9 @@
 .\objects\system.o: ..\USER\Include\OTA.h
 .\objects\system.o: ..\USER\Include\MEM.h
 .\objects\system.o: ..\USER\Include\Inf.h
+.\objects\system.o: ..\USER\Include\printlog.h
+.\objects\system.o: ..\USER\Include\comapp.h
+.\objects\system.o: ..\USER\Include\user_memory.h
+.\objects\system.o: ..\USER\Include\debug.h
+.\objects\system.o: ..\USER\Include\flashapp.h
+.\objects\system.o: ..\USER\Include\default_data.h

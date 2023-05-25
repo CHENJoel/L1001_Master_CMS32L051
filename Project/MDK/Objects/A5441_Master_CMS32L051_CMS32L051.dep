@@ -1,6 +1,6 @@
 Dependencies for Project 'A5441_Master_CMS32L051', Target 'CMS32L051': (DO NOT MODIFY !)
 CompilerVersion: 5060960::V5.06 update 7 (build 960)::.\ARMCC
-F (..\USER\Source\main.c)(0x6459EC01)(--c99 --gnu -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\USER\Include -I ..\..\Driver\inc -I ..\USER\mcu_sdk-I.\RTE\Device\CMS32L051TS20-I.\RTE\_CMS32L051-IF:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IF:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include-D__UVISION_VERSION="534" -D_RTE_ -D_RTE_-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
+F (..\USER\Source\main.c)(0x64689A7B)(--c99 --gnu -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\USER\Include -I ..\..\Driver\inc -I ..\USER\mcu_sdk-I.\RTE\Device\CMS32L051TS20-I.\RTE\_CMS32L051-IF:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IF:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include-D__UVISION_VERSION="534" -D_RTE_ -D_RTE_-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
 I (F:\APP\Keil\ARM\ARMCC\include\stdio.h)(0x5E8E3CC2)
 I (F:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include\CMS32L051.h)(0x61EF8A2A)
 I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm0plus.h)(0x5E8ED122)
@@ -14,7 +14,7 @@ I (..\..\Driver\inc\sci.h)(0x61EF8A2A)
 I (..\..\Driver\inc\tim4.h)(0x61EF8A2A)
 I (F:\APP\Keil\ARM\ARMCC\include\math.h)(0x5E8E3CC2)
 I (..\USER\Include\Light.H)(0x63477CA4)
-I (..\USER\Include\Function_Init.H)(0x643F7F78)
+I (..\USER\Include\Function_Init.H)(0x646C81AC)
 I (F:\APP\Keil\ARM\ARMCC\include\stdlib.h)(0x5E8E3CC2)
 I (..\..\Driver\inc\gpio.h)(0x624CEB27)
 I (..\..\Driver\inc\adc.h)(0x61EF8A2A)
@@ -30,25 +30,31 @@ I (..\USER\Include\key.h)(0x62DF8050)
 I (..\USER\Include\Com.H)(0x63AEAC1F)
 I (..\USER\Include\fft.h)(0x63735AD5)
 I (..\USER\Include\uart.h)(0x6391B07F)
-I (..\USER\Include\A5441_Master.h)(0x6459EEE6)
+I (..\USER\Include\A5441_Master.h)(0x6465E8FF)
 I (..\USER\Include\Sys.h)(0x62D4F6E8)
 I (..\USER\Include\ware.h)(0x62ECCAE9)
 I (..\USER\mcu_sdk\wifi.h)(0x6459EE17)
 I (..\USER\mcu_sdk\tuya_type.h)(0x6459BBF0)
-I (..\USER\mcu_sdk\protocol.h)(0x6459C388)
+I (..\USER\mcu_sdk\protocol.h)(0x646DD09C)
 I (..\USER\mcu_sdk\system.h)(0x6459BBF0)
 I (..\USER\mcu_sdk\mcu_api.h)(0x6459BBF0)
 I (..\USER\mcu_sdk\homekit.h)(0x6459BBF0)
-I (..\USER\Include\Inf.h)(0x645A0C4E)
+I (..\USER\Include\Inf.h)(0x646F1EB4)
 I (..\USER\Include\memory.h)(0x6458BDFF)
 I (..\USER\Include\driver_spi.h)(0x636B5512)
 I (..\USER\Include\driver_w25qxx.h)(0x643D0B0F)
 I (..\USER\Include\motion.h)(0x63982176)
 I (..\USER\Include\colorbox.h)(0x636333FB)
-I (..\USER\Include\OTA.h)(0x63A11D1B)
-I (..\USER\Include\MEM.h)(0x644209E9)
-F (..\USER\Source\A5441_Master.c)(0x6459EEC2)(--c99 --gnu -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\USER\Include -I ..\..\Driver\inc -I ..\USER\mcu_sdk-I.\RTE\Device\CMS32L051TS20-I.\RTE\_CMS32L051-IF:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IF:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include-D__UVISION_VERSION="534" -D_RTE_ -D_RTE_-o .\objects\a5441_master.o --omf_browse .\objects\a5441_master.crf --depend .\objects\a5441_master.d)
-I (..\USER\Include\Function_Init.H)(0x643F7F78)
+I (..\USER\Include\OTA.h)(0x64661BAF)
+I (..\USER\Include\MEM.h)(0x6465E143)
+I (..\USER\Include\printlog.h)(0x646F0FB9)
+I (..\USER\Include\comapp.h)(0x646C31CD)
+I (..\USER\Include\user_memory.h)(0x646F4449)
+I (..\USER\Include\debug.h)(0x64688FA5)
+I (..\USER\Include\flashapp.h)(0x64661832)
+I (..\USER\Include\default_data.h)(0x646F2532)
+F (..\USER\Source\A5441_Master.c)(0x64686356)(--c99 --gnu -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\USER\Include -I ..\..\Driver\inc -I ..\USER\mcu_sdk-I.\RTE\Device\CMS32L051TS20-I.\RTE\_CMS32L051-IF:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IF:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include-D__UVISION_VERSION="534" -D_RTE_ -D_RTE_-o .\objects\a5441_master.o --omf_browse .\objects\a5441_master.crf --depend .\objects\a5441_master.d)
+I (..\USER\Include\Function_Init.H)(0x646C81AC)
 I (F:\APP\Keil\ARM\ARMCC\include\stdlib.h)(0x5E8E3CC2)
 I (F:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include\CMS32L051.h)(0x61EF8A2A)
 I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm0plus.h)(0x5E8ED122)
@@ -77,28 +83,34 @@ I (..\USER\Include\key.h)(0x62DF8050)
 I (..\USER\Include\Com.H)(0x63AEAC1F)
 I (..\USER\Include\fft.h)(0x63735AD5)
 I (..\USER\Include\uart.h)(0x6391B07F)
-I (..\USER\Include\A5441_Master.h)(0x6459EEE6)
+I (..\USER\Include\A5441_Master.h)(0x6465E8FF)
 I (..\USER\Include\Sys.h)(0x62D4F6E8)
 I (..\USER\Include\ware.h)(0x62ECCAE9)
 I (..\USER\mcu_sdk\wifi.h)(0x6459EE17)
 I (..\USER\mcu_sdk\tuya_type.h)(0x6459BBF0)
-I (..\USER\mcu_sdk\protocol.h)(0x6459C388)
+I (..\USER\mcu_sdk\protocol.h)(0x646DD09C)
 I (..\USER\mcu_sdk\system.h)(0x6459BBF0)
 I (..\USER\mcu_sdk\mcu_api.h)(0x6459BBF0)
 I (..\USER\mcu_sdk\homekit.h)(0x6459BBF0)
-I (..\USER\Include\Inf.h)(0x645A0C4E)
+I (..\USER\Include\Inf.h)(0x646F1EB4)
 I (..\USER\Include\memory.h)(0x6458BDFF)
 I (..\USER\Include\driver_spi.h)(0x636B5512)
 I (..\USER\Include\driver_w25qxx.h)(0x643D0B0F)
 I (..\USER\Include\motion.h)(0x63982176)
 I (..\USER\Include\colorbox.h)(0x636333FB)
-I (..\USER\Include\OTA.h)(0x63A11D1B)
-I (..\USER\Include\MEM.h)(0x644209E9)
+I (..\USER\Include\OTA.h)(0x64661BAF)
+I (..\USER\Include\MEM.h)(0x6465E143)
+I (..\USER\Include\printlog.h)(0x646F0FB9)
+I (..\USER\Include\comapp.h)(0x646C31CD)
+I (..\USER\Include\user_memory.h)(0x646F4449)
+I (..\USER\Include\debug.h)(0x64688FA5)
+I (..\USER\Include\flashapp.h)(0x64661832)
+I (..\USER\Include\default_data.h)(0x646F2532)
 F (..\USER\Source\FIFO.c)(0x63071BF3)(--c99 --gnu -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\USER\Include -I ..\..\Driver\inc -I ..\USER\mcu_sdk-I.\RTE\Device\CMS32L051TS20-I.\RTE\_CMS32L051-IF:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IF:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include-D__UVISION_VERSION="534" -D_RTE_ -D_RTE_-o .\objects\fifo.o --omf_browse .\objects\fifo.crf --depend .\objects\fifo.d)
 I (..\USER\Include\FIFO.H)(0x63071284)
 F (..\USER\Source\Color.c)(0x6392ED24)(--c99 --gnu -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\USER\Include -I ..\..\Driver\inc -I ..\USER\mcu_sdk-I.\RTE\Device\CMS32L051TS20-I.\RTE\_CMS32L051-IF:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IF:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include-D__UVISION_VERSION="534" -D_RTE_ -D_RTE_-o .\objects\color.o --omf_browse .\objects\color.crf --depend .\objects\color.d)
 I (..\USER\Include\Color.H)(0x639144EC)
-I (..\USER\Include\Function_Init.H)(0x643F7F78)
+I (..\USER\Include\Function_Init.H)(0x646C81AC)
 I (F:\APP\Keil\ARM\ARMCC\include\stdlib.h)(0x5E8E3CC2)
 I (F:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include\CMS32L051.h)(0x61EF8A2A)
 I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm0plus.h)(0x5E8ED122)
@@ -126,26 +138,32 @@ I (..\USER\Include\key.h)(0x62DF8050)
 I (..\USER\Include\Com.H)(0x63AEAC1F)
 I (..\USER\Include\fft.h)(0x63735AD5)
 I (..\USER\Include\uart.h)(0x6391B07F)
-I (..\USER\Include\A5441_Master.h)(0x6459EEE6)
+I (..\USER\Include\A5441_Master.h)(0x6465E8FF)
 I (..\USER\Include\Sys.h)(0x62D4F6E8)
 I (..\USER\Include\ware.h)(0x62ECCAE9)
 I (..\USER\mcu_sdk\wifi.h)(0x6459EE17)
 I (..\USER\mcu_sdk\tuya_type.h)(0x6459BBF0)
-I (..\USER\mcu_sdk\protocol.h)(0x6459C388)
+I (..\USER\mcu_sdk\protocol.h)(0x646DD09C)
 I (..\USER\mcu_sdk\system.h)(0x6459BBF0)
 I (..\USER\mcu_sdk\mcu_api.h)(0x6459BBF0)
 I (..\USER\mcu_sdk\homekit.h)(0x6459BBF0)
-I (..\USER\Include\Inf.h)(0x645A0C4E)
+I (..\USER\Include\Inf.h)(0x646F1EB4)
 I (..\USER\Include\memory.h)(0x6458BDFF)
 I (..\USER\Include\driver_spi.h)(0x636B5512)
 I (..\USER\Include\driver_w25qxx.h)(0x643D0B0F)
 I (..\USER\Include\motion.h)(0x63982176)
 I (..\USER\Include\colorbox.h)(0x636333FB)
-I (..\USER\Include\OTA.h)(0x63A11D1B)
-I (..\USER\Include\MEM.h)(0x644209E9)
+I (..\USER\Include\OTA.h)(0x64661BAF)
+I (..\USER\Include\MEM.h)(0x6465E143)
+I (..\USER\Include\printlog.h)(0x646F0FB9)
+I (..\USER\Include\comapp.h)(0x646C31CD)
+I (..\USER\Include\user_memory.h)(0x646F4449)
+I (..\USER\Include\debug.h)(0x64688FA5)
+I (..\USER\Include\flashapp.h)(0x64661832)
+I (..\USER\Include\default_data.h)(0x646F2532)
 F (..\USER\Source\image.c)(0x6358D3D7)(--c99 --gnu -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\USER\Include -I ..\..\Driver\inc -I ..\USER\mcu_sdk-I.\RTE\Device\CMS32L051TS20-I.\RTE\_CMS32L051-IF:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IF:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include-D__UVISION_VERSION="534" -D_RTE_ -D_RTE_-o .\objects\image.o --omf_browse .\objects\image.crf --depend .\objects\image.d)
 I (..\USER\Include\Color.H)(0x639144EC)
-I (..\USER\Include\Function_Init.H)(0x643F7F78)
+I (..\USER\Include\Function_Init.H)(0x646C81AC)
 I (F:\APP\Keil\ARM\ARMCC\include\stdlib.h)(0x5E8E3CC2)
 I (F:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include\CMS32L051.h)(0x61EF8A2A)
 I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm0plus.h)(0x5E8ED122)
@@ -173,25 +191,31 @@ I (..\USER\Include\key.h)(0x62DF8050)
 I (..\USER\Include\Com.H)(0x63AEAC1F)
 I (..\USER\Include\fft.h)(0x63735AD5)
 I (..\USER\Include\uart.h)(0x6391B07F)
-I (..\USER\Include\A5441_Master.h)(0x6459EEE6)
+I (..\USER\Include\A5441_Master.h)(0x6465E8FF)
 I (..\USER\Include\Sys.h)(0x62D4F6E8)
 I (..\USER\Include\ware.h)(0x62ECCAE9)
 I (..\USER\mcu_sdk\wifi.h)(0x6459EE17)
 I (..\USER\mcu_sdk\tuya_type.h)(0x6459BBF0)
-I (..\USER\mcu_sdk\protocol.h)(0x6459C388)
+I (..\USER\mcu_sdk\protocol.h)(0x646DD09C)
 I (..\USER\mcu_sdk\system.h)(0x6459BBF0)
 I (..\USER\mcu_sdk\mcu_api.h)(0x6459BBF0)
 I (..\USER\mcu_sdk\homekit.h)(0x6459BBF0)
-I (..\USER\Include\Inf.h)(0x645A0C4E)
+I (..\USER\Include\Inf.h)(0x646F1EB4)
 I (..\USER\Include\memory.h)(0x6458BDFF)
 I (..\USER\Include\driver_spi.h)(0x636B5512)
 I (..\USER\Include\driver_w25qxx.h)(0x643D0B0F)
 I (..\USER\Include\motion.h)(0x63982176)
 I (..\USER\Include\colorbox.h)(0x636333FB)
-I (..\USER\Include\OTA.h)(0x63A11D1B)
-I (..\USER\Include\MEM.h)(0x644209E9)
+I (..\USER\Include\OTA.h)(0x64661BAF)
+I (..\USER\Include\MEM.h)(0x6465E143)
+I (..\USER\Include\printlog.h)(0x646F0FB9)
+I (..\USER\Include\comapp.h)(0x646C31CD)
+I (..\USER\Include\user_memory.h)(0x646F4449)
+I (..\USER\Include\debug.h)(0x64688FA5)
+I (..\USER\Include\flashapp.h)(0x64661832)
+I (..\USER\Include\default_data.h)(0x646F2532)
 F (..\USER\Source\IR.C)(0x63DB5C9E)(--c99 --gnu -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\USER\Include -I ..\..\Driver\inc -I ..\USER\mcu_sdk-I.\RTE\Device\CMS32L051TS20-I.\RTE\_CMS32L051-IF:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IF:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include-D__UVISION_VERSION="534" -D_RTE_ -D_RTE_-o .\objects\ir.o --omf_browse .\objects\ir.crf --depend .\objects\ir.d)
-I (..\USER\Include\Function_Init.H)(0x643F7F78)
+I (..\USER\Include\Function_Init.H)(0x646C81AC)
 I (F:\APP\Keil\ARM\ARMCC\include\stdlib.h)(0x5E8E3CC2)
 I (F:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include\CMS32L051.h)(0x61EF8A2A)
 I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm0plus.h)(0x5E8ED122)
@@ -220,26 +244,32 @@ I (..\USER\Include\key.h)(0x62DF8050)
 I (..\USER\Include\Com.H)(0x63AEAC1F)
 I (..\USER\Include\fft.h)(0x63735AD5)
 I (..\USER\Include\uart.h)(0x6391B07F)
-I (..\USER\Include\A5441_Master.h)(0x6459EEE6)
+I (..\USER\Include\A5441_Master.h)(0x6465E8FF)
 I (..\USER\Include\Sys.h)(0x62D4F6E8)
 I (..\USER\Include\ware.h)(0x62ECCAE9)
 I (..\USER\mcu_sdk\wifi.h)(0x6459EE17)
 I (..\USER\mcu_sdk\tuya_type.h)(0x6459BBF0)
-I (..\USER\mcu_sdk\protocol.h)(0x6459C388)
+I (..\USER\mcu_sdk\protocol.h)(0x646DD09C)
 I (..\USER\mcu_sdk\system.h)(0x6459BBF0)
 I (..\USER\mcu_sdk\mcu_api.h)(0x6459BBF0)
 I (..\USER\mcu_sdk\homekit.h)(0x6459BBF0)
-I (..\USER\Include\Inf.h)(0x645A0C4E)
+I (..\USER\Include\Inf.h)(0x646F1EB4)
 I (..\USER\Include\memory.h)(0x6458BDFF)
 I (..\USER\Include\driver_spi.h)(0x636B5512)
 I (..\USER\Include\driver_w25qxx.h)(0x643D0B0F)
 I (..\USER\Include\motion.h)(0x63982176)
 I (..\USER\Include\colorbox.h)(0x636333FB)
-I (..\USER\Include\OTA.h)(0x63A11D1B)
-I (..\USER\Include\MEM.h)(0x644209E9)
+I (..\USER\Include\OTA.h)(0x64661BAF)
+I (..\USER\Include\MEM.h)(0x6465E143)
+I (..\USER\Include\printlog.h)(0x646F0FB9)
+I (..\USER\Include\comapp.h)(0x646C31CD)
+I (..\USER\Include\user_memory.h)(0x646F4449)
+I (..\USER\Include\debug.h)(0x64688FA5)
+I (..\USER\Include\flashapp.h)(0x64661832)
+I (..\USER\Include\default_data.h)(0x646F2532)
 F (..\USER\Source\Light.c)(0x63477D41)(--c99 --gnu -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\USER\Include -I ..\..\Driver\inc -I ..\USER\mcu_sdk-I.\RTE\Device\CMS32L051TS20-I.\RTE\_CMS32L051-IF:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IF:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include-D__UVISION_VERSION="534" -D_RTE_ -D_RTE_-o .\objects\light.o --omf_browse .\objects\light.crf --depend .\objects\light.d)
 I (..\USER\Include\Light.H)(0x63477CA4)
-I (..\USER\Include\Function_Init.H)(0x643F7F78)
+I (..\USER\Include\Function_Init.H)(0x646C81AC)
 I (F:\APP\Keil\ARM\ARMCC\include\stdlib.h)(0x5E8E3CC2)
 I (F:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include\CMS32L051.h)(0x61EF8A2A)
 I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm0plus.h)(0x5E8ED122)
@@ -267,26 +297,32 @@ I (..\USER\Include\key.h)(0x62DF8050)
 I (..\USER\Include\Com.H)(0x63AEAC1F)
 I (..\USER\Include\fft.h)(0x63735AD5)
 I (..\USER\Include\uart.h)(0x6391B07F)
-I (..\USER\Include\A5441_Master.h)(0x6459EEE6)
+I (..\USER\Include\A5441_Master.h)(0x6465E8FF)
 I (..\USER\Include\Sys.h)(0x62D4F6E8)
 I (..\USER\Include\ware.h)(0x62ECCAE9)
 I (..\USER\mcu_sdk\wifi.h)(0x6459EE17)
 I (..\USER\mcu_sdk\tuya_type.h)(0x6459BBF0)
-I (..\USER\mcu_sdk\protocol.h)(0x6459C388)
+I (..\USER\mcu_sdk\protocol.h)(0x646DD09C)
 I (..\USER\mcu_sdk\system.h)(0x6459BBF0)
 I (..\USER\mcu_sdk\mcu_api.h)(0x6459BBF0)
 I (..\USER\mcu_sdk\homekit.h)(0x6459BBF0)
-I (..\USER\Include\Inf.h)(0x645A0C4E)
+I (..\USER\Include\Inf.h)(0x646F1EB4)
 I (..\USER\Include\memory.h)(0x6458BDFF)
 I (..\USER\Include\driver_spi.h)(0x636B5512)
 I (..\USER\Include\driver_w25qxx.h)(0x643D0B0F)
 I (..\USER\Include\motion.h)(0x63982176)
 I (..\USER\Include\colorbox.h)(0x636333FB)
-I (..\USER\Include\OTA.h)(0x63A11D1B)
-I (..\USER\Include\MEM.h)(0x644209E9)
+I (..\USER\Include\OTA.h)(0x64661BAF)
+I (..\USER\Include\MEM.h)(0x6465E143)
+I (..\USER\Include\printlog.h)(0x646F0FB9)
+I (..\USER\Include\comapp.h)(0x646C31CD)
+I (..\USER\Include\user_memory.h)(0x646F4449)
+I (..\USER\Include\debug.h)(0x64688FA5)
+I (..\USER\Include\flashapp.h)(0x64661832)
+I (..\USER\Include\default_data.h)(0x646F2532)
 F (..\USER\Source\KEY.C)(0x62D7B50A)(--c99 --gnu -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\USER\Include -I ..\..\Driver\inc -I ..\USER\mcu_sdk-I.\RTE\Device\CMS32L051TS20-I.\RTE\_CMS32L051-IF:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IF:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include-D__UVISION_VERSION="534" -D_RTE_ -D_RTE_-o .\objects\key.o --omf_browse .\objects\key.crf --depend .\objects\key.d)
 I (..\USER\Include\KEY.H)(0x62DF8050)
-I (..\USER\Include\Function_Init.H)(0x643F7F78)
+I (..\USER\Include\Function_Init.H)(0x646C81AC)
 I (F:\APP\Keil\ARM\ARMCC\include\stdlib.h)(0x5E8E3CC2)
 I (F:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include\CMS32L051.h)(0x61EF8A2A)
 I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm0plus.h)(0x5E8ED122)
@@ -314,25 +350,31 @@ I (..\USER\Include\Light.H)(0x63477CA4)
 I (..\USER\Include\Com.H)(0x63AEAC1F)
 I (..\USER\Include\fft.h)(0x63735AD5)
 I (..\USER\Include\uart.h)(0x6391B07F)
-I (..\USER\Include\A5441_Master.h)(0x6459EEE6)
+I (..\USER\Include\A5441_Master.h)(0x6465E8FF)
 I (..\USER\Include\Sys.h)(0x62D4F6E8)
 I (..\USER\Include\ware.h)(0x62ECCAE9)
 I (..\USER\mcu_sdk\wifi.h)(0x6459EE17)
 I (..\USER\mcu_sdk\tuya_type.h)(0x6459BBF0)
-I (..\USER\mcu_sdk\protocol.h)(0x6459C388)
+I (..\USER\mcu_sdk\protocol.h)(0x646DD09C)
 I (..\USER\mcu_sdk\system.h)(0x6459BBF0)
 I (..\USER\mcu_sdk\mcu_api.h)(0x6459BBF0)
 I (..\USER\mcu_sdk\homekit.h)(0x6459BBF0)
-I (..\USER\Include\Inf.h)(0x645A0C4E)
+I (..\USER\Include\Inf.h)(0x646F1EB4)
 I (..\USER\Include\memory.h)(0x6458BDFF)
 I (..\USER\Include\driver_spi.h)(0x636B5512)
 I (..\USER\Include\driver_w25qxx.h)(0x643D0B0F)
 I (..\USER\Include\motion.h)(0x63982176)
 I (..\USER\Include\colorbox.h)(0x636333FB)
-I (..\USER\Include\OTA.h)(0x63A11D1B)
-I (..\USER\Include\MEM.h)(0x644209E9)
+I (..\USER\Include\OTA.h)(0x64661BAF)
+I (..\USER\Include\MEM.h)(0x6465E143)
+I (..\USER\Include\printlog.h)(0x646F0FB9)
+I (..\USER\Include\comapp.h)(0x646C31CD)
+I (..\USER\Include\user_memory.h)(0x646F4449)
+I (..\USER\Include\debug.h)(0x64688FA5)
+I (..\USER\Include\flashapp.h)(0x64661832)
+I (..\USER\Include\default_data.h)(0x646F2532)
 F (..\USER\Source\Com.c)(0x64070828)(--c99 --gnu -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\USER\Include -I ..\..\Driver\inc -I ..\USER\mcu_sdk-I.\RTE\Device\CMS32L051TS20-I.\RTE\_CMS32L051-IF:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IF:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include-D__UVISION_VERSION="534" -D_RTE_ -D_RTE_-o .\objects\com.o --omf_browse .\objects\com.crf --depend .\objects\com.d)
-I (..\USER\Include\Function_Init.H)(0x643F7F78)
+I (..\USER\Include\Function_Init.H)(0x646C81AC)
 I (F:\APP\Keil\ARM\ARMCC\include\stdlib.h)(0x5E8E3CC2)
 I (F:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include\CMS32L051.h)(0x61EF8A2A)
 I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm0plus.h)(0x5E8ED122)
@@ -361,25 +403,31 @@ I (..\USER\Include\key.h)(0x62DF8050)
 I (..\USER\Include\Com.H)(0x63AEAC1F)
 I (..\USER\Include\fft.h)(0x63735AD5)
 I (..\USER\Include\uart.h)(0x6391B07F)
-I (..\USER\Include\A5441_Master.h)(0x6459EEE6)
+I (..\USER\Include\A5441_Master.h)(0x6465E8FF)
 I (..\USER\Include\Sys.h)(0x62D4F6E8)
 I (..\USER\Include\ware.h)(0x62ECCAE9)
 I (..\USER\mcu_sdk\wifi.h)(0x6459EE17)
 I (..\USER\mcu_sdk\tuya_type.h)(0x6459BBF0)
-I (..\USER\mcu_sdk\protocol.h)(0x6459C388)
+I (..\USER\mcu_sdk\protocol.h)(0x646DD09C)
 I (..\USER\mcu_sdk\system.h)(0x6459BBF0)
 I (..\USER\mcu_sdk\mcu_api.h)(0x6459BBF0)
 I (..\USER\mcu_sdk\homekit.h)(0x6459BBF0)
-I (..\USER\Include\Inf.h)(0x645A0C4E)
+I (..\USER\Include\Inf.h)(0x646F1EB4)
 I (..\USER\Include\memory.h)(0x6458BDFF)
 I (..\USER\Include\driver_spi.h)(0x636B5512)
 I (..\USER\Include\driver_w25qxx.h)(0x643D0B0F)
 I (..\USER\Include\motion.h)(0x63982176)
 I (..\USER\Include\colorbox.h)(0x636333FB)
-I (..\USER\Include\OTA.h)(0x63A11D1B)
-I (..\USER\Include\MEM.h)(0x644209E9)
+I (..\USER\Include\OTA.h)(0x64661BAF)
+I (..\USER\Include\MEM.h)(0x6465E143)
+I (..\USER\Include\printlog.h)(0x646F0FB9)
+I (..\USER\Include\comapp.h)(0x646C31CD)
+I (..\USER\Include\user_memory.h)(0x646F4449)
+I (..\USER\Include\debug.h)(0x64688FA5)
+I (..\USER\Include\flashapp.h)(0x64661832)
+I (..\USER\Include\default_data.h)(0x646F2532)
 F (..\USER\Source\delay.c)(0x62E4CE53)(--c99 --gnu -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\USER\Include -I ..\..\Driver\inc -I ..\USER\mcu_sdk-I.\RTE\Device\CMS32L051TS20-I.\RTE\_CMS32L051-IF:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IF:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include-D__UVISION_VERSION="534" -D_RTE_ -D_RTE_-o .\objects\delay.o --omf_browse .\objects\delay.crf --depend .\objects\delay.d)
-I (..\USER\Include\Function_Init.H)(0x643F7F78)
+I (..\USER\Include\Function_Init.H)(0x646C81AC)
 I (F:\APP\Keil\ARM\ARMCC\include\stdlib.h)(0x5E8E3CC2)
 I (F:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include\CMS32L051.h)(0x61EF8A2A)
 I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm0plus.h)(0x5E8ED122)
@@ -408,27 +456,33 @@ I (..\USER\Include\key.h)(0x62DF8050)
 I (..\USER\Include\Com.H)(0x63AEAC1F)
 I (..\USER\Include\fft.h)(0x63735AD5)
 I (..\USER\Include\uart.h)(0x6391B07F)
-I (..\USER\Include\A5441_Master.h)(0x6459EEE6)
+I (..\USER\Include\A5441_Master.h)(0x6465E8FF)
 I (..\USER\Include\Sys.h)(0x62D4F6E8)
 I (..\USER\Include\ware.h)(0x62ECCAE9)
 I (..\USER\mcu_sdk\wifi.h)(0x6459EE17)
 I (..\USER\mcu_sdk\tuya_type.h)(0x6459BBF0)
-I (..\USER\mcu_sdk\protocol.h)(0x6459C388)
+I (..\USER\mcu_sdk\protocol.h)(0x646DD09C)
 I (..\USER\mcu_sdk\system.h)(0x6459BBF0)
 I (..\USER\mcu_sdk\mcu_api.h)(0x6459BBF0)
 I (..\USER\mcu_sdk\homekit.h)(0x6459BBF0)
-I (..\USER\Include\Inf.h)(0x645A0C4E)
+I (..\USER\Include\Inf.h)(0x646F1EB4)
 I (..\USER\Include\memory.h)(0x6458BDFF)
 I (..\USER\Include\driver_spi.h)(0x636B5512)
 I (..\USER\Include\driver_w25qxx.h)(0x643D0B0F)
 I (..\USER\Include\motion.h)(0x63982176)
 I (..\USER\Include\colorbox.h)(0x636333FB)
-I (..\USER\Include\OTA.h)(0x63A11D1B)
-I (..\USER\Include\MEM.h)(0x644209E9)
+I (..\USER\Include\OTA.h)(0x64661BAF)
+I (..\USER\Include\MEM.h)(0x6465E143)
+I (..\USER\Include\printlog.h)(0x646F0FB9)
+I (..\USER\Include\comapp.h)(0x646C31CD)
+I (..\USER\Include\user_memory.h)(0x646F4449)
+I (..\USER\Include\debug.h)(0x64688FA5)
+I (..\USER\Include\flashapp.h)(0x64661832)
+I (..\USER\Include\default_data.h)(0x646F2532)
 I (..\USER\Include\delay.H)(0x62E4CE5F)
 F (..\USER\Source\FFT.c)(0x63735ACD)(--c99 --gnu -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\USER\Include -I ..\..\Driver\inc -I ..\USER\mcu_sdk-I.\RTE\Device\CMS32L051TS20-I.\RTE\_CMS32L051-IF:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IF:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include-D__UVISION_VERSION="534" -D_RTE_ -D_RTE_-o .\objects\fft.o --omf_browse .\objects\fft.crf --depend .\objects\fft.d)
 I (..\USER\Include\fft.h)(0x63735AD5)
-I (..\USER\Include\Function_Init.H)(0x643F7F78)
+I (..\USER\Include\Function_Init.H)(0x646C81AC)
 I (F:\APP\Keil\ARM\ARMCC\include\stdlib.h)(0x5E8E3CC2)
 I (F:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include\CMS32L051.h)(0x61EF8A2A)
 I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm0plus.h)(0x5E8ED122)
@@ -456,25 +510,31 @@ I (..\USER\Include\Light.H)(0x63477CA4)
 I (..\USER\Include\key.h)(0x62DF8050)
 I (..\USER\Include\Com.H)(0x63AEAC1F)
 I (..\USER\Include\uart.h)(0x6391B07F)
-I (..\USER\Include\A5441_Master.h)(0x6459EEE6)
+I (..\USER\Include\A5441_Master.h)(0x6465E8FF)
 I (..\USER\Include\Sys.h)(0x62D4F6E8)
 I (..\USER\Include\ware.h)(0x62ECCAE9)
 I (..\USER\mcu_sdk\wifi.h)(0x6459EE17)
 I (..\USER\mcu_sdk\tuya_type.h)(0x6459BBF0)
-I (..\USER\mcu_sdk\protocol.h)(0x6459C388)
+I (..\USER\mcu_sdk\protocol.h)(0x646DD09C)
 I (..\USER\mcu_sdk\system.h)(0x6459BBF0)
 I (..\USER\mcu_sdk\mcu_api.h)(0x6459BBF0)
 I (..\USER\mcu_sdk\homekit.h)(0x6459BBF0)
-I (..\USER\Include\Inf.h)(0x645A0C4E)
+I (..\USER\Include\Inf.h)(0x646F1EB4)
 I (..\USER\Include\memory.h)(0x6458BDFF)
 I (..\USER\Include\driver_spi.h)(0x636B5512)
 I (..\USER\Include\driver_w25qxx.h)(0x643D0B0F)
 I (..\USER\Include\motion.h)(0x63982176)
 I (..\USER\Include\colorbox.h)(0x636333FB)
-I (..\USER\Include\OTA.h)(0x63A11D1B)
-I (..\USER\Include\MEM.h)(0x644209E9)
+I (..\USER\Include\OTA.h)(0x64661BAF)
+I (..\USER\Include\MEM.h)(0x6465E143)
+I (..\USER\Include\printlog.h)(0x646F0FB9)
+I (..\USER\Include\comapp.h)(0x646C31CD)
+I (..\USER\Include\user_memory.h)(0x646F4449)
+I (..\USER\Include\debug.h)(0x64688FA5)
+I (..\USER\Include\flashapp.h)(0x64661832)
+I (..\USER\Include\default_data.h)(0x646F2532)
 F (..\USER\Source\uart.c)(0x6391B0BD)(--c99 --gnu -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\USER\Include -I ..\..\Driver\inc -I ..\USER\mcu_sdk-I.\RTE\Device\CMS32L051TS20-I.\RTE\_CMS32L051-IF:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IF:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include-D__UVISION_VERSION="534" -D_RTE_ -D_RTE_-o .\objects\uart.o --omf_browse .\objects\uart.crf --depend .\objects\uart.d)
-I (..\USER\Include\Function_Init.H)(0x643F7F78)
+I (..\USER\Include\Function_Init.H)(0x646C81AC)
 I (F:\APP\Keil\ARM\ARMCC\include\stdlib.h)(0x5E8E3CC2)
 I (F:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include\CMS32L051.h)(0x61EF8A2A)
 I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm0plus.h)(0x5E8ED122)
@@ -503,26 +563,32 @@ I (..\USER\Include\key.h)(0x62DF8050)
 I (..\USER\Include\Com.H)(0x63AEAC1F)
 I (..\USER\Include\fft.h)(0x63735AD5)
 I (..\USER\Include\uart.h)(0x6391B07F)
-I (..\USER\Include\A5441_Master.h)(0x6459EEE6)
+I (..\USER\Include\A5441_Master.h)(0x6465E8FF)
 I (..\USER\Include\Sys.h)(0x62D4F6E8)
 I (..\USER\Include\ware.h)(0x62ECCAE9)
 I (..\USER\mcu_sdk\wifi.h)(0x6459EE17)
 I (..\USER\mcu_sdk\tuya_type.h)(0x6459BBF0)
-I (..\USER\mcu_sdk\protocol.h)(0x6459C388)
+I (..\USER\mcu_sdk\protocol.h)(0x646DD09C)
 I (..\USER\mcu_sdk\system.h)(0x6459BBF0)
 I (..\USER\mcu_sdk\mcu_api.h)(0x6459BBF0)
 I (..\USER\mcu_sdk\homekit.h)(0x6459BBF0)
-I (..\USER\Include\Inf.h)(0x645A0C4E)
+I (..\USER\Include\Inf.h)(0x646F1EB4)
 I (..\USER\Include\memory.h)(0x6458BDFF)
 I (..\USER\Include\driver_spi.h)(0x636B5512)
 I (..\USER\Include\driver_w25qxx.h)(0x643D0B0F)
 I (..\USER\Include\motion.h)(0x63982176)
 I (..\USER\Include\colorbox.h)(0x636333FB)
-I (..\USER\Include\OTA.h)(0x63A11D1B)
-I (..\USER\Include\MEM.h)(0x644209E9)
+I (..\USER\Include\OTA.h)(0x64661BAF)
+I (..\USER\Include\MEM.h)(0x6465E143)
+I (..\USER\Include\printlog.h)(0x646F0FB9)
+I (..\USER\Include\comapp.h)(0x646C31CD)
+I (..\USER\Include\user_memory.h)(0x646F4449)
+I (..\USER\Include\debug.h)(0x64688FA5)
+I (..\USER\Include\flashapp.h)(0x64661832)
+I (..\USER\Include\default_data.h)(0x646F2532)
 F (..\USER\Source\Sys.c)(0x62E78E5D)(--c99 --gnu -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\USER\Include -I ..\..\Driver\inc -I ..\USER\mcu_sdk-I.\RTE\Device\CMS32L051TS20-I.\RTE\_CMS32L051-IF:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IF:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include-D__UVISION_VERSION="534" -D_RTE_ -D_RTE_-o .\objects\sys.o --omf_browse .\objects\sys.crf --depend .\objects\sys.d)
 I (..\USER\Include\Sys.h)(0x62D4F6E8)
-I (..\USER\Include\Function_Init.H)(0x643F7F78)
+I (..\USER\Include\Function_Init.H)(0x646C81AC)
 I (F:\APP\Keil\ARM\ARMCC\include\stdlib.h)(0x5E8E3CC2)
 I (F:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include\CMS32L051.h)(0x61EF8A2A)
 I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm0plus.h)(0x5E8ED122)
@@ -551,24 +617,30 @@ I (..\USER\Include\key.h)(0x62DF8050)
 I (..\USER\Include\Com.H)(0x63AEAC1F)
 I (..\USER\Include\fft.h)(0x63735AD5)
 I (..\USER\Include\uart.h)(0x6391B07F)
-I (..\USER\Include\A5441_Master.h)(0x6459EEE6)
+I (..\USER\Include\A5441_Master.h)(0x6465E8FF)
 I (..\USER\Include\ware.h)(0x62ECCAE9)
 I (..\USER\mcu_sdk\wifi.h)(0x6459EE17)
 I (..\USER\mcu_sdk\tuya_type.h)(0x6459BBF0)
-I (..\USER\mcu_sdk\protocol.h)(0x6459C388)
+I (..\USER\mcu_sdk\protocol.h)(0x646DD09C)
 I (..\USER\mcu_sdk\system.h)(0x6459BBF0)
 I (..\USER\mcu_sdk\mcu_api.h)(0x6459BBF0)
 I (..\USER\mcu_sdk\homekit.h)(0x6459BBF0)
-I (..\USER\Include\Inf.h)(0x645A0C4E)
+I (..\USER\Include\Inf.h)(0x646F1EB4)
 I (..\USER\Include\memory.h)(0x6458BDFF)
 I (..\USER\Include\driver_spi.h)(0x636B5512)
 I (..\USER\Include\driver_w25qxx.h)(0x643D0B0F)
 I (..\USER\Include\motion.h)(0x63982176)
 I (..\USER\Include\colorbox.h)(0x636333FB)
-I (..\USER\Include\OTA.h)(0x63A11D1B)
-I (..\USER\Include\MEM.h)(0x644209E9)
+I (..\USER\Include\OTA.h)(0x64661BAF)
+I (..\USER\Include\MEM.h)(0x6465E143)
+I (..\USER\Include\printlog.h)(0x646F0FB9)
+I (..\USER\Include\comapp.h)(0x646C31CD)
+I (..\USER\Include\user_memory.h)(0x646F4449)
+I (..\USER\Include\debug.h)(0x64688FA5)
+I (..\USER\Include\flashapp.h)(0x64661832)
+I (..\USER\Include\default_data.h)(0x646F2532)
 F (..\USER\Source\wave.c)(0x635FAD65)(--c99 --gnu -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\USER\Include -I ..\..\Driver\inc -I ..\USER\mcu_sdk-I.\RTE\Device\CMS32L051TS20-I.\RTE\_CMS32L051-IF:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IF:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include-D__UVISION_VERSION="534" -D_RTE_ -D_RTE_-o .\objects\wave.o --omf_browse .\objects\wave.crf --depend .\objects\wave.d)
-I (..\USER\Include\Function_Init.H)(0x643F7F78)
+I (..\USER\Include\Function_Init.H)(0x646C81AC)
 I (F:\APP\Keil\ARM\ARMCC\include\stdlib.h)(0x5E8E3CC2)
 I (F:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include\CMS32L051.h)(0x61EF8A2A)
 I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm0plus.h)(0x5E8ED122)
@@ -597,25 +669,31 @@ I (..\USER\Include\key.h)(0x62DF8050)
 I (..\USER\Include\Com.H)(0x63AEAC1F)
 I (..\USER\Include\fft.h)(0x63735AD5)
 I (..\USER\Include\uart.h)(0x6391B07F)
-I (..\USER\Include\A5441_Master.h)(0x6459EEE6)
+I (..\USER\Include\A5441_Master.h)(0x6465E8FF)
 I (..\USER\Include\Sys.h)(0x62D4F6E8)
 I (..\USER\Include\ware.h)(0x62ECCAE9)
 I (..\USER\mcu_sdk\wifi.h)(0x6459EE17)
 I (..\USER\mcu_sdk\tuya_type.h)(0x6459BBF0)
-I (..\USER\mcu_sdk\protocol.h)(0x6459C388)
+I (..\USER\mcu_sdk\protocol.h)(0x646DD09C)
 I (..\USER\mcu_sdk\system.h)(0x6459BBF0)
 I (..\USER\mcu_sdk\mcu_api.h)(0x6459BBF0)
 I (..\USER\mcu_sdk\homekit.h)(0x6459BBF0)
-I (..\USER\Include\Inf.h)(0x645A0C4E)
+I (..\USER\Include\Inf.h)(0x646F1EB4)
 I (..\USER\Include\memory.h)(0x6458BDFF)
 I (..\USER\Include\driver_spi.h)(0x636B5512)
 I (..\USER\Include\driver_w25qxx.h)(0x643D0B0F)
 I (..\USER\Include\motion.h)(0x63982176)
 I (..\USER\Include\colorbox.h)(0x636333FB)
-I (..\USER\Include\OTA.h)(0x63A11D1B)
-I (..\USER\Include\MEM.h)(0x644209E9)
-F (..\USER\Source\memory.c)(0x63A15524)(--c99 --gnu -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\USER\Include -I ..\..\Driver\inc -I ..\USER\mcu_sdk-I.\RTE\Device\CMS32L051TS20-I.\RTE\_CMS32L051-IF:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IF:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include-D__UVISION_VERSION="534" -D_RTE_ -D_RTE_-o .\objects\memory.o --omf_browse .\objects\memory.crf --depend .\objects\memory.d)
-I (..\USER\Include\Function_Init.H)(0x643F7F78)
+I (..\USER\Include\OTA.h)(0x64661BAF)
+I (..\USER\Include\MEM.h)(0x6465E143)
+I (..\USER\Include\printlog.h)(0x646F0FB9)
+I (..\USER\Include\comapp.h)(0x646C31CD)
+I (..\USER\Include\user_memory.h)(0x646F4449)
+I (..\USER\Include\debug.h)(0x64688FA5)
+I (..\USER\Include\flashapp.h)(0x64661832)
+I (..\USER\Include\default_data.h)(0x646F2532)
+F (..\USER\Source\motion.c)(0x64685ED1)(--c99 --gnu -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\USER\Include -I ..\..\Driver\inc -I ..\USER\mcu_sdk-I.\RTE\Device\CMS32L051TS20-I.\RTE\_CMS32L051-IF:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IF:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include-D__UVISION_VERSION="534" -D_RTE_ -D_RTE_-o .\objects\motion.o --omf_browse .\objects\motion.crf --depend .\objects\motion.d)
+I (..\USER\Include\Function_Init.H)(0x646C81AC)
 I (F:\APP\Keil\ARM\ARMCC\include\stdlib.h)(0x5E8E3CC2)
 I (F:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include\CMS32L051.h)(0x61EF8A2A)
 I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm0plus.h)(0x5E8ED122)
@@ -644,26 +722,31 @@ I (..\USER\Include\key.h)(0x62DF8050)
 I (..\USER\Include\Com.H)(0x63AEAC1F)
 I (..\USER\Include\fft.h)(0x63735AD5)
 I (..\USER\Include\uart.h)(0x6391B07F)
-I (..\USER\Include\A5441_Master.h)(0x6459EEE6)
+I (..\USER\Include\A5441_Master.h)(0x6465E8FF)
 I (..\USER\Include\Sys.h)(0x62D4F6E8)
 I (..\USER\Include\ware.h)(0x62ECCAE9)
 I (..\USER\mcu_sdk\wifi.h)(0x6459EE17)
 I (..\USER\mcu_sdk\tuya_type.h)(0x6459BBF0)
-I (..\USER\mcu_sdk\protocol.h)(0x6459C388)
+I (..\USER\mcu_sdk\protocol.h)(0x646DD09C)
 I (..\USER\mcu_sdk\system.h)(0x6459BBF0)
 I (..\USER\mcu_sdk\mcu_api.h)(0x6459BBF0)
 I (..\USER\mcu_sdk\homekit.h)(0x6459BBF0)
-I (..\USER\Include\Inf.h)(0x645A0C4E)
+I (..\USER\Include\Inf.h)(0x646F1EB4)
 I (..\USER\Include\memory.h)(0x6458BDFF)
 I (..\USER\Include\driver_spi.h)(0x636B5512)
 I (..\USER\Include\driver_w25qxx.h)(0x643D0B0F)
 I (..\USER\Include\motion.h)(0x63982176)
 I (..\USER\Include\colorbox.h)(0x636333FB)
-I (..\USER\Include\OTA.h)(0x63A11D1B)
-I (..\USER\Include\MEM.h)(0x644209E9)
-F (..\USER\Source\driver_spi.c)(0x643F4E0E)(--c99 --gnu -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\USER\Include -I ..\..\Driver\inc -I ..\USER\mcu_sdk-I.\RTE\Device\CMS32L051TS20-I.\RTE\_CMS32L051-IF:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IF:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include-D__UVISION_VERSION="534" -D_RTE_ -D_RTE_-o .\objects\driver_spi.o --omf_browse .\objects\driver_spi.crf --depend .\objects\driver_spi.d)
-I (..\USER\Include\driver_spi.h)(0x636B5512)
-I (..\USER\Include\Function_Init.H)(0x643F7F78)
+I (..\USER\Include\OTA.h)(0x64661BAF)
+I (..\USER\Include\MEM.h)(0x6465E143)
+I (..\USER\Include\printlog.h)(0x646F0FB9)
+I (..\USER\Include\comapp.h)(0x646C31CD)
+I (..\USER\Include\user_memory.h)(0x646F4449)
+I (..\USER\Include\debug.h)(0x64688FA5)
+I (..\USER\Include\flashapp.h)(0x64661832)
+I (..\USER\Include\default_data.h)(0x646F2532)
+F (..\USER\Source\colorbox.c)(0x646C822C)(--c99 --gnu -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\USER\Include -I ..\..\Driver\inc -I ..\USER\mcu_sdk-I.\RTE\Device\CMS32L051TS20-I.\RTE\_CMS32L051-IF:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IF:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include-D__UVISION_VERSION="534" -D_RTE_ -D_RTE_-o .\objects\colorbox.o --omf_browse .\objects\colorbox.crf --depend .\objects\colorbox.d)
+I (..\USER\Include\Function_Init.H)(0x646C81AC)
 I (F:\APP\Keil\ARM\ARMCC\include\stdlib.h)(0x5E8E3CC2)
 I (F:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include\CMS32L051.h)(0x61EF8A2A)
 I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm0plus.h)(0x5E8ED122)
@@ -692,165 +775,31 @@ I (..\USER\Include\key.h)(0x62DF8050)
 I (..\USER\Include\Com.H)(0x63AEAC1F)
 I (..\USER\Include\fft.h)(0x63735AD5)
 I (..\USER\Include\uart.h)(0x6391B07F)
-I (..\USER\Include\A5441_Master.h)(0x6459EEE6)
+I (..\USER\Include\A5441_Master.h)(0x6465E8FF)
 I (..\USER\Include\Sys.h)(0x62D4F6E8)
 I (..\USER\Include\ware.h)(0x62ECCAE9)
 I (..\USER\mcu_sdk\wifi.h)(0x6459EE17)
 I (..\USER\mcu_sdk\tuya_type.h)(0x6459BBF0)
-I (..\USER\mcu_sdk\protocol.h)(0x6459C388)
+I (..\USER\mcu_sdk\protocol.h)(0x646DD09C)
 I (..\USER\mcu_sdk\system.h)(0x6459BBF0)
 I (..\USER\mcu_sdk\mcu_api.h)(0x6459BBF0)
 I (..\USER\mcu_sdk\homekit.h)(0x6459BBF0)
-I (..\USER\Include\Inf.h)(0x645A0C4E)
-I (..\USER\Include\memory.h)(0x6458BDFF)
-I (..\USER\Include\driver_w25qxx.h)(0x643D0B0F)
-I (..\USER\Include\motion.h)(0x63982176)
-I (..\USER\Include\colorbox.h)(0x636333FB)
-I (..\USER\Include\OTA.h)(0x63A11D1B)
-I (..\USER\Include\MEM.h)(0x644209E9)
-F (..\USER\Source\driver_w25qxx.c)(0x643F4E11)(--c99 --gnu -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\USER\Include -I ..\..\Driver\inc -I ..\USER\mcu_sdk-I.\RTE\Device\CMS32L051TS20-I.\RTE\_CMS32L051-IF:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IF:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include-D__UVISION_VERSION="534" -D_RTE_ -D_RTE_-o .\objects\driver_w25qxx.o --omf_browse .\objects\driver_w25qxx.crf --depend .\objects\driver_w25qxx.d)
-I (..\USER\Include\driver_spi.h)(0x636B5512)
-I (..\USER\Include\Function_Init.H)(0x643F7F78)
-I (F:\APP\Keil\ARM\ARMCC\include\stdlib.h)(0x5E8E3CC2)
-I (F:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include\CMS32L051.h)(0x61EF8A2A)
-I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm0plus.h)(0x5E8ED122)
-I (F:\APP\Keil\ARM\ARMCC\include\stdint.h)(0x5E8E3CC2)
-I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_version.h)(0x5E8ED122)
-I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_compiler.h)(0x5E8306C2)
-I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_armcc.h)(0x5E8ED122)
-I (F:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include\system_CMS32L051.h)(0x61EF8A2A)
-I (.\RTE\Device\CMS32L051TS20\userdefine.h)(0x638B161D)
-I (..\..\Driver\inc\sci.h)(0x61EF8A2A)
-I (..\..\Driver\inc\gpio.h)(0x624CEB27)
-I (..\..\Driver\inc\tim4.h)(0x61EF8A2A)
-I (..\..\Driver\inc\adc.h)(0x61EF8A2A)
-I (..\..\Driver\inc\flash.h)(0x61EF8A2A)
-I (..\..\Driver\inc\rtc.h)(0x639040FD)
-I (..\..\Driver\inc\dma.h)(0x61EF8A2A)
-I (F:\APP\Keil\ARM\ARMCC\include\stdio.h)(0x5E8E3CC2)
-I (F:\APP\Keil\ARM\ARMCC\include\string.h)(0x5E8E3CC2)
-I (F:\APP\Keil\ARM\ARMCC\include\math.h)(0x5E8E3CC2)
-I (..\USER\Include\FIFO.h)(0x63071284)
-I (..\USER\Include\IR.H)(0x63DB5A2D)
-I (..\USER\Include\image.H)(0x643F826D)
-I (..\USER\Include\Color.H)(0x639144EC)
-I (..\USER\Include\Light.H)(0x63477CA4)
-I (..\USER\Include\key.h)(0x62DF8050)
-I (..\USER\Include\Com.H)(0x63AEAC1F)
-I (..\USER\Include\fft.h)(0x63735AD5)
-I (..\USER\Include\uart.h)(0x6391B07F)
-I (..\USER\Include\A5441_Master.h)(0x6459EEE6)
-I (..\USER\Include\Sys.h)(0x62D4F6E8)
-I (..\USER\Include\ware.h)(0x62ECCAE9)
-I (..\USER\mcu_sdk\wifi.h)(0x6459EE17)
-I (..\USER\mcu_sdk\tuya_type.h)(0x6459BBF0)
-I (..\USER\mcu_sdk\protocol.h)(0x6459C388)
-I (..\USER\mcu_sdk\system.h)(0x6459BBF0)
-I (..\USER\mcu_sdk\mcu_api.h)(0x6459BBF0)
-I (..\USER\mcu_sdk\homekit.h)(0x6459BBF0)
-I (..\USER\Include\Inf.h)(0x645A0C4E)
-I (..\USER\Include\memory.h)(0x6458BDFF)
-I (..\USER\Include\driver_w25qxx.h)(0x643D0B0F)
-I (..\USER\Include\motion.h)(0x63982176)
-I (..\USER\Include\colorbox.h)(0x636333FB)
-I (..\USER\Include\OTA.h)(0x63A11D1B)
-I (..\USER\Include\MEM.h)(0x644209E9)
-F (..\USER\Source\motion.c)(0x64070292)(--c99 --gnu -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\USER\Include -I ..\..\Driver\inc -I ..\USER\mcu_sdk-I.\RTE\Device\CMS32L051TS20-I.\RTE\_CMS32L051-IF:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IF:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include-D__UVISION_VERSION="534" -D_RTE_ -D_RTE_-o .\objects\motion.o --omf_browse .\objects\motion.crf --depend .\objects\motion.d)
-I (..\USER\Include\Function_Init.H)(0x643F7F78)
-I (F:\APP\Keil\ARM\ARMCC\include\stdlib.h)(0x5E8E3CC2)
-I (F:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include\CMS32L051.h)(0x61EF8A2A)
-I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm0plus.h)(0x5E8ED122)
-I (F:\APP\Keil\ARM\ARMCC\include\stdint.h)(0x5E8E3CC2)
-I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_version.h)(0x5E8ED122)
-I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_compiler.h)(0x5E8306C2)
-I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_armcc.h)(0x5E8ED122)
-I (F:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include\system_CMS32L051.h)(0x61EF8A2A)
-I (.\RTE\Device\CMS32L051TS20\userdefine.h)(0x638B161D)
-I (..\..\Driver\inc\sci.h)(0x61EF8A2A)
-I (..\..\Driver\inc\gpio.h)(0x624CEB27)
-I (..\..\Driver\inc\tim4.h)(0x61EF8A2A)
-I (..\..\Driver\inc\adc.h)(0x61EF8A2A)
-I (..\..\Driver\inc\flash.h)(0x61EF8A2A)
-I (..\..\Driver\inc\rtc.h)(0x639040FD)
-I (..\..\Driver\inc\dma.h)(0x61EF8A2A)
-I (F:\APP\Keil\ARM\ARMCC\include\stdio.h)(0x5E8E3CC2)
-I (F:\APP\Keil\ARM\ARMCC\include\string.h)(0x5E8E3CC2)
-I (F:\APP\Keil\ARM\ARMCC\include\math.h)(0x5E8E3CC2)
-I (..\USER\Include\FIFO.h)(0x63071284)
-I (..\USER\Include\IR.H)(0x63DB5A2D)
-I (..\USER\Include\image.H)(0x643F826D)
-I (..\USER\Include\Color.H)(0x639144EC)
-I (..\USER\Include\Light.H)(0x63477CA4)
-I (..\USER\Include\key.h)(0x62DF8050)
-I (..\USER\Include\Com.H)(0x63AEAC1F)
-I (..\USER\Include\fft.h)(0x63735AD5)
-I (..\USER\Include\uart.h)(0x6391B07F)
-I (..\USER\Include\A5441_Master.h)(0x6459EEE6)
-I (..\USER\Include\Sys.h)(0x62D4F6E8)
-I (..\USER\Include\ware.h)(0x62ECCAE9)
-I (..\USER\mcu_sdk\wifi.h)(0x6459EE17)
-I (..\USER\mcu_sdk\tuya_type.h)(0x6459BBF0)
-I (..\USER\mcu_sdk\protocol.h)(0x6459C388)
-I (..\USER\mcu_sdk\system.h)(0x6459BBF0)
-I (..\USER\mcu_sdk\mcu_api.h)(0x6459BBF0)
-I (..\USER\mcu_sdk\homekit.h)(0x6459BBF0)
-I (..\USER\Include\Inf.h)(0x645A0C4E)
+I (..\USER\Include\Inf.h)(0x646F1EB4)
 I (..\USER\Include\memory.h)(0x6458BDFF)
 I (..\USER\Include\driver_spi.h)(0x636B5512)
 I (..\USER\Include\driver_w25qxx.h)(0x643D0B0F)
 I (..\USER\Include\motion.h)(0x63982176)
 I (..\USER\Include\colorbox.h)(0x636333FB)
-I (..\USER\Include\OTA.h)(0x63A11D1B)
-I (..\USER\Include\MEM.h)(0x644209E9)
-F (..\USER\Source\colorbox.c)(0x63B91FAA)(--c99 --gnu -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\USER\Include -I ..\..\Driver\inc -I ..\USER\mcu_sdk-I.\RTE\Device\CMS32L051TS20-I.\RTE\_CMS32L051-IF:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IF:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include-D__UVISION_VERSION="534" -D_RTE_ -D_RTE_-o .\objects\colorbox.o --omf_browse .\objects\colorbox.crf --depend .\objects\colorbox.d)
-I (..\USER\Include\Function_Init.H)(0x643F7F78)
-I (F:\APP\Keil\ARM\ARMCC\include\stdlib.h)(0x5E8E3CC2)
-I (F:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include\CMS32L051.h)(0x61EF8A2A)
-I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm0plus.h)(0x5E8ED122)
-I (F:\APP\Keil\ARM\ARMCC\include\stdint.h)(0x5E8E3CC2)
-I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_version.h)(0x5E8ED122)
-I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_compiler.h)(0x5E8306C2)
-I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_armcc.h)(0x5E8ED122)
-I (F:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include\system_CMS32L051.h)(0x61EF8A2A)
-I (.\RTE\Device\CMS32L051TS20\userdefine.h)(0x638B161D)
-I (..\..\Driver\inc\sci.h)(0x61EF8A2A)
-I (..\..\Driver\inc\gpio.h)(0x624CEB27)
-I (..\..\Driver\inc\tim4.h)(0x61EF8A2A)
-I (..\..\Driver\inc\adc.h)(0x61EF8A2A)
-I (..\..\Driver\inc\flash.h)(0x61EF8A2A)
-I (..\..\Driver\inc\rtc.h)(0x639040FD)
-I (..\..\Driver\inc\dma.h)(0x61EF8A2A)
-I (F:\APP\Keil\ARM\ARMCC\include\stdio.h)(0x5E8E3CC2)
-I (F:\APP\Keil\ARM\ARMCC\include\string.h)(0x5E8E3CC2)
-I (F:\APP\Keil\ARM\ARMCC\include\math.h)(0x5E8E3CC2)
-I (..\USER\Include\FIFO.h)(0x63071284)
-I (..\USER\Include\IR.H)(0x63DB5A2D)
-I (..\USER\Include\image.H)(0x643F826D)
-I (..\USER\Include\Color.H)(0x639144EC)
-I (..\USER\Include\Light.H)(0x63477CA4)
-I (..\USER\Include\key.h)(0x62DF8050)
-I (..\USER\Include\Com.H)(0x63AEAC1F)
-I (..\USER\Include\fft.h)(0x63735AD5)
-I (..\USER\Include\uart.h)(0x6391B07F)
-I (..\USER\Include\A5441_Master.h)(0x6459EEE6)
-I (..\USER\Include\Sys.h)(0x62D4F6E8)
-I (..\USER\Include\ware.h)(0x62ECCAE9)
-I (..\USER\mcu_sdk\wifi.h)(0x6459EE17)
-I (..\USER\mcu_sdk\tuya_type.h)(0x6459BBF0)
-I (..\USER\mcu_sdk\protocol.h)(0x6459C388)
-I (..\USER\mcu_sdk\system.h)(0x6459BBF0)
-I (..\USER\mcu_sdk\mcu_api.h)(0x6459BBF0)
-I (..\USER\mcu_sdk\homekit.h)(0x6459BBF0)
-I (..\USER\Include\Inf.h)(0x645A0C4E)
-I (..\USER\Include\memory.h)(0x6458BDFF)
-I (..\USER\Include\driver_spi.h)(0x636B5512)
-I (..\USER\Include\driver_w25qxx.h)(0x643D0B0F)
-I (..\USER\Include\motion.h)(0x63982176)
-I (..\USER\Include\colorbox.h)(0x636333FB)
-I (..\USER\Include\OTA.h)(0x63A11D1B)
-I (..\USER\Include\MEM.h)(0x644209E9)
+I (..\USER\Include\OTA.h)(0x64661BAF)
+I (..\USER\Include\MEM.h)(0x6465E143)
+I (..\USER\Include\printlog.h)(0x646F0FB9)
+I (..\USER\Include\comapp.h)(0x646C31CD)
+I (..\USER\Include\user_memory.h)(0x646F4449)
+I (..\USER\Include\debug.h)(0x64688FA5)
+I (..\USER\Include\flashapp.h)(0x64661832)
+I (..\USER\Include\default_data.h)(0x646F2532)
 F (..\USER\Source\OTA.c)(0x643CC02B)(--c99 --gnu -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\USER\Include -I ..\..\Driver\inc -I ..\USER\mcu_sdk-I.\RTE\Device\CMS32L051TS20-I.\RTE\_CMS32L051-IF:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IF:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include-D__UVISION_VERSION="534" -D_RTE_ -D_RTE_-o .\objects\ota.o --omf_browse .\objects\ota.crf --depend .\objects\ota.d)
-I (..\USER\Include\Function_Init.H)(0x643F7F78)
+I (..\USER\Include\Function_Init.H)(0x646C81AC)
 I (F:\APP\Keil\ARM\ARMCC\include\stdlib.h)(0x5E8E3CC2)
 I (F:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include\CMS32L051.h)(0x61EF8A2A)
 I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm0plus.h)(0x5E8ED122)
@@ -879,25 +828,31 @@ I (..\USER\Include\key.h)(0x62DF8050)
 I (..\USER\Include\Com.H)(0x63AEAC1F)
 I (..\USER\Include\fft.h)(0x63735AD5)
 I (..\USER\Include\uart.h)(0x6391B07F)
-I (..\USER\Include\A5441_Master.h)(0x6459EEE6)
+I (..\USER\Include\A5441_Master.h)(0x6465E8FF)
 I (..\USER\Include\Sys.h)(0x62D4F6E8)
 I (..\USER\Include\ware.h)(0x62ECCAE9)
 I (..\USER\mcu_sdk\wifi.h)(0x6459EE17)
 I (..\USER\mcu_sdk\tuya_type.h)(0x6459BBF0)
-I (..\USER\mcu_sdk\protocol.h)(0x6459C388)
+I (..\USER\mcu_sdk\protocol.h)(0x646DD09C)
 I (..\USER\mcu_sdk\system.h)(0x6459BBF0)
 I (..\USER\mcu_sdk\mcu_api.h)(0x6459BBF0)
 I (..\USER\mcu_sdk\homekit.h)(0x6459BBF0)
-I (..\USER\Include\Inf.h)(0x645A0C4E)
+I (..\USER\Include\Inf.h)(0x646F1EB4)
 I (..\USER\Include\memory.h)(0x6458BDFF)
 I (..\USER\Include\driver_spi.h)(0x636B5512)
 I (..\USER\Include\driver_w25qxx.h)(0x643D0B0F)
 I (..\USER\Include\motion.h)(0x63982176)
 I (..\USER\Include\colorbox.h)(0x636333FB)
-I (..\USER\Include\OTA.h)(0x63A11D1B)
-I (..\USER\Include\MEM.h)(0x644209E9)
-F (..\USER\Source\MEM.c)(0x6442099B)(--c99 --gnu -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\USER\Include -I ..\..\Driver\inc -I ..\USER\mcu_sdk-I.\RTE\Device\CMS32L051TS20-I.\RTE\_CMS32L051-IF:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IF:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include-D__UVISION_VERSION="534" -D_RTE_ -D_RTE_-o .\objects\mem.o --omf_browse .\objects\mem.crf --depend .\objects\mem.d)
-I (..\USER\Include\Function_Init.H)(0x643F7F78)
+I (..\USER\Include\OTA.h)(0x64661BAF)
+I (..\USER\Include\MEM.h)(0x6465E143)
+I (..\USER\Include\printlog.h)(0x646F0FB9)
+I (..\USER\Include\comapp.h)(0x646C31CD)
+I (..\USER\Include\user_memory.h)(0x646F4449)
+I (..\USER\Include\debug.h)(0x64688FA5)
+I (..\USER\Include\flashapp.h)(0x64661832)
+I (..\USER\Include\default_data.h)(0x646F2532)
+F (..\USER\Source\comapp.c)(0x6466E9D7)(--c99 --gnu -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\USER\Include -I ..\..\Driver\inc -I ..\USER\mcu_sdk-I.\RTE\Device\CMS32L051TS20-I.\RTE\_CMS32L051-IF:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IF:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include-D__UVISION_VERSION="534" -D_RTE_ -D_RTE_-o .\objects\comapp.o --omf_browse .\objects\comapp.crf --depend .\objects\comapp.d)
+I (..\USER\Include\Function_Init.H)(0x646C81AC)
 I (F:\APP\Keil\ARM\ARMCC\include\stdlib.h)(0x5E8E3CC2)
 I (F:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include\CMS32L051.h)(0x61EF8A2A)
 I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm0plus.h)(0x5E8ED122)
@@ -926,34 +881,199 @@ I (..\USER\Include\key.h)(0x62DF8050)
 I (..\USER\Include\Com.H)(0x63AEAC1F)
 I (..\USER\Include\fft.h)(0x63735AD5)
 I (..\USER\Include\uart.h)(0x6391B07F)
-I (..\USER\Include\A5441_Master.h)(0x6459EEE6)
+I (..\USER\Include\A5441_Master.h)(0x6465E8FF)
 I (..\USER\Include\Sys.h)(0x62D4F6E8)
 I (..\USER\Include\ware.h)(0x62ECCAE9)
 I (..\USER\mcu_sdk\wifi.h)(0x6459EE17)
 I (..\USER\mcu_sdk\tuya_type.h)(0x6459BBF0)
-I (..\USER\mcu_sdk\protocol.h)(0x6459C388)
+I (..\USER\mcu_sdk\protocol.h)(0x646DD09C)
 I (..\USER\mcu_sdk\system.h)(0x6459BBF0)
 I (..\USER\mcu_sdk\mcu_api.h)(0x6459BBF0)
 I (..\USER\mcu_sdk\homekit.h)(0x6459BBF0)
-I (..\USER\Include\Inf.h)(0x645A0C4E)
+I (..\USER\Include\Inf.h)(0x646F1EB4)
 I (..\USER\Include\memory.h)(0x6458BDFF)
 I (..\USER\Include\driver_spi.h)(0x636B5512)
 I (..\USER\Include\driver_w25qxx.h)(0x643D0B0F)
 I (..\USER\Include\motion.h)(0x63982176)
 I (..\USER\Include\colorbox.h)(0x636333FB)
-I (..\USER\Include\OTA.h)(0x63A11D1B)
-I (..\USER\Include\MEM.h)(0x644209E9)
+I (..\USER\Include\OTA.h)(0x64661BAF)
+I (..\USER\Include\MEM.h)(0x6465E143)
+I (..\USER\Include\printlog.h)(0x646F0FB9)
+I (..\USER\Include\comapp.h)(0x646C31CD)
+I (..\USER\Include\user_memory.h)(0x646F4449)
+I (..\USER\Include\debug.h)(0x64688FA5)
+I (..\USER\Include\flashapp.h)(0x64661832)
+I (..\USER\Include\default_data.h)(0x646F2532)
+F (..\USER\Source\printlog.c)(0x646F239F)(--c99 --gnu -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\USER\Include -I ..\..\Driver\inc -I ..\USER\mcu_sdk-I.\RTE\Device\CMS32L051TS20-I.\RTE\_CMS32L051-IF:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IF:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include-D__UVISION_VERSION="534" -D_RTE_ -D_RTE_-o .\objects\printlog.o --omf_browse .\objects\printlog.crf --depend .\objects\printlog.d)
+I (..\USER\Include\Function_Init.H)(0x646C81AC)
+I (F:\APP\Keil\ARM\ARMCC\include\stdlib.h)(0x5E8E3CC2)
+I (F:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include\CMS32L051.h)(0x61EF8A2A)
+I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm0plus.h)(0x5E8ED122)
+I (F:\APP\Keil\ARM\ARMCC\include\stdint.h)(0x5E8E3CC2)
+I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_version.h)(0x5E8ED122)
+I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_compiler.h)(0x5E8306C2)
+I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_armcc.h)(0x5E8ED122)
+I (F:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include\system_CMS32L051.h)(0x61EF8A2A)
+I (.\RTE\Device\CMS32L051TS20\userdefine.h)(0x638B161D)
+I (..\..\Driver\inc\sci.h)(0x61EF8A2A)
+I (..\..\Driver\inc\gpio.h)(0x624CEB27)
+I (..\..\Driver\inc\tim4.h)(0x61EF8A2A)
+I (..\..\Driver\inc\adc.h)(0x61EF8A2A)
+I (..\..\Driver\inc\flash.h)(0x61EF8A2A)
+I (..\..\Driver\inc\rtc.h)(0x639040FD)
+I (..\..\Driver\inc\dma.h)(0x61EF8A2A)
+I (F:\APP\Keil\ARM\ARMCC\include\stdio.h)(0x5E8E3CC2)
+I (F:\APP\Keil\ARM\ARMCC\include\string.h)(0x5E8E3CC2)
+I (F:\APP\Keil\ARM\ARMCC\include\math.h)(0x5E8E3CC2)
+I (..\USER\Include\FIFO.h)(0x63071284)
+I (..\USER\Include\IR.H)(0x63DB5A2D)
+I (..\USER\Include\image.H)(0x643F826D)
+I (..\USER\Include\Color.H)(0x639144EC)
+I (..\USER\Include\Light.H)(0x63477CA4)
+I (..\USER\Include\key.h)(0x62DF8050)
+I (..\USER\Include\Com.H)(0x63AEAC1F)
+I (..\USER\Include\fft.h)(0x63735AD5)
+I (..\USER\Include\uart.h)(0x6391B07F)
+I (..\USER\Include\A5441_Master.h)(0x6465E8FF)
+I (..\USER\Include\Sys.h)(0x62D4F6E8)
+I (..\USER\Include\ware.h)(0x62ECCAE9)
+I (..\USER\mcu_sdk\wifi.h)(0x6459EE17)
+I (..\USER\mcu_sdk\tuya_type.h)(0x6459BBF0)
+I (..\USER\mcu_sdk\protocol.h)(0x646DD09C)
+I (..\USER\mcu_sdk\system.h)(0x6459BBF0)
+I (..\USER\mcu_sdk\mcu_api.h)(0x6459BBF0)
+I (..\USER\mcu_sdk\homekit.h)(0x6459BBF0)
+I (..\USER\Include\Inf.h)(0x646F1EB4)
+I (..\USER\Include\memory.h)(0x6458BDFF)
+I (..\USER\Include\driver_spi.h)(0x636B5512)
+I (..\USER\Include\driver_w25qxx.h)(0x643D0B0F)
+I (..\USER\Include\motion.h)(0x63982176)
+I (..\USER\Include\colorbox.h)(0x636333FB)
+I (..\USER\Include\OTA.h)(0x64661BAF)
+I (..\USER\Include\MEM.h)(0x6465E143)
+I (..\USER\Include\printlog.h)(0x646F0FB9)
+I (..\USER\Include\comapp.h)(0x646C31CD)
+I (..\USER\Include\user_memory.h)(0x646F4449)
+I (..\USER\Include\debug.h)(0x64688FA5)
+I (..\USER\Include\flashapp.h)(0x64661832)
+I (..\USER\Include\default_data.h)(0x646F2532)
+F (..\USER\Source\flashapp.c)(0x645DB4BD)(--c99 --gnu -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\USER\Include -I ..\..\Driver\inc -I ..\USER\mcu_sdk-I.\RTE\Device\CMS32L051TS20-I.\RTE\_CMS32L051-IF:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IF:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include-D__UVISION_VERSION="534" -D_RTE_ -D_RTE_-o .\objects\flashapp.o --omf_browse .\objects\flashapp.crf --depend .\objects\flashapp.d)
+I (..\USER\Include\Function_Init.H)(0x646C81AC)
+I (F:\APP\Keil\ARM\ARMCC\include\stdlib.h)(0x5E8E3CC2)
+I (F:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include\CMS32L051.h)(0x61EF8A2A)
+I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm0plus.h)(0x5E8ED122)
+I (F:\APP\Keil\ARM\ARMCC\include\stdint.h)(0x5E8E3CC2)
+I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_version.h)(0x5E8ED122)
+I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_compiler.h)(0x5E8306C2)
+I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_armcc.h)(0x5E8ED122)
+I (F:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include\system_CMS32L051.h)(0x61EF8A2A)
+I (.\RTE\Device\CMS32L051TS20\userdefine.h)(0x638B161D)
+I (..\..\Driver\inc\sci.h)(0x61EF8A2A)
+I (..\..\Driver\inc\gpio.h)(0x624CEB27)
+I (..\..\Driver\inc\tim4.h)(0x61EF8A2A)
+I (..\..\Driver\inc\adc.h)(0x61EF8A2A)
+I (..\..\Driver\inc\flash.h)(0x61EF8A2A)
+I (..\..\Driver\inc\rtc.h)(0x639040FD)
+I (..\..\Driver\inc\dma.h)(0x61EF8A2A)
+I (F:\APP\Keil\ARM\ARMCC\include\stdio.h)(0x5E8E3CC2)
+I (F:\APP\Keil\ARM\ARMCC\include\string.h)(0x5E8E3CC2)
+I (F:\APP\Keil\ARM\ARMCC\include\math.h)(0x5E8E3CC2)
+I (..\USER\Include\FIFO.h)(0x63071284)
+I (..\USER\Include\IR.H)(0x63DB5A2D)
+I (..\USER\Include\image.H)(0x643F826D)
+I (..\USER\Include\Color.H)(0x639144EC)
+I (..\USER\Include\Light.H)(0x63477CA4)
+I (..\USER\Include\key.h)(0x62DF8050)
+I (..\USER\Include\Com.H)(0x63AEAC1F)
+I (..\USER\Include\fft.h)(0x63735AD5)
+I (..\USER\Include\uart.h)(0x6391B07F)
+I (..\USER\Include\A5441_Master.h)(0x6465E8FF)
+I (..\USER\Include\Sys.h)(0x62D4F6E8)
+I (..\USER\Include\ware.h)(0x62ECCAE9)
+I (..\USER\mcu_sdk\wifi.h)(0x6459EE17)
+I (..\USER\mcu_sdk\tuya_type.h)(0x6459BBF0)
+I (..\USER\mcu_sdk\protocol.h)(0x646DD09C)
+I (..\USER\mcu_sdk\system.h)(0x6459BBF0)
+I (..\USER\mcu_sdk\mcu_api.h)(0x6459BBF0)
+I (..\USER\mcu_sdk\homekit.h)(0x6459BBF0)
+I (..\USER\Include\Inf.h)(0x646F1EB4)
+I (..\USER\Include\memory.h)(0x6458BDFF)
+I (..\USER\Include\driver_spi.h)(0x636B5512)
+I (..\USER\Include\driver_w25qxx.h)(0x643D0B0F)
+I (..\USER\Include\motion.h)(0x63982176)
+I (..\USER\Include\colorbox.h)(0x636333FB)
+I (..\USER\Include\OTA.h)(0x64661BAF)
+I (..\USER\Include\MEM.h)(0x6465E143)
+I (..\USER\Include\printlog.h)(0x646F0FB9)
+I (..\USER\Include\comapp.h)(0x646C31CD)
+I (..\USER\Include\user_memory.h)(0x646F4449)
+I (..\USER\Include\debug.h)(0x64688FA5)
+I (..\USER\Include\flashapp.h)(0x64661832)
+I (..\USER\Include\default_data.h)(0x646F2532)
+F (..\USER\Source\debug.c)(0x646F0F5A)(--c99 --gnu -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\USER\Include -I ..\..\Driver\inc -I ..\USER\mcu_sdk-I.\RTE\Device\CMS32L051TS20-I.\RTE\_CMS32L051-IF:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IF:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include-D__UVISION_VERSION="534" -D_RTE_ -D_RTE_-o .\objects\debug.o --omf_browse .\objects\debug.crf --depend .\objects\debug.d)
+I (..\USER\Include\Function_Init.H)(0x646C81AC)
+I (F:\APP\Keil\ARM\ARMCC\include\stdlib.h)(0x5E8E3CC2)
+I (F:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include\CMS32L051.h)(0x61EF8A2A)
+I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm0plus.h)(0x5E8ED122)
+I (F:\APP\Keil\ARM\ARMCC\include\stdint.h)(0x5E8E3CC2)
+I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_version.h)(0x5E8ED122)
+I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_compiler.h)(0x5E8306C2)
+I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_armcc.h)(0x5E8ED122)
+I (F:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include\system_CMS32L051.h)(0x61EF8A2A)
+I (.\RTE\Device\CMS32L051TS20\userdefine.h)(0x638B161D)
+I (..\..\Driver\inc\sci.h)(0x61EF8A2A)
+I (..\..\Driver\inc\gpio.h)(0x624CEB27)
+I (..\..\Driver\inc\tim4.h)(0x61EF8A2A)
+I (..\..\Driver\inc\adc.h)(0x61EF8A2A)
+I (..\..\Driver\inc\flash.h)(0x61EF8A2A)
+I (..\..\Driver\inc\rtc.h)(0x639040FD)
+I (..\..\Driver\inc\dma.h)(0x61EF8A2A)
+I (F:\APP\Keil\ARM\ARMCC\include\stdio.h)(0x5E8E3CC2)
+I (F:\APP\Keil\ARM\ARMCC\include\string.h)(0x5E8E3CC2)
+I (F:\APP\Keil\ARM\ARMCC\include\math.h)(0x5E8E3CC2)
+I (..\USER\Include\FIFO.h)(0x63071284)
+I (..\USER\Include\IR.H)(0x63DB5A2D)
+I (..\USER\Include\image.H)(0x643F826D)
+I (..\USER\Include\Color.H)(0x639144EC)
+I (..\USER\Include\Light.H)(0x63477CA4)
+I (..\USER\Include\key.h)(0x62DF8050)
+I (..\USER\Include\Com.H)(0x63AEAC1F)
+I (..\USER\Include\fft.h)(0x63735AD5)
+I (..\USER\Include\uart.h)(0x6391B07F)
+I (..\USER\Include\A5441_Master.h)(0x6465E8FF)
+I (..\USER\Include\Sys.h)(0x62D4F6E8)
+I (..\USER\Include\ware.h)(0x62ECCAE9)
+I (..\USER\mcu_sdk\wifi.h)(0x6459EE17)
+I (..\USER\mcu_sdk\tuya_type.h)(0x6459BBF0)
+I (..\USER\mcu_sdk\protocol.h)(0x646DD09C)
+I (..\USER\mcu_sdk\system.h)(0x6459BBF0)
+I (..\USER\mcu_sdk\mcu_api.h)(0x6459BBF0)
+I (..\USER\mcu_sdk\homekit.h)(0x6459BBF0)
+I (..\USER\Include\Inf.h)(0x646F1EB4)
+I (..\USER\Include\memory.h)(0x6458BDFF)
+I (..\USER\Include\driver_spi.h)(0x636B5512)
+I (..\USER\Include\driver_w25qxx.h)(0x643D0B0F)
+I (..\USER\Include\motion.h)(0x63982176)
+I (..\USER\Include\colorbox.h)(0x636333FB)
+I (..\USER\Include\OTA.h)(0x64661BAF)
+I (..\USER\Include\MEM.h)(0x6465E143)
+I (..\USER\Include\printlog.h)(0x646F0FB9)
+I (..\USER\Include\comapp.h)(0x646C31CD)
+I (..\USER\Include\user_memory.h)(0x646F4449)
+I (..\USER\Include\debug.h)(0x64688FA5)
+I (..\USER\Include\flashapp.h)(0x64661832)
+I (..\USER\Include\default_data.h)(0x646F2532)
 F (..\USER\mcu_sdk\homekit.c)(0x6459C2FE)(--c99 --gnu -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\USER\Include -I ..\..\Driver\inc -I ..\USER\mcu_sdk-I.\RTE\Device\CMS32L051TS20-I.\RTE\_CMS32L051-IF:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IF:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include-D__UVISION_VERSION="534" -D_RTE_ -D_RTE_-o .\objects\homekit.o --omf_browse .\objects\homekit.crf --depend .\objects\homekit.d)
 I (..\USER\mcu_sdk\wifi.h)(0x6459EE17)
 I (F:\APP\Keil\ARM\ARMCC\include\stdio.h)(0x5E8E3CC2)
 I (F:\APP\Keil\ARM\ARMCC\include\string.h)(0x5E8E3CC2)
 I (F:\APP\Keil\ARM\ARMCC\include\stdlib.h)(0x5E8E3CC2)
 I (..\USER\mcu_sdk\tuya_type.h)(0x6459BBF0)
-I (..\USER\mcu_sdk\protocol.h)(0x6459C388)
+I (..\USER\mcu_sdk\protocol.h)(0x646DD09C)
 I (..\USER\mcu_sdk\system.h)(0x6459BBF0)
 I (..\USER\mcu_sdk\mcu_api.h)(0x6459BBF0)
 I (..\USER\mcu_sdk\homekit.h)(0x6459BBF0)
-I (..\USER\Include\Function_Init.H)(0x643F7F78)
+I (..\USER\Include\Function_Init.H)(0x646C81AC)
 I (F:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include\CMS32L051.h)(0x61EF8A2A)
 I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm0plus.h)(0x5E8ED122)
 I (F:\APP\Keil\ARM\ARMCC\include\stdint.h)(0x5E8E3CC2)
@@ -979,7 +1099,7 @@ I (..\USER\Include\key.h)(0x62DF8050)
 I (..\USER\Include\Com.H)(0x63AEAC1F)
 I (..\USER\Include\fft.h)(0x63735AD5)
 I (..\USER\Include\uart.h)(0x6391B07F)
-I (..\USER\Include\A5441_Master.h)(0x6459EEE6)
+I (..\USER\Include\A5441_Master.h)(0x6465E8FF)
 I (..\USER\Include\Sys.h)(0x62D4F6E8)
 I (..\USER\Include\ware.h)(0x62ECCAE9)
 I (..\USER\Include\memory.h)(0x6458BDFF)
@@ -987,20 +1107,26 @@ I (..\USER\Include\driver_spi.h)(0x636B5512)
 I (..\USER\Include\driver_w25qxx.h)(0x643D0B0F)
 I (..\USER\Include\motion.h)(0x63982176)
 I (..\USER\Include\colorbox.h)(0x636333FB)
-I (..\USER\Include\OTA.h)(0x63A11D1B)
-I (..\USER\Include\MEM.h)(0x644209E9)
-I (..\USER\Include\Inf.h)(0x645A0C4E)
+I (..\USER\Include\OTA.h)(0x64661BAF)
+I (..\USER\Include\MEM.h)(0x6465E143)
+I (..\USER\Include\Inf.h)(0x646F1EB4)
+I (..\USER\Include\printlog.h)(0x646F0FB9)
+I (..\USER\Include\comapp.h)(0x646C31CD)
+I (..\USER\Include\user_memory.h)(0x646F4449)
+I (..\USER\Include\debug.h)(0x64688FA5)
+I (..\USER\Include\flashapp.h)(0x64661832)
+I (..\USER\Include\default_data.h)(0x646F2532)
 F (..\USER\mcu_sdk\mcu_api.c)(0x6459BFF0)(--c99 --gnu -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\USER\Include -I ..\..\Driver\inc -I ..\USER\mcu_sdk-I.\RTE\Device\CMS32L051TS20-I.\RTE\_CMS32L051-IF:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IF:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include-D__UVISION_VERSION="534" -D_RTE_ -D_RTE_-o .\objects\mcu_api.o --omf_browse .\objects\mcu_api.crf --depend .\objects\mcu_api.d)
 I (..\USER\mcu_sdk\wifi.h)(0x6459EE17)
 I (F:\APP\Keil\ARM\ARMCC\include\stdio.h)(0x5E8E3CC2)
 I (F:\APP\Keil\ARM\ARMCC\include\string.h)(0x5E8E3CC2)
 I (F:\APP\Keil\ARM\ARMCC\include\stdlib.h)(0x5E8E3CC2)
 I (..\USER\mcu_sdk\tuya_type.h)(0x6459BBF0)
-I (..\USER\mcu_sdk\protocol.h)(0x6459C388)
+I (..\USER\mcu_sdk\protocol.h)(0x646DD09C)
 I (..\USER\mcu_sdk\system.h)(0x6459BBF0)
 I (..\USER\mcu_sdk\mcu_api.h)(0x6459BBF0)
 I (..\USER\mcu_sdk\homekit.h)(0x6459BBF0)
-I (..\USER\Include\Function_Init.H)(0x643F7F78)
+I (..\USER\Include\Function_Init.H)(0x646C81AC)
 I (F:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include\CMS32L051.h)(0x61EF8A2A)
 I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm0plus.h)(0x5E8ED122)
 I (F:\APP\Keil\ARM\ARMCC\include\stdint.h)(0x5E8E3CC2)
@@ -1026,7 +1152,7 @@ I (..\USER\Include\key.h)(0x62DF8050)
 I (..\USER\Include\Com.H)(0x63AEAC1F)
 I (..\USER\Include\fft.h)(0x63735AD5)
 I (..\USER\Include\uart.h)(0x6391B07F)
-I (..\USER\Include\A5441_Master.h)(0x6459EEE6)
+I (..\USER\Include\A5441_Master.h)(0x6465E8FF)
 I (..\USER\Include\Sys.h)(0x62D4F6E8)
 I (..\USER\Include\ware.h)(0x62ECCAE9)
 I (..\USER\Include\memory.h)(0x6458BDFF)
@@ -1034,20 +1160,26 @@ I (..\USER\Include\driver_spi.h)(0x636B5512)
 I (..\USER\Include\driver_w25qxx.h)(0x643D0B0F)
 I (..\USER\Include\motion.h)(0x63982176)
 I (..\USER\Include\colorbox.h)(0x636333FB)
-I (..\USER\Include\OTA.h)(0x63A11D1B)
-I (..\USER\Include\MEM.h)(0x644209E9)
-I (..\USER\Include\Inf.h)(0x645A0C4E)
-F (..\USER\mcu_sdk\protocol.c)(0x645DDCB1)(--c99 --gnu -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\USER\Include -I ..\..\Driver\inc -I ..\USER\mcu_sdk-I.\RTE\Device\CMS32L051TS20-I.\RTE\_CMS32L051-IF:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IF:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include-D__UVISION_VERSION="534" -D_RTE_ -D_RTE_-o .\objects\protocol.o --omf_browse .\objects\protocol.crf --depend .\objects\protocol.d)
+I (..\USER\Include\OTA.h)(0x64661BAF)
+I (..\USER\Include\MEM.h)(0x6465E143)
+I (..\USER\Include\Inf.h)(0x646F1EB4)
+I (..\USER\Include\printlog.h)(0x646F0FB9)
+I (..\USER\Include\comapp.h)(0x646C31CD)
+I (..\USER\Include\user_memory.h)(0x646F4449)
+I (..\USER\Include\debug.h)(0x64688FA5)
+I (..\USER\Include\flashapp.h)(0x64661832)
+I (..\USER\Include\default_data.h)(0x646F2532)
+F (..\USER\mcu_sdk\protocol.c)(0x646DCE2B)(--c99 --gnu -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\USER\Include -I ..\..\Driver\inc -I ..\USER\mcu_sdk-I.\RTE\Device\CMS32L051TS20-I.\RTE\_CMS32L051-IF:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IF:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include-D__UVISION_VERSION="534" -D_RTE_ -D_RTE_-o .\objects\protocol.o --omf_browse .\objects\protocol.crf --depend .\objects\protocol.d)
 I (..\USER\mcu_sdk\wifi.h)(0x6459EE17)
 I (F:\APP\Keil\ARM\ARMCC\include\stdio.h)(0x5E8E3CC2)
 I (F:\APP\Keil\ARM\ARMCC\include\string.h)(0x5E8E3CC2)
 I (F:\APP\Keil\ARM\ARMCC\include\stdlib.h)(0x5E8E3CC2)
 I (..\USER\mcu_sdk\tuya_type.h)(0x6459BBF0)
-I (..\USER\mcu_sdk\protocol.h)(0x6459C388)
+I (..\USER\mcu_sdk\protocol.h)(0x646DD09C)
 I (..\USER\mcu_sdk\system.h)(0x6459BBF0)
 I (..\USER\mcu_sdk\mcu_api.h)(0x6459BBF0)
 I (..\USER\mcu_sdk\homekit.h)(0x6459BBF0)
-I (..\USER\Include\Function_Init.H)(0x643F7F78)
+I (..\USER\Include\Function_Init.H)(0x646C81AC)
 I (F:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include\CMS32L051.h)(0x61EF8A2A)
 I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm0plus.h)(0x5E8ED122)
 I (F:\APP\Keil\ARM\ARMCC\include\stdint.h)(0x5E8E3CC2)
@@ -1073,7 +1205,7 @@ I (..\USER\Include\key.h)(0x62DF8050)
 I (..\USER\Include\Com.H)(0x63AEAC1F)
 I (..\USER\Include\fft.h)(0x63735AD5)
 I (..\USER\Include\uart.h)(0x6391B07F)
-I (..\USER\Include\A5441_Master.h)(0x6459EEE6)
+I (..\USER\Include\A5441_Master.h)(0x6465E8FF)
 I (..\USER\Include\Sys.h)(0x62D4F6E8)
 I (..\USER\Include\ware.h)(0x62ECCAE9)
 I (..\USER\Include\memory.h)(0x6458BDFF)
@@ -1081,20 +1213,26 @@ I (..\USER\Include\driver_spi.h)(0x636B5512)
 I (..\USER\Include\driver_w25qxx.h)(0x643D0B0F)
 I (..\USER\Include\motion.h)(0x63982176)
 I (..\USER\Include\colorbox.h)(0x636333FB)
-I (..\USER\Include\OTA.h)(0x63A11D1B)
-I (..\USER\Include\MEM.h)(0x644209E9)
-I (..\USER\Include\Inf.h)(0x645A0C4E)
+I (..\USER\Include\OTA.h)(0x64661BAF)
+I (..\USER\Include\MEM.h)(0x6465E143)
+I (..\USER\Include\Inf.h)(0x646F1EB4)
+I (..\USER\Include\printlog.h)(0x646F0FB9)
+I (..\USER\Include\comapp.h)(0x646C31CD)
+I (..\USER\Include\user_memory.h)(0x646F4449)
+I (..\USER\Include\debug.h)(0x64688FA5)
+I (..\USER\Include\flashapp.h)(0x64661832)
+I (..\USER\Include\default_data.h)(0x646F2532)
 F (..\USER\mcu_sdk\system.c)(0x6459BBF0)(--c99 --gnu -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\USER\Include -I ..\..\Driver\inc -I ..\USER\mcu_sdk-I.\RTE\Device\CMS32L051TS20-I.\RTE\_CMS32L051-IF:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IF:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include-D__UVISION_VERSION="534" -D_RTE_ -D_RTE_-o .\objects\system.o --omf_browse .\objects\system.crf --depend .\objects\system.d)
 I (..\USER\mcu_sdk\wifi.h)(0x6459EE17)
 I (F:\APP\Keil\ARM\ARMCC\include\stdio.h)(0x5E8E3CC2)
 I (F:\APP\Keil\ARM\ARMCC\include\string.h)(0x5E8E3CC2)
 I (F:\APP\Keil\ARM\ARMCC\include\stdlib.h)(0x5E8E3CC2)
 I (..\USER\mcu_sdk\tuya_type.h)(0x6459BBF0)
-I (..\USER\mcu_sdk\protocol.h)(0x6459C388)
+I (..\USER\mcu_sdk\protocol.h)(0x646DD09C)
 I (..\USER\mcu_sdk\system.h)(0x6459BBF0)
 I (..\USER\mcu_sdk\mcu_api.h)(0x6459BBF0)
 I (..\USER\mcu_sdk\homekit.h)(0x6459BBF0)
-I (..\USER\Include\Function_Init.H)(0x643F7F78)
+I (..\USER\Include\Function_Init.H)(0x646C81AC)
 I (F:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include\CMS32L051.h)(0x61EF8A2A)
 I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm0plus.h)(0x5E8ED122)
 I (F:\APP\Keil\ARM\ARMCC\include\stdint.h)(0x5E8E3CC2)
@@ -1120,7 +1258,7 @@ I (..\USER\Include\key.h)(0x62DF8050)
 I (..\USER\Include\Com.H)(0x63AEAC1F)
 I (..\USER\Include\fft.h)(0x63735AD5)
 I (..\USER\Include\uart.h)(0x6391B07F)
-I (..\USER\Include\A5441_Master.h)(0x6459EEE6)
+I (..\USER\Include\A5441_Master.h)(0x6465E8FF)
 I (..\USER\Include\Sys.h)(0x62D4F6E8)
 I (..\USER\Include\ware.h)(0x62ECCAE9)
 I (..\USER\Include\memory.h)(0x6458BDFF)
@@ -1128,9 +1266,15 @@ I (..\USER\Include\driver_spi.h)(0x636B5512)
 I (..\USER\Include\driver_w25qxx.h)(0x643D0B0F)
 I (..\USER\Include\motion.h)(0x63982176)
 I (..\USER\Include\colorbox.h)(0x636333FB)
-I (..\USER\Include\OTA.h)(0x63A11D1B)
-I (..\USER\Include\MEM.h)(0x644209E9)
-I (..\USER\Include\Inf.h)(0x645A0C4E)
+I (..\USER\Include\OTA.h)(0x64661BAF)
+I (..\USER\Include\MEM.h)(0x6465E143)
+I (..\USER\Include\Inf.h)(0x646F1EB4)
+I (..\USER\Include\printlog.h)(0x646F0FB9)
+I (..\USER\Include\comapp.h)(0x646C31CD)
+I (..\USER\Include\user_memory.h)(0x646F4449)
+I (..\USER\Include\debug.h)(0x64688FA5)
+I (..\USER\Include\flashapp.h)(0x64661832)
+I (..\USER\Include\default_data.h)(0x646F2532)
 F (..\..\Driver\src\retarget.c)(0x61EF8A2A)(--c99 --gnu -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\USER\Include -I ..\..\Driver\inc -I ..\USER\mcu_sdk-I.\RTE\Device\CMS32L051TS20-I.\RTE\_CMS32L051-IF:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IF:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include-D__UVISION_VERSION="534" -D_RTE_ -D_RTE_-o .\objects\retarget.o --omf_browse .\objects\retarget.crf --depend .\objects\retarget.d)
 I (F:\APP\Keil\ARM\ARMCC\include\stdio.h)(0x5E8E3CC2)
 I (F:\APP\Keil\ARM\ARMCC\include\rt_misc.h)(0x5E8E3CC2)
@@ -1156,7 +1300,7 @@ I (F:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include\system_CMS32L051.h)(0x61
 I (.\RTE\Device\CMS32L051TS20\userdefine.h)(0x638B161D)
 I (..\..\Driver\inc\sci.h)(0x61EF8A2A)
 I (..\..\Driver\inc\dma.h)(0x61EF8A2A)
-I (..\USER\Include\Function_Init.H)(0x643F7F78)
+I (..\USER\Include\Function_Init.H)(0x646C81AC)
 I (..\..\Driver\inc\gpio.h)(0x624CEB27)
 I (..\..\Driver\inc\tim4.h)(0x61EF8A2A)
 I (..\..\Driver\inc\adc.h)(0x61EF8A2A)
@@ -1174,23 +1318,29 @@ I (..\USER\Include\key.h)(0x62DF8050)
 I (..\USER\Include\Com.H)(0x63AEAC1F)
 I (..\USER\Include\fft.h)(0x63735AD5)
 I (..\USER\Include\uart.h)(0x6391B07F)
-I (..\USER\Include\A5441_Master.h)(0x6459EEE6)
+I (..\USER\Include\A5441_Master.h)(0x6465E8FF)
 I (..\USER\Include\Sys.h)(0x62D4F6E8)
 I (..\USER\Include\ware.h)(0x62ECCAE9)
 I (..\USER\mcu_sdk\wifi.h)(0x6459EE17)
 I (..\USER\mcu_sdk\tuya_type.h)(0x6459BBF0)
-I (..\USER\mcu_sdk\protocol.h)(0x6459C388)
+I (..\USER\mcu_sdk\protocol.h)(0x646DD09C)
 I (..\USER\mcu_sdk\system.h)(0x6459BBF0)
 I (..\USER\mcu_sdk\mcu_api.h)(0x6459BBF0)
 I (..\USER\mcu_sdk\homekit.h)(0x6459BBF0)
-I (..\USER\Include\Inf.h)(0x645A0C4E)
+I (..\USER\Include\Inf.h)(0x646F1EB4)
 I (..\USER\Include\memory.h)(0x6458BDFF)
 I (..\USER\Include\driver_spi.h)(0x636B5512)
 I (..\USER\Include\driver_w25qxx.h)(0x643D0B0F)
 I (..\USER\Include\motion.h)(0x63982176)
 I (..\USER\Include\colorbox.h)(0x636333FB)
-I (..\USER\Include\OTA.h)(0x63A11D1B)
-I (..\USER\Include\MEM.h)(0x644209E9)
+I (..\USER\Include\OTA.h)(0x64661BAF)
+I (..\USER\Include\MEM.h)(0x6465E143)
+I (..\USER\Include\printlog.h)(0x646F0FB9)
+I (..\USER\Include\comapp.h)(0x646C31CD)
+I (..\USER\Include\user_memory.h)(0x646F4449)
+I (..\USER\Include\debug.h)(0x64688FA5)
+I (..\USER\Include\flashapp.h)(0x64661832)
+I (..\USER\Include\default_data.h)(0x646F2532)
 F (..\..\Driver\src\sci_user.c)(0x6323EE7E)(--c99 --gnu -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\USER\Include -I ..\..\Driver\inc -I ..\USER\mcu_sdk-I.\RTE\Device\CMS32L051TS20-I.\RTE\_CMS32L051-IF:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IF:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include-D__UVISION_VERSION="534" -D_RTE_ -D_RTE_-o .\objects\sci_user.o --omf_browse .\objects\sci_user.crf --depend .\objects\sci_user.d)
 I (.\RTE\Device\CMS32L051TS20\userdefine.h)(0x638B161D)
 I (F:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include\CMS32L051.h)(0x61EF8A2A)
@@ -1201,7 +1351,7 @@ I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_compiler.h)(0x5E8306C2)
 I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_armcc.h)(0x5E8ED122)
 I (F:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include\system_CMS32L051.h)(0x61EF8A2A)
 I (..\..\Driver\inc\sci.h)(0x61EF8A2A)
-I (..\USER\Include\Function_Init.H)(0x643F7F78)
+I (..\USER\Include\Function_Init.H)(0x646C81AC)
 I (F:\APP\Keil\ARM\ARMCC\include\stdlib.h)(0x5E8E3CC2)
 I (..\..\Driver\inc\gpio.h)(0x624CEB27)
 I (..\..\Driver\inc\tim4.h)(0x61EF8A2A)
@@ -1221,23 +1371,29 @@ I (..\USER\Include\key.h)(0x62DF8050)
 I (..\USER\Include\Com.H)(0x63AEAC1F)
 I (..\USER\Include\fft.h)(0x63735AD5)
 I (..\USER\Include\uart.h)(0x6391B07F)
-I (..\USER\Include\A5441_Master.h)(0x6459EEE6)
+I (..\USER\Include\A5441_Master.h)(0x6465E8FF)
 I (..\USER\Include\Sys.h)(0x62D4F6E8)
 I (..\USER\Include\ware.h)(0x62ECCAE9)
 I (..\USER\mcu_sdk\wifi.h)(0x6459EE17)
 I (..\USER\mcu_sdk\tuya_type.h)(0x6459BBF0)
-I (..\USER\mcu_sdk\protocol.h)(0x6459C388)
+I (..\USER\mcu_sdk\protocol.h)(0x646DD09C)
 I (..\USER\mcu_sdk\system.h)(0x6459BBF0)
 I (..\USER\mcu_sdk\mcu_api.h)(0x6459BBF0)
 I (..\USER\mcu_sdk\homekit.h)(0x6459BBF0)
-I (..\USER\Include\Inf.h)(0x645A0C4E)
+I (..\USER\Include\Inf.h)(0x646F1EB4)
 I (..\USER\Include\memory.h)(0x6458BDFF)
 I (..\USER\Include\driver_spi.h)(0x636B5512)
 I (..\USER\Include\driver_w25qxx.h)(0x643D0B0F)
 I (..\USER\Include\motion.h)(0x63982176)
 I (..\USER\Include\colorbox.h)(0x636333FB)
-I (..\USER\Include\OTA.h)(0x63A11D1B)
-I (..\USER\Include\MEM.h)(0x644209E9)
+I (..\USER\Include\OTA.h)(0x64661BAF)
+I (..\USER\Include\MEM.h)(0x6465E143)
+I (..\USER\Include\printlog.h)(0x646F0FB9)
+I (..\USER\Include\comapp.h)(0x646C31CD)
+I (..\USER\Include\user_memory.h)(0x646F4449)
+I (..\USER\Include\debug.h)(0x64688FA5)
+I (..\USER\Include\flashapp.h)(0x64661832)
+I (..\USER\Include\default_data.h)(0x646F2532)
 F (..\..\Driver\src\gpio.c)(0x62481940)(--c99 --gnu -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\USER\Include -I ..\..\Driver\inc -I ..\USER\mcu_sdk-I.\RTE\Device\CMS32L051TS20-I.\RTE\_CMS32L051-IF:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IF:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include-D__UVISION_VERSION="534" -D_RTE_ -D_RTE_-o .\objects\gpio.o --omf_browse .\objects\gpio.crf --depend .\objects\gpio.d)
 I (F:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include\CMS32L051.h)(0x61EF8A2A)
 I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm0plus.h)(0x5E8ED122)
@@ -1266,7 +1422,7 @@ I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_compiler.h)(0x5E8306C2)
 I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_armcc.h)(0x5E8ED122)
 I (F:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include\system_CMS32L051.h)(0x61EF8A2A)
 I (..\..\Driver\inc\tim4.h)(0x61EF8A2A)
-I (..\USER\Include\Function_Init.H)(0x643F7F78)
+I (..\USER\Include\Function_Init.H)(0x646C81AC)
 I (F:\APP\Keil\ARM\ARMCC\include\stdlib.h)(0x5E8E3CC2)
 I (.\RTE\Device\CMS32L051TS20\userdefine.h)(0x638B161D)
 I (..\..\Driver\inc\sci.h)(0x61EF8A2A)
@@ -1287,23 +1443,29 @@ I (..\USER\Include\key.h)(0x62DF8050)
 I (..\USER\Include\Com.H)(0x63AEAC1F)
 I (..\USER\Include\fft.h)(0x63735AD5)
 I (..\USER\Include\uart.h)(0x6391B07F)
-I (..\USER\Include\A5441_Master.h)(0x6459EEE6)
+I (..\USER\Include\A5441_Master.h)(0x6465E8FF)
 I (..\USER\Include\Sys.h)(0x62D4F6E8)
 I (..\USER\Include\ware.h)(0x62ECCAE9)
 I (..\USER\mcu_sdk\wifi.h)(0x6459EE17)
 I (..\USER\mcu_sdk\tuya_type.h)(0x6459BBF0)
-I (..\USER\mcu_sdk\protocol.h)(0x6459C388)
+I (..\USER\mcu_sdk\protocol.h)(0x646DD09C)
 I (..\USER\mcu_sdk\system.h)(0x6459BBF0)
 I (..\USER\mcu_sdk\mcu_api.h)(0x6459BBF0)
 I (..\USER\mcu_sdk\homekit.h)(0x6459BBF0)
-I (..\USER\Include\Inf.h)(0x645A0C4E)
+I (..\USER\Include\Inf.h)(0x646F1EB4)
 I (..\USER\Include\memory.h)(0x6458BDFF)
 I (..\USER\Include\driver_spi.h)(0x636B5512)
 I (..\USER\Include\driver_w25qxx.h)(0x643D0B0F)
 I (..\USER\Include\motion.h)(0x63982176)
 I (..\USER\Include\colorbox.h)(0x636333FB)
-I (..\USER\Include\OTA.h)(0x63A11D1B)
-I (..\USER\Include\MEM.h)(0x644209E9)
+I (..\USER\Include\OTA.h)(0x64661BAF)
+I (..\USER\Include\MEM.h)(0x6465E143)
+I (..\USER\Include\printlog.h)(0x646F0FB9)
+I (..\USER\Include\comapp.h)(0x646C31CD)
+I (..\USER\Include\user_memory.h)(0x646F4449)
+I (..\USER\Include\debug.h)(0x64688FA5)
+I (..\USER\Include\flashapp.h)(0x64661832)
+I (..\USER\Include\default_data.h)(0x646F2532)
 F (..\..\Driver\src\adc.c)(0x636C6D6F)(--c99 --gnu -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\USER\Include -I ..\..\Driver\inc -I ..\USER\mcu_sdk-I.\RTE\Device\CMS32L051TS20-I.\RTE\_CMS32L051-IF:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IF:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include-D__UVISION_VERSION="534" -D_RTE_ -D_RTE_-o .\objects\adc.o --omf_browse .\objects\adc.crf --depend .\objects\adc.d)
 I (F:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include\CMS32L051.h)(0x61EF8A2A)
 I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm0plus.h)(0x5E8ED122)
@@ -1367,7 +1529,7 @@ I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_compiler.h)(0x5E8306C2)
 I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_armcc.h)(0x5E8ED122)
 I (F:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include\system_CMS32L051.h)(0x61EF8A2A)
 I (..\..\Driver\inc\rtc.h)(0x639040FD)
-I (..\USER\Include\Function_Init.H)(0x643F7F78)
+I (..\USER\Include\Function_Init.H)(0x646C81AC)
 I (F:\APP\Keil\ARM\ARMCC\include\stdlib.h)(0x5E8E3CC2)
 I (.\RTE\Device\CMS32L051TS20\userdefine.h)(0x638B161D)
 I (..\..\Driver\inc\sci.h)(0x61EF8A2A)
@@ -1385,23 +1547,29 @@ I (..\USER\Include\key.h)(0x62DF8050)
 I (..\USER\Include\Com.H)(0x63AEAC1F)
 I (..\USER\Include\fft.h)(0x63735AD5)
 I (..\USER\Include\uart.h)(0x6391B07F)
-I (..\USER\Include\A5441_Master.h)(0x6459EEE6)
+I (..\USER\Include\A5441_Master.h)(0x6465E8FF)
 I (..\USER\Include\Sys.h)(0x62D4F6E8)
 I (..\USER\Include\ware.h)(0x62ECCAE9)
 I (..\USER\mcu_sdk\wifi.h)(0x6459EE17)
 I (..\USER\mcu_sdk\tuya_type.h)(0x6459BBF0)
-I (..\USER\mcu_sdk\protocol.h)(0x6459C388)
+I (..\USER\mcu_sdk\protocol.h)(0x646DD09C)
 I (..\USER\mcu_sdk\system.h)(0x6459BBF0)
 I (..\USER\mcu_sdk\mcu_api.h)(0x6459BBF0)
 I (..\USER\mcu_sdk\homekit.h)(0x6459BBF0)
-I (..\USER\Include\Inf.h)(0x645A0C4E)
+I (..\USER\Include\Inf.h)(0x646F1EB4)
 I (..\USER\Include\memory.h)(0x6458BDFF)
 I (..\USER\Include\driver_spi.h)(0x636B5512)
 I (..\USER\Include\driver_w25qxx.h)(0x643D0B0F)
 I (..\USER\Include\motion.h)(0x63982176)
 I (..\USER\Include\colorbox.h)(0x636333FB)
-I (..\USER\Include\OTA.h)(0x63A11D1B)
-I (..\USER\Include\MEM.h)(0x644209E9)
+I (..\USER\Include\OTA.h)(0x64661BAF)
+I (..\USER\Include\MEM.h)(0x6465E143)
+I (..\USER\Include\printlog.h)(0x646F0FB9)
+I (..\USER\Include\comapp.h)(0x646C31CD)
+I (..\USER\Include\user_memory.h)(0x646F4449)
+I (..\USER\Include\debug.h)(0x64688FA5)
+I (..\USER\Include\flashapp.h)(0x64661832)
+I (..\USER\Include\default_data.h)(0x646F2532)
 F (..\..\Driver\src\dma.c)(0x62CBC175)(--c99 --gnu -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\USER\Include -I ..\..\Driver\inc -I ..\USER\mcu_sdk-I.\RTE\Device\CMS32L051TS20-I.\RTE\_CMS32L051-IF:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IF:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include-D__UVISION_VERSION="534" -D_RTE_ -D_RTE_-o .\objects\dma.o --omf_browse .\objects\dma.crf --depend .\objects\dma.d)
 I (F:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include\CMS32L051.h)(0x61EF8A2A)
 I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm0plus.h)(0x5E8ED122)
@@ -1412,7 +1580,379 @@ I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_armcc.h)(0x5E8ED122)
 I (F:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include\system_CMS32L051.h)(0x61EF8A2A)
 I (..\..\Driver\inc\dma.h)(0x61EF8A2A)
 I (.\RTE\Device\CMS32L051TS20\userdefine.h)(0x638B161D)
-F (RTE\Device\CMS32L051TS20\startup_CMS32L051.s)(0x63735FA5)(--cpu Cortex-M0+ -g --apcs=interwork -I.\RTE\Device\CMS32L051TS20-I.\RTE\_CMS32L051-IF:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IF:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include--pd "__UVISION_VERSION SETA 534" --pd "_RTE_ SETA 1" --pd "_RTE_ SETA 1"--list .\listings\startup_cms32l051.lst --xref -o .\objects\startup_cms32l051.o --depend .\objects\startup_cms32l051.d)
+F (..\USER\Source\driver_spi.c)(0x643F4E0E)(--c99 --gnu -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\USER\Include -I ..\..\Driver\inc -I ..\USER\mcu_sdk-I.\RTE\Device\CMS32L051TS20-I.\RTE\_CMS32L051-IF:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IF:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include-D__UVISION_VERSION="534" -D_RTE_ -D_RTE_-o .\objects\driver_spi.o --omf_browse .\objects\driver_spi.crf --depend .\objects\driver_spi.d)
+I (..\USER\Include\driver_spi.h)(0x636B5512)
+I (..\USER\Include\Function_Init.H)(0x646C81AC)
+I (F:\APP\Keil\ARM\ARMCC\include\stdlib.h)(0x5E8E3CC2)
+I (F:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include\CMS32L051.h)(0x61EF8A2A)
+I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm0plus.h)(0x5E8ED122)
+I (F:\APP\Keil\ARM\ARMCC\include\stdint.h)(0x5E8E3CC2)
+I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_version.h)(0x5E8ED122)
+I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_compiler.h)(0x5E8306C2)
+I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_armcc.h)(0x5E8ED122)
+I (F:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include\system_CMS32L051.h)(0x61EF8A2A)
+I (.\RTE\Device\CMS32L051TS20\userdefine.h)(0x638B161D)
+I (..\..\Driver\inc\sci.h)(0x61EF8A2A)
+I (..\..\Driver\inc\gpio.h)(0x624CEB27)
+I (..\..\Driver\inc\tim4.h)(0x61EF8A2A)
+I (..\..\Driver\inc\adc.h)(0x61EF8A2A)
+I (..\..\Driver\inc\flash.h)(0x61EF8A2A)
+I (..\..\Driver\inc\rtc.h)(0x639040FD)
+I (..\..\Driver\inc\dma.h)(0x61EF8A2A)
+I (F:\APP\Keil\ARM\ARMCC\include\stdio.h)(0x5E8E3CC2)
+I (F:\APP\Keil\ARM\ARMCC\include\string.h)(0x5E8E3CC2)
+I (F:\APP\Keil\ARM\ARMCC\include\math.h)(0x5E8E3CC2)
+I (..\USER\Include\FIFO.h)(0x63071284)
+I (..\USER\Include\IR.H)(0x63DB5A2D)
+I (..\USER\Include\image.H)(0x643F826D)
+I (..\USER\Include\Color.H)(0x639144EC)
+I (..\USER\Include\Light.H)(0x63477CA4)
+I (..\USER\Include\key.h)(0x62DF8050)
+I (..\USER\Include\Com.H)(0x63AEAC1F)
+I (..\USER\Include\fft.h)(0x63735AD5)
+I (..\USER\Include\uart.h)(0x6391B07F)
+I (..\USER\Include\A5441_Master.h)(0x6465E8FF)
+I (..\USER\Include\Sys.h)(0x62D4F6E8)
+I (..\USER\Include\ware.h)(0x62ECCAE9)
+I (..\USER\mcu_sdk\wifi.h)(0x6459EE17)
+I (..\USER\mcu_sdk\tuya_type.h)(0x6459BBF0)
+I (..\USER\mcu_sdk\protocol.h)(0x646DD09C)
+I (..\USER\mcu_sdk\system.h)(0x6459BBF0)
+I (..\USER\mcu_sdk\mcu_api.h)(0x6459BBF0)
+I (..\USER\mcu_sdk\homekit.h)(0x6459BBF0)
+I (..\USER\Include\Inf.h)(0x646F1EB4)
+I (..\USER\Include\memory.h)(0x6458BDFF)
+I (..\USER\Include\driver_w25qxx.h)(0x643D0B0F)
+I (..\USER\Include\motion.h)(0x63982176)
+I (..\USER\Include\colorbox.h)(0x636333FB)
+I (..\USER\Include\OTA.h)(0x64661BAF)
+I (..\USER\Include\MEM.h)(0x6465E143)
+I (..\USER\Include\printlog.h)(0x646F0FB9)
+I (..\USER\Include\comapp.h)(0x646C31CD)
+I (..\USER\Include\user_memory.h)(0x646F4449)
+I (..\USER\Include\debug.h)(0x64688FA5)
+I (..\USER\Include\flashapp.h)(0x64661832)
+I (..\USER\Include\default_data.h)(0x646F2532)
+F (..\USER\Source\driver_w25qxx.c)(0x643F4E11)(--c99 --gnu -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\USER\Include -I ..\..\Driver\inc -I ..\USER\mcu_sdk-I.\RTE\Device\CMS32L051TS20-I.\RTE\_CMS32L051-IF:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IF:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include-D__UVISION_VERSION="534" -D_RTE_ -D_RTE_-o .\objects\driver_w25qxx.o --omf_browse .\objects\driver_w25qxx.crf --depend .\objects\driver_w25qxx.d)
+I (..\USER\Include\driver_spi.h)(0x636B5512)
+I (..\USER\Include\Function_Init.H)(0x646C81AC)
+I (F:\APP\Keil\ARM\ARMCC\include\stdlib.h)(0x5E8E3CC2)
+I (F:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include\CMS32L051.h)(0x61EF8A2A)
+I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm0plus.h)(0x5E8ED122)
+I (F:\APP\Keil\ARM\ARMCC\include\stdint.h)(0x5E8E3CC2)
+I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_version.h)(0x5E8ED122)
+I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_compiler.h)(0x5E8306C2)
+I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_armcc.h)(0x5E8ED122)
+I (F:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include\system_CMS32L051.h)(0x61EF8A2A)
+I (.\RTE\Device\CMS32L051TS20\userdefine.h)(0x638B161D)
+I (..\..\Driver\inc\sci.h)(0x61EF8A2A)
+I (..\..\Driver\inc\gpio.h)(0x624CEB27)
+I (..\..\Driver\inc\tim4.h)(0x61EF8A2A)
+I (..\..\Driver\inc\adc.h)(0x61EF8A2A)
+I (..\..\Driver\inc\flash.h)(0x61EF8A2A)
+I (..\..\Driver\inc\rtc.h)(0x639040FD)
+I (..\..\Driver\inc\dma.h)(0x61EF8A2A)
+I (F:\APP\Keil\ARM\ARMCC\include\stdio.h)(0x5E8E3CC2)
+I (F:\APP\Keil\ARM\ARMCC\include\string.h)(0x5E8E3CC2)
+I (F:\APP\Keil\ARM\ARMCC\include\math.h)(0x5E8E3CC2)
+I (..\USER\Include\FIFO.h)(0x63071284)
+I (..\USER\Include\IR.H)(0x63DB5A2D)
+I (..\USER\Include\image.H)(0x643F826D)
+I (..\USER\Include\Color.H)(0x639144EC)
+I (..\USER\Include\Light.H)(0x63477CA4)
+I (..\USER\Include\key.h)(0x62DF8050)
+I (..\USER\Include\Com.H)(0x63AEAC1F)
+I (..\USER\Include\fft.h)(0x63735AD5)
+I (..\USER\Include\uart.h)(0x6391B07F)
+I (..\USER\Include\A5441_Master.h)(0x6465E8FF)
+I (..\USER\Include\Sys.h)(0x62D4F6E8)
+I (..\USER\Include\ware.h)(0x62ECCAE9)
+I (..\USER\mcu_sdk\wifi.h)(0x6459EE17)
+I (..\USER\mcu_sdk\tuya_type.h)(0x6459BBF0)
+I (..\USER\mcu_sdk\protocol.h)(0x646DD09C)
+I (..\USER\mcu_sdk\system.h)(0x6459BBF0)
+I (..\USER\mcu_sdk\mcu_api.h)(0x6459BBF0)
+I (..\USER\mcu_sdk\homekit.h)(0x6459BBF0)
+I (..\USER\Include\Inf.h)(0x646F1EB4)
+I (..\USER\Include\memory.h)(0x6458BDFF)
+I (..\USER\Include\driver_w25qxx.h)(0x643D0B0F)
+I (..\USER\Include\motion.h)(0x63982176)
+I (..\USER\Include\colorbox.h)(0x636333FB)
+I (..\USER\Include\OTA.h)(0x64661BAF)
+I (..\USER\Include\MEM.h)(0x6465E143)
+I (..\USER\Include\printlog.h)(0x646F0FB9)
+I (..\USER\Include\comapp.h)(0x646C31CD)
+I (..\USER\Include\user_memory.h)(0x646F4449)
+I (..\USER\Include\debug.h)(0x64688FA5)
+I (..\USER\Include\flashapp.h)(0x64661832)
+I (..\USER\Include\default_data.h)(0x646F2532)
+F (..\USER\Source\MEM.c)(0x64670900)(--c99 --gnu -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\USER\Include -I ..\..\Driver\inc -I ..\USER\mcu_sdk-I.\RTE\Device\CMS32L051TS20-I.\RTE\_CMS32L051-IF:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IF:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include-D__UVISION_VERSION="534" -D_RTE_ -D_RTE_-o .\objects\mem.o --omf_browse .\objects\mem.crf --depend .\objects\mem.d)
+I (..\USER\Include\Function_Init.H)(0x646C81AC)
+I (F:\APP\Keil\ARM\ARMCC\include\stdlib.h)(0x5E8E3CC2)
+I (F:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include\CMS32L051.h)(0x61EF8A2A)
+I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm0plus.h)(0x5E8ED122)
+I (F:\APP\Keil\ARM\ARMCC\include\stdint.h)(0x5E8E3CC2)
+I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_version.h)(0x5E8ED122)
+I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_compiler.h)(0x5E8306C2)
+I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_armcc.h)(0x5E8ED122)
+I (F:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include\system_CMS32L051.h)(0x61EF8A2A)
+I (.\RTE\Device\CMS32L051TS20\userdefine.h)(0x638B161D)
+I (..\..\Driver\inc\sci.h)(0x61EF8A2A)
+I (..\..\Driver\inc\gpio.h)(0x624CEB27)
+I (..\..\Driver\inc\tim4.h)(0x61EF8A2A)
+I (..\..\Driver\inc\adc.h)(0x61EF8A2A)
+I (..\..\Driver\inc\flash.h)(0x61EF8A2A)
+I (..\..\Driver\inc\rtc.h)(0x639040FD)
+I (..\..\Driver\inc\dma.h)(0x61EF8A2A)
+I (F:\APP\Keil\ARM\ARMCC\include\stdio.h)(0x5E8E3CC2)
+I (F:\APP\Keil\ARM\ARMCC\include\string.h)(0x5E8E3CC2)
+I (F:\APP\Keil\ARM\ARMCC\include\math.h)(0x5E8E3CC2)
+I (..\USER\Include\FIFO.h)(0x63071284)
+I (..\USER\Include\IR.H)(0x63DB5A2D)
+I (..\USER\Include\image.H)(0x643F826D)
+I (..\USER\Include\Color.H)(0x639144EC)
+I (..\USER\Include\Light.H)(0x63477CA4)
+I (..\USER\Include\key.h)(0x62DF8050)
+I (..\USER\Include\Com.H)(0x63AEAC1F)
+I (..\USER\Include\fft.h)(0x63735AD5)
+I (..\USER\Include\uart.h)(0x6391B07F)
+I (..\USER\Include\A5441_Master.h)(0x6465E8FF)
+I (..\USER\Include\Sys.h)(0x62D4F6E8)
+I (..\USER\Include\ware.h)(0x62ECCAE9)
+I (..\USER\mcu_sdk\wifi.h)(0x6459EE17)
+I (..\USER\mcu_sdk\tuya_type.h)(0x6459BBF0)
+I (..\USER\mcu_sdk\protocol.h)(0x646DD09C)
+I (..\USER\mcu_sdk\system.h)(0x6459BBF0)
+I (..\USER\mcu_sdk\mcu_api.h)(0x6459BBF0)
+I (..\USER\mcu_sdk\homekit.h)(0x6459BBF0)
+I (..\USER\Include\Inf.h)(0x646F1EB4)
+I (..\USER\Include\memory.h)(0x6458BDFF)
+I (..\USER\Include\driver_spi.h)(0x636B5512)
+I (..\USER\Include\driver_w25qxx.h)(0x643D0B0F)
+I (..\USER\Include\motion.h)(0x63982176)
+I (..\USER\Include\colorbox.h)(0x636333FB)
+I (..\USER\Include\OTA.h)(0x64661BAF)
+I (..\USER\Include\MEM.h)(0x6465E143)
+I (..\USER\Include\printlog.h)(0x646F0FB9)
+I (..\USER\Include\comapp.h)(0x646C31CD)
+I (..\USER\Include\user_memory.h)(0x646F4449)
+I (..\USER\Include\debug.h)(0x64688FA5)
+I (..\USER\Include\flashapp.h)(0x64661832)
+I (..\USER\Include\default_data.h)(0x646F2532)
+F (..\USER\Source\memory.c)(0x63A15524)(--c99 --gnu -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\USER\Include -I ..\..\Driver\inc -I ..\USER\mcu_sdk-I.\RTE\Device\CMS32L051TS20-I.\RTE\_CMS32L051-IF:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IF:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include-D__UVISION_VERSION="534" -D_RTE_ -D_RTE_-o .\objects\memory.o --omf_browse .\objects\memory.crf --depend .\objects\memory.d)
+I (..\USER\Include\Function_Init.H)(0x646C81AC)
+I (F:\APP\Keil\ARM\ARMCC\include\stdlib.h)(0x5E8E3CC2)
+I (F:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include\CMS32L051.h)(0x61EF8A2A)
+I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm0plus.h)(0x5E8ED122)
+I (F:\APP\Keil\ARM\ARMCC\include\stdint.h)(0x5E8E3CC2)
+I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_version.h)(0x5E8ED122)
+I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_compiler.h)(0x5E8306C2)
+I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_armcc.h)(0x5E8ED122)
+I (F:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include\system_CMS32L051.h)(0x61EF8A2A)
+I (.\RTE\Device\CMS32L051TS20\userdefine.h)(0x638B161D)
+I (..\..\Driver\inc\sci.h)(0x61EF8A2A)
+I (..\..\Driver\inc\gpio.h)(0x624CEB27)
+I (..\..\Driver\inc\tim4.h)(0x61EF8A2A)
+I (..\..\Driver\inc\adc.h)(0x61EF8A2A)
+I (..\..\Driver\inc\flash.h)(0x61EF8A2A)
+I (..\..\Driver\inc\rtc.h)(0x639040FD)
+I (..\..\Driver\inc\dma.h)(0x61EF8A2A)
+I (F:\APP\Keil\ARM\ARMCC\include\stdio.h)(0x5E8E3CC2)
+I (F:\APP\Keil\ARM\ARMCC\include\string.h)(0x5E8E3CC2)
+I (F:\APP\Keil\ARM\ARMCC\include\math.h)(0x5E8E3CC2)
+I (..\USER\Include\FIFO.h)(0x63071284)
+I (..\USER\Include\IR.H)(0x63DB5A2D)
+I (..\USER\Include\image.H)(0x643F826D)
+I (..\USER\Include\Color.H)(0x639144EC)
+I (..\USER\Include\Light.H)(0x63477CA4)
+I (..\USER\Include\key.h)(0x62DF8050)
+I (..\USER\Include\Com.H)(0x63AEAC1F)
+I (..\USER\Include\fft.h)(0x63735AD5)
+I (..\USER\Include\uart.h)(0x6391B07F)
+I (..\USER\Include\A5441_Master.h)(0x6465E8FF)
+I (..\USER\Include\Sys.h)(0x62D4F6E8)
+I (..\USER\Include\ware.h)(0x62ECCAE9)
+I (..\USER\mcu_sdk\wifi.h)(0x6459EE17)
+I (..\USER\mcu_sdk\tuya_type.h)(0x6459BBF0)
+I (..\USER\mcu_sdk\protocol.h)(0x646DD09C)
+I (..\USER\mcu_sdk\system.h)(0x6459BBF0)
+I (..\USER\mcu_sdk\mcu_api.h)(0x6459BBF0)
+I (..\USER\mcu_sdk\homekit.h)(0x6459BBF0)
+I (..\USER\Include\Inf.h)(0x646F1EB4)
+I (..\USER\Include\memory.h)(0x6458BDFF)
+I (..\USER\Include\driver_spi.h)(0x636B5512)
+I (..\USER\Include\driver_w25qxx.h)(0x643D0B0F)
+I (..\USER\Include\motion.h)(0x63982176)
+I (..\USER\Include\colorbox.h)(0x636333FB)
+I (..\USER\Include\OTA.h)(0x64661BAF)
+I (..\USER\Include\MEM.h)(0x6465E143)
+I (..\USER\Include\printlog.h)(0x646F0FB9)
+I (..\USER\Include\comapp.h)(0x646C31CD)
+I (..\USER\Include\user_memory.h)(0x646F4449)
+I (..\USER\Include\debug.h)(0x64688FA5)
+I (..\USER\Include\flashapp.h)(0x64661832)
+I (..\USER\Include\default_data.h)(0x646F2532)
+F (..\USER\Source\user_memory.c)(0x646F4413)(--c99 --gnu -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\USER\Include -I ..\..\Driver\inc -I ..\USER\mcu_sdk-I.\RTE\Device\CMS32L051TS20-I.\RTE\_CMS32L051-IF:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IF:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include-D__UVISION_VERSION="534" -D_RTE_ -D_RTE_-o .\objects\user_memory.o --omf_browse .\objects\user_memory.crf --depend .\objects\user_memory.d)
+I (..\USER\Include\user_memory.h)(0x646F4449)
+I (..\USER\Include\Function_Init.H)(0x646C81AC)
+I (F:\APP\Keil\ARM\ARMCC\include\stdlib.h)(0x5E8E3CC2)
+I (F:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include\CMS32L051.h)(0x61EF8A2A)
+I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm0plus.h)(0x5E8ED122)
+I (F:\APP\Keil\ARM\ARMCC\include\stdint.h)(0x5E8E3CC2)
+I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_version.h)(0x5E8ED122)
+I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_compiler.h)(0x5E8306C2)
+I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_armcc.h)(0x5E8ED122)
+I (F:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include\system_CMS32L051.h)(0x61EF8A2A)
+I (.\RTE\Device\CMS32L051TS20\userdefine.h)(0x638B161D)
+I (..\..\Driver\inc\sci.h)(0x61EF8A2A)
+I (..\..\Driver\inc\gpio.h)(0x624CEB27)
+I (..\..\Driver\inc\tim4.h)(0x61EF8A2A)
+I (..\..\Driver\inc\adc.h)(0x61EF8A2A)
+I (..\..\Driver\inc\flash.h)(0x61EF8A2A)
+I (..\..\Driver\inc\rtc.h)(0x639040FD)
+I (..\..\Driver\inc\dma.h)(0x61EF8A2A)
+I (F:\APP\Keil\ARM\ARMCC\include\stdio.h)(0x5E8E3CC2)
+I (F:\APP\Keil\ARM\ARMCC\include\string.h)(0x5E8E3CC2)
+I (F:\APP\Keil\ARM\ARMCC\include\math.h)(0x5E8E3CC2)
+I (..\USER\Include\FIFO.h)(0x63071284)
+I (..\USER\Include\IR.H)(0x63DB5A2D)
+I (..\USER\Include\image.H)(0x643F826D)
+I (..\USER\Include\Color.H)(0x639144EC)
+I (..\USER\Include\Light.H)(0x63477CA4)
+I (..\USER\Include\key.h)(0x62DF8050)
+I (..\USER\Include\Com.H)(0x63AEAC1F)
+I (..\USER\Include\fft.h)(0x63735AD5)
+I (..\USER\Include\uart.h)(0x6391B07F)
+I (..\USER\Include\A5441_Master.h)(0x6465E8FF)
+I (..\USER\Include\Sys.h)(0x62D4F6E8)
+I (..\USER\Include\ware.h)(0x62ECCAE9)
+I (..\USER\mcu_sdk\wifi.h)(0x6459EE17)
+I (..\USER\mcu_sdk\tuya_type.h)(0x6459BBF0)
+I (..\USER\mcu_sdk\protocol.h)(0x646DD09C)
+I (..\USER\mcu_sdk\system.h)(0x6459BBF0)
+I (..\USER\mcu_sdk\mcu_api.h)(0x6459BBF0)
+I (..\USER\mcu_sdk\homekit.h)(0x6459BBF0)
+I (..\USER\Include\Inf.h)(0x646F1EB4)
+I (..\USER\Include\memory.h)(0x6458BDFF)
+I (..\USER\Include\driver_spi.h)(0x636B5512)
+I (..\USER\Include\driver_w25qxx.h)(0x643D0B0F)
+I (..\USER\Include\motion.h)(0x63982176)
+I (..\USER\Include\colorbox.h)(0x636333FB)
+I (..\USER\Include\OTA.h)(0x64661BAF)
+I (..\USER\Include\MEM.h)(0x6465E143)
+I (..\USER\Include\printlog.h)(0x646F0FB9)
+I (..\USER\Include\comapp.h)(0x646C31CD)
+I (..\USER\Include\debug.h)(0x64688FA5)
+I (..\USER\Include\flashapp.h)(0x64661832)
+I (..\USER\Include\default_data.h)(0x646F2532)
+F (..\USER\Source\default_data.c)(0x646F2581)(--c99 --gnu -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\USER\Include -I ..\..\Driver\inc -I ..\USER\mcu_sdk-I.\RTE\Device\CMS32L051TS20-I.\RTE\_CMS32L051-IF:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IF:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include-D__UVISION_VERSION="534" -D_RTE_ -D_RTE_-o .\objects\default_data.o --omf_browse .\objects\default_data.crf --depend .\objects\default_data.d)
+I (..\USER\Include\Function_Init.H)(0x646C81AC)
+I (F:\APP\Keil\ARM\ARMCC\include\stdlib.h)(0x5E8E3CC2)
+I (F:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include\CMS32L051.h)(0x61EF8A2A)
+I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm0plus.h)(0x5E8ED122)
+I (F:\APP\Keil\ARM\ARMCC\include\stdint.h)(0x5E8E3CC2)
+I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_version.h)(0x5E8ED122)
+I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_compiler.h)(0x5E8306C2)
+I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_armcc.h)(0x5E8ED122)
+I (F:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include\system_CMS32L051.h)(0x61EF8A2A)
+I (.\RTE\Device\CMS32L051TS20\userdefine.h)(0x638B161D)
+I (..\..\Driver\inc\sci.h)(0x61EF8A2A)
+I (..\..\Driver\inc\gpio.h)(0x624CEB27)
+I (..\..\Driver\inc\tim4.h)(0x61EF8A2A)
+I (..\..\Driver\inc\adc.h)(0x61EF8A2A)
+I (..\..\Driver\inc\flash.h)(0x61EF8A2A)
+I (..\..\Driver\inc\rtc.h)(0x639040FD)
+I (..\..\Driver\inc\dma.h)(0x61EF8A2A)
+I (F:\APP\Keil\ARM\ARMCC\include\stdio.h)(0x5E8E3CC2)
+I (F:\APP\Keil\ARM\ARMCC\include\string.h)(0x5E8E3CC2)
+I (F:\APP\Keil\ARM\ARMCC\include\math.h)(0x5E8E3CC2)
+I (..\USER\Include\FIFO.h)(0x63071284)
+I (..\USER\Include\IR.H)(0x63DB5A2D)
+I (..\USER\Include\image.H)(0x643F826D)
+I (..\USER\Include\Color.H)(0x639144EC)
+I (..\USER\Include\Light.H)(0x63477CA4)
+I (..\USER\Include\key.h)(0x62DF8050)
+I (..\USER\Include\Com.H)(0x63AEAC1F)
+I (..\USER\Include\fft.h)(0x63735AD5)
+I (..\USER\Include\uart.h)(0x6391B07F)
+I (..\USER\Include\A5441_Master.h)(0x6465E8FF)
+I (..\USER\Include\Sys.h)(0x62D4F6E8)
+I (..\USER\Include\ware.h)(0x62ECCAE9)
+I (..\USER\mcu_sdk\wifi.h)(0x6459EE17)
+I (..\USER\mcu_sdk\tuya_type.h)(0x6459BBF0)
+I (..\USER\mcu_sdk\protocol.h)(0x646DD09C)
+I (..\USER\mcu_sdk\system.h)(0x6459BBF0)
+I (..\USER\mcu_sdk\mcu_api.h)(0x6459BBF0)
+I (..\USER\mcu_sdk\homekit.h)(0x6459BBF0)
+I (..\USER\Include\Inf.h)(0x646F1EB4)
+I (..\USER\Include\memory.h)(0x6458BDFF)
+I (..\USER\Include\driver_spi.h)(0x636B5512)
+I (..\USER\Include\driver_w25qxx.h)(0x643D0B0F)
+I (..\USER\Include\motion.h)(0x63982176)
+I (..\USER\Include\colorbox.h)(0x636333FB)
+I (..\USER\Include\OTA.h)(0x64661BAF)
+I (..\USER\Include\MEM.h)(0x6465E143)
+I (..\USER\Include\printlog.h)(0x646F0FB9)
+I (..\USER\Include\comapp.h)(0x646C31CD)
+I (..\USER\Include\user_memory.h)(0x646F4449)
+I (..\USER\Include\debug.h)(0x64688FA5)
+I (..\USER\Include\flashapp.h)(0x64661832)
+I (..\USER\Include\default_data.h)(0x646F2532)
+F (..\USER\Source\appfunction.c)(0x646F24B0)(--c99 --gnu -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\USER\Include -I ..\..\Driver\inc -I ..\USER\mcu_sdk-I.\RTE\Device\CMS32L051TS20-I.\RTE\_CMS32L051-IF:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IF:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include-D__UVISION_VERSION="534" -D_RTE_ -D_RTE_-o .\objects\appfunction.o --omf_browse .\objects\appfunction.crf --depend .\objects\appfunction.d)
+I (..\USER\Include\appfunction.h)(0x646B313B)
+I (..\USER\Include\Function_Init.H)(0x646C81AC)
+I (F:\APP\Keil\ARM\ARMCC\include\stdlib.h)(0x5E8E3CC2)
+I (F:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include\CMS32L051.h)(0x61EF8A2A)
+I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm0plus.h)(0x5E8ED122)
+I (F:\APP\Keil\ARM\ARMCC\include\stdint.h)(0x5E8E3CC2)
+I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_version.h)(0x5E8ED122)
+I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_compiler.h)(0x5E8306C2)
+I (F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\cmsis_armcc.h)(0x5E8ED122)
+I (F:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include\system_CMS32L051.h)(0x61EF8A2A)
+I (.\RTE\Device\CMS32L051TS20\userdefine.h)(0x638B161D)
+I (..\..\Driver\inc\sci.h)(0x61EF8A2A)
+I (..\..\Driver\inc\gpio.h)(0x624CEB27)
+I (..\..\Driver\inc\tim4.h)(0x61EF8A2A)
+I (..\..\Driver\inc\adc.h)(0x61EF8A2A)
+I (..\..\Driver\inc\flash.h)(0x61EF8A2A)
+I (..\..\Driver\inc\rtc.h)(0x639040FD)
+I (..\..\Driver\inc\dma.h)(0x61EF8A2A)
+I (F:\APP\Keil\ARM\ARMCC\include\stdio.h)(0x5E8E3CC2)
+I (F:\APP\Keil\ARM\ARMCC\include\string.h)(0x5E8E3CC2)
+I (F:\APP\Keil\ARM\ARMCC\include\math.h)(0x5E8E3CC2)
+I (..\USER\Include\FIFO.h)(0x63071284)
+I (..\USER\Include\IR.H)(0x63DB5A2D)
+I (..\USER\Include\image.H)(0x643F826D)
+I (..\USER\Include\Color.H)(0x639144EC)
+I (..\USER\Include\Light.H)(0x63477CA4)
+I (..\USER\Include\key.h)(0x62DF8050)
+I (..\USER\Include\Com.H)(0x63AEAC1F)
+I (..\USER\Include\fft.h)(0x63735AD5)
+I (..\USER\Include\uart.h)(0x6391B07F)
+I (..\USER\Include\A5441_Master.h)(0x6465E8FF)
+I (..\USER\Include\Sys.h)(0x62D4F6E8)
+I (..\USER\Include\ware.h)(0x62ECCAE9)
+I (..\USER\mcu_sdk\wifi.h)(0x6459EE17)
+I (..\USER\mcu_sdk\tuya_type.h)(0x6459BBF0)
+I (..\USER\mcu_sdk\protocol.h)(0x646DD09C)
+I (..\USER\mcu_sdk\system.h)(0x6459BBF0)
+I (..\USER\mcu_sdk\mcu_api.h)(0x6459BBF0)
+I (..\USER\mcu_sdk\homekit.h)(0x6459BBF0)
+I (..\USER\Include\Inf.h)(0x646F1EB4)
+I (..\USER\Include\memory.h)(0x6458BDFF)
+I (..\USER\Include\driver_spi.h)(0x636B5512)
+I (..\USER\Include\driver_w25qxx.h)(0x643D0B0F)
+I (..\USER\Include\motion.h)(0x63982176)
+I (..\USER\Include\colorbox.h)(0x636333FB)
+I (..\USER\Include\OTA.h)(0x64661BAF)
+I (..\USER\Include\MEM.h)(0x6465E143)
+I (..\USER\Include\printlog.h)(0x646F0FB9)
+I (..\USER\Include\comapp.h)(0x646C31CD)
+I (..\USER\Include\user_memory.h)(0x646F4449)
+I (..\USER\Include\debug.h)(0x64688FA5)
+I (..\USER\Include\flashapp.h)(0x64661832)
+I (..\USER\Include\default_data.h)(0x646F2532)
+F (RTE\Device\CMS32L051TS20\startup_CMS32L051.s)(0x64686C29)(--cpu Cortex-M0+ -g --apcs=interwork -I.\RTE\Device\CMS32L051TS20-I.\RTE\_CMS32L051-IF:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IF:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include--pd "__UVISION_VERSION SETA 534" --pd "_RTE_ SETA 1" --pd "_RTE_ SETA 1"--list .\listings\startup_cms32l051.lst --xref -o .\objects\startup_cms32l051.o --depend .\objects\startup_cms32l051.d)
 F (RTE\Device\CMS32L051TS20\system_CMS32L051.c)(0x636C555B)(--c99 --gnu -c --cpu Cortex-M0+ -g -O0 --apcs=interwork --split_sections -I ..\USER\Include -I ..\..\Driver\inc -I ..\USER\mcu_sdk-I.\RTE\Device\CMS32L051TS20-I.\RTE\_CMS32L051-IF:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include-IF:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include-D__UVISION_VERSION="534" -D_RTE_ -D_RTE_-o .\objects\system_cms32l051.o --omf_browse .\objects\system_cms32l051.crf --depend .\objects\system_cms32l051.d)
 I (F:\APP\Keil\ARM\ARMCC\include\stdint.h)(0x5E8E3CC2)
 I (F:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include\CMS32L051.h)(0x61EF8A2A)

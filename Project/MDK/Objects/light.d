@@ -50,3 +50,9 @@
 .\objects\light.o: ..\USER\Include\colorbox.h
 .\objects\light.o: ..\USER\Include\OTA.h
 .\objects\light.o: ..\USER\Include\MEM.h
+.\objects\light.o: ..\USER\Include\printlog.h
+.\objects\light.o: ..\USER\Include\comapp.h
+.\objects\light.o: ..\USER\Include\user_memory.h
+.\objects\light.o: ..\USER\Include\debug.h
+.\objects\light.o: ..\USER\Include\flashapp.h
+.\objects\light.o: ..\USER\Include\default_data.h

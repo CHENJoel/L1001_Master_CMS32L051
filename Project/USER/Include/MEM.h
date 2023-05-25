@@ -2,60 +2,18 @@
 #define MEM_H
 #include "Function_Init.H"
 #include "Inf.h"
-/*
-Flash芯片 P25T22 ，内存2Mkbit(256KByte)，地址：0x00000~0x3FFFF
-
-0x00000~0x3FFFF
-         _______________________________
-0x00000 |                               |   APP OTA升级区
-        |                               |
-        |                               |   0x00000~0x0FFFF
-        |                               |   size:0x10000,64KByte,65536 Byte
-        |                               |
-0x0FFFF |_______________________________|    ______________________________________________________________________________
-0x10000 |                               |   系统信息区
-        |                               |
-        |                               |    0x10000~0x1FFFF
-        |                               |    size:0x10000,64KByte,65536 Byte
-        |                               |
-0x1FFFF |_______________________________|    ______________________________________________________________________________
-0x20000 |                               |   灯效信息区
-        |                               |
-        |                               |   0x20000~0x2FFFF
-        |                               |   size:0x10000,64KByte,65536 Byte
-        |                               |
-0x2FFFF |_______________________________|    ______________________________________________________________________________
-0x30000 |                               |   备用区
-        |                               |
-        |                               |   0x30000~0x3FFFF
-        |                               |   size:0x10000,64KByte,65536 Byte
-        |                               |
-0x3FFFF |_______________________________|    ______________________________________________________________________________
-
-
-*/
-
-#define NORFLASH_BASE 0UL
-
-#define OTAPACK_BASE (NORFLASH_BASE + 0UL)
-#define SYSDATA_BASE (NORFLASH_BASE + 0x10000UL)
-#define EFFECT_BASE  (NORFLASH_BASE + 0x20000UL)
-#define SPARE_BASE   (NORFLASH_BASE + 0x30000UL)
-
-/*灯效信息*/
-
-// typedef struct
-// {
-//     uint8_t EfNum; // 灯效数量
-// } EfIndex_TypeDef;
 
 
 
-// extern EffectInf_TypeDef EffectInf;
 
-/**/
 
-/*系统信息*/
+
+
+
+
+
+
+
 
 #define SysRecord_verify 0x25a3cbf3
 typedef struct

@@ -51,3 +51,9 @@
 .\objects\driver_spi.o: ..\USER\Include\colorbox.h
 .\objects\driver_spi.o: ..\USER\Include\OTA.h
 .\objects\driver_spi.o: ..\USER\Include\MEM.h
+.\objects\driver_spi.o: ..\USER\Include\printlog.h
+.\objects\driver_spi.o: ..\USER\Include\comapp.h
+.\objects\driver_spi.o: ..\USER\Include\user_memory.h
+.\objects\driver_spi.o: ..\USER\Include\debug.h
+.\objects\driver_spi.o: ..\USER\Include\flashapp.h
+.\objects\driver_spi.o: ..\USER\Include\default_data.h

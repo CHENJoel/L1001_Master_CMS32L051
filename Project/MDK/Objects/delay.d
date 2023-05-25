@@ -50,4 +50,10 @@
 .\objects\delay.o: ..\USER\Include\colorbox.h
 .\objects\delay.o: ..\USER\Include\OTA.h
 .\objects\delay.o: ..\USER\Include\MEM.h
+.\objects\delay.o: ..\USER\Include\printlog.h
+.\objects\delay.o: ..\USER\Include\comapp.h
+.\objects\delay.o: ..\USER\Include\user_memory.h
+.\objects\delay.o: ..\USER\Include\debug.h
+.\objects\delay.o: ..\USER\Include\flashapp.h
+.\objects\delay.o: ..\USER\Include\default_data.h
 .\objects\delay.o: ..\USER\Include\delay.H

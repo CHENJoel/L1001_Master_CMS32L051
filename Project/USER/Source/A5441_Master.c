@@ -721,15 +721,15 @@ void KeyS_Click(void)
         if (SYS.POWER_SW == STA_ON)
         {
             SYS.POWER_SW = STA_OFF;
-            printf("off\r");
+            // printf("off\r");
         }
         else
         {
             SYS.POWER_SW = STA_ON;
-            printf("on\r");
+            // printf("on\r");
         }
         DataUpdata_TO_APP(&SYS.POWER_SW);
-
+        debug_K1();
         // NorFlash_Write_debugtest();
         // temp++;
         // DataTx_Master_Protect_OFF(TangramDevice.SlaveData[0].ID);   // 关从机存储写保护
@@ -749,28 +749,12 @@ void KeyS_Click(void)
     }
     if (KEY2_Click)
     {
-        // Light_Level_Up(&SYS.Brightness.Set, &Bright_Array, sizeof(Bright_Array));
-        // // Light_Level_Change(&SYS.Brightness.Set, &SYS.Brightness.Direction, &Bright_Array, sizeof(Bright_Array));
-        // DataUpdata_TO_APP(&SYS.Brightness.Set);
-
-        // DataTx_Master_Read_ROM(TangramDevice.SlaveData[0].ID,0x02,0x07);
-        // DataTx_Master_Protect_ON();
-        // TangramDevice.SlaveData[0].Coord.X = 6; // error：模拟坐标数据
-        // TangramDevice.SlaveData[0].Coord.Y = 6;
-        // TangramDevice.SlaveData[0].Angle = 50;
-
-        // Set_Slave_Coord();
-        // Set_Slave_Angle();
-        // OTA_SetFlag(0xabcdef12);
-        // Find_OTA_flag();
-        // NorFlash_Read_debugtest();
-        // // NorFlash_Write_debugtest();
-        // Debug();
-        // LED2_REV();
-        // Download_LightCoord(test_buf,16);
+        debug();
+        debug_K2();
     }
     if (KEY3_Click)
     {
+        debug_K3();
         // Light_Level_Down(&SYS.Brightness.Set, &Bright_Array, sizeof(Bright_Array));
 
         // DataTx_Master_ResetData(TangramDevice.SlaveData[0].ID);
@@ -792,17 +776,19 @@ void KeyS_Click(void)
     }
     if (KEY4_Click)
     {
-        if (EF_Work.EF_ID < 4)
-        {
-            EF_Work.EF_ID++;
-            Effect_Init();
-            // // // Upload_EffectMessage(EF_Work.EF_ID);
-        }
-        else
-        {
-            EF_Work.EF_ID=0;
-            Effect_Init();
-        }
+        debug_K4();
+        // if (EF_Work.EF_ID < 4)
+        // {
+        //     EF_Work.EF_ID++;
+        //     Effect_Init();
+        //     // // // Upload_EffectMessage(EF_Work.EF_ID);
+        // }
+        // else
+        // {
+        //     EF_Work.EF_ID=0;
+        //     Effect_Init();
+        // }
+        //
         // // if (EF_Work.EF_ID < 24)
         // // {
         // //     EF_Work.EF_ID++;
@@ -832,17 +818,20 @@ void KeyS_Click(void)
     }
     if (KEY5_Click)
     {
-        if (EF_Work.EF_ID > 0)
-        {
-            EF_Work.EF_ID--;
-            Effect_Init();
-            // Upload_EffectMessage(EF_Work.EF_ID);
-        }
-        else
-        {
-            EF_Work.EF_ID = 4;
-            Effect_Init();
-        }
+        debug_K5();
+        // if (EF_Work.EF_ID > 0)
+        // {
+        //     EF_Work.EF_ID--;
+        //     Effect_Init();
+        //     // Upload_EffectMessage(EF_Work.EF_ID);
+        // }
+        // else
+        // {
+        //     EF_Work.EF_ID = 4;
+        //     Effect_Init();
+        // }
+        //
+
         // if (EF_Work.EF_ID < 24)
         // {
         //     // if (EF_Work.EF_ID)
@@ -1470,200 +1459,6 @@ void Remote_Click(unsigned char *KeyVal)
     }
 }
 
-void Debug(void)
-{
-    // static uint8_t i;
-    // printf("%03x\r\n",i++);
-    // app_pack.checksum=0x12345678;
-    // printf("checksum: %x\r",app_pack.checksum);
-    // printf("check0: %x\r",app_pack.check0);
-    // printf("check1: %x\r",app_pack.check1);
-    // printf("check2: %x\r",app_pack.check2);
-    // printf("check3: %x\r\r",app_pack.check3);
-    // printf("  : %d \r",sizeof(Sector0_data_TypeDef));
-    // printf("S0 %d \r",sizeof(UserData_Sector0_TypeDef));
-    // printf("S1 %d \r",sizeof(UserData_Sector1_TypeDef));
-    // printf("S2 %d \r\n",sizeof(UserData_Sector2_TypeDef));
-    // printf("APP test \r\n");
-    // uint8_t *P1;
-    // uint32_t *p2;
-    // // // uint8_t i;
-    // // uint8_t uid_8bit;
-    // // uid_8bit = 0;
-    // P1 = (uint8_t *)0x00500894;
-    // p2 = (uint32_t *)0x00500894;
-
-    // // printf("*8: 0x%4x *32: 0x%4x uid: 0x%4x  \r\n",*P1,*p2,UID->UID0);
-// UID_Type
-
-
-
-//     uint8_t i;
-
-
-// uint8_t ta[10][2], su[20];
-//     for (i = 0; i < 20; i++)
-//     {
-//         su[i] = i + 10;
-//     }
-
-//     memcpy(&ta, &su, sizeof(ta));
-
-    // playlist_TypeDef list;
-    // memset(&list,0,sizeof(list));
-    // list.list_num=6;
-    // list.list_table[5]=65;
-    // Edit_Playlist(&list);
-        // uint8_t listsum;
-    // uint8_t buff[] = {0xA5,0x0A,0x29,0x2D,0x01,0x09,0x21,0x0A,0xC8,0x03,0x05};
-    // playlist_TypeDef lll;
-    // memset((uint8_t *)&lll, 0, sizeof(lll));
-    // lll.list_sum = 3;
-    // lll.play_mode = 1;
-    // lll.switch_hour = 0x11;
-    // lll.switch_min = 0x22;
-    // lll.list_table[0] = 0x33;
-    // lll.list_table[1] = 0x33;
-    // lll.list_table[2] = 0x33;
-    // Edit_Playlist(&lll);
-
-//     void Edit_Schedule(uint8_t num, schedule_TypeDef *p);
-// void Read_Schedule(uint8_t num, schedule_TypeDef *p);
-
-    // static uint8_t ddd;
-    // schedule_TypeDef test;
-
-    // test.Action = Sleep;
-    // test.Brightness = ddd++;
-    // test.Duration = 30;
-    // test.Exection_Hou = 3;
-    // test.Exection_Min = 46;
-    // test.Repeat_Week = 2;
-
-    // Edit_Schedule(45, &test);
-    // Download_Schedule(&buff, sizeof(buff));
-    // Printf_Schedule_data(45);
-    // Upload_Schedule(45);
-    // Read_Schedule(45,&test);
-    // Printf_Schedule_data(45);
-    // Download_PlayList(&buff, sizeof(buff));
-    // Upload_PlayList();
-    // uint8_t buff[]={0xA5,0x0B,0x27,0x0C,0x03,0x17,0x0B,0x03,0x06,0x07,0x08,0x20 };
-    // // Download_EffectMessage(&buff,sizeof(buff));
-    // // // uint16_t mic_val[20];
-    // // // // // // // uint16_t temp;
-    // static uint8_t j;
-    // // // // // // // uint8_t buffr[16];
-    // uint8_t i;
-    // uint8_t* sur,*tar;
-    // // // // // // // void Edit_UserEF_IDdata(uint8_t num, id_group_TypeDef *id_group)
-    // // // // // EF_para_data_TypeDef EFpara; // 参数信息
-    // // // // // color_group_TypeDef EFcolor; // 色表
-    // // // // // id_group_TypeDef EFid;       // id信息
-
-    // playlist_TypeDef test;
-    // playlist_TypeDef read;
-    // // // // sur = (uint8_t *)&test;
-    // // // // tar = (uint8_t *)&buff;
-    // // // // for (i = 0; i < sizeof(playlist_TypeDef); i++)
-    // // // // {
-    // // // //     *sur++ = *tar++;
-    // // // // }
-
-    // test.play_mode = 3;
-    // test.switch_hour = 23;
-    // test.switch_min = 11;
-    // test.list_sum = 3;
-    // test.list_table[0] = j++;
-    // test.list_table[1] = j++;
-    // test.list_table[2] = j++;
-    // Edit_Playlist(12, &test);
-    // Read_Playlist(12, &read);
-
-    // Upload_PlayList(12);
-    // Download_PlayList(&buff,sizeof(buff));
-
-    // // // // // EFpara.brightness = 255;
-    // // // // // EFpara.color_sum = 3;
-    // // // // // EFpara.motion = 0;
-    // // // // // EFpara.move = 5;
-    // // // // // EFpara.Mode = 0;
-    // // // // // EFpara.speed = 50;
-
-    // // // // // EFcolor.color[0].R = 255;
-    // // // // // EFcolor.color[0].G = 0;
-    // // // // // EFcolor.color[0].B = 0;
-    // // // // // EFcolor.color[0].W = 0;
-
-    // // // // // EFcolor.color[1].R = 0;
-    // // // // // EFcolor.color[1].G = 255;
-    // // // // // EFcolor.color[1].B = 0;
-    // // // // // EFcolor.color[1].W = 0;
-
-    // // // // // EFcolor.color[2].R = 0;
-    // // // // // EFcolor.color[2].G = 0;
-    // // // // // EFcolor.color[2].B = 255;
-    // // // // // EFcolor.color[2].W = 0;
-
-    // // // // // EFid.id_data[0]=1;
-    // // // // // EFid.id_data[1]=2;
-    // // // // // EFid.id_data[2]=3;
-
-    // // // // // Edit_UserEF_Paradata(63, &EFpara);
-    // // // // // Edit_UserEF_Colordata(63, &EFcolor);
-    // // // // // Edit_UserEF_IDdata(63, &EFid);
-
-    // EF_para_data_TypeDef TEST;
-    // p = buf;
-    // for (i = 0; i < 32; i++)
-    // {
-    //     *p++ = j++;
-    // }
-    // TEST.brightness=j++;
-    // TEST.color_sum=j++;
-    // TEST.motion=j++;
-    // TEST.move=j++;
-    // TEST.Mode=j++;
-    // TEST.speed=j++;
-    // // Edit_UserEffect_ParaData(48,&TEST);
-    // Edit_UserEffect_ColorData(8, (uint8_t *)buf, 16);
-    // lab++;
-    // for ( i = 0; i < sizeof(buffr); i++)
-    // {
-    //     buffr[i]=lab;
-    // }
-    // Edit_UserEF_Paradata(44, &TEST);
-    // Effect_DefaultParaData_Init();
-    // Edit_UserEF_Colordata(44, (uint8_t*)&buffr, sizeof(buffr));
-
-    // Edit_SectorData(0xF200,16,&buffr,sizeof(buffr));
-
-    // void Edit_SectorData(uint32_t sect_addr, uint16_t offset, uint8_t *data_p, uint16_t len)
-
-
-    // temp=ADC_Converse(ADC_CHANNEL_0, 20, &mic_val);
-    // printf("%d\r\n",temp);
-
-
-    // // // static uint8_t buf[8][4];
-    // // // uint8_t i;
-    // // // static uint8_t j;
-    // // // uint8_t *p;
-    // // // EffectData_TypeDef TEST;
-    // // // // p = buf;
-    // // // // for (i = 0; i < 32; i++)
-    // // // // {
-    // // // //     *p++ = j++;
-    // // // // }
-    // // // TEST.brightness=j++;
-    // // // TEST.color_sum=j++;
-    // // // TEST.motion=j++;
-    // // // TEST.move=j++;
-    // // // TEST.Mode=j++;
-    // // // TEST.speed=j++;
-    // // // Edit_UserEffect_ParaData(48,&TEST);
-    // // // // Edit_UserEffect_ColorData(8, (uint8_t *)buf, 16);
-}
 
 void NewParing_Mod(uint8_t *keyval, uint8_t reset)
 {

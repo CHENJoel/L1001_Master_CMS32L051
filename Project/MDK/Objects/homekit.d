@@ -51,3 +51,9 @@
 .\objects\homekit.o: ..\USER\Include\OTA.h
 .\objects\homekit.o: ..\USER\Include\MEM.h
 .\objects\homekit.o: ..\USER\Include\Inf.h
+.\objects\homekit.o: ..\USER\Include\printlog.h
+.\objects\homekit.o: ..\USER\Include\comapp.h
+.\objects\homekit.o: ..\USER\Include\user_memory.h
+.\objects\homekit.o: ..\USER\Include\debug.h
+.\objects\homekit.o: ..\USER\Include\flashapp.h
+.\objects\homekit.o: ..\USER\Include\default_data.h
