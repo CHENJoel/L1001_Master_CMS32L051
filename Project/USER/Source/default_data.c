@@ -3,38 +3,38 @@
 #define endingcolor 255, 255, 255, 255, // 结束颜色标志，用于判断当前为最后一个颜色
 df_data_TypeDef dfdata[built_in_ef_num] =
 {
-    {"df_White_4000K", (p_arry)df_White_4000K,  STATIC_TYPE, FLOW_STATIC },/*0*/
-    {"df_White_3500K", (p_arry)df_White_3500K,  STATIC_TYPE, FLOW_STATIC },/*1*/
-    {"df_White_3000K", (p_arry)df_White_3000K,  STATIC_TYPE, FLOW_STATIC },/*2*/
-    {"df_White_2700K", (p_arry)df_White_2700K,  STATIC_TYPE, FLOW_STATIC },/*3*/
-    {"df_Vitality",    (p_arry)df_Vitality,     STATIC_TYPE, FLOW_STATIC },/*4*/
-    {"df_Spring",      (p_arry)df_Spring,       STATIC_TYPE, FLOW_STATIC },/*5*/
-    {"df_Summer",      (p_arry)df_Summer,       STATIC_TYPE, FLOW_STATIC },/*6*/
-    {"df_Autumn",      (p_arry)df_Autumn,       STATIC_TYPE, FLOW_STATIC },/*7*/
-    {"df_Winter",      (p_arry)df_Winter,       STATIC_TYPE, FLOW_STATIC },/*8*/
-    {"df_Cyberpunk",   (p_arry)df_Cyberpunk,    STATIC_TYPE, FLOW_STATIC },/*9*/
+    {"Reading",     (p_arry)df_White_4000K,  STATIC_TYPE, FLOW_STATIC },/*0*/
+    {"Working",     (p_arry)df_White_3500K,  STATIC_TYPE, FLOW_STATIC },/*1*/
+    {"3000K",       (p_arry)df_White_3000K,  STATIC_TYPE, FLOW_STATIC },/*2*/
+    {"Night light", (p_arry)df_White_2700K,  STATIC_TYPE, FLOW_STATIC },/*3*/
+    {"vitality",    (p_arry)df_Vitality,     STATIC_TYPE, FLOW_STATIC },/*4*/
+    {"Spring",      (p_arry)df_Spring,       STATIC_TYPE, FLOW_STATIC },/*5*/
+    {"Summer",      (p_arry)df_Summer,       STATIC_TYPE, FLOW_STATIC },/*6*/
+    {"Autumn",      (p_arry)df_Autumn,       STATIC_TYPE, FLOW_STATIC },/*7*/
+    {"Winter",      (p_arry)df_Winter,       STATIC_TYPE, FLOW_STATIC },/*8*/
+    {"Cyberpunk",   (p_arry)df_Cyberpunk,    STATIC_TYPE, FLOW_STATIC },/*9*/
 
-    {"df_Deep_Breath", (p_arry)df_Deep_Breath,  DYNAMIC_TYPE,FLOW_BREATH },/*10*/
-    {"df_Sweet",       (p_arry)df_Sweet,        DYNAMIC_TYPE,FLOW_BREATH },/*11*/
-    {"df_Romantic",    (p_arry)df_Romantic,     DYNAMIC_TYPE,FLOW_STREAM },/*12*/
-    {"df_Aurora",      (p_arry)df_Aurora,       DYNAMIC_TYPE,FLOW_REVERB },/*13*/
-    {"df_Ocean",       (p_arry)df_Ocean,        DYNAMIC_TYPE,FLOW_REVERB },/*14*/
-    {"df_lightning",   (p_arry)df_lightning,    DYNAMIC_TYPE,FLOW_LIGHTN },/*15*/
-    {"df_fireworks",   (p_arry)df_fireworks,    DYNAMIC_TYPE,FLOW_IGNITE },/*16*/
-    {"df_Snake",       (p_arry)df_Snake,        DYNAMIC_TYPE,FLOW_STREAM },/*17*/
-    {"df_BouncyBall",  (p_arry)df_BouncyBall,   DYNAMIC_TYPE,FLOW_REVERB },/*18*/
-    {"df_Lightsaber",  (p_arry)df_Lightsaber,   DYNAMIC_TYPE,FLOW_IGNITE },/*19*/
-    {"df_Thanksgiving",(p_arry)df_Thanksgiving, DYNAMIC_TYPE,FLOW_REVERB },/*20*/
-    {"df_Halloween",   (p_arry)df_Halloween,    DYNAMIC_TYPE,FLOW_IGNITE },/*21*/
-    {"df_Christmas",   (p_arry)df_Christmas,    DYNAMIC_TYPE,FLOW_HOPSCO },/*22*/
-    {"df_Colorful",    (p_arry)df_Colorful,     DYNAMIC_TYPE,FLOW_RANDOM },/*23*/
-    {"df_Kaleidoscope",(p_arry)df_Kaleidoscope, DYNAMIC_TYPE,FLOW_RANDOM },/*24*/
+    {"Deep Breath", (p_arry)df_Deep_Breath,  DYNAMIC_TYPE,FLOW_BREATH },/*10*/
+    {"Sweet",       (p_arry)df_Sweet,        DYNAMIC_TYPE,FLOW_BREATH },/*11*/
+    {"Romantic",    (p_arry)df_Romantic,     DYNAMIC_TYPE,FLOW_STREAM },/*12*/
+    {"Aurora",      (p_arry)df_Aurora,       DYNAMIC_TYPE,FLOW_REVERB },/*13*/
+    {"Ocean",       (p_arry)df_Ocean,        DYNAMIC_TYPE,FLOW_REVERB },/*14*/
+    {"lightning",   (p_arry)df_lightning,    DYNAMIC_TYPE,FLOW_LIGHTN },/*15*/
+    {"fireworks",   (p_arry)df_fireworks,    DYNAMIC_TYPE,FLOW_IGNITE },/*16*/
+    {"Snake",       (p_arry)df_Snake,        DYNAMIC_TYPE,FLOW_STREAM },/*17*/
+    {"Bouncy ball", (p_arry)df_BouncyBall,   DYNAMIC_TYPE,FLOW_REVERB },/*18*/
+    {"Lightsaber",  (p_arry)df_Lightsaber,   DYNAMIC_TYPE,FLOW_IGNITE },/*19*/
+    {"Thanksgiving",(p_arry)df_Thanksgiving, DYNAMIC_TYPE,FLOW_REVERB },/*20*/
+    {"Halloween",   (p_arry)df_Halloween,    DYNAMIC_TYPE,FLOW_IGNITE },/*21*/
+    {"Christmas",   (p_arry)df_Christmas,    DYNAMIC_TYPE,FLOW_HOPSCO },/*22*/
+    {"Colorful",    (p_arry)df_Colorful,     DYNAMIC_TYPE,FLOW_RANDOM },/*23*/
+    {"Kaleidoscope",(p_arry)df_Kaleidoscope, DYNAMIC_TYPE,FLOW_RANDOM },/*24*/
 
-    {"df_Rhythm",      (p_arry)df_Rhythm,       RHYTHM_TYPE,FLOW_RANDOM },/*25*/
-    {"df_Meditation",  (p_arry)df_Meditation,   RHYTHM_TYPE,FLOW_BREATH },/*26*/
-    {"df_GamingTime",  (p_arry)df_GamingTime,   RHYTHM_TYPE,FLOW_LIGHTN },/*27*/
-    {"df_Disco",       (p_arry)df_Disco,        RHYTHM_TYPE,FLOW_REVERB },/*28*/
-    {"df_DanceParty",  (p_arry)df_DanceParty,   RHYTHM_TYPE,FLOW_RANDOM },/*29*/
+    {"Rhythm",      (p_arry)df_Rhythm,       RHYTHM_TYPE,FLOW_RANDOM },/*25*/
+    {"Meditation",  (p_arry)df_Meditation,   RHYTHM_TYPE,FLOW_BREATH },/*26*/
+    {"GamingTime",  (p_arry)df_GamingTime,   RHYTHM_TYPE,FLOW_LIGHTN },/*27*/
+    {"Disco",       (p_arry)df_Disco,        RHYTHM_TYPE,FLOW_REVERB },/*28*/
+    {"Dance Party",  (p_arry)df_DanceParty,  RHYTHM_TYPE,FLOW_RANDOM },/*29*/
 };
 
 const uint8_t df_testcolor1[][4] = {

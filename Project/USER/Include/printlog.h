@@ -43,6 +43,10 @@ void print_get_ef_detial(uint8_t efnum);
 void print_effect_sketch(Efminidetail_TypeDef *p,uint8_t efnum);
 /*打印获取自定义灯效列表*/
 void print_get_original_ef_ranklist(void);
+/*打印获取全部灯效列表*/
+void print_get_all_ef_ranklist(void);
+/*打印获取收藏灯效列表*/
+void print_get_favorites_ef_ranklist(void);
 /*打印灯效列表*/
 void print_ef_ranklist(ef_ranklist_TypeDef* p);
 #endif

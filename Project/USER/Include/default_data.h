@@ -11,7 +11,7 @@ typedef struct
     Flow_Enum Flow;             /* 动态效果 */
 } df_data_TypeDef; /*内置灯效信息*/
 
-#define built_in_ef_num 30 // 内置灯效数量
+
 extern df_data_TypeDef dfdata[built_in_ef_num];
 
 extern const uint8_t df_testcolor1[][4];

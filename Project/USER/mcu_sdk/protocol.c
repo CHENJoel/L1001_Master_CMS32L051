@@ -813,7 +813,7 @@ static unsigned char dp_download_all_effect_ranklist_handle(const unsigned char 
     //RAW type data processing
 
     */
-
+    mcu_update_allef_ranklist();
     //There should be a report after processing the DP
     ret = mcu_dp_raw_update(DPID_ALL_EFFECT_RANKLIST,value,length);
     if(ret == SUCCESS)

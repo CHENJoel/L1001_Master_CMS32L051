@@ -26,18 +26,100 @@ Project File Date:  05/23/2023
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 7 (build 960)', folder: 'F:\APP\Keil\ARM\ARMCC\Bin'
-Build target 'CMS32L051'
+Rebuild target 'CMS32L051'
+compiling FIFO.c...
+compiling Color.c...
+..\USER\Source\Color.c(112): warning:  #167-D: argument of type "DataTypeDef *" is incompatible with parameter of type "unsigned char *"
+      FrameInsert_Calculate(*(KF_Adr + (Currnt_KF * 4 * Frame_Px_Num) + (Pixel_Num * 4) + 0), *(KF_Adr + (Next_KF * 4 * Frame_Px_Num) + (Pixel_Num * 4) + 0), &struct_adr->R, Temp_FrameNum, Frame_In_Num);
+..\USER\Source\Color.c(113): warning:  #167-D: argument of type "DataTypeDef *" is incompatible with parameter of type "unsigned char *"
+      FrameInsert_Calculate(*(KF_Adr + (Currnt_KF * 4 * Frame_Px_Num) + (Pixel_Num * 4) + 1), *(KF_Adr + (Next_KF * 4 * Frame_Px_Num) + (Pixel_Num * 4) + 1), &struct_adr->G, Temp_FrameNum, Frame_In_Num);
+..\USER\Source\Color.c(114): warning:  #167-D: argument of type "DataTypeDef *" is incompatible with parameter of type "unsigned char *"
+      FrameInsert_Calculate(*(KF_Adr + (Currnt_KF * 4 * Frame_Px_Num) + (Pixel_Num * 4) + 2), *(KF_Adr + (Next_KF * 4 * Frame_Px_Num) + (Pixel_Num * 4) + 2), &struct_adr->B, Temp_FrameNum, Frame_In_Num);
+..\USER\Source\Color.c(115): warning:  #167-D: argument of type "DataTypeDef *" is incompatible with parameter of type "unsigned char *"
+      FrameInsert_Calculate(*(KF_Adr + (Currnt_KF * 4 * Frame_Px_Num) + (Pixel_Num * 4) + 3), *(KF_Adr + (Next_KF * 4 * Frame_Px_Num) + (Pixel_Num * 4) + 3), &struct_adr->W, Temp_FrameNum, Frame_In_Num);
+..\USER\Source\Color.c(536): warning:  #167-D: argument of type "uint8_t (*)[modele_maxnum][2]" is incompatible with parameter of type "uint8_t *"
+      Bubble_Sort_2D(&temp_array, modele_maxnum, 2, 1); // 根据优先级进行排序
+..\USER\Source\Color.c: 5 warnings, 0 errors
+compiling image.c...
+compiling delay.c...
+compiling FFT.c...
+compiling main.c...
 compiling Light.c...
-..\USER\Include\default_data.h(14): warning:  #47-D: incompatible redefinition of macro "built_in_ef_num"  (declared at line 16 of "..\USER\Include\Inf.h")
-  #define built_in_ef_num 30 // 内置灯效数量
-..\USER\Source\Light.c: 1 warning, 0 errors
-compiling Sys.c...
-..\USER\Include\default_data.h(14): warning:  #47-D: incompatible redefinition of macro "built_in_ef_num"  (declared at line 16 of "..\USER\Include\Inf.h")
-  #define built_in_ef_num 30 // 内置灯效数量
-..\USER\Source\Sys.c: 1 warning, 0 errors
+compiling KEY.C...
+..\USER\Source\KEY.C(190): warning:  #940-D: missing return statement at end of non-void function "Numeric_Keyboard" 
+  }
+..\USER\Source\KEY.C(207): warning:  #167-D: argument of type "const uint8_t (*)[10]" is incompatible with parameter of type "unsigned char *"
+  			temp = KeyNum_Match(keyval, &Numboard_KeyTable, sizeof(Numboard_KeyTable));
+..\USER\Source\KEY.C: 2 warnings, 0 errors
+compiling IR.C...
+..\USER\Source\IR.C(58): warning:  #167-D: argument of type "const uint8_t (*)[44]" is incompatible with parameter of type "unsigned char *"
+                  IR_KeyVal = KeyNum_Match(&IR_Data2, &IR_KeyTable, sizeof(IR_KeyTable));
+..\USER\Source\IR.C: 1 warning, 0 errors
+compiling uart.c...
+..\USER\Source\uart.c(127): warning:  #513-D: a value of type "ModuleTypeDef (*)[16]" cannot be assigned to an entity of type "unsigned char *"
+      ptr = &Tangram;
+..\USER\Source\uart.c: 1 warning, 0 errors
+compiling Com.c...
+..\USER\Source\Com.c(107): warning:  #940-D: missing return statement at end of non-void function "DataPackage_Extract" 
+  }
+..\USER\Source\Com.c(159): warning:  #223-D: function "delay_5ms" declared implicitly
+          delay_5ms();                                                                   // 等待从机读取缓存
+..\USER\Source\Com.c(149): warning:  #177-D: variable "j"  was declared but never referenced
+      unsigned int i, j, k, m;
+..\USER\Source\Com.c(219): warning:  #167-D: argument of type "unsigned char (*)[1][10]" is incompatible with parameter of type "uint8_t *"
+      Bubble_Sort_2D(&Slave_Array, SlaveDevive_Num, Slave_Data_num, 3); // 根据序列编号进行向下排序
+..\USER\Source\Com.c(222): warning:  #223-D: function "delay_20ms" declared implicitly
+      delay_20ms();                                                     // 等待从机读取缓存
+..\USER\Source\Com.c(238): warning:  #223-D: function "delay_10ms" declared implicitly
+          delay_10ms();                                                              // 等待从机读取缓存
+..\USER\Source\Com.c(262): warning:  #223-D: function "delay_10ms" declared implicitly
+          delay_10ms();                                                                // 等待从机读取缓存
+..\USER\Source\Com.c(285): warning:  #223-D: function "delay_10ms" declared implicitly
+          delay_10ms(); // 等待从机读取缓存
+..\USER\Source\Com.c(307): warning:  #223-D: function "delay_10ms" declared implicitly
+          delay_10ms(); // 等待从机读取缓存
+..\USER\Source\Com.c(321): warning:  #223-D: function "delay_10ms" declared implicitly
+          delay_10ms(); // 等待从机读取缓存
+..\USER\Source\Com.c(316): warning:  #177-D: variable "j"  was declared but never referenced
+      uint8_t i, j;
+..\USER\Source\Com.c(330): warning:  #177-D: variable "k"  was declared but never referenced
+      uint8_t i, j, k, m, n;
+..\USER\Source\Com.c(413): warning:  #223-D: function "delay_5ms" declared implicitly
+              delay_5ms();                                                               // 等待从机读取缓存
+..\USER\Source\Com.c(481): warning:  #223-D: function "delay_5ms" declared implicitly
+          delay_5ms();
+..\USER\Source\Com.c(505): warning:  #223-D: function "delay_5ms" declared implicitly
+          delay_5ms();
+..\USER\Source\Com.c(518): warning:  #223-D: function "delay_5ms" declared implicitly
+          delay_5ms();
+..\USER\Source\Com.c(538): warning:  #223-D: function "delay_5ms" declared implicitly
+          delay_5ms();
+..\USER\Source\Com.c(761): warning:  #177-D: variable "temp"  was declared but never referenced
+      uint8_t temp;
+..\USER\Source\Com.c(822): warning:  #513-D: a value of type "uint8_t (*)[91]" cannot be assigned to an entity of type "uint8_t *"
+      p_buffer = &protocol_buffer;
+..\USER\Source\Com.c(882): warning:  #188-D: enumerated type mixed with another type
+      EFpara.motion = *++p;
+..\USER\Source\Com.c(883): warning:  #188-D: enumerated type mixed with another type
+      EFpara.move = *++p;
+..\USER\Source\Com.c(884): warning:  #188-D: enumerated type mixed with another type
+      EFpara.Mode = *++p;
+..\USER\Source\Com.c(969): warning:  #513-D: a value of type "uint8_t (*)[72]" cannot be assigned to an entity of type "uint8_t *"
+      p_buffer = &protocol_buffer;
+..\USER\Source\Com.c(989): warning:  #177-D: variable "j"  was declared but never referenced
+      uint8_t i, j;
+..\USER\Source\Com.c(990): warning:  #177-D: variable "temp"  was declared but never referenced
+      uint8_t temp;
+..\USER\Source\Com.c(1030): warning:  #513-D: a value of type "uint8_t (*)[11]" cannot be assigned to an entity of type "uint8_t *"
+      p_buffer = &protocol_buffer;
+..\USER\Source\Com.c(1022): warning:  #177-D: variable "i"  was declared but never referenced
+      uint8_t i;
+..\USER\Source\Com.c(1054): warning:  #188-D: enumerated type mixed with another type
+      schedule.Action = *++p;
+..\USER\Source\Com.c(1107): warning:  #177-D: variable "temp"  was declared but never referenced
+      uint8_t temp;
+..\USER\Source\Com.c: 29 warnings, 0 errors
 compiling A5441_Master.c...
-..\USER\Include\default_data.h(14): warning:  #47-D: incompatible redefinition of macro "built_in_ef_num"  (declared at line 16 of "..\USER\Include\Inf.h")
-  #define built_in_ef_num 30 // 内置灯效数量
 ..\USER\Source\A5441_Master.c(752): warning:  #223-D: function "debug" declared implicitly
           debug();
 ..\USER\Source\A5441_Master.c(700): warning:  #177-D: variable "temp"  was declared but never referenced
@@ -110,162 +192,9 @@ compiling A5441_Master.c...
       DMA_Stop(DMA_VECTOR_ADC);
 ..\USER\Source\A5441_Master.c(2460): warning:  #940-D: missing return statement at end of non-void function "Light_AD_Test" 
   }
-..\USER\Source\A5441_Master.c: 37 warnings, 0 errors
-compiling IR.C...
-..\USER\Include\default_data.h(14): warning:  #47-D: incompatible redefinition of macro "built_in_ef_num"  (declared at line 16 of "..\USER\Include\Inf.h")
-  #define built_in_ef_num 30 // 内置灯效数量
-..\USER\Source\IR.C(58): warning:  #167-D: argument of type "const uint8_t (*)[44]" is incompatible with parameter of type "unsigned char *"
-                  IR_KeyVal = KeyNum_Match(&IR_Data2, &IR_KeyTable, sizeof(IR_KeyTable));
-..\USER\Source\IR.C: 2 warnings, 0 errors
-compiling uart.c...
-..\USER\Include\default_data.h(14): warning:  #47-D: incompatible redefinition of macro "built_in_ef_num"  (declared at line 16 of "..\USER\Include\Inf.h")
-  #define built_in_ef_num 30 // 内置灯效数量
-..\USER\Source\uart.c(127): warning:  #513-D: a value of type "ModuleTypeDef (*)[16]" cannot be assigned to an entity of type "unsigned char *"
-      ptr = &Tangram;
-..\USER\Source\uart.c: 2 warnings, 0 errors
-compiling KEY.C...
-..\USER\Include\default_data.h(14): warning:  #47-D: incompatible redefinition of macro "built_in_ef_num"  (declared at line 16 of "..\USER\Include\Inf.h")
-  #define built_in_ef_num 30 // 内置灯效数量
-..\USER\Source\KEY.C(190): warning:  #940-D: missing return statement at end of non-void function "Numeric_Keyboard" 
-  }
-..\USER\Source\KEY.C(207): warning:  #167-D: argument of type "const uint8_t (*)[10]" is incompatible with parameter of type "unsigned char *"
-  			temp = KeyNum_Match(keyval, &Numboard_KeyTable, sizeof(Numboard_KeyTable));
-..\USER\Source\KEY.C: 3 warnings, 0 errors
-compiling main.c...
-..\USER\Include\default_data.h(14): warning:  #47-D: incompatible redefinition of macro "built_in_ef_num"  (declared at line 16 of "..\USER\Include\Inf.h")
-  #define built_in_ef_num 30 // 内置灯效数量
-..\USER\Source\main.c: 1 warning, 0 errors
-compiling delay.c...
-..\USER\Include\default_data.h(14): warning:  #47-D: incompatible redefinition of macro "built_in_ef_num"  (declared at line 16 of "..\USER\Include\Inf.h")
-  #define built_in_ef_num 30 // 内置灯效数量
-..\USER\Source\delay.c: 1 warning, 0 errors
-compiling Com.c...
-..\USER\Include\default_data.h(14): warning:  #47-D: incompatible redefinition of macro "built_in_ef_num"  (declared at line 16 of "..\USER\Include\Inf.h")
-  #define built_in_ef_num 30 // 内置灯效数量
-..\USER\Source\Com.c(107): warning:  #940-D: missing return statement at end of non-void function "DataPackage_Extract" 
-  }
-..\USER\Source\Com.c(159): warning:  #223-D: function "delay_5ms" declared implicitly
-          delay_5ms();                                                                   // 等待从机读取缓存
-..\USER\Source\Com.c(149): warning:  #177-D: variable "j"  was declared but never referenced
-      unsigned int i, j, k, m;
-..\USER\Source\Com.c(219): warning:  #167-D: argument of type "unsigned char (*)[1][10]" is incompatible with parameter of type "uint8_t *"
-      Bubble_Sort_2D(&Slave_Array, SlaveDevive_Num, Slave_Data_num, 3); // 根据序列编号进行向下排序
-..\USER\Source\Com.c(222): warning:  #223-D: function "delay_20ms" declared implicitly
-      delay_20ms();                                                     // 等待从机读取缓存
-..\USER\Source\Com.c(238): warning:  #223-D: function "delay_10ms" declared implicitly
-          delay_10ms();                                                              // 等待从机读取缓存
-..\USER\Source\Com.c(262): warning:  #223-D: function "delay_10ms" declared implicitly
-          delay_10ms();                                                                // 等待从机读取缓存
-..\USER\Source\Com.c(285): warning:  #223-D: function "delay_10ms" declared implicitly
-          delay_10ms(); // 等待从机读取缓存
-..\USER\Source\Com.c(307): warning:  #223-D: function "delay_10ms" declared implicitly
-          delay_10ms(); // 等待从机读取缓存
-..\USER\Source\Com.c(321): warning:  #223-D: function "delay_10ms" declared implicitly
-          delay_10ms(); // 等待从机读取缓存
-..\USER\Source\Com.c(316): warning:  #177-D: variable "j"  was declared but never referenced
-      uint8_t i, j;
-..\USER\Source\Com.c(330): warning:  #177-D: variable "k"  was declared but never referenced
-      uint8_t i, j, k, m, n;
-..\USER\Source\Com.c(413): warning:  #223-D: function "delay_5ms" declared implicitly
-              delay_5ms();                                                               // 等待从机读取缓存
-..\USER\Source\Com.c(481): warning:  #223-D: function "delay_5ms" declared implicitly
-          delay_5ms();
-..\USER\Source\Com.c(505): warning:  #223-D: function "delay_5ms" declared implicitly
-          delay_5ms();
-..\USER\Source\Com.c(518): warning:  #223-D: function "delay_5ms" declared implicitly
-          delay_5ms();
-..\USER\Source\Com.c(538): warning:  #223-D: function "delay_5ms" declared implicitly
-          delay_5ms();
-..\USER\Source\Com.c(761): warning:  #177-D: variable "temp"  was declared but never referenced
-      uint8_t temp;
-..\USER\Source\Com.c(822): warning:  #513-D: a value of type "uint8_t (*)[91]" cannot be assigned to an entity of type "uint8_t *"
-      p_buffer = &protocol_buffer;
-..\USER\Source\Com.c(882): warning:  #188-D: enumerated type mixed with another type
-      EFpara.motion = *++p;
-..\USER\Source\Com.c(883): warning:  #188-D: enumerated type mixed with another type
-      EFpara.move = *++p;
-..\USER\Source\Com.c(884): warning:  #188-D: enumerated type mixed with another type
-      EFpara.Mode = *++p;
-..\USER\Source\Com.c(969): warning:  #513-D: a value of type "uint8_t (*)[72]" cannot be assigned to an entity of type "uint8_t *"
-      p_buffer = &protocol_buffer;
-..\USER\Source\Com.c(989): warning:  #177-D: variable "j"  was declared but never referenced
-      uint8_t i, j;
-..\USER\Source\Com.c(990): warning:  #177-D: variable "temp"  was declared but never referenced
-      uint8_t temp;
-..\USER\Source\Com.c(1030): warning:  #513-D: a value of type "uint8_t (*)[11]" cannot be assigned to an entity of type "uint8_t *"
-      p_buffer = &protocol_buffer;
-..\USER\Source\Com.c(1022): warning:  #177-D: variable "i"  was declared but never referenced
-      uint8_t i;
-..\USER\Source\Com.c(1054): warning:  #188-D: enumerated type mixed with another type
-      schedule.Action = *++p;
-..\USER\Source\Com.c(1107): warning:  #177-D: variable "temp"  was declared but never referenced
-      uint8_t temp;
-..\USER\Source\Com.c: 30 warnings, 0 errors
-compiling FFT.c...
-..\USER\Include\default_data.h(14): warning:  #47-D: incompatible redefinition of macro "built_in_ef_num"  (declared at line 16 of "..\USER\Include\Inf.h")
-  #define built_in_ef_num 30 // 内置灯效数量
-..\USER\Source\FFT.c: 1 warning, 0 errors
-compiling image.c...
-..\USER\Include\default_data.h(14): warning:  #47-D: incompatible redefinition of macro "built_in_ef_num"  (declared at line 16 of "..\USER\Include\Inf.h")
-  #define built_in_ef_num 30 // 内置灯效数量
-..\USER\Source\image.c: 1 warning, 0 errors
-compiling Color.c...
-..\USER\Include\default_data.h(14): warning:  #47-D: incompatible redefinition of macro "built_in_ef_num"  (declared at line 16 of "..\USER\Include\Inf.h")
-  #define built_in_ef_num 30 // 内置灯效数量
-..\USER\Source\Color.c(112): warning:  #167-D: argument of type "DataTypeDef *" is incompatible with parameter of type "unsigned char *"
-      FrameInsert_Calculate(*(KF_Adr + (Currnt_KF * 4 * Frame_Px_Num) + (Pixel_Num * 4) + 0), *(KF_Adr + (Next_KF * 4 * Frame_Px_Num) + (Pixel_Num * 4) + 0), &struct_adr->R, Temp_FrameNum, Frame_In_Num);
-..\USER\Source\Color.c(113): warning:  #167-D: argument of type "DataTypeDef *" is incompatible with parameter of type "unsigned char *"
-      FrameInsert_Calculate(*(KF_Adr + (Currnt_KF * 4 * Frame_Px_Num) + (Pixel_Num * 4) + 1), *(KF_Adr + (Next_KF * 4 * Frame_Px_Num) + (Pixel_Num * 4) + 1), &struct_adr->G, Temp_FrameNum, Frame_In_Num);
-..\USER\Source\Color.c(114): warning:  #167-D: argument of type "DataTypeDef *" is incompatible with parameter of type "unsigned char *"
-      FrameInsert_Calculate(*(KF_Adr + (Currnt_KF * 4 * Frame_Px_Num) + (Pixel_Num * 4) + 2), *(KF_Adr + (Next_KF * 4 * Frame_Px_Num) + (Pixel_Num * 4) + 2), &struct_adr->B, Temp_FrameNum, Frame_In_Num);
-..\USER\Source\Color.c(115): warning:  #167-D: argument of type "DataTypeDef *" is incompatible with parameter of type "unsigned char *"
-      FrameInsert_Calculate(*(KF_Adr + (Currnt_KF * 4 * Frame_Px_Num) + (Pixel_Num * 4) + 3), *(KF_Adr + (Next_KF * 4 * Frame_Px_Num) + (Pixel_Num * 4) + 3), &struct_adr->W, Temp_FrameNum, Frame_In_Num);
-..\USER\Source\Color.c(536): warning:  #167-D: argument of type "uint8_t (*)[modele_maxnum][2]" is incompatible with parameter of type "uint8_t *"
-      Bubble_Sort_2D(&temp_array, modele_maxnum, 2, 1); // 根据优先级进行排序
-..\USER\Source\Color.c: 6 warnings, 0 errors
-compiling wave.c...
-..\USER\Include\default_data.h(14): warning:  #47-D: incompatible redefinition of macro "built_in_ef_num"  (declared at line 16 of "..\USER\Include\Inf.h")
-  #define built_in_ef_num 30 // 内置灯效数量
-..\USER\Source\wave.c(16): warning:  #550-D: variable "rising_rate"  was set but never used
-      uint16_t rising_rate=0;
-..\USER\Source\wave.c(17): warning:  #177-D: variable "temp"  was declared but never referenced
-      uint8_t temp = 0;
-..\USER\Source\wave.c: 3 warnings, 0 errors
-compiling motion.c...
-..\USER\Include\default_data.h(14): warning:  #47-D: incompatible redefinition of macro "built_in_ef_num"  (declared at line 16 of "..\USER\Include\Inf.h")
-  #define built_in_ef_num 30 // 内置灯效数量
-..\USER\Source\motion.c(85): warning:  #513-D: a value of type "color_group_TypeDef *" cannot be assigned to an entity of type "uint8_t *"
-      sur = &EF_Buffer.color_buffer;      // 源色表指针
-..\USER\Source\motion.c(73): warning:  #177-D: variable "k"  was declared but never referenced
-      uint16_t i, j, k;
-..\USER\Source\motion.c(136): warning:  #513-D: a value of type "color_group_TypeDef *" cannot be assigned to an entity of type "uint8_t *"
-      sur = &EF_Buffer.color_buffer; // 源色表指针
-..\USER\Source\motion.c(163): warning:  #513-D: a value of type "color_group_TypeDef *" cannot be assigned to an entity of type "uint8_t *"
-      sur = &EF_Buffer.color_buffer;                                                    // 源色表指针
-..\USER\Source\motion.c(186): warning:  #513-D: a value of type "color_group_TypeDef *" cannot be assigned to an entity of type "uint8_t *"
-      sur = &EF_Buffer.color_buffer;                                                    // 源色表指针
-..\USER\Source\motion.c(198): warning:  #513-D: a value of type "color_group_TypeDef *" cannot be assigned to an entity of type "uint8_t *"
-          sur = &EF_Buffer.color_buffer;
-..\USER\Source\motion.c(225): warning:  #513-D: a value of type "color_group_TypeDef *" cannot be assigned to an entity of type "uint8_t *"
-      sur = &EF_Buffer.color_buffer;                                                    // 源色表指针
-..\USER\Source\motion.c(249): warning:  #513-D: a value of type "color_group_TypeDef *" cannot be assigned to an entity of type "uint8_t *"
-      sur = &EF_Buffer.color_buffer; // 源色表指针
-..\USER\Source\motion.c(273): warning:  #513-D: a value of type "color_group_TypeDef *" cannot be assigned to an entity of type "uint8_t *"
-      sur = &EF_Buffer.color_buffer; // 源色表指针
-..\USER\Source\motion.c(297): warning:  #513-D: a value of type "color_group_TypeDef *" cannot be assigned to an entity of type "uint8_t *"
-      sur = &EF_Buffer.color_buffer; // 源色表指针
-..\USER\Source\motion.c(316): warning:  #177-D: variable "k"  was declared but never referenced
-      uint16_t i, j,k;
-..\USER\Source\motion.c(317): warning:  #177-D: variable "sur"  was declared but never referenced
-      uint8_t *sur;
-..\USER\Source\motion.c(318): warning:  #177-D: variable "tar"  was declared but never referenced
-      uint8_t *tar;
-..\USER\Source\motion.c(826): warning:  #177-D: variable "temp"  was declared but never referenced
-      uint8_t temp;
-..\USER\Source\motion.c: 15 warnings, 0 errors
+..\USER\Source\A5441_Master.c: 36 warnings, 0 errors
+compiling Sys.c...
 compiling colorbox.c...
-..\USER\Include\default_data.h(14): warning:  #47-D: incompatible redefinition of macro "built_in_ef_num"  (declared at line 16 of "..\USER\Include\Inf.h")
-  #define built_in_ef_num 30 // 内置灯效数量
 ..\USER\Source\colorbox.c(269): warning:  #144-D: a value of type "const uint8_t (*)[4]" cannot be used to initialize an entity of type "uint8_t *"
       {arry(testcolor1), size(testcolor1),  MOTION_STATIC, MOVE_RIGHT, MODE_NORMAL, speed(5)},/*0*/
 ..\USER\Source\colorbox.c(270): warning:  #144-D: a value of type "const uint8_t (*)[4]" cannot be used to initialize an entity of type "uint8_t *"
@@ -326,10 +255,24 @@ compiling colorbox.c...
       {arry(Disco),       size(Disco),        MOTION_REVERB, MOVE_RIGHT, MODE_RHYTHM, speed(5)},/*28*/
 ..\USER\Source\colorbox.c(306): warning:  #144-D: a value of type "const uint8_t (*)[4]" cannot be used to initialize an entity of type "uint8_t *"
       {arry(DanceParty),  size(DanceParty),   MOTION_RANDOM, MOVE_RIGHT, MODE_RHYTHM, speed(5)},/*29*/
-..\USER\Source\colorbox.c: 31 warnings, 0 errors
+..\USER\Source\colorbox.c: 30 warnings, 0 errors
+compiling wave.c...
+..\USER\Source\wave.c(16): warning:  #550-D: variable "rising_rate"  was set but never used
+      uint16_t rising_rate=0;
+..\USER\Source\wave.c(17): warning:  #177-D: variable "temp"  was declared but never referenced
+      uint8_t temp = 0;
+..\USER\Source\wave.c: 2 warnings, 0 errors
+compiling comapp.c...
+compiling flashapp.c...
+compiling printlog.c...
+..\USER\Source\printlog.c(135): warning:  #177-D: variable "i"  was declared but never referenced
+      uint8_t i = 0;
+..\USER\Source\printlog.c(169): warning:  #167-D: argument of type "uint8_t (*)[15]" is incompatible with parameter of type "uint8_t *"
+      printstr_my(&p->Name, p->namelenght);
+..\USER\Source\printlog.c(197): warning:  #167-D: argument of type "uint8_t (*)[15]" is incompatible with parameter of type "uint8_t *"
+      printstr_my(&p->Name, p->namelenght);
+..\USER\Source\printlog.c: 3 warnings, 0 errors
 compiling OTA.c...
-..\USER\Include\default_data.h(14): warning:  #47-D: incompatible redefinition of macro "built_in_ef_num"  (declared at line 16 of "..\USER\Include\Inf.h")
-  #define built_in_ef_num 30 // 内置灯效数量
 ..\USER\Source\OTA.c(7): warning:  #177-D: variable "i"  was declared but never referenced
       uint16_t i, j;
 ..\USER\Source\OTA.c(7): warning:  #177-D: variable "j"  was declared but never referenced
@@ -340,44 +283,52 @@ compiling OTA.c...
       Edit_SectorData((uint32_t)UserData2_ADDR, &(((UserData_Sector2_TypeDef *)0)->data.ota_data), (uint8_t *)&ota_data, sizeof(ota_data));
 ..\USER\Source\OTA.c(155): warning:  #167-D: argument of type "ota_data_TypeDef *" is incompatible with parameter of type "uint16_t"
       Edit_SectorData((uint32_t)UserData2_ADDR, &(((UserData_Sector2_TypeDef *)0)->data.ota_data), (uint8_t *)&ota_data, sizeof(ota_data));
-..\USER\Source\OTA.c: 6 warnings, 0 errors
-compiling comapp.c...
-..\USER\Include\default_data.h(14): warning:  #47-D: incompatible redefinition of macro "built_in_ef_num"  (declared at line 16 of "..\USER\Include\Inf.h")
-  #define built_in_ef_num 30 // 内置灯效数量
-..\USER\Source\comapp.c: 1 warning, 0 errors
-compiling printlog.c...
-..\USER\Include\default_data.h(14): warning:  #47-D: incompatible redefinition of macro "built_in_ef_num"  (declared at line 16 of "..\USER\Include\Inf.h")
-  #define built_in_ef_num 30 // 内置灯效数量
-..\USER\Source\printlog.c(135): warning:  #177-D: variable "i"  was declared but never referenced
-      uint8_t i = 0;
-..\USER\Source\printlog.c(168): warning:  #167-D: argument of type "uint8_t (*)[16]" is incompatible with parameter of type "uint8_t *"
-      printstr_my(&p->Name, sizeof(p->Name));
-..\USER\Source\printlog.c(194): warning:  #167-D: argument of type "uint8_t (*)[16]" is incompatible with parameter of type "uint8_t *"
-      printstr_my(&p->Name, sizeof(p->Name));
-..\USER\Source\printlog.c: 4 warnings, 0 errors
-compiling flashapp.c...
-..\USER\Include\default_data.h(14): warning:  #47-D: incompatible redefinition of macro "built_in_ef_num"  (declared at line 16 of "..\USER\Include\Inf.h")
-  #define built_in_ef_num 30 // 内置灯效数量
-..\USER\Source\flashapp.c: 1 warning, 0 errors
+..\USER\Source\OTA.c: 5 warnings, 0 errors
 compiling debug.c...
-..\USER\Include\default_data.h(14): warning:  #47-D: incompatible redefinition of macro "built_in_ef_num"  (declared at line 16 of "..\USER\Include\Inf.h")
-  #define built_in_ef_num 30 // 内置灯效数量
-..\USER\Source\debug.c(11): warning:  #167-D: argument of type "uint8_t (*)[16]" is incompatible with parameter of type "char *__restrict__"
-      sprintf(&eff.Name, "effect name test");
-..\USER\Source\debug.c(16): warning:  #188-D: enumerated type mixed with another type
+..\USER\Source\debug.c(13): warning:  #167-D: argument of type "uint8_t (*)[15]" is incompatible with parameter of type "char *__restrict__"
+      sprintf(&eff.Name, "effectname test");
+..\USER\Source\debug.c(20): warning:  #188-D: enumerated type mixed with another type
       eff.EffectType = i++;
-..\USER\Source\debug.c(17): warning:  #188-D: enumerated type mixed with another type
+..\USER\Source\debug.c(21): warning:  #188-D: enumerated type mixed with another type
       eff.Attribute = i++;
-..\USER\Source\debug.c(18): warning:  #188-D: enumerated type mixed with another type
+..\USER\Source\debug.c(22): warning:  #188-D: enumerated type mixed with another type
       eff.Direction = i++;
-..\USER\Source\debug.c(19): warning:  #188-D: enumerated type mixed with another type
+..\USER\Source\debug.c(23): warning:  #188-D: enumerated type mixed with another type
       eff.Flow = i++;
-..\USER\Source\debug.c(20): warning:  #513-D: a value of type "ColorID_TypeDef (*)[32]" cannot be assigned to an entity of type "uint8_t *"
+..\USER\Source\debug.c(24): warning:  #513-D: a value of type "ColorID_TypeDef (*)[32]" cannot be assigned to an entity of type "uint8_t *"
       pp = &eff.EfColorInf.ColorID;
-..\USER\Source\debug.c: 7 warnings, 0 errors
+..\USER\Source\debug.c: 6 warnings, 0 errors
+compiling motion.c...
+..\USER\Source\motion.c(85): warning:  #513-D: a value of type "color_group_TypeDef *" cannot be assigned to an entity of type "uint8_t *"
+      sur = &EF_Buffer.color_buffer;      // 源色表指针
+..\USER\Source\motion.c(73): warning:  #177-D: variable "k"  was declared but never referenced
+      uint16_t i, j, k;
+..\USER\Source\motion.c(136): warning:  #513-D: a value of type "color_group_TypeDef *" cannot be assigned to an entity of type "uint8_t *"
+      sur = &EF_Buffer.color_buffer; // 源色表指针
+..\USER\Source\motion.c(163): warning:  #513-D: a value of type "color_group_TypeDef *" cannot be assigned to an entity of type "uint8_t *"
+      sur = &EF_Buffer.color_buffer;                                                    // 源色表指针
+..\USER\Source\motion.c(186): warning:  #513-D: a value of type "color_group_TypeDef *" cannot be assigned to an entity of type "uint8_t *"
+      sur = &EF_Buffer.color_buffer;                                                    // 源色表指针
+..\USER\Source\motion.c(198): warning:  #513-D: a value of type "color_group_TypeDef *" cannot be assigned to an entity of type "uint8_t *"
+          sur = &EF_Buffer.color_buffer;
+..\USER\Source\motion.c(225): warning:  #513-D: a value of type "color_group_TypeDef *" cannot be assigned to an entity of type "uint8_t *"
+      sur = &EF_Buffer.color_buffer;                                                    // 源色表指针
+..\USER\Source\motion.c(249): warning:  #513-D: a value of type "color_group_TypeDef *" cannot be assigned to an entity of type "uint8_t *"
+      sur = &EF_Buffer.color_buffer; // 源色表指针
+..\USER\Source\motion.c(273): warning:  #513-D: a value of type "color_group_TypeDef *" cannot be assigned to an entity of type "uint8_t *"
+      sur = &EF_Buffer.color_buffer; // 源色表指针
+..\USER\Source\motion.c(297): warning:  #513-D: a value of type "color_group_TypeDef *" cannot be assigned to an entity of type "uint8_t *"
+      sur = &EF_Buffer.color_buffer; // 源色表指针
+..\USER\Source\motion.c(316): warning:  #177-D: variable "k"  was declared but never referenced
+      uint16_t i, j,k;
+..\USER\Source\motion.c(317): warning:  #177-D: variable "sur"  was declared but never referenced
+      uint8_t *sur;
+..\USER\Source\motion.c(318): warning:  #177-D: variable "tar"  was declared but never referenced
+      uint8_t *tar;
+..\USER\Source\motion.c(826): warning:  #177-D: variable "temp"  was declared but never referenced
+      uint8_t temp;
+..\USER\Source\motion.c: 14 warnings, 0 errors
 compiling homekit.c...
-..\USER\Include\default_data.h(14): warning:  #47-D: incompatible redefinition of macro "built_in_ef_num"  (declared at line 16 of "..\USER\Include\Inf.h")
-  #define built_in_ef_num 30 // 内置灯效数量
 ..\USER\mcu_sdk\homekit.c(1156): warning:  #111-D: statement is unreachable
           break;
 ..\USER\mcu_sdk\homekit.c(1160): warning:  #167-D: argument of type "char *" is incompatible with parameter of type "const u8 *"
@@ -398,14 +349,9 @@ compiling homekit.c...
                               break;
 ..\USER\mcu_sdk\homekit.c(1622): warning:  #111-D: statement is unreachable
                   break;
-..\USER\mcu_sdk\homekit.c: 11 warnings, 0 errors
+..\USER\mcu_sdk\homekit.c: 10 warnings, 0 errors
 compiling mcu_api.c...
-..\USER\Include\default_data.h(14): warning:  #47-D: incompatible redefinition of macro "built_in_ef_num"  (declared at line 16 of "..\USER\Include\Inf.h")
-  #define built_in_ef_num 30 // 内置灯效数量
-..\USER\mcu_sdk\mcu_api.c: 1 warning, 0 errors
 compiling protocol.c...
-..\USER\Include\default_data.h(14): warning:  #47-D: incompatible redefinition of macro "built_in_ef_num"  (declared at line 16 of "..\USER\Include\Inf.h")
-  #define built_in_ef_num 30 // 内置灯效数量
 ..\USER\mcu_sdk\protocol.c(193): warning:  #223-D: function "mcu_download_switch_led" declared implicitly
       mcu_download_switch_led(switch_led);
 ..\USER\mcu_sdk\protocol.c(403): warning:  #223-D: function "mcu_download_effect_detail_handle" declared implicitly
@@ -414,6 +360,8 @@ compiling protocol.c...
       mcu_download_issue_cmd_handle(value, length);
 ..\USER\mcu_sdk\protocol.c(792): warning:  #223-D: function "mcu_download_effect_preview" declared implicitly
       mcu_download_effect_preview(value, length);
+..\USER\mcu_sdk\protocol.c(816): warning:  #223-D: function "mcu_update_allef_ranklist" declared implicitly
+      mcu_update_allef_ranklist();
 ..\USER\mcu_sdk\protocol.c(840): warning:  #223-D: function "mcu_update_originalef_ranklist" declared implicitly
       mcu_update_originalef_ranklist();
 ..\USER\mcu_sdk\protocol.c(1138): warning:  #225-D: the format string ends before this argument
@@ -424,8 +372,6 @@ compiling protocol.c...
           CheckSum_calculate(&checksum, value);
 ..\USER\mcu_sdk\protocol.c: 9 warnings, 0 errors
 compiling system.c...
-..\USER\Include\default_data.h(14): warning:  #47-D: incompatible redefinition of macro "built_in_ef_num"  (declared at line 16 of "..\USER\Include\Inf.h")
-  #define built_in_ef_num 30 // 内置灯效数量
 ..\USER\mcu_sdk\system.c(186): warning:  #167-D: argument of type "u8 *" is incompatible with parameter of type "i8 *"
       send_len = set_wifi_uart_buffer(send_len, str, my_strlen(str));
 ..\USER\mcu_sdk\system.c(188): warning:  #167-D: argument of type "u8 *" is incompatible with parameter of type "i8 *"
@@ -434,10 +380,12 @@ compiling system.c...
       send_len = set_wifi_uart_buffer(send_len, str, my_strlen(str));
 ..\USER\mcu_sdk\system.c(294): warning:  #177-D: variable "module_memory"  was declared but never referenced
       u32 module_memory;
-..\USER\mcu_sdk\system.c: 5 warnings, 0 errors
+..\USER\mcu_sdk\system.c: 4 warnings, 0 errors
+compiling retarget.c...
+compiling gpio.c...
+compiling adc.c...
+compiling tim4_user.c...
 compiling sci_user.c...
-..\USER\Include\default_data.h(14): warning:  #47-D: incompatible redefinition of macro "built_in_ef_num"  (declared at line 16 of "..\USER\Include\Inf.h")
-  #define built_in_ef_num 30 // 内置灯效数量
 ..\..\Driver\src\sci_user.c(110): warning:  #167-D: argument of type "volatile uint8_t *" is incompatible with parameter of type "unsigned char *"
       FIFO_Byte_Push(&Uart0_Buffer, &(SCI0->RXD0)); //  数据压入缓存
 ..\..\Driver\src\sci_user.c(191): warning:  #177-D: function "uart0_callback_receiveend"  was declared but never referenced
@@ -452,40 +400,49 @@ compiling sci_user.c...
   static void uart2_interrupt_receive(void)
 ..\..\Driver\src\sci_user.c(1124): warning:  #177-D: function "uart2_interrupt_send"  was declared but never referenced
   static void uart2_interrupt_send(void)
-..\..\Driver\src\sci_user.c: 8 warnings, 0 errors
+..\..\Driver\src\sci_user.c: 7 warnings, 0 errors
+compiling tim4.c...
+..\..\Driver\src\tim4.c(696): warning:  #188-D: enumerated type mixed with another type
+      TM40_Channel_Start(TM4_CHANNEL_0 | TM4_CHANNEL_1);
+..\..\Driver\src\tim4.c(725): warning:  #188-D: enumerated type mixed with another type
+      TM40_Channel_Start(TM4_CHANNEL_0 | TM4_CHANNEL_1);
+..\..\Driver\src\tim4.c(763): warning:  #188-D: enumerated type mixed with another type
+      TM40_Channel_Start(TM4_CHANNEL_0 | TM4_CHANNEL_1 | TM4_CHANNEL_2);
+..\..\Driver\src\tim4.c(810): warning:  #188-D: enumerated type mixed with another type
+      TM40_Channel_Start(TM4_CHANNEL_0 | TM4_CHANNEL_1 | TM4_CHANNEL_2 | TM4_CHANNEL_3);
+..\..\Driver\src\tim4.c(855): warning:  #188-D: enumerated type mixed with another type
+      TM40_Channel_Start(TM4_CHANNEL_0 | TM4_CHANNEL_1 | TM4_CHANNEL_2 | TM4_CHANNEL_3);
+..\..\Driver\src\tim4.c(1481): warning:  #188-D: enumerated type mixed with another type
+      TM41_Channel_Start(TM4_CHANNEL_0 | TM4_CHANNEL_1);
+..\..\Driver\src\tim4.c(1510): warning:  #188-D: enumerated type mixed with another type
+      TM41_Channel_Start(TM4_CHANNEL_0 | TM4_CHANNEL_1);
+..\..\Driver\src\tim4.c(1548): warning:  #188-D: enumerated type mixed with another type
+      TM41_Channel_Start(TM4_CHANNEL_0 | TM4_CHANNEL_1 | TM4_CHANNEL_2);
+..\..\Driver\src\tim4.c(1595): warning:  #188-D: enumerated type mixed with another type
+      TM41_Channel_Start(TM4_CHANNEL_0 | TM4_CHANNEL_1 | TM4_CHANNEL_2 | TM4_CHANNEL_3);
+..\..\Driver\src\tim4.c(1640): warning:  #188-D: enumerated type mixed with another type
+      TM41_Channel_Start(TM4_CHANNEL_0 | TM4_CHANNEL_1 | TM4_CHANNEL_2 | TM4_CHANNEL_3);
+..\..\Driver\src\tim4.c: 10 warnings, 0 errors
+compiling adc_user.c...
+compiling flash.c...
+compiling flash_user.c...
 compiling sci.c...
-..\USER\Include\default_data.h(14): warning:  #47-D: incompatible redefinition of macro "built_in_ef_num"  (declared at line 16 of "..\USER\Include\Inf.h")
-  #define built_in_ef_num 30 // 内置灯效数量
-..\..\Driver\src\sci.c: 1 warning, 0 errors
-compiling tim4_user.c...
-..\USER\Include\default_data.h(14): warning:  #47-D: incompatible redefinition of macro "built_in_ef_num"  (declared at line 16 of "..\USER\Include\Inf.h")
-  #define built_in_ef_num 30 // 内置灯效数量
-..\..\Driver\src\tim4_user.c: 1 warning, 0 errors
+compiling rtc.c...
+assembling startup_CMS32L051.s...
+compiling dma.c...
+compiling driver_spi.c...
 compiling rtc_user.c...
-..\USER\Include\default_data.h(14): warning:  #47-D: incompatible redefinition of macro "built_in_ef_num"  (declared at line 16 of "..\USER\Include\Inf.h")
-  #define built_in_ef_num 30 // 内置灯效数量
 ..\..\Driver\src\rtc_user.c(47): warning:  #177-D: function "str2bcdtime"  was declared but never referenced
   static void str2bcdtime(char date_buf[], char bcd_buf[])
-..\..\Driver\src\rtc_user.c: 2 warnings, 0 errors
-compiling driver_spi.c...
-..\USER\Include\default_data.h(14): warning:  #47-D: incompatible redefinition of macro "built_in_ef_num"  (declared at line 16 of "..\USER\Include\Inf.h")
-  #define built_in_ef_num 30 // 内置灯效数量
-..\USER\Source\driver_spi.c: 1 warning, 0 errors
-compiling driver_w25qxx.c...
-..\USER\Include\default_data.h(14): warning:  #47-D: incompatible redefinition of macro "built_in_ef_num"  (declared at line 16 of "..\USER\Include\Inf.h")
-  #define built_in_ef_num 30 // 内置灯效数量
-..\USER\Source\driver_w25qxx.c: 1 warning, 0 errors
+..\..\Driver\src\rtc_user.c: 1 warning, 0 errors
 compiling MEM.c...
-..\USER\Include\default_data.h(14): warning:  #47-D: incompatible redefinition of macro "built_in_ef_num"  (declared at line 16 of "..\USER\Include\Inf.h")
-  #define built_in_ef_num 30 // 内置灯效数量
 ..\USER\Source\MEM.c(69): warning:  #223-D: function "FlashSPI_Write" declared implicitly
       FlashSPI_Write(buf, addr, sizeof(buf));
 ..\USER\Source\MEM.c(79): warning:  #159-D: declaration is incompatible with previous "FlashSPI_Write"  (declared at line 69)
   void FlashSPI_Write(uint8_t *pBuffer, uint32_t WriteAddr, uint16_t NumByteToWrite)
-..\USER\Source\MEM.c: 3 warnings, 0 errors
+..\USER\Source\MEM.c: 2 warnings, 0 errors
+compiling driver_w25qxx.c...
 compiling memory.c...
-..\USER\Include\default_data.h(14): warning:  #47-D: incompatible redefinition of macro "built_in_ef_num"  (declared at line 16 of "..\USER\Include\Inf.h")
-  #define built_in_ef_num 30 // 内置灯效数量
 ..\USER\Source\memory.c(29): warning:  #177-D: variable "EFcolor"  was declared but never referenced
       color_group_TypeDef EFcolor; // 色表
 ..\USER\Source\memory.c(30): warning:  #177-D: variable "EFid"  was declared but never referenced
@@ -510,42 +467,60 @@ compiling memory.c...
       sur = sector_addr + offset;
 ..\USER\Source\memory.c(422): warning:  #513-D: a value of type "schedule_TypeDef *" cannot be assigned to an entity of type "uint8_t *"
       tar = p;
-..\USER\Source\memory.c: 13 warnings, 0 errors
+..\USER\Source\memory.c: 12 warnings, 0 errors
+compiling system_CMS32L051.c...
 compiling default_data.c...
-..\USER\Include\default_data.h(14): warning:  #47-D: incompatible redefinition of macro "built_in_ef_num"  (declared at line 16 of "..\USER\Include\Inf.h")
-  #define built_in_ef_num 30 // 内置灯效数量
-..\USER\Source\default_data.c: 1 warning, 0 errors
 compiling user_memory.c...
-..\USER\Include\default_data.h(14): warning:  #47-D: incompatible redefinition of macro "built_in_ef_num"  (declared at line 16 of "..\USER\Include\Inf.h")
-  #define built_in_ef_num 30 // 内置灯效数量
-..\USER\Source\user_memory.c(8): warning:  #167-D: argument of type "verify_Typedef *" is incompatible with parameter of type "const char *"
+..\USER\Source\user_memory.c(9): warning:  #223-D: function "verify_factoryreset_effect_norflash" declared implicitly
+      verify_factoryreset_effect_norflash(); // 检查是否需要初始化自带灯效
+..\USER\Source\user_memory.c(13): warning:  #159-D: declaration is incompatible with previous "verify_factoryreset_effect_norflash"  (declared at line 9)
+  void verify_factoryreset_effect_norflash(void)
+..\USER\Source\user_memory.c(17): warning:  #167-D: argument of type "verify_Typedef *" is incompatible with parameter of type "const char *"
       if (strcmp(&verify, EF_MEM_VERIFY) != 0) // flash未存有校验信息
-..\USER\Source\user_memory.c(11): warning:  #167-D: argument of type "verify_Typedef *" is incompatible with parameter of type "char *__restrict__"
+..\USER\Source\user_memory.c(21): warning:  #167-D: argument of type "verify_Typedef *" is incompatible with parameter of type "char *__restrict__"
           sprintf(&verify, EF_MEM_VERIFY);
-..\USER\Source\user_memory.c(51): warning:  #167-D: argument of type "uint8_t (*)[16]" is incompatible with parameter of type "char *__restrict__"
-          strcpy(&ef.Name, dfdata[i].name);     // 拷贝灯效名字
-..\USER\Source\user_memory.c(51): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "const char *__restrict__"
-          strcpy(&ef.Name, dfdata[i].name);     // 拷贝灯效名字
-..\USER\Source\user_memory.c(130): warning:  #177-D: variable "ef"  was declared but never referenced
+..\USER\Source\user_memory.c(54): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "const char *"
+          ef.namelenght = strlen(dfdata[i].name); // 灯效名字长度
+..\USER\Source\user_memory.c(55): warning:  #167-D: argument of type "uint8_t (*)[15]" is incompatible with parameter of type "char *__restrict__"
+          strcpy(&ef.Name, dfdata[i].name);       // 拷贝灯效名字
+..\USER\Source\user_memory.c(55): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "const char *__restrict__"
+          strcpy(&ef.Name, dfdata[i].name);       // 拷贝灯效名字
+..\USER\Source\user_memory.c(161): warning:  #940-D: missing return statement at end of non-void function "compare_same_ranklist" 
+  }
+..\USER\Source\user_memory.c(172): warning:  #177-D: variable "ef"  was declared but never referenced
       Efdetail_TypeDef ef;
-..\USER\Source\user_memory.c(244): warning:  #177-D: variable "j"  was declared but never referenced
+..\USER\Source\user_memory.c(396): warning:  #940-D: missing return statement at end of non-void function "delete_original_ef" 
+  }
+..\USER\Source\user_memory.c(371): warning:  #177-D: variable "i"  was declared but never referenced
       uint8_t i, j;
-..\USER\Source\user_memory.c: 7 warnings, 0 errors
+..\USER\Source\user_memory.c(371): warning:  #177-D: variable "j"  was declared but never referenced
+      uint8_t i, j;
+..\USER\Source\user_memory.c(402): warning:  #177-D: variable "j"  was declared but never referenced
+      uint8_t i, j;
+..\USER\Source\user_memory.c: 13 warnings, 0 errors
 compiling appfunction.c...
-..\USER\Include\default_data.h(14): warning:  #47-D: incompatible redefinition of macro "built_in_ef_num"  (declared at line 16 of "..\USER\Include\Inf.h")
-  #define built_in_ef_num 30 // 内置灯效数量
 ..\USER\Source\appfunction.c(23): warning:  #167-D: argument of type "com_effect_detial_TypeDef *" is incompatible with parameter of type "const u8 *"
       mcu_dp_raw_update(DPID_ISSUE_CMD, &comef, sizeof(comef));
-..\USER\Source\appfunction.c(53): warning:  #167-D: argument of type "com_effect_sketch_TypeDef *" is incompatible with parameter of type "const u8 *"
+..\USER\Source\appfunction.c(49): warning:  #167-D: argument of type "com_effect_sketch_TypeDef *" is incompatible with parameter of type "const u8 *"
       mcu_dp_raw_update(DPID_EFFECT_SKETCH, &sketch, sizeof(sketch));
+..\USER\Source\appfunction.c(60): warning:  #167-D: argument of type "com_ef_ranklist_TypeDef *" is incompatible with parameter of type "const u8 *"
+      mcu_dp_raw_update(DPID_ALL_EFFECT_RANKLIST, &com_ranklist, sizeof(com_ranklist));
+..\USER\Source\appfunction.c(62): warning:  #167-D: argument of type "com_ef_ranklist_TypeDef *" is incompatible with parameter of type "ef_ranklist_TypeDef *"
+      print_ef_ranklist(&com_ranklist);
 ..\USER\Source\appfunction.c(71): warning:  #167-D: argument of type "com_ef_ranklist_TypeDef *" is incompatible with parameter of type "const u8 *"
-      mcu_dp_raw_update(DPID_ORIGINAL_EFFECT_RANKLIST, &ranklist, sizeof(ranklist));
-..\USER\Source\appfunction.c: 4 warnings, 0 errors
+      mcu_dp_raw_update(DPID_ORIGINAL_EFFECT_RANKLIST, &com_ranklist, sizeof(com_ranklist));
+..\USER\Source\appfunction.c(72): warning:  #167-D: argument of type "com_ef_ranklist_TypeDef *" is incompatible with parameter of type "ef_ranklist_TypeDef *"
+      print_ef_ranklist(&com_ranklist);
+..\USER\Source\appfunction.c(82): warning:  #167-D: argument of type "com_ef_ranklist_TypeDef *" is incompatible with parameter of type "const u8 *"
+      mcu_dp_raw_update(DPID_FAVORITES_EFFECT_RANKLIST, &com_ranklist, sizeof(com_ranklist));
+..\USER\Source\appfunction.c(83): warning:  #167-D: argument of type "com_ef_ranklist_TypeDef *" is incompatible with parameter of type "ef_ranklist_TypeDef *"
+      print_ef_ranklist(&com_ranklist);
+..\USER\Source\appfunction.c: 8 warnings, 0 errors
 linking...
-Program Size: Code=30192 RO-data=2404 RW-data=1092 ZI-data=6028  
+Program Size: Code=30956 RO-data=2292 RW-data=1100 ZI-data=6268  
 FromELF: creating hex file...
 After Build - User command #1: F:\APP\Keil\\ARM\ARMCC\bin\fromelf.exe --bin --output=L1001_Master.bin .\Objects\L1001_Master.axf
-".\Objects\L1001_Master.axf" - 0 Error(s), 222 Warning(s).
+".\Objects\L1001_Master.axf" - 0 Error(s), 210 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -572,10 +547,10 @@ Package Vendor: Cmsemicon
    * Component: ARM::CMSIS:CORE:5.4.0
 
    * Component: Cmsemicon::Device:Startup:1.0.0
+      Source file:   Device\Source\ARM\startup_CMS32L051.s
       Include file:  Device\Source\userdefine.h
       Source file:   Device\Source\system_CMS32L051.c
-      Source file:   Device\Source\ARM\startup_CMS32L051.s
-Build Time Elapsed:  00:00:05
+Build Time Elapsed:  00:00:04
 </pre>
 </body>
 </html>

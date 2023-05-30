@@ -17,14 +17,12 @@
 #define SPARE_SIZE   0x10000UL
 #define VERIFY_SIZE  0xFF
 
-#define EF_MEM_VERIFY "effect data 2023/05/25"
+#define EF_MEM_VERIFY "effect data 2023/05/29 17:52"
 
 typedef struct
 {
     uint8_t str[VERIFY_SIZE]; // 校验区，判断是否为出厂状态
 } verify_Typedef;
-
-
 
 /************************/
 /*获取灯效校验信息*/
@@ -33,16 +31,29 @@ void get_effect_verify(verify_Typedef *p);
 void save_effect_verify(verify_Typedef *p);
 /*对norflash里的数据进行初始化*/
 void norflash_data_init(void);
-/*初始化内置灯效至外部norflash内*/
-void init_built_in_ef_to_norflash(void);
-/*初始化自定义灯效列表*/
-void init_original_ranklist(void);
+/*内置灯效拷贝至外部norflash内*/
+void copy_built_in_ef_to_norflash(void);
+/*检索flash中的自定义&收藏灯效顺序表*/
+void search_norflash_ranklist(void);
+/*************************************************************************/
+/*获取全部灯效列表*/
+void get_allef_ranklist(ef_ranklist_TypeDef *p);
 /*获取自定义灯效列表*/
-void get_original_ranklist(ef_ranklist_TypeDef *p);
-/*存储自定义灯效列表*/
-void save_originalef_ranklist(ef_ranklist_TypeDef *p);
+void get_originalef_ranklist(ef_ranklist_TypeDef *p);
+/*获取收藏灯效列表*/
+void get_favoritesef_ranklist(ef_ranklist_TypeDef *p);
+/*************************************************************************/
 /*存储全部灯效列表*/
 void save_allef_ranklist(ef_ranklist_TypeDef *p);
+/*存储自定义灯效列表*/
+void save_originalef_ranklist(ef_ranklist_TypeDef *p);
+/*存储收藏灯效列表*/
+void save_favoritesef_ranklist(ef_ranklist_TypeDef *p);
+/*************************************************************************/
+/*比较两个表是否包含的数据是否一样*/
+uint8_t compare_same_ranklist(ef_ranklist_TypeDef *ranklist1, ef_ranklist_TypeDef *ranklist2);
+/*从顺序表中删除参数*/
+uint8_t delete_num_from_ranklist(ef_ranklist_TypeDef *p, uint8_t efnum);
 /*删除自定义灯效*/
 uint8_t delete_original_ef(uint8_t efnum);
 /*新增自定义灯效*/

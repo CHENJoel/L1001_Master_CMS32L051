@@ -9,11 +9,11 @@
 #define Ef_SizeNum 256        // 灯效容量（数量），预留256
 #define PlayList_SizeNum Ef_SizeNum * 2
 
-#define original_ef_basenum 128 // 自定义灯效的基编号
-#define original_ef_num 30      // 自定义灯效数量
-#define all_ef_num 60           // 全部灯效数量
-
-#define built_in_ef_num (sizeof(dfdata) / sizeof(df_data_TypeDef)) // 内置灯效数量
+#define original_ef_basenum 128                      // 自定义灯效的基编号
+#define original_ef_num 30                           // 自定义灯效数量
+#define built_in_ef_basenum 0                        // 内置灯效的基编号
+#define built_in_ef_num 30                           // 内置灯效数量
+#define all_ef_num built_in_ef_num + original_ef_num // 全部灯效数量
 
 #define default_ef_Speed 50
 #define default_ef_Brightness1 50
@@ -69,7 +69,7 @@ typedef enum /*灯效属性*/
 {
     ORIGIN,    // 原始（未收藏）
     FAVORITES, // 收藏
-    EMPTY,     // 空
+    EMPTY,     // 空（删除）
 } Attribute_Enum;
 
 /******************************************************************************************************************/
@@ -93,7 +93,8 @@ typedef struct
 #pragma pack(push, 1)
 typedef struct
 {
-    uint8_t Name[16];              /* 灯效名字 */
+    uint8_t namelenght;            /* 名字字符数量 */
+    uint8_t Name[15];              /* 灯效名字 */
     uint8_t Speed;                 /* 速度 */
     uint8_t Brightness1;           /* 亮度1 初始亮度/律动的最低亮度 */
     uint8_t Brightness2;           /* 亮度2 律动最高亮度*/

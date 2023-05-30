@@ -15,7 +15,8 @@ typedef struct
 typedef struct
 {
     uint8_t index;                          /*索引*/
-    uint8_t Name[16];                       /* 灯效名字 */
+    uint8_t namelenght;                     /* 名字字符数量 */
+    uint8_t Name[15];                       /* 灯效名字 */
     EffectType_Enum EffectType;             /* 灯效类型 */
     Attribute_Enum Attribute;               /* 灯效属性 */
     EfColorminiInf_TypeDef EfColormioniInf; /* 颜色数据区 */
@@ -30,11 +31,16 @@ typedef struct
 } com_effect_sketch_TypeDef;        // 灯效概述
 #pragma pack(pop)
 /*********************************************************************/
+
 #pragma pack(push, 1)
+typedef struct /* 灯效的顺序表 */
+{
+    uint8_t num;         /* 灯效列表中有效数据的数量 */
+    uint8_t list[100];   /* 灯效列表.存储灯效索引号 */
+} comefranklist_TypeDef; /*存储区内空间分布*/
 typedef struct
 {
-    uint8_t num;
-    uint8_t list[100];
+    comefranklist_TypeDef ranklist;
     uint8_t checksum;      /* 校验和 */
 } com_ef_ranklist_TypeDef; // 灯效顺序表
 #pragma pack(pop)

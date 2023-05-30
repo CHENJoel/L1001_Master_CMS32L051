@@ -165,7 +165,8 @@ void print_effect_detial(Efdetail_TypeDef *p,uint8_t efnum)
     uint8_t i = 0;
     printf("idex:%d\r", efnum);
     printf("Name:");
-    printstr_my(&p->Name, sizeof(p->Name));
+    printf("namelenght:%d\r", p->namelenght);
+    printstr_my(&p->Name, p->namelenght);
     printf("Speed:%d\r", p->Speed);
     printf("Bright1:%d\r", p->Brightness1);
     printf("Bright2:%d\r", p->Brightness2);
@@ -183,6 +184,7 @@ void print_effect_detial(Efdetail_TypeDef *p,uint8_t efnum)
             printf("\r");
         }
     }
+    printf("\r");
 }
 
 /*打印灯效概述*/
@@ -191,7 +193,8 @@ void print_effect_sketch(Efminidetail_TypeDef *p,uint8_t efnum)
     uint8_t i = 0;
     printf("idex:%d\r", efnum);
     printf("Name:");
-    printstr_my(&p->Name, sizeof(p->Name));
+    // // printf("namelenght:%d\r", p->namelenght);
+    printstr_my(&p->Name, p->namelenght);
     print_effecttype(p->EffectType);
     print_attribute(p->Attribute);
     printf("ColorNum:%d\r", p->EfColormioniInf.colorNum);
@@ -203,6 +206,7 @@ void print_effect_sketch(Efminidetail_TypeDef *p,uint8_t efnum)
             printf("\r");
         }
     }
+    printf("\r");
 }
 
 /*打印获取存储区的灯效详情*/
@@ -219,8 +223,34 @@ void print_get_original_ef_ranklist(void)
 {
     uint8_t i;
     ef_ranklist_TypeDef memranklist;
-    get_original_ranklist(&memranklist); // 获取原信息
-    printf("ef_ranklist sum:%d\r", memranklist.num);
+    get_originalef_ranklist(&memranklist); // 获取原信息
+    printf("original effect sum:%d\r", memranklist.num);
+    for (i = 0; i < memranklist.num; i++)
+    {
+        printf("[%3d] ", memranklist.list[i]);
+    }
+    printf("\r\n");
+}
+/*打印获取全部灯效列表*/
+void print_get_all_ef_ranklist(void)
+{
+    uint8_t i;
+    ef_ranklist_TypeDef memranklist;
+    get_allef_ranklist(&memranklist); // 获取原信息
+    printf("all effect ranklist sum:%d\r", memranklist.num);
+    for (i = 0; i < memranklist.num; i++)
+    {
+        printf("[%3d] ", memranklist.list[i]);
+    }
+    printf("\r\n");
+}
+/*打印获取收藏灯效列表*/
+void print_get_favorites_ef_ranklist(void)
+{
+    uint8_t i;
+    ef_ranklist_TypeDef memranklist;
+    get_favoritesef_ranklist(&memranklist); // 获取原信息
+    printf("favorites effect ranklist sum:%d\r", memranklist.num);
     for (i = 0; i < memranklist.num; i++)
     {
         printf("[%3d] ", memranklist.list[i]);

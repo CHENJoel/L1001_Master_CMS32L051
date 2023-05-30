@@ -34,7 +34,7 @@
 ******************************************************************************/
 #define PRODUCT_KEY "8vb1nbz2e9vb1sxv"    //开发平台创建产品后生成的16位字符产品唯一标识
 
-#define MCU_VER "1.0.3"         //用户的软件版本,用于MCU固件升级,MCU升级版本需修改
+#define MCU_VER "1.0.6"         //用户的软件版本,用于MCU固件升级,MCU升级版本需修改
 
 /* HomeKit产品品类选择。 服务配置选择和特性配置选择请在homekit.c中进行 */
 //#define HOMEKIT_PRODUCT_TYPE    3             //风扇

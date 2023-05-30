@@ -27,9 +27,7 @@ void mcu_update_efsketch(com_issue_cmd_TypeDef *p)
 {
     com_effect_sketch_TypeDef sketch;
     Efdetail_TypeDef efdata;
-    memset(&sketch,0,sizeof(sketch));
-    printlog("com_issue_cmd\r");
-    // // // printhex_my((uint8_t*)p,sizeof(com_issue_cmd_TypeDef));
+    memset(&sketch, 0, sizeof(sketch)); // 清零
     uint8_t i;
     if (p->data[0] > 4)
     {
@@ -40,7 +38,7 @@ void mcu_update_efsketch(com_issue_cmd_TypeDef *p)
     {
         sketch.Efdata[i].index = p->data[i + 1]; // 索引
         get_effect(&efdata, sketch.Efdata[i].index);
-
+        sketch.Efdata[i].namelenght = efdata.namelenght;
         memcpy(&sketch.Efdata[i].Name, &efdata.Name, sizeof(sketch.Efdata[i].Name));                             // 名字
         sketch.Efdata[i].Attribute = efdata.Attribute;                                                           // 属性
         sketch.Efdata[i].EffectType = efdata.EffectType;                                                         // 类型
@@ -48,37 +46,41 @@ void mcu_update_efsketch(com_issue_cmd_TypeDef *p)
         print_effect_sketch((Efminidetail_TypeDef *)&sketch.Efdata[i],sketch.Efdata[i].index);
     }
     sketch.checksum = (uint8_t)CheckSum_Calu((uint8_t *)&sketch, sizeof(sketch) - 1);
+    mcu_dp_raw_update(DPID_EFFECT_SKETCH, &sketch, sizeof(sketch));
     // // // // printlog("mcu_dp_raw_update\r");
     // // // // printhex_my((uint8_t*)&sketch,sizeof(sketch));
-    mcu_dp_raw_update(DPID_EFFECT_SKETCH, &sketch, sizeof(sketch));
 }
 /*mcu上报全部灯效的顺序表*/
 void mcu_update_allef_ranklist(void)
 {
+    com_ef_ranklist_TypeDef com_ranklist;
     printlog("mcu_update_allef_ranklist\r");
-    // // get_original_ranklist
-    // // ef_ranklist_TypeDef
+    get_allef_ranklist((ef_ranklist_TypeDef *)&com_ranklist.ranklist);
+    com_ranklist.checksum = (uint8_t)CheckSum_Calu((uint8_t *)&com_ranklist, (uint16_t)sizeof(com_ranklist) - 1);
+    mcu_dp_raw_update(DPID_ALL_EFFECT_RANKLIST, &com_ranklist, sizeof(com_ranklist));
+    // // printhex_my(&com_ranklist, sizeof(com_ranklist));
+    print_ef_ranklist(&com_ranklist);
 }
 /*mcu上报自定义灯效的顺序表*/
 void mcu_update_originalef_ranklist(void)
 {
-    com_ef_ranklist_TypeDef ranklist;
+    com_ef_ranklist_TypeDef com_ranklist;
     printlog("mcu_update_originalef_ranklist\r");
-    get_original_ranklist((ef_ranklist_TypeDef *)&ranklist);
-    ranklist.checksum = (uint8_t)CheckSum_Calu((uint8_t *)&ranklist, (uint16_t)sizeof(ranklist) - 1);
-    // // // // print_ef_ranklist(&ranklist);
-    // // // // printhex_my(&ranklist,sizeof(ranklist));
-    mcu_dp_raw_update(DPID_ORIGINAL_EFFECT_RANKLIST, &ranklist, sizeof(ranklist));
-
+    get_originalef_ranklist((ef_ranklist_TypeDef *)&com_ranklist.ranklist);
+    com_ranklist.checksum = (uint8_t)CheckSum_Calu((uint8_t *)&com_ranklist, (uint16_t)sizeof(com_ranklist) - 1);
+    mcu_dp_raw_update(DPID_ORIGINAL_EFFECT_RANKLIST, &com_ranklist, sizeof(com_ranklist));
+    print_ef_ranklist(&com_ranklist);
+    // // // printhex_my(&com_ranklist,sizeof(com_ranklist.ranklist));
 }
 /*mcu上报收藏灯效的顺序表*/
 void mcu_update_favoritesef_ranklist(void)
 {
+    com_ef_ranklist_TypeDef com_ranklist;
     printlog("mcu_update_favoritesef_ranklist\r");
-    // // // // // com_ef_ranklist_TypeDef ranklist;
-    // // // // // get_original_ranklist((ef_ranklist_TypeDef *)&ranklist);
-    // // // // // ranklist.checksum = (uint8_t)CheckSum_Calu(&ranklist, (uint16_t)sizeof(ranklist) - 1);
-    // // // // // mcu_dp_raw_update(DPID_ORIGINAL_EFFECT_RANKLIST, &ranklist, sizeof(ranklist));
+    get_favoritesef_ranklist((ef_ranklist_TypeDef *)&com_ranklist.ranklist);
+    com_ranklist.checksum = (uint8_t)CheckSum_Calu((uint8_t *)&com_ranklist, (uint16_t)sizeof(com_ranklist) - 1);
+    mcu_dp_raw_update(DPID_FAVORITES_EFFECT_RANKLIST, &com_ranklist, sizeof(com_ranklist));
+    print_ef_ranklist(&com_ranklist);
 }
 /******************************************************************************************************************************************************/
 /*针对DPID_SWITCH_LED的处理函数*/
@@ -116,7 +118,7 @@ uint8_t mcu_download_effect_detail_handle(uint8_t *sur, uint16_t length)
 uint8_t mcu_download_issue_cmd_handle(uint8_t *sur, uint16_t length)
 {
     com_issue_cmd_TypeDef *p;
-    printf("mcu_download_issue_cmd_handle\r");
+    // printf("mcu_download_issue_cmd_handle\r");
     // // // // printhex_my(sur, length);
     if (com_dataverify(sur, sizeof(com_issue_cmd_TypeDef)) == 0)
     {
@@ -126,8 +128,10 @@ uint8_t mcu_download_issue_cmd_handle(uint8_t *sur, uint16_t length)
     switch (p->cmd)
     {
     case ASK_EFSKETCH: /*效果概述*/
+        printlog("ASK_EFSKETCH\r");
         mcu_update_efsketch(p);
-        printlog("mcu_update_efsketch\r");
+        // printf("mcu update efsketch:%d [%3d] [%3d] [%3d] [%3d]\r",p->data[0],p->data[1],p->data[2],p->data[3],p->data[4]);
+        // printlog("mcu_update_efsketch\r");
         break;
     case ASK_EFDETAIL:                   /*效果详情*/
         mcu_update_efdetail(p->data[0]); // mcu上报灯效详情
@@ -142,26 +146,27 @@ uint8_t mcu_download_issue_cmd_handle(uint8_t *sur, uint16_t length)
     case UNDO_FAVORITES: /*取消收藏*/
         break;
     case ASK_ALLEFRANKLIST: /*请求全部灯效的顺序表*/
+        printlog("ASK_ALLEFRANKLIST\r");
         mcu_update_allef_ranklist();
-        // // // mcu_update_originalef_ranklist();
-        printlog("mcu_update_allef_ranklist\r");
+
         break;
     case ASK_ORINGINALRANKLIST: /*请求自定义灯效的顺序表*/
+        printlog("ASK_ORINGINALRANKLIST\r");
         mcu_update_originalef_ranklist();
-        printlog("mcu_update_originalef_ranklist\r");
         break;
     case ASK_FAVORITESRANKLIST: /*请求收藏灯效的顺序表*/
+        printlog("ASK_FAVORITESRANKLIST\r");
         mcu_update_favoritesef_ranklist();
-        printlog("mcu_update_favoritesef_ranklist\r");
         break;
     case ASK_PLAYLISTRANKLIST: /*请求播放列表的顺序表*/
         printlog("mcu_update_playlist_ranklist\r");
         break;
-    case ASK_EFFECTANKLIST: /*请求播放列表的顺序表*/
+    case ASK_EFFECTANKLIST: /*请求灯效相关的顺序表*/
+        printlog("ASK_EFFECTANKLIST\r");
         mcu_update_allef_ranklist();
         mcu_update_originalef_ranklist();
         mcu_update_favoritesef_ranklist();
-        printlog("mcu_update_effect_ranklist\r");
+
         break;
     default:
         printlog("cmd err\r");

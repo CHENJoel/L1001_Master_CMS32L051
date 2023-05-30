@@ -8,7 +8,11 @@ void debug_save_effect_detial(void)
     static uint8_t i,j;
     uint8_t *pp;
     Efdetail_TypeDef eff;
-    sprintf(&eff.Name, "effect name test");
+    // // eff.namelenght = sizeof("effect name test");
+    // eff.namelenght = 16;
+    sprintf(&eff.Name, "effectname test");
+    // // // // // printf("debug\n");
+    // // // // // printstr_my(&eff.Name,16);
     eff.Speed = i++;
     eff.Brightness1 += i * 5;
     eff.Brightness2 += i * 5;
@@ -39,11 +43,13 @@ void debug_save_effect_detial(void)
 /*测试添加自定义灯效*/
 void debug_add_original_ef(void)
 {
-    uint8_t i;
+    static uint8_t i=128;
     Efdetail_TypeDef ef;
-    i = Random_Generate() % original_ef_num;
-    i += 128;
+    // // i = Random_Generate() % original_ef_num;
+    // // i += 128;
+    i++;
     printf("add original ranklist %d\r", i);
+    get_effect(&ef,0);  // 拷贝第0个灯效
     add_original_ef(&ef, i);
     print_get_original_ef_ranklist();
 }
@@ -52,7 +58,7 @@ void debug_delete_original_ef(void)
 {
     ef_ranklist_TypeDef list;
     uint8_t i = 0;
-    get_original_ranklist(&list);
+    get_originalef_ranklist(&list);
     if (list.num)
     {
         i = list.list[list.num - 1];
@@ -61,8 +67,9 @@ void debug_delete_original_ef(void)
     {
         i = list.list[0];
     }
+    printf("delete original ranklist %d\r", i);
     delete_original_ef(i);
-    printf("delate original ranklist %d\r", i);
+    // // printf("delate original ranklist %d\r", i);
     print_get_original_ef_ranklist();
 }
 
@@ -76,28 +83,40 @@ void debug(void)
 /*按键1服务调试函数*/
 void debug_K1(void)
 {
-
+    printf("\rK1\r");
+    printf("init effect...\r");
+    // mcu_update_allef_ranklist();
+    copy_built_in_ef_to_norflash(); // 初始化灯效信息
 }
 /*按键2服务调试函数*/
 void debug_K2(void)
 {
+    printf("\rK2\r");
     debug_add_original_ef();
 }
 /*按键3服务调试函数*/
 void debug_K3(void)
 {
+    printf("\rK3\r\n");
     debug_delete_original_ef();
 }
 /*按键4服务调试函数*/
 void debug_K4(void)
 {
-    init_original_ranklist();
-    print_get_original_ef_ranklist();
+    printf("\rK4\r");
+    // // search_norflash_ranklist();
+    // // print_get_original_ef_ranklist();
 }
 
 /*按键5服务调试函数*/
 void debug_K5(void)
 {
-    init_built_in_ef_to_norflash();
+    // printf("\r\r\rK5\r");
+    // // print_get_ef_detial(18);
+    // debug_save_effect_detial();
+    print_get_all_ef_ranklist();
+    print_get_original_ef_ranklist();
+    print_get_favorites_ef_ranklist();
+    // // norflash_data_init();
     // // printf("Original_Efdata %d \r",(uint32_t)(((uint32_t)&((EffectInf_TypeDef *)0)->Original_Efdata) / sizeof(Efdetail_TypeDef)));
 }
