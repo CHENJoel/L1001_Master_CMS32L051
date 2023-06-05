@@ -40,7 +40,7 @@
 #define W25X_FastReadData		        0x0B
 #define W25X_FastReadDual		        0x3B
 #define W25X_PageProgram		        0x02
-#define W25X_BlockErase			        0xD8
+#define W25X_BlockErase			        0xD8  // Block Erase (64K bytes)
 #define W25X_SectorErase		        0x20
 #define W25X_PageErase		          0x81
 #define W25X_ChipErase			        0xC7

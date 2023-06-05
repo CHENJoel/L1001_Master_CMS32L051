@@ -2,6 +2,7 @@
     "files.associations": {
         "*.H": "c",
         "IR.C": "cpp",
-        "对比A.C": "cpp"
+        "对比A.C": "cpp",
+        "KEY.C": "cpp"
     }
 }

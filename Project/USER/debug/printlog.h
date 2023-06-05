@@ -4,17 +4,23 @@
 #include "comapp.h"
 
 #define printlog_enabled    // 使能打印log
-
+// assert
 //断言
 #define vAssertCalled(char,int) printf("Error:%s,%d\r\n",char,int)
 
-
 #ifdef printlog_enabled
-    #define printlog(str) printf(str)
+    #define printlog(...) printf(__VA_ARGS__)
+    #define printAssert() vAssertCalled(__FILE__,__LINE__)
+    // #define printlog(str) printf(str)
     #define configASSERT(x) if((x)==0) vAssertCalled(__FILE__,__LINE__)
+    #define printnumlog(num) printf("[num:%d]\r",num)
+    // // #define configASSERT(x) vAssertCalled(__FILE__,__LINE__)
 #else
-    #define printlog(str) ;
-    #define configASSERT(x) ;
+
+    #define printlog(...)
+    #define configASSERT(x)
+    #define printAssert()
+    #define printnumlog(num) printf("[num:%d]\r",num)
 #endif
 
 
@@ -22,9 +28,9 @@
 
 
 /*打印hex*/
-void printhex_my(uint8_t *sur, uint8_t len);
+void printhex_my(uint8_t *sur, uint32_t len);
 /*打印字符串*/
-void printstr_my(uint8_t *sur, uint8_t len);
+void printstr_my(uint8_t *sur, uint32_t len);
 /*打印动态效果*/
 void print_flow(Flow_Enum num);
 /*打印运动方向*/
@@ -47,6 +53,16 @@ void print_get_original_ef_ranklist(void);
 void print_get_all_ef_ranklist(void);
 /*打印获取收藏灯效列表*/
 void print_get_favorites_ef_ranklist(void);
+/*打印获取播放列表*/
+void print_get_playlist_ranklist(void);
 /*打印灯效列表*/
 void print_ef_ranklist(ef_ranklist_TypeDef* p);
+/*打印播放列表的顺序表*/
+void print_playlist_ranklist(playlist_ranklist_TypeDef* p);
+/*打印通信播放列表的顺序表*/
+void print_com_playlist_ranklist(com_playlist_TypeDef* p);
+/*打印播放详情*/
+void print_playdetial(playdetail_TypeDef *p, uint8_t playnum);
+/*打印app下发播放详情*/
+void print_com_playdetial(com_play_detial_TypeDef *p);
 #endif

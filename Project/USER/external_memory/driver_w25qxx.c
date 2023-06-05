@@ -169,7 +169,7 @@ void FLASH_SectorErase(uint32_t SectorAddr)
  *  返回值：无
  *  函数作用：块擦除
 */
-void FLASH_BlockErase(uint32_t BlockAddr)
+void FLASH_BlockErase(uint32_t  BlockAddr)
 {
     Flash_WritenEN();
     FLASH_WaitForWriteEnd();

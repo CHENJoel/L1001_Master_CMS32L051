@@ -64,6 +64,8 @@
 #include "debug.h"
 #include "flashapp.h"
 #include "default_data.h"
+#include "internal_memory.h"
+
 #define IR_Version 0
 
 

@@ -11,13 +11,22 @@
 #define EFFECT_BASE  (NORFLASH_BASE + 0x20000UL)
 #define SPARE_BASE   (NORFLASH_BASE + 0x30000UL)
 
+
+/*
+nor flash
+P25T22H Memory Organization
+Address Range: 0x000000 ~ 0x03F000
+Size: 0x40000 , 262144 byte , 2097152 bit , 0x200000 bit
+
+
+*/
 #define OTAPACK_SIZE 0x10000UL
 #define SYSDATA_SIZE 0x10000UL
 #define EFFECT_SIZE  0x10000UL
 #define SPARE_SIZE   0x10000UL
 #define VERIFY_SIZE  0xFF
 
-#define EF_MEM_VERIFY "effect data 2023/05/29 17:52"
+#define EF_MEM_VERIFY "effect data 2023/06/01 16:39"
 
 typedef struct
 {
@@ -25,6 +34,10 @@ typedef struct
 } verify_Typedef;
 
 /************************/
+/*64k擦除灯效数据所在block区*/
+void EffectData_BlockErase_64k(void);
+/*校验顺序表内数据是否正确*/
+void verify_ranklist(void );
 /*获取灯效校验信息*/
 void get_effect_verify(verify_Typedef *p);
 /*保存灯效校验信息*/
@@ -35,38 +48,79 @@ void norflash_data_init(void);
 void copy_built_in_ef_to_norflash(void);
 /*检索flash中的自定义&收藏灯效顺序表*/
 void search_norflash_ranklist(void);
+/*校验全部灯效顺序表内数据是否正确*/
+uint8_t verify_allef_ranklist(void);
+/*校验自定义灯效顺序表内数据是否正确*/
+uint8_t verify_originalef_ranklist(void);
+/*校验自定义灯效顺序表内数据是否正确*/
+uint8_t verify_favoritesef_ranklist(void);
+/*校验自定义灯效顺序表内数据是否正确*/
+uint8_t verify_playlist_ranklist(void);
+
+
 /*************************************************************************/
+/*读出灯效*/
+void get_effect(Efdetail_TypeDef *p, uint8_t efnum);
+/*读出自定义灯效*/
+uint8_t get_original_effect(Efdetail_TypeDef *p, uint8_t efnum);
+/*读出播放详情*/
+void get_playdetail(playdetail_TypeDef *p, uint8_t playnum);
 /*获取全部灯效列表*/
 void get_allef_ranklist(ef_ranklist_TypeDef *p);
 /*获取自定义灯效列表*/
 void get_originalef_ranklist(ef_ranklist_TypeDef *p);
 /*获取收藏灯效列表*/
 void get_favoritesef_ranklist(ef_ranklist_TypeDef *p);
+/*获取播放列表的顺序表*/
+void get_playlist_ranklist(playlist_ranklist_TypeDef *p);
+/*获取播放列表的名字*/
+void get_playlist_name(name_TypeDef *p, uint8_t playnum);
+// // // /*获取播放详情列表的顺序表*/
+// // // void get_playdetaillist_ranklist(playdetaillist_ranklist_TypeDef *p);
 /*************************************************************************/
+
+/*存储灯效*/
+void save_effect(Efdetail_TypeDef *p, uint8_t efnum);
+/*存储自定义灯效*/
+uint8_t save_original_effect(Efdetail_TypeDef *p, uint8_t efnum);
+/*存储播放详情*/
+void save_playdetail(playdetail_TypeDef *p, uint8_t playnum);
 /*存储全部灯效列表*/
 void save_allef_ranklist(ef_ranklist_TypeDef *p);
 /*存储自定义灯效列表*/
 void save_originalef_ranklist(ef_ranklist_TypeDef *p);
 /*存储收藏灯效列表*/
 void save_favoritesef_ranklist(ef_ranklist_TypeDef *p);
+/*存储播放列表的顺序表*/
+void save_playlist_ranklist(playlist_ranklist_TypeDef *p);
+// // // /*存储播放详情列表的顺序表*/
+// // // void save_playdetaillist_ranklist(playdetaillist_ranklist_TypeDef *p);
 /*************************************************************************/
 /*比较两个表是否包含的数据是否一样*/
 uint8_t compare_same_ranklist(ef_ranklist_TypeDef *ranklist1, ef_ranklist_TypeDef *ranklist2);
 /*从顺序表中删除参数*/
-uint8_t delete_num_from_ranklist(ef_ranklist_TypeDef *p, uint8_t efnum);
+uint8_t delete_num_from_ranklist(ef_ranklist_TypeDef *p, uint8_t size, uint8_t efnum);
+/*从顺序表中添加参数*/
+uint8_t add_num_from_ranklist(ef_ranklist_TypeDef *p, uint8_t size, uint8_t efnum);
 /*删除自定义灯效*/
 uint8_t delete_original_ef(uint8_t efnum);
 /*新增自定义灯效*/
 uint8_t add_original_ef(Efdetail_TypeDef *p, uint8_t efnum);
+/*删除所有自定义灯效*/
+void clear_all_original_ef(void);
+/*收藏灯效*/
+uint8_t add_favorites_ef(uint8_t efnum);
+/*取消收藏灯效*/
+uint8_t delete_favorites_ef(uint8_t efnum);
+/*删除播放列表*/
+uint8_t delete_playlist(uint8_t listnum);
+/*添加播放信息*/
+uint8_t add_playlist(playdetail_TypeDef *p, uint8_t listnum);
 
-/*存储灯效*/
-void save_effect(Efdetail_TypeDef *p, uint8_t efnum);
-/*存储自定义灯效*/
-uint8_t save_original_effect(Efdetail_TypeDef *p, uint8_t efnum);
-/*读出灯效*/
-void get_effect(Efdetail_TypeDef *p, uint8_t efnum);
-/*读出自定义灯效*/
-uint8_t get_original_effect(Efdetail_TypeDef *p, uint8_t efnum);
+/*删除列表*/
+void clear_all_ef_ranklist(void);
+/*删除播放列表*/
+void clear_playlist_ranklist(void);
 
 /*--------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 /*
@@ -280,9 +334,10 @@ typedef struct
 
 typedef struct
 {
-    verify_Typedef verify;
-    EffectInf_TypeDef  effect;
-    ranklist_TypeDef ranklist;
+    verify_Typedef verify;     // 数据校验区
+    EffectInf_TypeDef effect;  // 灯效存储区
+    PlayInf_TypeDef play;      // 播放详情区
+    ranklist_TypeDef ranklist; // 各类列表区
 } efdata_Typedef;
 typedef struct
 {
@@ -308,8 +363,8 @@ typedef struct
 typedef struct
 {
     otapack_area_Typedef otapack;
-    sysdata_area_Typedef sysdata;
     efdata_area_Typedef efdata;
+//     sysdata_area_Typedef sysdata;
     spare_area_Typedef  spare;
 } norflash_Typedef;
 /************************************************************************************************************************************************/

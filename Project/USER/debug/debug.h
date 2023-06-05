@@ -1,6 +1,9 @@
 #ifndef  DEBUD_H
 #define  DEBUD_H
 #include "Function_Init.H"
+
+#define log(...) printf(__VA_ARGS__)
+
 void Debug(void);
 
 

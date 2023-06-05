@@ -7,7 +7,7 @@
 #define EfColor_SizeNum 32    // 灯效的颜色容量（数量）
 #define EfColor_miniSizeNum 8 // 灯效概述的颜色容量（数量）
 #define Ef_SizeNum 256        // 灯效容量（数量），预留256
-#define PlayList_SizeNum Ef_SizeNum * 2
+#define PlayList_SizeNum 60   // 播放列表的索引数量
 
 #define original_ef_basenum 128                      // 自定义灯效的基编号
 #define original_ef_num 30                           // 自定义灯效数量
@@ -111,42 +111,57 @@ typedef struct
 /******************************************************************************************************************/
 typedef struct
 {
-    // // // Efdetail_TypeDef Default_Efdata[128];  // 内置灯效 索引号0~127
-    // // // Efdetail_TypeDef Original_Efdata[128]; // 自定义灯效 索引号128~255
     Efdetail_TypeDef efdata[256]; // 内置灯效 索引号0~127     -自定义灯效 索引号128~255
 } EffectInf_TypeDef;
 /******************************************************************************************************************/
 /******************************************************************/
 
+typedef struct
+{
+    uint8_t length;   /* 字符数量 */
+    uint8_t text[15]; /* 名字 */
+} name_TypeDef;
+
 typedef struct /*  */
 {
-    uint8_t Name[32];               /* 列表名字 */
-    uint8_t num;                    /* 灯效列表中有效数据的数量 */
+    name_TypeDef name;              /* 名字*/
     Time_TypeDef DurationTime;      /* 持续时间 */
+    uint8_t num;                    /* 灯效列表中有效数据的数量 */
     uint8_t list[PlayList_SizeNum]; /* 灯效列表 */
-} PlayList_TypeDef;
+} playdetail_TypeDef; /*播放列表详情*/
 
+typedef struct
+{
+    playdetail_TypeDef pldata[256]; // 内置灯效 索引号0~127     -自定义灯效 索引号128~255
+} PlayInf_TypeDef;  /*播放列表详情*/
 /******************************************************************/
 
 typedef struct /* 灯效的顺序表 */
 {
-    uint8_t num;             /* 灯效列表中有效数据的数量 */
-    uint8_t list[60];       /* 灯效列表.存储灯效索引号 */
+    uint8_t num;       /* 灯效列表中有效数据的数量 */
+    uint8_t list[60];  /* 灯效列表.存储灯效索引号 */
 } ef_ranklist_TypeDef; /*存储区内空间分布*/
 
 typedef struct /* 播放列表的顺序表 */
 {
-    uint8_t num;                   /* 顺序列表中有效数据的数量 */
-    uint8_t list[60];             /* 顺序列表.存储播放表的索引号 */
-} playList_ranklist_TypeDef; /*存储区内空间分布*/
+    uint8_t num;             /* 顺序列表中有效数据的数量 */
+    uint8_t list[13];        /* 顺序列表.存储顺序表的索引号 */
+} playlist_ranklist_TypeDef; /* 存储区内空间分布 */
+
+// // // typedef struct /* 播放列表详情 */
+// // // {
+// // //     uint8_t num;                   /* 顺序列表中有效数据的数量 */
+// // //     uint8_t list[60];              /* 顺序列表.存储顺序表详情的索引号 */
+// // // } playdetaillist_ranklist_TypeDef; /* 存储区内空间分布 */
 
 /******************************************************************************************************************/
 typedef struct
 {
-    ef_ranklist_TypeDef all_ef_ranklist;         /* 全部灯效的顺序列表*/
-    ef_ranklist_TypeDef original_ef_ranklist;    /* 自定义灯效的顺序列表*/
-    ef_ranklist_TypeDef favorites_ef_ranklist;   /* 收藏灯效的顺序列表*/
-    playList_ranklist_TypeDef PlayList_ranklist; /* 播放列表的顺序列表*/
+    ef_ranklist_TypeDef all_ef_ranklist;                     /* 全部灯效的顺序列表*/
+    ef_ranklist_TypeDef original_ef_ranklist;                /* 自定义灯效的顺序列表*/
+    ef_ranklist_TypeDef favorites_ef_ranklist;               /* 收藏灯效的顺序列表*/
+    playlist_ranklist_TypeDef playlist_ranklist;             /* 播放列表的顺序列表*/
+    // // playdetaillist_ranklist_TypeDef playdetaillist_ranklist; /* 播放详情的顺序列表*/
 } ranklist_TypeDef;
 /******************************************************************************************************************/
 /*********************************************************/

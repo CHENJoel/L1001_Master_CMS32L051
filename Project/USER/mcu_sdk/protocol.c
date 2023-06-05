@@ -692,7 +692,7 @@ static unsigned char dp_download_play_detial_handle(const unsigned char value[],
     //RAW type data processing
 
     */
-
+   mcu_download_play_detial(value,length);
     //There should be a report after processing the DP
     ret = mcu_dp_raw_update(DPID_PLAY_DETIAL,value,length);
     if(ret == SUCCESS)
@@ -1111,36 +1111,8 @@ void upgrade_package_choose(u8 package_sz)
 u8 mcu_firm_update_handle(const u8 value[],u32 position,u16 length)
 {
     // #error "请自行完成MCU固件升级代码,完成后请删除该行"
-    static uint32_t checksum;   // 升级包校验和
-    if (length == 0)
-    {
-        //固件数据发送完成
-        if (Download_checksum_verify(checksum)) // 校验
-        {
-            printf("\rdownload finish!\r\n");
-            printf("buffer checksum is 0x%04x\r", checksum);
-            OTA_SetFlag(checksum);
-            /* 重启*/
-            printf("\rSystemReset\r\n");
-            __NVIC_SystemReset();
-        }
-        else
-        {
-            printf("please restart !\r\n");
-        }
-    }
-    else
-    {
-        //固件数据处理
-        if (position == 0)
-        {
-            checksum = 0;
-            printf("CheckSum init \r\n", checksum);
-        }
-        Download_app(position, value);
-        CheckSum_calculate(&checksum, value);
-    }
 
+    mcu_firmware_download(value, position, length);
     return SUCCESS;
 }
 #endif

@@ -339,7 +339,7 @@
               <MiscControls></MiscControls>
               <Define></Define>
               <Undefine></Undefine>
-              <IncludePath>..\USER\Include;..\..\Driver\inc;..\USER\mcu_sdk</IncludePath>
+              <IncludePath>..\USER\Include;..\..\Driver\inc;..\USER\mcu_sdk;..\USER\ota;..\USER\internal_memory;..\USER\external_memory;..\USER\debug;..\USER\app</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -464,29 +464,14 @@
               <FilePath>..\USER\Source\colorbox.c</FilePath>
             </File>
             <File>
-              <FileName>OTA.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\USER\Source\OTA.c</FilePath>
-            </File>
-            <File>
               <FileName>comapp.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\USER\Source\comapp.c</FilePath>
             </File>
             <File>
-              <FileName>printlog.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\USER\Source\printlog.c</FilePath>
-            </File>
-            <File>
               <FileName>flashapp.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\USER\Source\flashapp.c</FilePath>
-            </File>
-            <File>
-              <FileName>debug.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\USER\Source\debug.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -586,47 +571,137 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>storage</GroupName>
+          <GroupName>user_external storage</GroupName>
           <Files>
             <File>
               <FileName>driver_spi.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\USER\Source\driver_spi.c</FilePath>
+              <FilePath>..\USER\external_memory\driver_spi.c</FilePath>
+            </File>
+            <File>
+              <FileName>driver_spi.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\USER\external_memory\driver_spi.h</FilePath>
             </File>
             <File>
               <FileName>driver_w25qxx.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\USER\Source\driver_w25qxx.c</FilePath>
+              <FilePath>..\USER\external_memory\driver_w25qxx.c</FilePath>
+            </File>
+            <File>
+              <FileName>driver_w25qxx.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\USER\external_memory\driver_w25qxx.h</FilePath>
             </File>
             <File>
               <FileName>MEM.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\USER\Source\MEM.c</FilePath>
+              <FilePath>..\USER\external_memory\MEM.c</FilePath>
+            </File>
+            <File>
+              <FileName>MEM.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\USER\external_memory\MEM.h</FilePath>
             </File>
             <File>
               <FileName>memory.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\USER\Source\memory.c</FilePath>
+              <FilePath>..\USER\external_memory\memory.c</FilePath>
+            </File>
+            <File>
+              <FileName>memory.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\USER\external_memory\memory.h</FilePath>
             </File>
             <File>
               <FileName>user_memory.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\USER\Source\user_memory.c</FilePath>
+              <FilePath>..\USER\external_memory\user_memory.c</FilePath>
             </File>
             <File>
-              <FileName>default_data.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\USER\Source\default_data.c</FilePath>
+              <FileName>user_memory.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\USER\external_memory\user_memory.h</FilePath>
             </File>
           </Files>
         </Group>
         <Group>
-          <GroupName>app</GroupName>
+          <GroupName>user_internal storage</GroupName>
+          <Files>
+            <File>
+              <FileName>default_data.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\USER\internal_memory\default_data.c</FilePath>
+            </File>
+            <File>
+              <FileName>default_data.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\USER\internal_memory\default_data.h</FilePath>
+            </File>
+            <File>
+              <FileName>internal_memory.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\USER\internal_memory\internal_memory.c</FilePath>
+            </File>
+            <File>
+              <FileName>internal_memory.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\USER\internal_memory\internal_memory.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>user_app</GroupName>
           <Files>
             <File>
               <FileName>appfunction.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\USER\Source\appfunction.c</FilePath>
+              <FilePath>..\USER\app\appfunction.c</FilePath>
+            </File>
+            <File>
+              <FileName>appfunction.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\USER\app\appfunction.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>user_ota</GroupName>
+          <Files>
+            <File>
+              <FileName>ota.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\USER\ota\ota.c</FilePath>
+            </File>
+            <File>
+              <FileName>ota.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\USER\ota\ota.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>user_debug</GroupName>
+          <Files>
+            <File>
+              <FileName>debug.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\USER\debug\debug.c</FilePath>
+            </File>
+            <File>
+              <FileName>debug.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\USER\debug\debug.h</FilePath>
+            </File>
+            <File>
+              <FileName>printlog.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\USER\debug\printlog.c</FilePath>
+            </File>
+            <File>
+              <FileName>printlog.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\USER\debug\printlog.h</FilePath>
             </File>
           </Files>
         </Group>

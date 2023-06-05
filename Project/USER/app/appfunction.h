@@ -14,6 +14,10 @@ void mcu_update_allef_ranklist(void);
 void mcu_update_originalef_ranklist(void);
 /*mcu上报收藏灯效的顺序表*/
 void mcu_update_favoritesef_ranklist(void);
+/*mcu上报播放列表的顺序表*/
+void mcu_update_playlist_ranklist(void);
+/*mcu上报播放详情*/
+void mcu_update_playdetail(uint8_t playnum);
 /*
 
 
@@ -34,5 +38,11 @@ uint8_t mcu_download_effect_detail_handle(uint8_t *sur, uint16_t length);
 uint8_t mcu_download_issue_cmd_handle(uint8_t *sur, uint16_t length);
 /*针对DPID_EFFECT_PREVIEW的处理函数*/
 void mcu_download_effect_preview(uint8_t *sur, uint16_t length);
+/*针对DPID_PLAY_DETIAL的处理函数*/
+void mcu_download_play_detial(uint8_t *sur, uint16_t length);
+/*
+*/
 
+/*在线下载固件*/
+void mcu_firmware_download(uint8_t *sur, uint16_t position, uint16_t length);
 #endif
