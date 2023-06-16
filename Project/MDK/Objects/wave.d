@@ -1,6 +1,5 @@
 .\objects\wave.o: ..\USER\Source\wave.c
 .\objects\wave.o: ..\USER\Include\Function_Init.H
-.\objects\wave.o: ..\USER\Include\Function_Init.H
 .\objects\wave.o: F:\APP\Keil\ARM\ARMCC\Bin\..\include\stdlib.h
 .\objects\wave.o: F:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include\CMS32L051.h
 .\objects\wave.o: F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm0plus.h
@@ -23,6 +22,7 @@
 .\objects\wave.o: ..\USER\Include\FIFO.h
 .\objects\wave.o: ..\USER\Include\IR.H
 .\objects\wave.o: ..\USER\Include\IR.H
+.\objects\wave.o: ..\USER\Include\Function_Init.H
 .\objects\wave.o: ..\USER\Include\image.H
 .\objects\wave.o: ..\USER\Include\Color.H
 .\objects\wave.o: ..\USER\Include\Light.H
@@ -51,9 +51,16 @@
 .\objects\wave.o: ..\USER\ota\OTA.h
 .\objects\wave.o: ..\USER\external_memory\MEM.h
 .\objects\wave.o: ..\USER\debug\printlog.h
-.\objects\wave.o: ..\USER\Include\comapp.h
+.\objects\wave.o: ..\USER\app\comapp.h
+.\objects\wave.o: ..\USER\slave\slave.h
 .\objects\wave.o: ..\USER\external_memory\user_memory.h
 .\objects\wave.o: ..\USER\debug\debug.h
-.\objects\wave.o: ..\USER\Include\flashapp.h
+.\objects\wave.o: ..\USER\flashapp\flashapp.h
 .\objects\wave.o: ..\USER\internal_memory\default_data.h
 .\objects\wave.o: ..\USER\internal_memory\internal_memory.h
+.\objects\wave.o: ..\USER\ota\newota.h
+.\objects\wave.o: ..\USER\master\master.h
+.\objects\wave.o: ..\USER\play\play.h
+.\objects\wave.o: ..\USER\factory\factory.h
+.\objects\wave.o: ..\USER\version\version.h
+.\objects\wave.o: ..\USER\parse\parse.h

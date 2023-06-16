@@ -4,7 +4,7 @@
 /*校验通信数据是否正确*/
 uint8_t com_dataverify(uint8_t *sur, uint16_t size)
 {
-    if ((uint8_t)CheckSum_Calu((uint8_t *)sur, size - 1) != *(sur + size - 1))
+    if ((uint8_t)checksum_calculate((uint8_t *)sur, size - 1) != *(sur + size - 1))
     { // 校验最后一字节是否为校验和
         printhex_my(sur, size);
         printlog("com data verify error\r\n");
@@ -19,7 +19,7 @@ void mcu_update_efdetail(uint8_t efnum)
     com_effect_detial_TypeDef comef;
     comef.idex = efnum;
     get_effect(&comef.Efdata, efnum);
-    comef.checksum = (uint8_t)CheckSum_Calu((uint8_t *)&comef, sizeof(comef) - 1);
+    comef.checksum = (uint8_t)checksum_calculate((uint8_t *)&comef, sizeof(comef) - 1);
     mcu_dp_raw_update(DPID_EFFECT_DETIAL, &comef, sizeof(comef));
 }
 /*mcu上报灯效概述*/
@@ -43,12 +43,35 @@ void mcu_update_efsketch(com_issue_cmd_TypeDef *p)
         sketch.Efdata[i].Attribute = efdata.Attribute;                                                           // 属性
         sketch.Efdata[i].EffectType = efdata.EffectType;                                                         // 类型
         memcpy(&sketch.Efdata[i].EfColormioniInf, &efdata.EfColorInf, sizeof(sketch.Efdata[i].EfColormioniInf)); // 颜色
-        // // print_effect_sketch((Efminidetail_TypeDef *)&sketch.Efdata[i],sketch.Efdata[i].index);
     }
-    sketch.checksum = (uint8_t)CheckSum_Calu((uint8_t *)&sketch, sizeof(sketch) - 1);
+    sketch.checksum = (uint8_t)checksum_calculate((uint8_t *)&sketch, sizeof(sketch) - 1);
+    // // printlog("sketch SIZE %d",sizeof(sketch));
     mcu_dp_raw_update(DPID_EFFECT_SKETCH, &sketch, sizeof(sketch));
-    // // printlog("mcu_dp_raw_update\r");
-    // // printhex_my((uint8_t*)&sketch,sizeof(sketch));
+}
+/*mcu上报灯效概述-从播放列表的dp上传*/
+void mcu_update_playlist_efsketch(com_issue_cmd_TypeDef *p)
+{
+    com_effect_sketch_TypeDef sketch;
+    Efdetail_TypeDef efdata;
+    memset(&sketch, 0, sizeof(sketch)); // 清零
+    uint8_t i;
+    if (p->data[0] > 4)
+    {
+        return;
+    }
+    sketch.num = p->data[0];
+    for (i = 0; i < sketch.num; i++)
+    {
+        sketch.Efdata[i].index = p->data[i + 1]; // 索引
+        get_effect(&efdata, sketch.Efdata[i].index);
+        sketch.Efdata[i].namelenght = efdata.namelenght;
+        memcpy(&sketch.Efdata[i].Name, &efdata.Name, sizeof(sketch.Efdata[i].Name));                             // 名字
+        sketch.Efdata[i].Attribute = efdata.Attribute;                                                           // 属性
+        sketch.Efdata[i].EffectType = efdata.EffectType;                                                         // 类型
+        memcpy(&sketch.Efdata[i].EfColormioniInf, &efdata.EfColorInf, sizeof(sketch.Efdata[i].EfColormioniInf)); // 颜色
+    }
+    sketch.checksum = (uint8_t)checksum_calculate((uint8_t *)&sketch, sizeof(sketch) - 1);
+    mcu_dp_raw_update(DPID_PLAYLIST_EFFECT_SKETCH, &sketch, sizeof(sketch));
 }
 /*mcu上报全部灯效的顺序表*/
 void mcu_update_allef_ranklist(void)
@@ -56,7 +79,7 @@ void mcu_update_allef_ranklist(void)
     com_ranklist_TypeDef com_ranklist;
     printlog("mcu_update_allef_ranklist\r");
     get_allef_ranklist((ef_ranklist_TypeDef *)&com_ranklist.ranklist);
-    com_ranklist.checksum = (uint8_t)CheckSum_Calu((uint8_t *)&com_ranklist, (uint16_t)sizeof(com_ranklist) - 1);
+    com_ranklist.checksum = (uint8_t)checksum_calculate((uint8_t *)&com_ranklist, (uint16_t)sizeof(com_ranklist) - 1);
     mcu_dp_raw_update(DPID_ALL_EFFECT_RANKLIST, &com_ranklist, sizeof(com_ranklist));
     // // printhex_my(&com_ranklist, sizeof(com_ranklist));
     print_ef_ranklist(&com_ranklist.ranklist);
@@ -67,7 +90,7 @@ void mcu_update_originalef_ranklist(void)
     com_ranklist_TypeDef com_ranklist;
     printlog("mcu_update_originalef_ranklist\r");
     get_originalef_ranklist((ef_ranklist_TypeDef *)&com_ranklist.ranklist);
-    com_ranklist.checksum = (uint8_t)CheckSum_Calu((uint8_t *)&com_ranklist, (uint16_t)sizeof(com_ranklist) - 1);
+    com_ranklist.checksum = (uint8_t)checksum_calculate((uint8_t *)&com_ranklist, (uint16_t)sizeof(com_ranklist) - 1);
     mcu_dp_raw_update(DPID_ORIGINAL_EFFECT_RANKLIST, &com_ranklist, sizeof(com_ranklist));
     print_ef_ranklist(&com_ranklist.ranklist);
     // // // printhex_my(&com_ranklist,sizeof(com_ranklist.ranklist));
@@ -78,7 +101,7 @@ void mcu_update_favoritesef_ranklist(void)
     com_ranklist_TypeDef com_ranklist;
     printlog("mcu_update_favoritesef_ranklist\r");
     get_favoritesef_ranklist((ef_ranklist_TypeDef *)&com_ranklist.ranklist);
-    com_ranklist.checksum = (uint8_t)CheckSum_Calu((uint8_t *)&com_ranklist, (uint16_t)sizeof(com_ranklist) - 1);
+    com_ranklist.checksum = (uint8_t)checksum_calculate((uint8_t *)&com_ranklist, (uint16_t)sizeof(com_ranklist) - 1);
     mcu_dp_raw_update(DPID_FAVORITES_EFFECT_RANKLIST, &com_ranklist, sizeof(com_ranklist));
     print_ef_ranklist(&com_ranklist.ranklist);
 }
@@ -101,7 +124,7 @@ void mcu_update_playlist_ranklist(void)
         com_ranklist.list[i].name.length = name.length;                         // 拷贝名字长度
         memcpy(&com_ranklist.list[i].name.text, &name.text, sizeof(name.text)); // 拷贝名字
     }
-    com_ranklist.checksum = (uint8_t)CheckSum_Calu((uint8_t *)&com_ranklist, (uint16_t)sizeof(com_ranklist) - 1);
+    com_ranklist.checksum = (uint8_t)checksum_calculate((uint8_t *)&com_ranklist, (uint16_t)sizeof(com_ranklist) - 1);
     mcu_dp_raw_update(DPID_PLAY_LIST, &com_ranklist, sizeof(com_ranklist));
     print_com_playlist_ranklist(&com_ranklist);
 }
@@ -110,12 +133,108 @@ void mcu_update_playdetail(uint8_t playnum)
 {
     com_play_detial_TypeDef com;
     printlog("mcu_update_playdetail\r");
-    get_playdetail(&com.pldata,playnum);
-    com.checksum = (uint8_t)CheckSum_Calu((uint8_t *)&com, (uint16_t)sizeof(com) - 1);
+    get_playdetail(&com.pldata, playnum);
+    com.idex = playnum;
+    com.checksum = (uint8_t)checksum_calculate((uint8_t *)&com, (uint16_t)sizeof(com) - 1);
     mcu_dp_raw_update(DPID_PLAY_DETIAL, &com, sizeof(com));
-    print_playdetial(&com.pldata,playnum);
+    print_playdetial(&com.pldata, com.idex);
+}
+/*mcu上报当前播放详情*/
+void mcu_update_current_playdetail(void)
+{
+    com_play_detial_TypeDef com;
+    printlog("mcu_update_current_playdetail\r");
+    get_playdetail(&com.pldata, play.detail.listnum);
+    com.idex = play.detail.listnum;
+    com.checksum = (uint8_t)checksum_calculate((uint8_t *)&com, (uint16_t)sizeof(com) - 1);
+    mcu_dp_raw_update(DPID_PLAY_CONTROL_DETIAL, &com, sizeof(com));
+    // // // // printhex_my(&com, sizeof(com));
+    print_playdetial(&com.pldata, com.idex);
 }
 
+/*mcu上报播放状态*/
+void mcu_update_playstatus(void)
+{
+    com_play_control_TypeDef com;
+    com.type = PLAY_STATUS;// 播放/暂停
+    com.value = play.status;
+    com.checksum = (uint8_t)checksum_calculate((uint8_t *)&com, (uint16_t)sizeof(com) - 1);
+    mcu_dp_raw_update(DPID_PLAY_CONTROL, &com, sizeof(com));
+    com.type = PLAYLIST_INDEX;// 播放列表索引
+    com.value = play.detail.listnum;
+    com.checksum = (uint8_t)checksum_calculate((uint8_t *)&com, (uint16_t)sizeof(com) - 1);
+    mcu_dp_raw_update(DPID_PLAY_CONTROL, &com, sizeof(com));
+    com.type = EFFECT_INDEX;// 效果索引
+    com.value = play.detail.efnum;
+    com.checksum = (uint8_t)checksum_calculate((uint8_t *)&com, (uint16_t)sizeof(com) - 1);
+    mcu_dp_raw_update(DPID_PLAY_CONTROL, &com, sizeof(com));
+    com.type = PLAY_MODE;// 播放循环模式
+    com.value = play.mode;
+    com.checksum = (uint8_t)checksum_calculate((uint8_t *)&com, (uint16_t)sizeof(com) - 1);
+    mcu_dp_raw_update(DPID_PLAY_CONTROL, &com, sizeof(com));
+}
+/*mcu上报设备信息*/
+void mcu_update_device_detail(void)
+{
+    uint8_t i, j;
+    com_device_data_TypeDef com;
+    printlog("mcu_update_device_detail\r");
+    memset(&com, 0, sizeof(com));
+    for (i = 0; i < slave.num; i++)
+    {
+        com.data[i].id = slave.data[i].id;
+        com.data[i].type = slave.data[i].type;
+        com.data[i].angle = slave.data[i].angle;
+        com.data[i].cooed_x = slave.data[i].cooed_x;
+        com.data[i].cooed_y = slave.data[i].cooed_y;
+    }
+    printlog("slave.num:%d\r",slave.num);
+    printhex_my(&com, (slave.num * sizeof(com_device_detail_TypeDef)));
+    mcu_dp_raw_update(DPID_DEVICE_DETAIL, &com, (slave.num * sizeof(com_device_detail_TypeDef))); // RAW型数据上报;
+}
+
+/*mcu上报定时计划概述表*/
+void mcu_update_schedule_sketch(void)
+{
+    com_schedule_sketchlist_TypeDef  com;
+    schedule_list_TypeDef schedule;
+    uint8_t i;
+    printlog("mcu_update_schedule_sketch\r");
+    get_all_schedule(&schedule);
+    memset(&com, 0, sizeof(com));
+    if (schedule.num < SCHEDULE_NUM)
+    {
+        com.num=schedule.num;
+        for (i = 0; i < schedule.num; i++)
+        {
+            com.list[i].index = i;
+            com.list[i].action = schedule.list[i].action;                 // 动作类型
+            com.list[i].actiontime.Min = schedule.list[i].actiontime.Min; // 动作时间
+            com.list[i].actiontime.Sec = schedule.list[i].actiontime.Sec; // 动作时间
+            com.list[i].repeat = schedule.list[i].repeat;                 // 星期计划
+        }
+    }
+    else
+    {
+        printlog("[error] schedule data exception \r");
+        printAssert();
+    }
+    com.checksum = (uint8_t)checksum_calculate((uint8_t *)&com, (uint16_t)sizeof(com) - 1);
+    mcu_dp_raw_update(DPID_CLOCK_LIST, &com, sizeof(com));
+}
+/*mcu上报定时详情*/
+void mcu_update_schedule_detail(uint8_t num)
+{
+    com_schedule_detail_TypeDef com;
+    schedule_detail_TypeDef schedule_detail;
+    printlog("mcu_update_schedule_detail\r");
+    memset(&com, 0, sizeof(com));
+    get_schedule_detail(&schedule_detail, num);
+    com.index = num;
+    copy_schedule_detail_to_com(&schedule_detail, &com);
+    com.checksum = (uint8_t)checksum_calculate((uint8_t *)&com, (uint16_t)sizeof(com) - 1);
+    mcu_dp_raw_update(DPID_CLOCK_DETIAL, &com, sizeof(com));
+}
 /******************************************************************************************************************************************************/
 /*针对DPID_SWITCH_LED的处理函数*/
 void mcu_download_switch_led(uint8_t sw)
@@ -134,7 +253,7 @@ void mcu_download_switch_led(uint8_t sw)
 uint8_t mcu_download_effect_detail_handle(uint8_t *sur, uint16_t length)
 {
     printlog("mcu_download_effect_detail_handle\r");
-    if (com_dataverify(sur, sizeof(com_effect_detial_TypeDef)) == 0)
+    if (com_dataverify(sur, length) == 0)
     {
         return 0;
     }
@@ -148,9 +267,8 @@ uint8_t mcu_download_effect_detail_handle(uint8_t *sur, uint16_t length)
 uint8_t mcu_download_issue_cmd_handle(uint8_t *sur, uint16_t length)
 {
     com_issue_cmd_TypeDef *p;
-    printf("mcu_download_issue_cmd_handle\r");
-    // // // // printhex_my(sur, length);
-    if (com_dataverify(sur, sizeof(com_issue_cmd_TypeDef)) == 0)
+    // // // // printlog("mcu_download_issue_cmd_handle\r");
+    if (com_dataverify(sur, length) == 0)
     {
         return 0;
     }
@@ -160,7 +278,7 @@ uint8_t mcu_download_issue_cmd_handle(uint8_t *sur, uint16_t length)
     case ASK_EFSKETCH: /*效果概述*/
         printlog("ASK_EFSKETCH\r");
         mcu_update_efsketch(p);
-        // printf("mcu update efsketch:%d [%3d] [%3d] [%3d] [%3d]\r",p->data[0],p->data[1],p->data[2],p->data[3],p->data[4]);
+        // printlog("mcu update efsketch:%d [%3d] [%3d] [%3d] [%3d]\r",p->data[0],p->data[1],p->data[2],p->data[3],p->data[4]);
         // printlog("mcu_update_efsketch\r");
         break;
     case ASK_EFDETAIL:                   /*效果详情*/
@@ -201,22 +319,53 @@ uint8_t mcu_download_issue_cmd_handle(uint8_t *sur, uint16_t length)
         mcu_update_originalef_ranklist();
         mcu_update_favoritesef_ranklist();
         break;
-    case ASK_PLAYLISTRANKLISTLIST:
-        printlog("ASK_PLAYLISTRANKLISTLIST\r");
-        mcu_update_playlist_ranklist();
+    case ASK_PLAY_EFSKETCH: /*请求效果概述*/
+        printlog("ASK_PLAY_EFSKETCH\r");
+        mcu_update_playlist_efsketch(p);
         break;
-    case DELETE_PLAYLISTRANKLISTLIST:
-        printlog("ASK_PLAYLISTRANKLISTLIST\r");
+    case REAERVE_CMD11: /*保留*/
+        break;
+    case DELETE_PLAYLISTRANKLISTLIST: /*删除播放列表中某个详情表*/
+        printlog("DELETE_PLAYLISTRANKLISTLIST\r");
         delete_playlist(p->data[0]);
         break;
-    case ASK_PLAYDETAIL:
+    case SWITCH_PLAYLIST: /*切换播放列表*/
+        printlog("SWITCH_PLAYLIST\r");
+        switch_playlist(p->data[0]);
+        mcu_update_current_playdetail(); // 自动上报当前播放详情
+        mcu_update_playstatus();         // 自动上报播放状态
+        break;
+    case ASK_PLAYDETAIL: /*请求播放详情*/
         printlog("ASK_PLAYDETAIL\r");
         mcu_update_playdetail(p->data[0]);
         break;
+    case ASK_PLAYSTATUS: /*请求播放状态*/
+        printlog("ASK_PLAYSTATUS\r");
+        break;
+    case DELETE_SCHEDULE: /*删除定时计划*/
+        printlog("DELETE_SCHEDULE\r");
+        delete_schedule(p->data[0]);
+        break;
+    case ASK_SCHEDULE_DETAIL: /*请求定时详情*/
+        printlog("ASK_SCHEDULE_DETAIL\r");
+        mcu_update_schedule_detail(p->data[0]);
+        break;
+    case ASK_DEVICEDATA: /*请求灯板信息*/
+        printlog("ASK_DEVICEDATA\r");
+        mcu_update_device_detail();
+        print_slave_data();
+        break;
+    case EXIT_APPCONNTROL: /*退出app控制*/
+        printlog("EXIT_APPCONNTROL\r");
+
+        break;
+    case ASK_SCHEDULE_SKETCH: /*请求定时计划表*/
+        printlog("ASK_SCHEDULE_SKETCH\r");
+        mcu_update_schedule_sketch();
+        break;
     default:
-        printlog("cmd err\r");
-        printnumlog(p->cmd);
-        configASSERT(0);
+        printlog("[error] wrong command num:%d\r", p->cmd);
+        printAssert();
         break;
     }
     return 1;
@@ -228,7 +377,7 @@ void mcu_download_effect_preview(uint8_t *sur, uint16_t length)
 //    com_effect_detial_TypeDef p;
 //    printlog("\r\r\r{effect_preview}\r\r");
 //    memcpy(&p, value, sizeof(p));
-//    if ((uint8_t)CheckSum_Calu(value, length - 1) == p.sum)
+//    if ((uint8_t)checksum_calculate(value, length - 1) == p.sum)
 //    {
 //        print_com_effect_detial_log(&p); // 打印log
 //    }
@@ -241,49 +390,145 @@ void mcu_download_effect_preview(uint8_t *sur, uint16_t length)
 }
 
 /*针对DPID_PLAY_DETIAL的处理函数*/
-void mcu_download_play_detial(uint8_t *sur, uint16_t length)
+uint8_t mcu_download_play_detial(uint8_t *sur, uint16_t length)
 {
-    com_play_detial_TypeDef com;
     printlog("mcu_download_play_detial \r");
-    if (com_dataverify(sur, sizeof(com_play_detial_TypeDef)) == 0)
+    if (com_dataverify(sur, length) == 0)
     {
         return 0;
     }
-    print_com_playdetial(sur);
     add_playlist((playdetail_TypeDef *)(&((com_play_detial_TypeDef *)  sur)->pldata), (uint8_t)(((com_play_detial_TypeDef *)  sur)->idex));
+    print_com_playdetial(sur);
     mcu_update_playlist_ranklist();
+    return 1;
+}
+/*针对DPID_PLAY_CONTROL_DETIAL的处理函数*/
+ uint8_t mcu_download_play_control_detial(uint8_t *sur, uint16_t length)
+{
+    com_play_control_TypeDef *p;
+    p=(com_play_control_TypeDef*)sur;
+    printlog("mcu_download_play_control_detial\r");
+    if (com_dataverify(sur, length) == 0)
+    {
+        return 0;
+    }
+    switch (p->type)
+    {
+    case PLAY_STATUS: // 播放/暂停
+        play.status = (playstatus_enum)p->value;
+        break;
+    case PLAY_SWITCH: // 上下曲切换
+
+        break;
+    case EFFECT_INDEX: // 效果索引
+
+        break;
+    case PLAY_MODE: // 播放循环模式
+        play.mode = (playmode_enum)p->value;
+        break;
+    case PLAYLIST_INDEX: // 播放列表索引
+        switch_playlist(p->value);
+        break;
+
+    default:
+        printlog("[error] wrong play type num:%d\r",p->type);
+        printAssert();
+        break;
+    }
+    print_playstatus();
+    return 1;
+}
+
+/*针对DPID_DEVICE_DETAIL的处理函数*/
+void mcu_download_device_detail(uint8_t *sur, uint16_t length)
+{
+    uint8_t i, j;
+    com_device_detail_TypeDef com;
+    device_detail_TypeDef device;
+    printlog("mcu_download_device_detail");
+    j = length / sizeof(com_device_detail_TypeDef); // 算出设备数量
+    for (i = 0; i < j; i++)
+    {
+        memset(&device, 0, sizeof(device));
+        memcpy(&com, sur + (sizeof(com) * i), sizeof(com));
+        device.id = com.id;
+        device.angle = com.angle;
+        device.cooed_x = com.cooed_x;
+        device.cooed_y = com.cooed_y;
+        refresh_device_data(&device);
+    }
+    save_all_slave_data(&slave);
+    print_slave_data();
+}
+/*针对DPID_DEVICE_CONTROL的处理函数*/
+uint8_t mcu_download_device_control(uint8_t *sur, uint16_t length)
+{
+    com_device_control_TypeDef* p;
+    color_TypeDef color;
+    uint8_t i;
+    printlog("mcu_download_device_control\r");
+    if (com_dataverify(sur, length) == 0)
+    {
+        return 0;
+    }
+    printhex_my(sur, length);
+    p = (com_device_control_TypeDef *)sur;
+    for (i = 0; i < p->num; i++)
+    {
+        color.brightness = p->data[i].brightness;
+        color.R = p->data[i].R;
+        color.G = p->data[i].G;
+        color.B = p->data[i].B;
+        color.W = p->data[i].W;
+        refresh_device_color(&color, p->data[i].id);
+    }
+    print_slave_color();
+    return 1;
+}
+/*针对DPID_CLOCK_DETIAL的处理函数*/
+uint8_t mcu_download_clock_detial(uint8_t *sur, uint16_t length)
+{
+    schedule_detail_TypeDef schedule_detail;
+    printlog("mcu_download_clock_detial\r");
+    copy_schedule_detail_from_com((com_schedule_detail_TypeDef *)sur, &schedule_detail);
+    add_schedule(&schedule_detail, ((com_schedule_detail_TypeDef *)sur)->index);
+    mcu_update_schedule_sketch();
 }
 
 /*在线下载固件*/
 void mcu_firmware_download(uint8_t *sur, uint16_t position, uint16_t length)
 {
-    static uint32_t checksum; // 升级包校验和
+    static uint32_t packsum; // 升级包校验和
     if (length == 0)
     {
         // 固件数据发送完成
-        if (Download_checksum_verify(checksum)) // 校验
+        printlog("package sum is 0x%04x\r", packsum);
+        if (packsum == get_firmware_chechsum_norflash()) // 校验存储数据是否与升级包一致
         {
-            printf("\rdownload finish!\r\n");
-            printf("buffer checksum is 0x%04x\r", checksum);
-            OTA_SetFlag(checksum);
+            set_firmware_update_flag(packsum); // 设标志
             /* 重启*/
-            printf("\rSystemReset\r\n");
+            printlog("\rsystem restart..\r\n");
             __NVIC_SystemReset();
-        }
-        else
-        {
-            printf("please restart !\r\n");
+            if (check_firmware_update())
+            {
+                printlog("firmware is correct\r\n");
+            }
+            else
+            {
+                printlog("firmware is error\r\n");
+            }
         }
     }
     else
     {
         // 固件数据处理
-        if (position == 0)
+        if (position == 0) // 收包初始化
         {
-            checksum = 0;
-            printf("CheckSum init \r\n", checksum);
+            packsum = 0;
+            clear_firmware_update_flag();       // 清标志
+            erase_firmware_block64K_norflash(); // 擦除固件区
         }
-        Download_app(position, sur);
-        CheckSum_calculate(&checksum, sur);
+        download_firmware_to_norflash(sur, position); // 下载固件包
+        packsum += checksum_calculate(sur, 256);      // 累计校验和
     }
 }

@@ -14,7 +14,6 @@
 .\objects\main.o: ..\USER\Include\Light.H
 .\objects\main.o: ..\USER\Include\Light.H
 .\objects\main.o: ..\USER\Include\Function_Init.H
-.\objects\main.o: ..\USER\Include\Function_Init.H
 .\objects\main.o: F:\APP\Keil\ARM\ARMCC\Bin\..\include\stdlib.h
 .\objects\main.o: ..\..\Driver\inc\gpio.h
 .\objects\main.o: ..\..\Driver\inc\adc.h
@@ -25,6 +24,7 @@
 .\objects\main.o: ..\USER\Include\FIFO.h
 .\objects\main.o: ..\USER\Include\IR.H
 .\objects\main.o: ..\USER\Include\IR.H
+.\objects\main.o: ..\USER\Include\Function_Init.H
 .\objects\main.o: ..\USER\Include\image.H
 .\objects\main.o: ..\USER\Include\Color.H
 .\objects\main.o: ..\USER\Include\key.h
@@ -51,9 +51,16 @@
 .\objects\main.o: ..\USER\ota\OTA.h
 .\objects\main.o: ..\USER\external_memory\MEM.h
 .\objects\main.o: ..\USER\debug\printlog.h
-.\objects\main.o: ..\USER\Include\comapp.h
+.\objects\main.o: ..\USER\app\comapp.h
+.\objects\main.o: ..\USER\slave\slave.h
 .\objects\main.o: ..\USER\external_memory\user_memory.h
 .\objects\main.o: ..\USER\debug\debug.h
-.\objects\main.o: ..\USER\Include\flashapp.h
+.\objects\main.o: ..\USER\flashapp\flashapp.h
 .\objects\main.o: ..\USER\internal_memory\default_data.h
 .\objects\main.o: ..\USER\internal_memory\internal_memory.h
+.\objects\main.o: ..\USER\ota\newota.h
+.\objects\main.o: ..\USER\master\master.h
+.\objects\main.o: ..\USER\play\play.h
+.\objects\main.o: ..\USER\factory\factory.h
+.\objects\main.o: ..\USER\version\version.h
+.\objects\main.o: ..\USER\parse\parse.h

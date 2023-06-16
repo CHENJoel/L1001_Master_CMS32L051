@@ -33,35 +33,35 @@ Includes
 
 
 
-uint8_t Uart1_rx_buffer[10];
+// uint8_t Uart1_rx_buffer[10];
 
 
 
-uint8_t temp,temp1,temp2;
-unsigned char x,y,z;
+// uint8_t temp,temp1,temp2;
+// unsigned char x,y,z;
 
-unsigned char tempR,tempG,tempB;
+// unsigned char tempR,tempG,tempB;
 
 unsigned char dir;
-uint16_t get_value[8];
-uint16_t avg;
+// uint16_t get_value[8];
+// uint16_t avg;
 uint32_t i;
-unsigned char pppp;
+// // unsigned char pppp;
 
-unsigned char NOW,TAR;
+// unsigned char NOW,TAR;
 
 unsigned char RandomNum;
 
 uint16_t ADC_Buffer[ADC_CNT];	//
 // uint16_t ADC_Buffer[200];	//
 
-uint16_t sdghgeydu;
-uint8_t uart1_buffer[50];
-uint8_t dbywegyeagfy;
-unsigned char ADC_DMA_OK;
-unsigned char ADC_DMA_EN;
-unsigned char FFT_OK;
-unsigned char FFT_Flash;	//
+// // uint16_t sdghgeydu;
+// uint8_t uart1_buffer[50];
+// uint8_t dbywegyeagfy;
+// // unsigned char ADC_DMA_OK;
+// // unsigned char ADC_DMA_EN;
+// // unsigned char FFT_OK;
+// // unsigned char FFT_Flash;	//
 
 uint16_t RunningTimeCnt;
 
@@ -70,7 +70,7 @@ uint16_t RunningTimeCnt;
 
 // Complex_TypeDef FFT_Date[FFT_N];					//创建一个复数数组，大小1024个，占用RAM有 8*1024 = 8.192KB 内存，单片机RAM建议大于10K ，否则程序运行不起来
 
-// // uint16_t runtime_cnt;
+uint16_t runtime_cnt;
 
 
 
@@ -84,7 +84,7 @@ uint16_t RunningTimeCnt;
 // uint8_t rxbuf[BUFF_LEN];
 
 
-uint8_t UART_TEST[]={"ACVFST"};
+// // // uint8_t UART_TEST[]={"ACVFST"};
 
 /***********************************************************************************************************************
 Global variables and functions
@@ -148,9 +148,9 @@ int main()
 	printf("\nHello,I am Matser\n");
 	INTC_EnableIRQ(SR0_IRQn); // 开串口接收中断
 
-	tempR = 0;
-	tempG = 0;
-	tempB = 0;
+	// tempR = 0;
+	// tempG = 0;
+	// tempB = 0;
 	LED1_OFF();
 	LED2_OFF();
 	// LED3_OFF();
@@ -172,7 +172,7 @@ int main()
 	RTC_Init(RTC_64MHZ);
     RTC_Start();
 	wifi_protocol_init();
-	SYS_Init();
+
 	E_Type = 7;
 	E_Color = 0;
 	SYS.POWER_SW = STA_ON;
@@ -209,7 +209,8 @@ int main()
 
 	// DMA_Stop(DMA_VECTOR_ST0);
 	// Debug();
-	norflash_data_init();
+
+	SYS_Init();
 	while (1)
 	{
 		if (T_4MS_FLAG_GetBit)
@@ -217,7 +218,7 @@ int main()
 			T_4MS_FLAG_ClrBit();
 			wifi_uart_service();
 			// OTA_ResetFlag();
-
+			fifo_parse(&Uart0_Buffer.Buffer,sizeof(Uart0_Buffer.Buffer),&parse.read,&Uart0_Buffer.Write,parse.process_buf);
 		}
 		if (T_8MS_FLAG_GetBit)
 		{
@@ -289,8 +290,8 @@ int main()
 			// printf("test\r\n");
 			// APP_update_check();
 			// // // runtime_cnt=0x1234;
-
-			// runtime_cnt++;
+			// printlog("MCU VER 5.2.0 | run:%d\r",runtime_cnt);
+			runtime_cnt++;
 			// printf("%d\r\n",sizeof(UserData_TypeDef));
 			// Memory_AutoUpdate();
 

@@ -26,7 +26,8 @@ Size: 0x40000 , 262144 byte , 2097152 bit , 0x200000 bit
 #define SPARE_SIZE   0x10000UL
 #define VERIFY_SIZE  0xFF
 
-#define EF_MEM_VERIFY "effect data 2023/06/01 16:39"
+#define EF_MEM_VERIFY "effect data 2023/06/13 54888 "
+#define DEFAULE_PLAYLIST_NAME "default list"
 
 typedef struct
 {
@@ -36,8 +37,14 @@ typedef struct
 /************************/
 /*64k擦除灯效数据所在block区*/
 void EffectData_BlockErase_64k(void);
+
+
 /*校验顺序表内数据是否正确*/
 void verify_ranklist(void );
+/*校验灯效数据是否要恢复出厂设置*/
+void verify_factoryreset_effect_norflash(void);
+/* 出厂化内置播放表信息*/
+void init_default_playlist(void);
 /*获取灯效校验信息*/
 void get_effect_verify(verify_Typedef *p);
 /*保存灯效校验信息*/
@@ -75,6 +82,12 @@ void get_favoritesef_ranklist(ef_ranklist_TypeDef *p);
 void get_playlist_ranklist(playlist_ranklist_TypeDef *p);
 /*获取播放列表的名字*/
 void get_playlist_name(name_TypeDef *p, uint8_t playnum);
+/*获取从机设备信息*/
+void get_all_slave_data(device_data_TypeDef* p);
+/* 获取全部定时计划*/
+void get_all_schedule(schedule_list_TypeDef *p);
+/* 获取定时详情*/
+void get_schedule_detail(schedule_detail_TypeDef *p, uint8_t num);
 // // // /*获取播放详情列表的顺序表*/
 // // // void get_playdetaillist_ranklist(playdetaillist_ranklist_TypeDef *p);
 /*************************************************************************/
@@ -93,15 +106,20 @@ void save_originalef_ranklist(ef_ranklist_TypeDef *p);
 void save_favoritesef_ranklist(ef_ranklist_TypeDef *p);
 /*存储播放列表的顺序表*/
 void save_playlist_ranklist(playlist_ranklist_TypeDef *p);
+/*存储从机设备信息*/
+void save_all_slave_data(device_data_TypeDef* p);
+/* 保存时间计划表*/
+void save_all_schedule(schedule_list_TypeDef *p);
+
 // // // /*存储播放详情列表的顺序表*/
 // // // void save_playdetaillist_ranklist(playdetaillist_ranklist_TypeDef *p);
 /*************************************************************************/
 /*比较两个表是否包含的数据是否一样*/
 uint8_t compare_same_ranklist(ef_ranklist_TypeDef *ranklist1, ef_ranklist_TypeDef *ranklist2);
 /*从顺序表中删除参数*/
-uint8_t delete_num_from_ranklist(ef_ranklist_TypeDef *p, uint8_t size, uint8_t efnum);
-/*从顺序表中添加参数*/
-uint8_t add_num_from_ranklist(ef_ranklist_TypeDef *p, uint8_t size, uint8_t efnum);
+uint8_t delete_num_from_effect_ranklist(ef_ranklist_TypeDef *p, uint8_t efnum);
+/*从灯效顺序表中添加元素*/
+uint8_t add_num_from_effect_ranklist(ef_ranklist_TypeDef *p,uint8_t efnum);
 /*删除自定义灯效*/
 uint8_t delete_original_ef(uint8_t efnum);
 /*新增自定义灯效*/
@@ -121,7 +139,14 @@ uint8_t add_playlist(playdetail_TypeDef *p, uint8_t listnum);
 void clear_all_ef_ranklist(void);
 /*删除播放列表*/
 void clear_playlist_ranklist(void);
-
+/*从通信中拷贝定时计划详情*/
+void copy_schedule_detail_from_com(com_schedule_detail_TypeDef *sur, schedule_detail_TypeDef *tar);
+/*拷贝定时计划详情至通信中*/
+void copy_schedule_detail_to_com(schedule_detail_TypeDef *sur, com_schedule_detail_TypeDef *tar);
+/*添加定时计划*/
+uint8_t add_schedule(schedule_detail_TypeDef *p, uint8_t num);
+/*删除定时计划*/
+uint8_t delete_schedule(uint8_t num);
 /*--------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 /*
 
@@ -305,26 +330,28 @@ Flash芯片 P25T22 ，内存2Mbit(256KByte)，地址：0x00000~0x3FFFF
 */
 typedef struct
 {
-    uint8_t pack[APP_SIZE];
+    uint8_t package[OTAPACK_SIZE];
 } otadata_Typedef;
 typedef struct
 {
     volatile otadata_Typedef data;
-    volatile uint8_t Reservred[OTAPACK_SIZE - sizeof(otadata_Typedef)]; /*备用区*/
+// // //     volatile uint8_t Reservred[OTAPACK_SIZE - sizeof(otadata_Typedef)]; /*备用区*/
 } otapack_area_Typedef;
 /********************************************************************************************/
 
 /********************************************************************************************/
 /*                              系统信息 存储区
-*/
+ */
 typedef struct
 {
-    uint8_t res[16];
+    verify_Typedef verify;          // 数据校验区
+    device_data_TypeDef slave;      // 设备信息
+    schedule_list_TypeDef schedule; // 定时任务
 } sysdata_Typedef;
 typedef struct
 {
     volatile sysdata_Typedef data;
-    volatile uint8_t Reservred[SYSDATA_SIZE - sizeof(otadata_Typedef)]; /*备用区*/
+    volatile uint8_t Reservred[SYSDATA_SIZE - sizeof(sysdata_Typedef)]; /*备用区*/
 } sysdata_area_Typedef;
 /********************************************************************************************/
 
@@ -342,7 +369,7 @@ typedef struct
 typedef struct
 {
     volatile efdata_Typedef data;
-    volatile uint8_t Reservred[EFFECT_SIZE - sizeof(otadata_Typedef)]; /*备用区*/
+//     volatile uint8_t Reservred[EFFECT_SIZE - sizeof(efdata_Typedef)]; /*备用区*/
 } efdata_area_Typedef;
 /********************************************************************************************/
 
@@ -356,16 +383,16 @@ typedef struct
 typedef struct
 {
     volatile spare_Typedef data;
-    volatile uint8_t Reservred[SPARE_SIZE - sizeof(otadata_Typedef)]; /*备用区*/
+//     volatile uint8_t Reservred[SPARE_SIZE - sizeof(otadata_Typedef)]; /*备用区*/
 } spare_area_Typedef;
 /************************************************************************************************************************************************/
 // 片外flash空间分配
 typedef struct
 {
-    otapack_area_Typedef otapack;
+    otapack_area_Typedef ota;
     efdata_area_Typedef efdata;
-//     sysdata_area_Typedef sysdata;
-    spare_area_Typedef  spare;
+    sysdata_area_Typedef sysdata;
+//     spare_area_Typedef  spare;
 } norflash_Typedef;
 /************************************************************************************************************************************************/
 

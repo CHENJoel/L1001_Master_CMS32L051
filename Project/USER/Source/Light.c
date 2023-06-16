@@ -13,7 +13,7 @@
 
 
 
-unsigned char Bright_Array[5] = {10, 30, 80, 155, 255}; // 亮度表
+ unsigned char Bright_Array[5] = {10, 30, 80, 155, 255}; // 亮度表
 unsigned char Bright_Level;                            // 亮度等级
 
 /**

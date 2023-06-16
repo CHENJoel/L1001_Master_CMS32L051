@@ -8,6 +8,8 @@ uint8_t com_dataverify(uint8_t *sur, uint16_t size);
 void mcu_update_efdetail(uint8_t efnum);
 /*mcu上报灯效概述*/
 void mcu_update_efsketch(com_issue_cmd_TypeDef *p);
+/*mcu上报灯效概述-从播放列表的dp上传*/
+void mcu_update_playlist_efsketch(com_issue_cmd_TypeDef *p);
 /*mcu上报全部灯效的顺序表*/
 void mcu_update_allef_ranklist(void);
 /*mcu上报自定义灯效的顺序表*/
@@ -18,6 +20,14 @@ void mcu_update_favoritesef_ranklist(void);
 void mcu_update_playlist_ranklist(void);
 /*mcu上报播放详情*/
 void mcu_update_playdetail(uint8_t playnum);
+/*mcu上报当前播放详情*/
+void mcu_update_current_playdetail(void);
+/*mcu上报播放状态*/
+void mcu_update_playstatus(void);
+/*mcu上报定时计划概述表*/
+void mcu_update_schedule_sketch(void);
+/*mcu上报定时详情*/
+void mcu_update_schedule_detail(uint8_t num);
 /*
 
 
@@ -39,9 +49,15 @@ uint8_t mcu_download_issue_cmd_handle(uint8_t *sur, uint16_t length);
 /*针对DPID_EFFECT_PREVIEW的处理函数*/
 void mcu_download_effect_preview(uint8_t *sur, uint16_t length);
 /*针对DPID_PLAY_DETIAL的处理函数*/
-void mcu_download_play_detial(uint8_t *sur, uint16_t length);
+uint8_t mcu_download_play_detial(uint8_t *sur, uint16_t length);
+/*针对DPID_PLAY_CONTROL_DETIAL的处理函数*/
+uint8_t mcu_download_play_control_detial(uint8_t *sur, uint16_t length);
+/*针对DPID_DEVICE_DETAIL的处理函数*/
+void mcu_download_device_detail(uint8_t *sur, uint16_t length);
+/*针对DPID_DEVICE_CONTROL的处理函数*/
+uint8_t mcu_download_device_control(uint8_t *sur, uint16_t length);
 /*
-*/
+ */
 
 /*在线下载固件*/
 void mcu_firmware_download(uint8_t *sur, uint16_t position, uint16_t length);

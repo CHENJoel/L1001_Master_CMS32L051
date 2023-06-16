@@ -1,7 +1,6 @@
 .\objects\fft.o: ..\USER\Source\FFT.c
 .\objects\fft.o: ..\USER\Include\fft.h
 .\objects\fft.o: ..\USER\Include\Function_Init.H
-.\objects\fft.o: ..\USER\Include\Function_Init.H
 .\objects\fft.o: F:\APP\Keil\ARM\ARMCC\Bin\..\include\stdlib.h
 .\objects\fft.o: F:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include\CMS32L051.h
 .\objects\fft.o: F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm0plus.h
@@ -24,6 +23,7 @@
 .\objects\fft.o: ..\USER\Include\FIFO.h
 .\objects\fft.o: ..\USER\Include\IR.H
 .\objects\fft.o: ..\USER\Include\IR.H
+.\objects\fft.o: ..\USER\Include\Function_Init.H
 .\objects\fft.o: ..\USER\Include\image.H
 .\objects\fft.o: ..\USER\Include\Color.H
 .\objects\fft.o: ..\USER\Include\Light.H
@@ -52,9 +52,16 @@
 .\objects\fft.o: ..\USER\ota\OTA.h
 .\objects\fft.o: ..\USER\external_memory\MEM.h
 .\objects\fft.o: ..\USER\debug\printlog.h
-.\objects\fft.o: ..\USER\Include\comapp.h
+.\objects\fft.o: ..\USER\app\comapp.h
+.\objects\fft.o: ..\USER\slave\slave.h
 .\objects\fft.o: ..\USER\external_memory\user_memory.h
 .\objects\fft.o: ..\USER\debug\debug.h
-.\objects\fft.o: ..\USER\Include\flashapp.h
+.\objects\fft.o: ..\USER\flashapp\flashapp.h
 .\objects\fft.o: ..\USER\internal_memory\default_data.h
 .\objects\fft.o: ..\USER\internal_memory\internal_memory.h
+.\objects\fft.o: ..\USER\ota\newota.h
+.\objects\fft.o: ..\USER\master\master.h
+.\objects\fft.o: ..\USER\play\play.h
+.\objects\fft.o: ..\USER\factory\factory.h
+.\objects\fft.o: ..\USER\version\version.h
+.\objects\fft.o: ..\USER\parse\parse.h

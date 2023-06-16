@@ -1,19 +1,12 @@
 #include "user_memory.h"
 
-// W25X_BlockErase
 
-/*64k擦除灯效数据所在block区*/
-void EffectData_BlockErase_64k(void)
-{
-    uint32_t i;
-    // FLASH_ChipErase();
-    // for (i = 0; i < sizeof(efdata_area_Typedef);)
-    // {
-    //     printf("erase %d %d%%\n", i, i * 100 / sizeof(efdata_area_Typedef));
-    //     FLASH_BlockErase((uint32_t) & (NORFLASH->efdata.data) + i);
-    //     i += 0x10000;
-    // }
-}
+// /*64k擦除灯效数据所在block区*/
+// void EffectData_BlockErase_64k(void)
+// {
+//     uint32_t i;
+
+// }
 
 /*对norflash里的数据进行初始化*/
 void norflash_data_init(void)
@@ -168,9 +161,9 @@ void verify_factoryreset_effect_norflash(void)
     {
         printlog("verify_factoryreset_effect_norflash not pass \r\r");
         printlog("Erase effect data block...\r");
-        // EffectData_BlockErase_64k();
+        schedule_factory_reset();
         clear_all_ef_ranklist();            // 删除灯效列表
-        clear_playlist_ranklist();          // 删除播放列表
+        init_default_playlist();            // 出厂化内置播放表信息
         memset(&verify, 0, sizeof(verify)); // 清零
         sprintf(&verify, EF_MEM_VERIFY);
         copy_built_in_ef_to_norflash(); // 初始化灯效信息
@@ -180,6 +173,24 @@ void verify_factoryreset_effect_norflash(void)
     {
         printlog("verify_factoryreset_effect_norflash  pass \r\r");
     }
+}
+
+/* 出厂化内置播放表信息*/
+void init_default_playlist(void)
+{
+    playdetail_TypeDef playdetail;
+    printlog("init default playlist\r\r");
+    clear_playlist_ranklist();
+    memset(&playdetail, 0, sizeof(playdetail));
+    playdetail.name.length = strlen(DEFAULE_PLAYLIST_NAME);
+    memcpy(&playdetail.name.text, DEFAULE_PLAYLIST_NAME, playdetail.name.length);
+    playdetail.DurationTime.Min = 1;
+    playdetail.DurationTime.Sec = 0;
+    playdetail.num = sizeof(df_playlist);
+    memcpy(&playdetail.list, df_playlist, playdetail.num);
+    // printlog("num:%d\r",sizeof(df_playlist));
+    print_playdetial(&playdetail, 0);
+    add_playlist(&playdetail, 0);
 }
 
 /*获取灯效校验信息*/
@@ -403,6 +414,27 @@ void get_playlist_name(name_TypeDef *p, uint8_t playnum)
 {
     FLASHSPI_PageRead((uint8_t *)p, (uint32_t)&NORFLASH->efdata.data.play.pldata[playnum].name, sizeof(name_TypeDef));
 }
+/*获取从机设备信息*/
+void get_all_slave_data(device_data_TypeDef* p)
+{
+    FLASHSPI_PageRead((uint8_t *)p, (uint32_t)&NORFLASH->sysdata.data.slave, sizeof(device_data_TypeDef));
+}
+/* 获取全部定时计划*/
+void get_all_schedule(schedule_list_TypeDef *p)
+{
+    FLASHSPI_PageRead((uint8_t *)p, (uint32_t)&NORFLASH->sysdata.data.schedule, sizeof(schedule_list_TypeDef));
+}
+/* 获取定时详情*/
+void get_schedule_detail(schedule_detail_TypeDef *p, uint8_t num)
+{
+    if (num >= SCHEDULE_NUM)
+    {
+        printlog("[error] get wrong schedule num :%d\r", num);
+        printAssert();
+        return;
+    }
+    FLASHSPI_PageRead((uint8_t *)p, (uint32_t)&NORFLASH->sysdata.data.schedule.list[num], sizeof(schedule_detail_TypeDef));
+}
 
 // /*获取播放详情列表的顺序表*/
 // void get_playdetaillist_ranklist(playdetaillist_ranklist_TypeDef *p)
@@ -452,6 +484,17 @@ void save_playlist_ranklist(playlist_ranklist_TypeDef *p)
 {
     FlashSPI_Insert((uint8_t *)p, (uint32_t)&NORFLASH->efdata.data.ranklist.playlist_ranklist, sizeof(playlist_ranklist_TypeDef));
 }
+/*存储从机设备信息*/
+void save_all_slave_data(device_data_TypeDef *p)
+{
+    FlashSPI_Insert((uint8_t *)p, (uint32_t)&NORFLASH->sysdata.data.slave, sizeof(device_data_TypeDef));
+}
+/* 保存时间计划表*/
+void save_all_schedule(schedule_list_TypeDef *p)
+{
+    FlashSPI_Insert((uint8_t *)p, (uint32_t)&NORFLASH->sysdata.data.schedule, sizeof(schedule_list_TypeDef));
+}
+
 // // /*存储播放详情列表的顺序表*/
 // // void save_playdetaillist_ranklist(playdetaillist_ranklist_TypeDef *p)
 // // {
@@ -461,12 +504,12 @@ void save_playlist_ranklist(playlist_ranklist_TypeDef *p)
 /*******************************************************************************************************************************************************/
 
 /*从顺序表中删除参数*/
-uint8_t delete_num_from_ranklist(ef_ranklist_TypeDef *p, uint8_t size, uint8_t efnum)
+uint8_t delete_num_from_effect_ranklist(ef_ranklist_TypeDef *p, uint8_t efnum)
 {
     ef_ranklist_TypeDef ranklist; // 新信息
     uint8_t i, j;
     memset(&ranklist, 0, sizeof(ranklist));
-    if (p->num > size)
+    if (p->num > sizeof(ranklist.list))
     {
         printlog("delete number in rank list error\r");
         printnumlog(p->num);
@@ -492,20 +535,59 @@ uint8_t delete_num_from_ranklist(ef_ranklist_TypeDef *p, uint8_t size, uint8_t e
     }
     else
     {
-        ranklist.num = j; // 更新顺序表尺寸·
+        ranklist.num = j;                       // 更新顺序表尺寸·
         memcpy(p, &ranklist, sizeof(ranklist)); // 更新顺序表内索引
         printlog("delete number in rank list successful\r");
         return 1;
     }
 }
-/*从顺序表中添加参数*/
-uint8_t add_num_from_ranklist(ef_ranklist_TypeDef *p, uint8_t size, uint8_t efnum)
+
+/*从播放列表顺序表中删除元素*/
+uint8_t delete_num_from_playlist_ranklist(playlist_ranklist_TypeDef *p, uint8_t efnum)
+{
+    playlist_ranklist_TypeDef ranklist; // 新信息
+    uint8_t i, j;
+    memset(&ranklist, 0, sizeof(ranklist));
+    if (p->num > sizeof(ranklist.list))
+    {
+        printlog("delete number in rank list error\r");
+        printnumlog(p->num);
+        return 0;
+    }
+    if (p->num == 0)
+    {
+        printlog("delete empty rank list\r");
+        return 0;
+    }
+    j = 0;
+    for (i = 0; i < p->num; i++)
+    {
+        if (p->list[i] != efnum)
+        {
+            ranklist.list[j++] = p->list[i]; // 将原顺序表拷贝至新顺序表（除了被删除的灯效索引）
+        }
+    }
+    if (j == p->num) // 拷贝数与原顺序表尺寸一致，说明顺序表中不存在被删除的索引
+    {
+        printlog("delete wrong number in rank list\r");
+        return 0;
+    }
+    else
+    {
+        ranklist.num = j;                       // 更新顺序表尺寸·
+        memcpy(p, &ranklist, sizeof(ranklist)); // 更新顺序表内索引
+        printlog("delete number in rank list successful\r");
+        return 1;
+    }
+}
+/*从灯效顺序表中添加元素*/
+uint8_t add_num_from_effect_ranklist(ef_ranklist_TypeDef *p, uint8_t efnum)
 {
     ef_ranklist_TypeDef ranklist; // 新信息
     uint8_t i;
     memset(&ranklist, 0, sizeof(ranklist));
     ranklist.num = 0;
-    if (p->num > size)
+    if (p->num > sizeof(ranklist.list))
     {
         printlog("add number in rank list error\r");
         printnumlog(p->num);
@@ -521,19 +603,51 @@ uint8_t add_num_from_ranklist(ef_ranklist_TypeDef *p, uint8_t size, uint8_t efnu
     if (ranklist.num == p->num) // 拷贝数与原顺序表尺寸一致，说明顺序表中不存在被添加的索引，需添加
     {
         ranklist.list[ranklist.num] = efnum;
-        ranklist.num++;                            // 更新顺序表尺寸
+        ranklist.num++;                         // 更新顺序表尺寸
         memcpy(p, &ranklist, sizeof(ranklist)); // 更新顺序表内索引
         printlog("add number in rank list successful\r");
         return 1;
     }
     else
     {
-        printlog("add existing number in rank list\r");
-        printnumlog(efnum);
+        printlog("Error: add existing number in rank list:%d\r", efnum);
         return 1;
     }
 }
-
+/*从播放列表顺序表中添加元素*/
+uint8_t add_num_from_playlist_ranklist(playlist_ranklist_TypeDef *p, uint8_t efnum)
+{
+    playlist_ranklist_TypeDef ranklist; // 新信息
+    uint8_t i;
+    memset(&ranklist, 0, sizeof(ranklist));
+    ranklist.num = 0;
+    if (p->num > sizeof(ranklist.list))
+    {
+        printlog("add number in rank list error\r");
+        printnumlog(p->num);
+        return 0;
+    }
+    for (i = 0; i < p->num; i++)
+    {
+        if (p->list[i] != efnum)
+        {
+            ranklist.list[ranklist.num++] = p->list[i]; // 将原顺序表拷贝至新顺序表（除了被添加的灯效索引）
+        }
+    }
+    if (ranklist.num == p->num) // 拷贝数与原顺序表尺寸一致，说明顺序表中不存在被添加的索引，需添加
+    {
+        ranklist.list[ranklist.num] = efnum;
+        ranklist.num++;                         // 更新顺序表尺寸
+        memcpy(p, &ranklist, sizeof(ranklist)); // 更新顺序表内索引
+        printlog("add number in rank list successful\r");
+        return 1;
+    }
+    else
+    {
+        printlog("add existing number in rank list:%d\r", efnum);
+        return 1;
+    }
+}
 /*删除自定义灯效*/
 uint8_t delete_original_ef(uint8_t efnum)
 {
@@ -552,17 +666,17 @@ uint8_t delete_original_ef(uint8_t efnum)
 
     /*从全部灯效顺序表中删除该灯效*/
     get_allef_ranklist(&ranklist);              // 获取全部灯效顺序表
-    delete_num_from_ranklist(&ranklist,sizeof(ranklist.list), efnum); // 删除索引
+    delete_num_from_effect_ranklist(&ranklist, efnum); // 删除索引
     save_allef_ranklist(&ranklist);             // 保存全部灯效顺序表
 
     /*从自定义灯效顺序表中删除该灯效*/
     get_originalef_ranklist(&ranklist);         // 获取自定义灯效顺序表
-    delete_num_from_ranklist(&ranklist,sizeof(ranklist.list), efnum); // 删除索引
+    delete_num_from_effect_ranklist(&ranklist, efnum); // 删除索引
     save_originalef_ranklist(&ranklist);        // 保存自定义灯效顺序表;
 
     /*从收藏灯效顺序表中删除该灯效*/
     get_favoritesef_ranklist(&ranklist);        // 获取收藏灯效顺序表
-    delete_num_from_ranklist(&ranklist,sizeof(ranklist.list), efnum); // 删除索引
+    delete_num_from_effect_ranklist(&ranklist, efnum); // 删除索引
     save_favoritesef_ranklist(&ranklist);       // 保存收藏灯效顺序表
 }
 
@@ -580,12 +694,12 @@ uint8_t add_original_ef(Efdetail_TypeDef *p, uint8_t efnum)
 
     /*从全部灯效顺序表中新增该灯效*/
     get_allef_ranklist(&ranklist);           // 获取全部灯效顺序表
-    add_num_from_ranklist(&ranklist,sizeof(ranklist.list), efnum); // 新增索引
+    add_num_from_effect_ranklist(&ranklist, efnum); // 新增索引
     save_allef_ranklist(&ranklist);          // 保存全部灯效顺序表
 
     /*从自定义灯效顺序表中新增该灯效*/
     get_originalef_ranklist(&ranklist);      // 获取自定义灯效顺序表
-    add_num_from_ranklist(&ranklist,sizeof(ranklist.list), efnum); // 新增索引
+    add_num_from_effect_ranklist(&ranklist, efnum); // 新增索引
     save_originalef_ranklist(&ranklist);     // 保存自定义灯效顺序表;
     return 1;
 }
@@ -610,7 +724,7 @@ uint8_t add_favorites_ef(uint8_t efnum)
     ef.Attribute = FAVORITES; // 修改成收藏属性信息
     save_effect(&ef, efnum);
     get_favoritesef_ranklist(&ranklist); // 获取列表信息
-    add_num_from_ranklist(&ranklist,sizeof(ranklist.list), efnum);
+    add_num_from_effect_ranklist(&ranklist, efnum);
     save_favoritesef_ranklist(&ranklist);
     return 1;
 }
@@ -626,7 +740,7 @@ uint8_t delete_favorites_ef(uint8_t efnum)
     save_effect(&ef, efnum);
 
     get_favoritesef_ranklist(&ranklist);        // 获取列表信息
-    delete_num_from_ranklist(&ranklist,sizeof(ranklist.list), efnum); // 删除索引
+    delete_num_from_effect_ranklist(&ranklist, efnum); // 删除索引
     save_favoritesef_ranklist(&ranklist);
     return 1;
 }
@@ -634,10 +748,9 @@ uint8_t delete_favorites_ef(uint8_t efnum)
 /*删除播放列表*/
 uint8_t delete_playlist(uint8_t listnum)
 {
-    playlist_ranklist_TypeDef ranklist; // 列表信息
-
-    get_playlist_ranklist(&ranklist);        // 获取列表信息
-    delete_num_from_ranklist(&ranklist,sizeof(ranklist.list), listnum); // 删除索引
+    playlist_ranklist_TypeDef ranklist;                                  // 列表信息
+    get_playlist_ranklist(&ranklist);                                    // 获取列表信息
+    delete_num_from_playlist_ranklist(&ranklist, listnum); // 删除索引
     save_playlist_ranklist(&ranklist);
     return 1;
 }
@@ -646,11 +759,16 @@ uint8_t delete_playlist(uint8_t listnum)
 uint8_t add_playlist(playdetail_TypeDef *p, uint8_t listnum)
 {
     playlist_ranklist_TypeDef ranklist; // 列表信息
-
+    if (listnum >= sizeof(ranklist.list))
+    {
+        printlog("Error: add existing number in playlist :%d\r", listnum);
+        return 0;
+    }
     save_playdetail(p, listnum);
     get_playlist_ranklist(&ranklist);
-    add_num_from_ranklist(&ranklist, sizeof(ranklist.list), listnum);
+    add_num_from_playlist_ranklist(&ranklist, listnum);
     save_playlist_ranklist(&ranklist);
+    return 1;
 }
 
 /*删除灯效列表*/
@@ -669,4 +787,76 @@ void clear_playlist_ranklist(void)
     playlist_ranklist_TypeDef zi;
     memset(&zi, 0, sizeof(zi));
     save_playlist_ranklist(&zi);
+}
+/*从通信中拷贝定时计划详情*/
+void copy_schedule_detail_from_com(com_schedule_detail_TypeDef *sur, schedule_detail_TypeDef *tar)
+{
+    memcpy(&(tar->name), &(sur->name), sizeof(tar->name)); // 拷贝名字
+    tar->action = sur->action;                             // 动作类型
+    tar->ef_index = sur->ef_index;                         // 灯效的索引号
+    tar->ultimatebright = sur->ultimatebright;             // 最终亮度
+    tar->actiontime.Min = sur->actiontime.Min;             // 动作时间
+    tar->actiontime.Sec = sur->actiontime.Sec;             // 动作时间
+    tar->duration = sur->duration;                         // 持续时间
+    tar->repeat = sur->repeat;                             // 星期计划
+}
+/*拷贝定时计划详情至通信中*/
+void copy_schedule_detail_to_com(schedule_detail_TypeDef *sur, com_schedule_detail_TypeDef *tar)
+{
+    memcpy(&(tar->name), &(sur->name), sizeof(tar->name)); // 拷贝名字
+    tar->action = sur->action;                             // 动作类型
+    tar->ef_index = sur->ef_index;                         // 灯效的索引号
+    tar->ultimatebright = sur->ultimatebright;             // 最终亮度
+    tar->actiontime.Min = sur->actiontime.Min;             // 动作时间
+    tar->actiontime.Sec = sur->actiontime.Sec;             // 动作时间
+    tar->duration = sur->duration;                         // 持续时间
+    tar->repeat = sur->repeat;                             // 星期计划
+}
+
+/*添加定时计划*/
+uint8_t add_schedule(schedule_detail_TypeDef *p, uint8_t num)
+{
+    schedule_list_TypeDef schedule;
+    printlog("add_schedule\r");
+    get_all_schedule(&schedule);
+    if ((schedule.num != 0) && (num > schedule.num || num >= SCHEDULE_NUM))
+    {
+        printlog("[error] add wrong schedule num :%d\r", num);
+        printAssert();
+        return 0;
+    }
+    memcpy(&schedule.list[num], p, sizeof(schedule_detail_TypeDef));
+    if (num == schedule.num) // 新增定时
+    {
+        schedule.num++;
+    }
+    save_all_schedule(&schedule);
+    return 1;
+}
+
+/*删除定时计划*/
+uint8_t delete_schedule(uint8_t num)
+{
+    schedule_list_TypeDef schedule;
+    schedule_list_TypeDef schedule_new;
+    uint8_t i,j;
+    printlog("delete_schedule\r");
+    get_all_schedule(&schedule);
+    if (num > schedule.num || num >= SCHEDULE_NUM || schedule.num == 0)
+    {
+        printlog("[error] delete wrong schedule num :%d\r", num);
+        printAssert();
+        return 0;
+    }
+    memset(&schedule_new,0,sizeof(schedule_new));
+    for ( i = 0; i < schedule.num; i++)
+    {
+        if (i != num)   // 拷贝没被删的定时表
+        {
+            memcpy(&schedule_new.list[schedule_new.num],&schedule.list[i],sizeof(schedule_new.list[i]));
+            schedule_new.num++;
+        }
+    }
+    save_all_schedule(&schedule_new);
+    return 1;
 }

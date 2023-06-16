@@ -8,6 +8,7 @@
 #define EfColor_miniSizeNum 8 // 灯效概述的颜色容量（数量）
 #define Ef_SizeNum 256        // 灯效容量（数量），预留256
 #define PlayList_SizeNum 60   // 播放列表的索引数量
+#define SCHEDULE_NUM 30       // 定时计划表数量
 
 #define original_ef_basenum 128                      // 自定义灯效的基编号
 #define original_ef_num 30                           // 自定义灯效数量
@@ -22,11 +23,13 @@
 #define default_ef_Attribute ORIGIN
 #define default_ef_Direction DIRECTION_UP
 
+
+
 typedef struct
 {
     uint8_t Min; // 分钟
     uint8_t Sec; // 秒
-} Time_TypeDef;
+} time_TypeDef;
 
 typedef struct
 {
@@ -125,7 +128,7 @@ typedef struct
 typedef struct /*  */
 {
     name_TypeDef name;              /* 名字*/
-    Time_TypeDef DurationTime;      /* 持续时间 */
+    time_TypeDef DurationTime;      /* 持续时间 */
     uint8_t num;                    /* 灯效列表中有效数据的数量 */
     uint8_t list[PlayList_SizeNum]; /* 灯效列表 */
 } playdetail_TypeDef; /*播放列表详情*/
@@ -148,12 +151,6 @@ typedef struct /* 播放列表的顺序表 */
     uint8_t list[13];        /* 顺序列表.存储顺序表的索引号 */
 } playlist_ranklist_TypeDef; /* 存储区内空间分布 */
 
-// // // typedef struct /* 播放列表详情 */
-// // // {
-// // //     uint8_t num;                   /* 顺序列表中有效数据的数量 */
-// // //     uint8_t list[60];              /* 顺序列表.存储顺序表详情的索引号 */
-// // // } playdetaillist_ranklist_TypeDef; /* 存储区内空间分布 */
-
 /******************************************************************************************************************/
 typedef struct
 {
@@ -171,37 +168,40 @@ typedef enum /*  */
 {
     TURN_OFF,
     TURN_ON,
-} Action_Enum;
+} action_enum;
+
+typedef union
+{
+    uint8_t week;
+    struct
+    {
+        uint8_t Mon : 1; // 周一
+        uint8_t Tue : 1; // 周二
+        uint8_t Wed : 1; // 周三
+        uint8_t Thu : 1; // 周四
+        uint8_t Fri : 1; // 周五
+        uint8_t Sat : 1; // 周六
+        uint8_t Sun : 1; // 周日
+    } day;
+} repeat_TypeDef; // 重复时间
 
 typedef struct /*  */
 {
-    Action_Enum Action;        // 动作类型
-    uint8_t Ef_id;             // 灯效的索引号
-    uint8_t UltimateBright;    // 最终亮度
-    Time_TypeDef ActionTime;   // 动作时间
-    Time_TypeDef DurationTime; // 持续时间
-    union
-    {
-        uint8_t Week;
-        struct
-        {
-            uint8_t Mon : 1; // 周一
-            uint8_t Tue : 1; // 周二
-            uint8_t Wed : 1; // 周三
-            uint8_t Thu : 1; // 周四
-            uint8_t Fri : 1; // 周五
-            uint8_t Sat : 1; // 周六
-            uint8_t Sun : 1; // 周日
-        } day;
-    } RepeatTime; // 重复时间
-} Routine_TypeDef;
+    name_TypeDef name;
+    action_enum action;      // 动作类型
+    uint8_t ef_index;        // 灯效的索引号
+    uint8_t ultimatebright;  // 最终亮度
+    time_TypeDef actiontime; // 动作时间
+    time_TypeDef duration;   // 持续时间
+    repeat_TypeDef repeat;   // 星期计划
+} schedule_detail_TypeDef;
 
 /******************************************************************************************************************/
 typedef struct /*  */
 {
-    uint8_t Num;              /* 有效数据的数量 */
-    Routine_TypeDef list[30]; /* 定时信息 */
-} RoutineList_TypeDef;
+    uint8_t num;                      /* 有效数据的数量 */
+    schedule_detail_TypeDef list[SCHEDULE_NUM]; /* 定时信息 */
+} schedule_list_TypeDef;
 /******************************************************************************************************************/
 /*********************************************/
 typedef struct

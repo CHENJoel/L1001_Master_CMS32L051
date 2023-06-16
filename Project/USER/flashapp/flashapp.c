@@ -18,27 +18,35 @@ void FlashSPI_Insert(uint8_t *pBuffer, uint32_t WriteAddr, uint16_t NumByteToWri
     uint16_t pageOffset;                    // 页内偏移地址
     uint16_t pageRemain;                    // 当前页内剩余空间
     uint16_t writeRemain;                   // 剩余需写字节数
-    uint8_t flashbuffer[FLASHSPI_PageSize]; // 暂存
+    uint8_t flashbuffer[FLASHSPI_PageSize]; // 暂存,大小为flash的页大小
     pwrite = WriteAddr;
     for (pread = 0; pread < NumByteToWrite;)
     {
-        pageOffset = pwrite % sizeof(flashbuffer);                     // 页内偏移地址
-        pageAddr = pwrite - pageOffset;                                // 当前页首地址
-        pageRemain = sizeof(flashbuffer) - pageOffset;                 // 页内剩余空间
-        writeRemain = NumByteToWrite - pread;                          // 还未被写的字节数
-        FLASHSPI_PageRead(flashbuffer, pageAddr, sizeof(flashbuffer)); // 暂存原来Flash本页里的数据
-        sur = pBuffer + pread;                                         // 读取源数据的第N个数据
-        tar = flashbuffer + pageOffset;                                // 修改当前页偏移地址上的数据
-        if (pageRemain >= writeRemain)                                 // 当前页可以写完剩余数据，写完剩余数据
+        pageOffset = pwrite % sizeof(flashbuffer);     // 页内偏移地址
+        pageAddr = pwrite - pageOffset;                // 当前页首地址
+        pageRemain = sizeof(flashbuffer) - pageOffset; // 页内剩余空间(还可以被写新数据的空间)
+        writeRemain = NumByteToWrite - pread;          // 还未被写的字节数
+
+        sur = pBuffer + pread;          // 读取源数据的第N个数据
+        tar = flashbuffer + pageOffset; // 修改当前页偏移地址上的数据
+        if (pageRemain >= writeRemain)  // 当前页可以写完剩余数据，写完剩余数据（可写空间>=需写数量）
         {
+            if (pageOffset != 0 || writeRemain != sizeof(flashbuffer)) // 偏移为0，且刚好是写满整页新数据时，则不需要读出flash原来的数据,直接覆盖新数据缓存即可
+            {
+                FLASHSPI_PageRead(flashbuffer, pageAddr, sizeof(flashbuffer)); // 暂存原来Flash本页里的数据
+            }
             memcpy(tar, sur, writeRemain);                                  // 拷贝新数据
             FLASHSPI_PageErase(pageAddr);                                   // 擦除本页
             FLASHSPI_PageWrite(flashbuffer, pageAddr, sizeof(flashbuffer)); // 写入修改后的页内容
             pwrite += writeRemain;                                          // 指针偏移已写的字节数
             pread += writeRemain;                                           // 指针偏移已写的字节数
         }
-        else // 当前页写不完,先写满当前页
+        else // 当前页写不完,先写满当前页（可写空间<需写数量）
         {
+            if (pageOffset != 0 || pageRemain != sizeof(flashbuffer)) // 偏移为0，且刚好是写满整页新数据时，则不需要读出flash原来的数据
+            {
+                FLASHSPI_PageRead(flashbuffer, pageAddr, sizeof(flashbuffer)); // 暂存原来Flash本页里的数据
+            }
             memcpy(tar, sur, pageRemain);                                   // 拷贝新数据
             FLASHSPI_PageErase(pageAddr);                                   // 擦除本页
             FLASHSPI_PageWrite(flashbuffer, pageAddr, sizeof(flashbuffer)); // 写入修改后的页内容
@@ -47,6 +55,10 @@ void FlashSPI_Insert(uint8_t *pBuffer, uint32_t WriteAddr, uint16_t NumByteToWri
         }
     }
 }
+
+
+
+
 #endif
 
 #ifdef FLASHROM_EN /*片内flash读写*/
@@ -79,27 +91,35 @@ void FlashROM_Insert(uint8_t *pBuffer, uint32_t WriteAddr, uint16_t NumByteToWri
     uint16_t pageOffset;                    // 页内偏移地址
     uint16_t pageRemain;                    // 当前页内剩余空间
     uint16_t writeRemain;                   // 剩余需写字节数
-    uint8_t flashbuffer[FLASHROM_PageSize]; // 暂存
+    uint8_t flashbuffer[FLASHROM_PageSize]; // 暂存,大小为flash的页大小
     pwrite = WriteAddr;
     for (pread = 0; pread < NumByteToWrite;)
     {
-        pageOffset = pwrite % sizeof(flashbuffer);                     // 页内偏移地址
-        pageAddr = pwrite - pageOffset;                                // 当前页首地址
-        pageRemain = sizeof(flashbuffer) - pageOffset;                 // 页内剩余空间
-        writeRemain = NumByteToWrite - pread;                          // 还未被写的字节数
-        FLASHROM_PageRead(flashbuffer, pageAddr, sizeof(flashbuffer)); // 暂存原来Flash本页里的数据
-        sur = pBuffer + pread;                                         // 读取源数据的第N个数据
-        tar = flashbuffer + pageOffset;                                // 修改当前页偏移地址上的数据
-        if (pageRemain >= writeRemain)                                 // 当前页可以写完剩余数据，写完剩余数据
+        pageOffset = pwrite % sizeof(flashbuffer);     // 页内偏移地址
+        pageAddr = pwrite - pageOffset;                // 当前页首地址
+        pageRemain = sizeof(flashbuffer) - pageOffset; // 页内剩余空间(还可以被写新数据的空间)
+        writeRemain = NumByteToWrite - pread;          // 还未被写的字节数
+
+        sur = pBuffer + pread;          // 读取源数据的第N个数据
+        tar = flashbuffer + pageOffset; // 修改当前页偏移地址上的数据
+        if (pageRemain >= writeRemain)  // 当前页可以写完剩余数据，写完剩余数据（可写空间>=需写数量）
         {
+            if (pageOffset != 0 || writeRemain != sizeof(flashbuffer)) // 偏移为0，且刚好是写满整页新数据时，则不需要读出flash原来的数据,直接覆盖新数据缓存即可
+            {
+                FLASHROM_PageRead(flashbuffer, pageAddr, sizeof(flashbuffer)); // 暂存原来Flash本页里的数据
+            }
             memcpy(tar, sur, writeRemain);                                  // 拷贝新数据
             FLASHROM_PageErase(pageAddr);                                   // 擦除本页
             FLASHROM_PageWrite(flashbuffer, pageAddr, sizeof(flashbuffer)); // 写入修改后的页内容
             pwrite += writeRemain;                                          // 指针偏移已写的字节数
             pread += writeRemain;                                           // 指针偏移已写的字节数
         }
-        else // 当前页写不完,先写满当前页
+        else // 当前页写不完,先写满当前页（可写空间<需写数量）
         {
+            if (pageOffset != 0 || pageRemain != sizeof(flashbuffer)) // 偏移为0，且刚好是写满整页新数据时，则不需要读出flash原来的数据
+            {
+                FLASHROM_PageRead(flashbuffer, pageAddr, sizeof(flashbuffer)); // 暂存原来Flash本页里的数据
+            }
             memcpy(tar, sur, pageRemain);                                   // 拷贝新数据
             FLASHROM_PageErase(pageAddr);                                   // 擦除本页
             FLASHROM_PageWrite(flashbuffer, pageAddr, sizeof(flashbuffer)); // 写入修改后的页内容
@@ -108,7 +128,6 @@ void FlashROM_Insert(uint8_t *pBuffer, uint32_t WriteAddr, uint16_t NumByteToWri
         }
     }
 }
-
 #endif
 
 /*******************************************************************************/

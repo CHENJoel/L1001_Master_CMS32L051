@@ -65,4 +65,17 @@ void print_com_playlist_ranklist(com_playlist_TypeDef* p);
 void print_playdetial(playdetail_TypeDef *p, uint8_t playnum);
 /*打印app下发播放详情*/
 void print_com_playdetial(com_play_detial_TypeDef *p);
+/*打印播放历史*/
+void print_play_history(void);
+/*打印播放状态*/
+void print_playstatus(void);
+/*打印从机设备信息*/
+void print_slave_data(void);
+/*打印从机设备的颜色*/
+void print_slave_color(void);
+
+/*打印名字*/
+void print_name(name_TypeDef*p);
+/*打印定时表*/
+void print_schedule(void);
 #endif

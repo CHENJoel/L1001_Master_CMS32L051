@@ -1,6 +1,5 @@
 .\objects\com.o: ..\USER\Source\Com.c
 .\objects\com.o: ..\USER\Include\Function_Init.H
-.\objects\com.o: ..\USER\Include\Function_Init.H
 .\objects\com.o: F:\APP\Keil\ARM\ARMCC\Bin\..\include\stdlib.h
 .\objects\com.o: F:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include\CMS32L051.h
 .\objects\com.o: F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm0plus.h
@@ -23,6 +22,7 @@
 .\objects\com.o: ..\USER\Include\FIFO.h
 .\objects\com.o: ..\USER\Include\IR.H
 .\objects\com.o: ..\USER\Include\IR.H
+.\objects\com.o: ..\USER\Include\Function_Init.H
 .\objects\com.o: ..\USER\Include\image.H
 .\objects\com.o: ..\USER\Include\Color.H
 .\objects\com.o: ..\USER\Include\Light.H
@@ -51,9 +51,16 @@
 .\objects\com.o: ..\USER\ota\OTA.h
 .\objects\com.o: ..\USER\external_memory\MEM.h
 .\objects\com.o: ..\USER\debug\printlog.h
-.\objects\com.o: ..\USER\Include\comapp.h
+.\objects\com.o: ..\USER\app\comapp.h
+.\objects\com.o: ..\USER\slave\slave.h
 .\objects\com.o: ..\USER\external_memory\user_memory.h
 .\objects\com.o: ..\USER\debug\debug.h
-.\objects\com.o: ..\USER\Include\flashapp.h
+.\objects\com.o: ..\USER\flashapp\flashapp.h
 .\objects\com.o: ..\USER\internal_memory\default_data.h
 .\objects\com.o: ..\USER\internal_memory\internal_memory.h
+.\objects\com.o: ..\USER\ota\newota.h
+.\objects\com.o: ..\USER\master\master.h
+.\objects\com.o: ..\USER\play\play.h
+.\objects\com.o: ..\USER\factory\factory.h
+.\objects\com.o: ..\USER\version\version.h
+.\objects\com.o: ..\USER\parse\parse.h

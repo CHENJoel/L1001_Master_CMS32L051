@@ -1,6 +1,5 @@
 .\objects\colorbox.o: ..\USER\Source\colorbox.c
 .\objects\colorbox.o: ..\USER\Include\Function_Init.H
-.\objects\colorbox.o: ..\USER\Include\Function_Init.H
 .\objects\colorbox.o: F:\APP\Keil\ARM\ARMCC\Bin\..\include\stdlib.h
 .\objects\colorbox.o: F:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include\CMS32L051.h
 .\objects\colorbox.o: F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm0plus.h
@@ -23,6 +22,7 @@
 .\objects\colorbox.o: ..\USER\Include\FIFO.h
 .\objects\colorbox.o: ..\USER\Include\IR.H
 .\objects\colorbox.o: ..\USER\Include\IR.H
+.\objects\colorbox.o: ..\USER\Include\Function_Init.H
 .\objects\colorbox.o: ..\USER\Include\image.H
 .\objects\colorbox.o: ..\USER\Include\Color.H
 .\objects\colorbox.o: ..\USER\Include\Light.H
@@ -51,9 +51,16 @@
 .\objects\colorbox.o: ..\USER\ota\OTA.h
 .\objects\colorbox.o: ..\USER\external_memory\MEM.h
 .\objects\colorbox.o: ..\USER\debug\printlog.h
-.\objects\colorbox.o: ..\USER\Include\comapp.h
+.\objects\colorbox.o: ..\USER\app\comapp.h
+.\objects\colorbox.o: ..\USER\slave\slave.h
 .\objects\colorbox.o: ..\USER\external_memory\user_memory.h
 .\objects\colorbox.o: ..\USER\debug\debug.h
-.\objects\colorbox.o: ..\USER\Include\flashapp.h
+.\objects\colorbox.o: ..\USER\flashapp\flashapp.h
 .\objects\colorbox.o: ..\USER\internal_memory\default_data.h
 .\objects\colorbox.o: ..\USER\internal_memory\internal_memory.h
+.\objects\colorbox.o: ..\USER\ota\newota.h
+.\objects\colorbox.o: ..\USER\master\master.h
+.\objects\colorbox.o: ..\USER\play\play.h
+.\objects\colorbox.o: ..\USER\factory\factory.h
+.\objects\colorbox.o: ..\USER\version\version.h
+.\objects\colorbox.o: ..\USER\parse\parse.h

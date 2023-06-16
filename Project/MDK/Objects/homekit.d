@@ -9,7 +9,6 @@
 .\objects\homekit.o: ..\USER\mcu_sdk\mcu_api.h
 .\objects\homekit.o: ..\USER\mcu_sdk\homekit.h
 .\objects\homekit.o: ..\USER\Include\Function_Init.H
-.\objects\homekit.o: ..\USER\Include\Function_Init.H
 .\objects\homekit.o: F:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include\CMS32L051.h
 .\objects\homekit.o: F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm0plus.h
 .\objects\homekit.o: F:\APP\Keil\ARM\ARMCC\Bin\..\include\stdint.h
@@ -29,6 +28,7 @@
 .\objects\homekit.o: ..\USER\Include\FIFO.h
 .\objects\homekit.o: ..\USER\Include\IR.H
 .\objects\homekit.o: ..\USER\Include\IR.H
+.\objects\homekit.o: ..\USER\Include\Function_Init.H
 .\objects\homekit.o: ..\USER\Include\image.H
 .\objects\homekit.o: ..\USER\Include\Color.H
 .\objects\homekit.o: ..\USER\Include\Light.H
@@ -52,9 +52,16 @@
 .\objects\homekit.o: ..\USER\external_memory\MEM.h
 .\objects\homekit.o: ..\USER\Include\Inf.h
 .\objects\homekit.o: ..\USER\debug\printlog.h
-.\objects\homekit.o: ..\USER\Include\comapp.h
+.\objects\homekit.o: ..\USER\app\comapp.h
+.\objects\homekit.o: ..\USER\slave\slave.h
 .\objects\homekit.o: ..\USER\external_memory\user_memory.h
 .\objects\homekit.o: ..\USER\debug\debug.h
-.\objects\homekit.o: ..\USER\Include\flashapp.h
+.\objects\homekit.o: ..\USER\flashapp\flashapp.h
 .\objects\homekit.o: ..\USER\internal_memory\default_data.h
 .\objects\homekit.o: ..\USER\internal_memory\internal_memory.h
+.\objects\homekit.o: ..\USER\ota\newota.h
+.\objects\homekit.o: ..\USER\master\master.h
+.\objects\homekit.o: ..\USER\play\play.h
+.\objects\homekit.o: ..\USER\factory\factory.h
+.\objects\homekit.o: ..\USER\version\version.h
+.\objects\homekit.o: ..\USER\parse\parse.h

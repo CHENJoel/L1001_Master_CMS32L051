@@ -29,12 +29,12 @@ void debug_save_effect_detial(void)
     // printf("\rsave\r");
     // memset(&eff,i,sizeof(eff));
     // printhex_my(&eff,sizeof(eff));
-    // printf("sum:%d\n",CheckSum_Calu(&eff,sizeof(eff)));
+    // printf("sum:%d\n",checksum_calculate(&eff,sizeof(eff)));
     save_effect(&eff,0);
 
     // memset(&eff,0,sizeof(eff));
     get_effect(&eff,0);
-    // printf("sum:%d\n",CheckSum_Calu(&eff,sizeof(eff)));
+    // printf("sum:%d\n",checksum_calculate(&eff,sizeof(eff)));
     print_effect_detial(&eff,0);
     // printf("\read\r\r");
     // printhex_my(&eff,sizeof(eff));

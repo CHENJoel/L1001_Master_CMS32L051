@@ -1,7 +1,6 @@
 .\objects\driver_spi.o: ..\USER\external_memory\driver_spi.c
 .\objects\driver_spi.o: ..\USER\external_memory\driver_spi.h
 .\objects\driver_spi.o: ..\USER\Include\Function_Init.H
-.\objects\driver_spi.o: ..\USER\Include\Function_Init.H
 .\objects\driver_spi.o: F:\APP\Keil\ARM\ARMCC\Bin\..\include\stdlib.h
 .\objects\driver_spi.o: F:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include\CMS32L051.h
 .\objects\driver_spi.o: F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm0plus.h
@@ -24,6 +23,7 @@
 .\objects\driver_spi.o: ..\USER\Include\FIFO.h
 .\objects\driver_spi.o: ..\USER\Include\IR.H
 .\objects\driver_spi.o: ..\USER\Include\IR.H
+.\objects\driver_spi.o: ..\USER\Include\Function_Init.H
 .\objects\driver_spi.o: ..\USER\Include\image.H
 .\objects\driver_spi.o: ..\USER\Include\Color.H
 .\objects\driver_spi.o: ..\USER\Include\Light.H
@@ -52,9 +52,16 @@
 .\objects\driver_spi.o: ..\USER\ota\OTA.h
 .\objects\driver_spi.o: ..\USER\external_memory\MEM.h
 .\objects\driver_spi.o: ..\USER\debug\printlog.h
-.\objects\driver_spi.o: ..\USER\Include\comapp.h
+.\objects\driver_spi.o: ..\USER\app\comapp.h
+.\objects\driver_spi.o: ..\USER\slave\slave.h
 .\objects\driver_spi.o: ..\USER\external_memory\user_memory.h
 .\objects\driver_spi.o: ..\USER\debug\debug.h
-.\objects\driver_spi.o: ..\USER\Include\flashapp.h
+.\objects\driver_spi.o: ..\USER\flashapp\flashapp.h
 .\objects\driver_spi.o: ..\USER\internal_memory\default_data.h
 .\objects\driver_spi.o: ..\USER\internal_memory\internal_memory.h
+.\objects\driver_spi.o: ..\USER\ota\newota.h
+.\objects\driver_spi.o: ..\USER\master\master.h
+.\objects\driver_spi.o: ..\USER\play\play.h
+.\objects\driver_spi.o: ..\USER\factory\factory.h
+.\objects\driver_spi.o: ..\USER\version\version.h
+.\objects\driver_spi.o: ..\USER\parse\parse.h

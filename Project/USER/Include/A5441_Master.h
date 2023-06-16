@@ -180,5 +180,5 @@ uint8_t BCD_To_DATA(uint8_t bcd);  // BCD码转换为数据
 void RTC_Check(uint8_t time[]);
 void RTC_Task(void);
 
-uint16_t CheckSum_Calu(uint8_t *sur, uint16_t len); // 计算校验和
+uint32_t checksum_calculate(uint8_t *sur, uint32_t len); // 计算校验和
 #endif

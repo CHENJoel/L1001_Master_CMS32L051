@@ -1,6 +1,5 @@
 .\objects\a5441_master.o: ..\USER\Source\A5441_Master.c
 .\objects\a5441_master.o: ..\USER\Include\Function_Init.H
-.\objects\a5441_master.o: ..\USER\Include\Function_Init.H
 .\objects\a5441_master.o: F:\APP\Keil\ARM\ARMCC\Bin\..\include\stdlib.h
 .\objects\a5441_master.o: F:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include\CMS32L051.h
 .\objects\a5441_master.o: F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm0plus.h
@@ -23,6 +22,7 @@
 .\objects\a5441_master.o: ..\USER\Include\FIFO.h
 .\objects\a5441_master.o: ..\USER\Include\IR.H
 .\objects\a5441_master.o: ..\USER\Include\IR.H
+.\objects\a5441_master.o: ..\USER\Include\Function_Init.H
 .\objects\a5441_master.o: ..\USER\Include\image.H
 .\objects\a5441_master.o: ..\USER\Include\Color.H
 .\objects\a5441_master.o: ..\USER\Include\Light.H
@@ -51,9 +51,16 @@
 .\objects\a5441_master.o: ..\USER\ota\OTA.h
 .\objects\a5441_master.o: ..\USER\external_memory\MEM.h
 .\objects\a5441_master.o: ..\USER\debug\printlog.h
-.\objects\a5441_master.o: ..\USER\Include\comapp.h
+.\objects\a5441_master.o: ..\USER\app\comapp.h
+.\objects\a5441_master.o: ..\USER\slave\slave.h
 .\objects\a5441_master.o: ..\USER\external_memory\user_memory.h
 .\objects\a5441_master.o: ..\USER\debug\debug.h
-.\objects\a5441_master.o: ..\USER\Include\flashapp.h
+.\objects\a5441_master.o: ..\USER\flashapp\flashapp.h
 .\objects\a5441_master.o: ..\USER\internal_memory\default_data.h
 .\objects\a5441_master.o: ..\USER\internal_memory\internal_memory.h
+.\objects\a5441_master.o: ..\USER\ota\newota.h
+.\objects\a5441_master.o: ..\USER\master\master.h
+.\objects\a5441_master.o: ..\USER\play\play.h
+.\objects\a5441_master.o: ..\USER\factory\factory.h
+.\objects\a5441_master.o: ..\USER\version\version.h
+.\objects\a5441_master.o: ..\USER\parse\parse.h

@@ -22,8 +22,8 @@ typedef struct
     unsigned int Write;                     /* 缓存区待写指针 */
     unsigned int Read;                      /* 缓存区待读指针 */
 } FIFOTypeDef;
-extern FIFOTypeDef Uart0_Buffer, Uart1_Buffer;
-
+// // // extern FIFOTypeDef Uart0_Buffer, Uart1_Buffer;
+extern FIFOTypeDef Uart0_Buffer;
 extern unsigned char RX_DataPackage[6];    // 从机发来的正确数据包
 
 void FIFO_Byte_Push(FIFOTypeDef *StructDAT, unsigned char *Data);               // 将数据压入缓存

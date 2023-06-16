@@ -13,8 +13,6 @@
 FlagTypeDef flag;
 
 PlayingStateTypeDef PlayingState;
-// uint8_t tx_buffer[50] = "百问科技 www.100ask.net";
-// uint8_t rx_buffer[50] = {0};
 
 // uint8_t test_buffer[256];
 
@@ -176,6 +174,12 @@ void GPIO_Init(void)
 void SYS_Init(void)
 {
     flag.byte=0;
+
+    ID_Init();
+    norflash_data_init();
+    play_init();
+    generate_virtual_device();
+    // schedule_factory_reset
 }
 
 /**
@@ -1293,7 +1297,7 @@ void Data_Init(void)
 
 unsigned char Random_Generate(void)
 {
-    Random_sys += Random_base; // 随机数叠加生成.
+    Random_sys += Random_base; // 随机数叠加生成
     Random_sys += rand();      // 随机数叠加生成
     return Random_sys;
 }
@@ -2532,10 +2536,10 @@ void RTC_Task(void)
 
 
 /*计算校验和*/
-uint16_t CheckSum_Calu(uint8_t *sur, uint16_t len)
+uint32_t checksum_calculate(uint8_t *sur, uint32_t len)
 {
-	uint16_t i;
-	uint16_t sum = 0;
+	uint32_t i;
+	uint32_t sum = 0;
 	for (i = 0; i < len; i++)
 	{
 		sum += *sur++;

@@ -276,7 +276,7 @@
               <OCR_RVCT4>
                 <Type>1</Type>
                 <StartAddress>0x5000</StartAddress>
-                <Size>0x97f0</Size>
+                <Size>0xb000</Size>
               </OCR_RVCT4>
               <OCR_RVCT5>
                 <Type>1</Type>
@@ -339,7 +339,7 @@
               <MiscControls></MiscControls>
               <Define></Define>
               <Undefine></Undefine>
-              <IncludePath>..\USER\Include;..\..\Driver\inc;..\USER\mcu_sdk;..\USER\ota;..\USER\internal_memory;..\USER\external_memory;..\USER\debug;..\USER\app</IncludePath>
+              <IncludePath>..\USER\Include;..\..\Driver\inc;..\USER\mcu_sdk;..\USER\ota;..\USER\internal_memory;..\USER\external_memory;..\USER\debug;..\USER\app;..\USER\flashapp;..\USER\master;..\USER\play;..\USER\slave;..\USER\factory;..\USER\version;..\USER\parse</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -462,16 +462,6 @@
               <FileName>colorbox.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\USER\Source\colorbox.c</FilePath>
-            </File>
-            <File>
-              <FileName>comapp.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\USER\Source\comapp.c</FilePath>
-            </File>
-            <File>
-              <FileName>flashapp.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\USER\Source\flashapp.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -663,6 +653,16 @@
               <FileType>5</FileType>
               <FilePath>..\USER\app\appfunction.h</FilePath>
             </File>
+            <File>
+              <FileName>comapp.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\USER\app\comapp.c</FilePath>
+            </File>
+            <File>
+              <FileName>comapp.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\USER\app\comapp.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -677,6 +677,16 @@
               <FileName>ota.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\USER\ota\ota.h</FilePath>
+            </File>
+            <File>
+              <FileName>newota.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\USER\ota\newota.c</FilePath>
+            </File>
+            <File>
+              <FileName>newota.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\USER\ota\newota.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -702,6 +712,111 @@
               <FileName>printlog.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\USER\debug\printlog.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>user_flashapp</GroupName>
+          <Files>
+            <File>
+              <FileName>flashapp.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\USER\flashapp\flashapp.c</FilePath>
+            </File>
+            <File>
+              <FileName>flashapp.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\USER\flashapp\flashapp.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>user_master</GroupName>
+          <Files>
+            <File>
+              <FileName>master.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\USER\master\master.c</FilePath>
+            </File>
+            <File>
+              <FileName>master.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\USER\master\master.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>user_play</GroupName>
+          <Files>
+            <File>
+              <FileName>play.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\USER\play\play.c</FilePath>
+            </File>
+            <File>
+              <FileName>play.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\USER\play\play.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>user_device</GroupName>
+          <Files>
+            <File>
+              <FileName>slave.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\USER\slave\slave.c</FilePath>
+            </File>
+            <File>
+              <FileName>slave.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\USER\slave\slave.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>user_factory</GroupName>
+          <Files>
+            <File>
+              <FileName>factory.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\USER\factory\factory.c</FilePath>
+            </File>
+            <File>
+              <FileName>factory.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\USER\factory\factory.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>user_version</GroupName>
+          <Files>
+            <File>
+              <FileName>version.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\USER\version\version.c</FilePath>
+            </File>
+            <File>
+              <FileName>version.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\USER\version\version.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>user_parse</GroupName>
+          <Files>
+            <File>
+              <FileName>parse.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\USER\parse\parse.c</FilePath>
+            </File>
+            <File>
+              <FileName>parse.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\USER\parse\parse.h</FilePath>
             </File>
           </Files>
         </Group>

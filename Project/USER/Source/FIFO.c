@@ -8,8 +8,8 @@
  */
 #include "FIFO.H"
 
-FIFOTypeDef Uart0_Buffer, Uart1_Buffer;
-
+// // // FIFOTypeDef Uart0_Buffer, Uart1_Buffer;
+FIFOTypeDef Uart0_Buffer;
 /**
  * @description:一字节大小的数据压入缓存栈区
  * @param {FIFOTypeDef} *StructDAT  缓存结构体

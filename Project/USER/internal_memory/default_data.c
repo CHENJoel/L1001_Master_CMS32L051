@@ -1,7 +1,7 @@
 #include "Function_Init.H"
 #include "default_data.h"
 #define endingcolor 255, 255, 255, 255, // 结束颜色标志，用于判断当前为最后一个颜色
-df_data_TypeDef dfdata[built_in_ef_num] =
+const df_data_TypeDef dfdata[built_in_ef_num] =
 {
     {"Reading",     (p_arry)df_White_4000K,  STATIC_TYPE, FLOW_STATIC },/*0*/
     {"Working",     (p_arry)df_White_3500K,  STATIC_TYPE, FLOW_STATIC },/*1*/
@@ -36,6 +36,7 @@ df_data_TypeDef dfdata[built_in_ef_num] =
     {"Disco",       (p_arry)df_Disco,        RHYTHM_TYPE,FLOW_REVERB },/*28*/
     {"Dance Party",  (p_arry)df_DanceParty,  RHYTHM_TYPE,FLOW_RANDOM },/*29*/
 };
+const uint8_t df_playlist[25] = {10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24};
 
 const uint8_t df_testcolor1[][4] = {
     {0, 255, 0, 0},
@@ -64,6 +65,7 @@ const uint8_t df_testcolor5[][4] = {
     {0, 0, 255, 0},   // 蓝
     {139, 0, 255, 0}, // 紫
     // {18, 0, 83, 0},   // 黛
+    {endingcolor},
 };
 
 const uint8_t df_White_4000K[][4] = {

@@ -11,8 +11,8 @@ typedef struct
     Flow_Enum Flow;             /* 动态效果 */
 } df_data_TypeDef; /*内置灯效信息*/
 
-
-extern df_data_TypeDef dfdata[built_in_ef_num];
+extern const uint8_t df_playlist[25];
+extern const df_data_TypeDef dfdata[built_in_ef_num];
 
 extern const uint8_t df_testcolor1[][4];
 extern const uint8_t df_testcolor2[][4];

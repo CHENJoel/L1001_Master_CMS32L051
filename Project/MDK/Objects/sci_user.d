@@ -9,7 +9,6 @@
 .\objects\sci_user.o: F:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include\system_CMS32L051.h
 .\objects\sci_user.o: ..\..\Driver\inc\sci.h
 .\objects\sci_user.o: ..\USER\Include\Function_Init.H
-.\objects\sci_user.o: ..\USER\Include\Function_Init.H
 .\objects\sci_user.o: F:\APP\Keil\ARM\ARMCC\Bin\..\include\stdlib.h
 .\objects\sci_user.o: ..\..\Driver\inc\gpio.h
 .\objects\sci_user.o: ..\..\Driver\inc\tim4.h
@@ -23,6 +22,7 @@
 .\objects\sci_user.o: ..\USER\Include\FIFO.h
 .\objects\sci_user.o: ..\USER\Include\IR.H
 .\objects\sci_user.o: ..\USER\Include\IR.H
+.\objects\sci_user.o: ..\USER\Include\Function_Init.H
 .\objects\sci_user.o: ..\USER\Include\image.H
 .\objects\sci_user.o: ..\USER\Include\Color.H
 .\objects\sci_user.o: ..\USER\Include\Light.H
@@ -51,9 +51,16 @@
 .\objects\sci_user.o: ..\USER\ota\OTA.h
 .\objects\sci_user.o: ..\USER\external_memory\MEM.h
 .\objects\sci_user.o: ..\USER\debug\printlog.h
-.\objects\sci_user.o: ..\USER\Include\comapp.h
+.\objects\sci_user.o: ..\USER\app\comapp.h
+.\objects\sci_user.o: ..\USER\slave\slave.h
 .\objects\sci_user.o: ..\USER\external_memory\user_memory.h
 .\objects\sci_user.o: ..\USER\debug\debug.h
-.\objects\sci_user.o: ..\USER\Include\flashapp.h
+.\objects\sci_user.o: ..\USER\flashapp\flashapp.h
 .\objects\sci_user.o: ..\USER\internal_memory\default_data.h
 .\objects\sci_user.o: ..\USER\internal_memory\internal_memory.h
+.\objects\sci_user.o: ..\USER\ota\newota.h
+.\objects\sci_user.o: ..\USER\master\master.h
+.\objects\sci_user.o: ..\USER\play\play.h
+.\objects\sci_user.o: ..\USER\factory\factory.h
+.\objects\sci_user.o: ..\USER\version\version.h
+.\objects\sci_user.o: ..\USER\parse\parse.h

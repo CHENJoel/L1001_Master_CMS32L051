@@ -18,7 +18,7 @@
 #ifndef _Function_Init_H_
 #define _Function_Init_H_
 
-#include "Function_Init.H"
+// // #include "Function_Init.H"
 #include <stdlib.h>
 #include "CMS32L051.h"
 #include "userdefine.h"
@@ -65,7 +65,13 @@
 #include "flashapp.h"
 #include "default_data.h"
 #include "internal_memory.h"
-
+#include "newota.h"
+#include "master.h"
+#include "play.h"
+#include "slave.h"
+#include "factory.h"
+#include "version.h"
+#include "parse.h"
 #define IR_Version 0
 
 
@@ -115,10 +121,10 @@ extern uint16_t avg;
 
 extern unsigned int Fre_Val[65];
 
-extern unsigned char ADC_DMA_OK;
-extern unsigned char ADC_DMA_EN;
-extern unsigned char FFT_OK;
-extern unsigned char FFT_Flash;	//
+// extern unsigned char ADC_DMA_OK;
+// extern unsigned char ADC_DMA_EN;
+// extern unsigned char FFT_OK;
+// extern unsigned char FFT_Flash;	//
 
 #define WIFI_SET()    PORT_SetBit(PORT12, PIN1)
 #define WIFI_RST()    PORT_ClrBit(PORT12, PIN1)

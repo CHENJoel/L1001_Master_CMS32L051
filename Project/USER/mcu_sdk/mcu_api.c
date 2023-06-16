@@ -128,6 +128,11 @@ void *my_memcpy(void *dest, const void *src, u16 count)
 
     if((pdest <= psrc) || (pdest > psrc + count)) {
         for(i = 0; i < count; i ++) {
+            // if (&pdest[i]==&slave.num)
+            // {
+            //     printlog("memcpy");
+            // }
+
             pdest[i] = psrc[i];
         }
     }else {
@@ -449,59 +454,68 @@ void uart_receive_input(u8 value)
  */
 void wifi_uart_service(void)
 {
-    //#error "请直接在main函数的while(1){}中添加wifi_uart_service(),调用该函数不要加任何条件判断,完成后删除该行"
+    // #error "请直接在main函数的while(1){}中添加wifi_uart_service(),调用该函数不要加任何条件判断,完成后删除该行"
     static u16 rx_in = 0;
     u16 offset = 0;
     u16 rx_value_len = 0;
 
-    while((rx_in < sizeof(wifi_data_process_buf)) && with_data_rxbuff() > 0) {
-        wifi_data_process_buf[rx_in ++] = take_byte_rxbuff();
+    while ((rx_in < sizeof(wifi_data_process_buf)) && with_data_rxbuff() > 0)
+    {
+        wifi_data_process_buf[rx_in++] = take_byte_rxbuff();
     }
 
-    if(rx_in < PROTOCOL_HEAD)
+    if (rx_in < PROTOCOL_HEAD)
         return;
 
-    while((rx_in - offset) >= PROTOCOL_HEAD) {
-        if(wifi_data_process_buf[offset + HEAD_FIRST] != FRAME_FIRST) {
-            offset ++;
+    while ((rx_in - offset) >= PROTOCOL_HEAD)
+    {
+        if (wifi_data_process_buf[offset + HEAD_FIRST] != FRAME_FIRST)
+        {
+            offset++;
             continue;
         }
 
-        if(wifi_data_process_buf[offset + HEAD_SECOND] != FRAME_SECOND) {
-            offset ++;
+        if (wifi_data_process_buf[offset + HEAD_SECOND] != FRAME_SECOND)
+        {
+            offset++;
             continue;
         }
 
-        if(wifi_data_process_buf[offset + PROTOCOL_VERSION] != MCU_RX_VER) {
+        if (wifi_data_process_buf[offset + PROTOCOL_VERSION] != MCU_RX_VER)
+        {
             offset += 2;
             continue;
         }
 
         rx_value_len = wifi_data_process_buf[offset + LENGTH_HIGH] * 0x100;
         rx_value_len += (wifi_data_process_buf[offset + LENGTH_LOW] + PROTOCOL_HEAD);
-        if(rx_value_len > sizeof(wifi_data_process_buf) + PROTOCOL_HEAD) {
+        if (rx_value_len > sizeof(wifi_data_process_buf) + PROTOCOL_HEAD)
+        {
             offset += 3;
             continue;
         }
 
-        if((rx_in - offset) < rx_value_len) {
+        if ((rx_in - offset) < rx_value_len)
+        {
             break;
         }
 
-        //数据接收完成
-        if(get_check_sum((u8 *)wifi_data_process_buf + offset,rx_value_len - 1) != wifi_data_process_buf[offset + rx_value_len - 1]) {
-            //校验出错
-            //printf("crc error (crc:0x%X  but data:0x%X)\r\n",get_check_sum((u8 *)wifi_data_process_buf + offset,rx_value_len - 1),wifi_data_process_buf[offset + rx_value_len - 1]);
+        // 数据接收完成
+        if (get_check_sum((u8 *)wifi_data_process_buf + offset, rx_value_len - 1) != wifi_data_process_buf[offset + rx_value_len - 1])
+        {
+            // 校验出错
+            // printf("crc error (crc:0x%X  but data:0x%X)\r\n",get_check_sum((u8 *)wifi_data_process_buf + offset,rx_value_len - 1),wifi_data_process_buf[offset + rx_value_len - 1]);
             offset += 3;
             continue;
         }
 
         data_handle(offset);
         offset += rx_value_len;
-    }//end while
+    } // end while
 
     rx_in -= offset;
-    if(rx_in > 0) {
+    if (rx_in > 0)
+    {
         my_memcpy((char *)wifi_data_process_buf, (const char *)wifi_data_process_buf + offset, rx_in);
     }
 }

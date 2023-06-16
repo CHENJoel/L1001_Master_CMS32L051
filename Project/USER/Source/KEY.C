@@ -191,7 +191,7 @@ unsigned char Numeric_Keyboard(unsigned char keyval, unsigned char command)
 
 void Keyboard_Out(uint8_t *keyval, uint8_t *OutVal)
 {
-
+	unsigned char temp;
 	*OutVal = 0xFF;
 	if (*keyval != 0xFF)
 	{
