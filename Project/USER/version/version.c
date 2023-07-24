@@ -1,10 +1,23 @@
+/*
+ * @Author: joel
+ * .chen sandote@163.om
+ * @Date: 2023-06-15 13:43:43
+ * @LastEditors: joel
+.chen sandote@163.om
+ * .chen sandote@163.om
+ * @LastEditTime: 2023-07-03 20:06:21
+ * @FilePath: \L1001_Master_CMS32L051\Project\USER\version\version.c
+ * @Description:
+ *
+ * Copyright (c) 2023 by ${git_name_email}, All Rights Reserved.
+ */
 #include "version.h"
 
-volatile const firmware_inf_TypeDef firmware_inf __attribute__((at(APP_INF_ADDR))) =
+const firmware_inf_TypeDef firmware_inf __attribute__((at(APP_INF_ADDR))) =
 {
     PRODUCT_MODEL,
-    FIRMWARE_MASTER,
-    MCU_VER,
+    FIRMWARE_TYPE,
+    FIRMWARE_VER,
     FIRMWARE_DATE,
 };
 

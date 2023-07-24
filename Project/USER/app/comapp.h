@@ -99,6 +99,7 @@ typedef enum /*APP下发指令枚举*/
     ASK_DEVICEDATA,              // 请求灯板信息
     EXIT_APPCONNTROL,            // 退出app控制
     ASK_SCHEDULE_SKETCH,         // 请求定时概述表
+    PLAY_TEMP_EFFECT,            // 播放临时灯效
 } issue_cmd;
 #pragma pack(push, 1)
 typedef struct
@@ -132,7 +133,7 @@ typedef struct
 typedef struct
 {
     uint8_t id;              // 灯板id
-    device_type_enum type;   // 形状
+    device_shape_enum shape;   // 形状
     uint16_t angle;          // 角度
     uint16_t cooed_x;        // x坐标
     uint16_t cooed_y;        // y坐标

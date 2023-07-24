@@ -1,10 +1,11 @@
 /*
  * @Author: your name
  * @Date: 2022-03-25 13:48:26
- * @LastEditTime: 2022-06-14 15:08:46
- * @LastEditors: error: git config user.name && git config user.email & please set dead value or install git
+ * @LastEditTime: 2023-06-27 10:34:41
+ * @LastEditors: joel
+.chen sandote@163.om
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
- * @FilePath: \A5441_CMS8S6990_Master\code\image.h
+ * @FilePath: \L1001_Master_CMS32L051\Project\USER\Include\image.h
  */
 #ifndef _IMAGE_H_
 #define _IMAGE_H_
@@ -126,12 +127,12 @@ typedef struct
 
 typedef struct
 {
-    uint8_t EF_ID; // 灯效编号
+    uint8_t EF_ID; // 灯效编号 **
     // // // // uint8_t flash_flag; // 灯效复位标志
     // // // // uint8_t Direction;           // 方向
     uint8_t Module_WorkNum;    // 用到的模组数    0~15
-    Motion_TypeDef MotionType; // 灯效类型
-    Move_TypeDef MoveType;     // 运动方向
+    // // // Motion_TypeDef MotionType; // 灯效类型
+    // // Move_TypeDef MoveType;     // 运动方向
     // // // // // // // // uint8_t *para_ptr;           // 灯效参数指针
     uint8_t Color_buffer[256][4]; // 色表缓存
 

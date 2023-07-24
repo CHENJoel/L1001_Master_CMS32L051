@@ -19,6 +19,7 @@
 .\objects\rtc_user.o: ..\..\Driver\inc\adc.h
 .\objects\rtc_user.o: ..\..\Driver\inc\flash.h
 .\objects\rtc_user.o: ..\..\Driver\inc\dma.h
+.\objects\rtc_user.o: ..\..\Driver\inc\wdt.h
 .\objects\rtc_user.o: ..\USER\Include\FIFO.h
 .\objects\rtc_user.o: ..\USER\Include\IR.H
 .\objects\rtc_user.o: ..\USER\Include\IR.H
@@ -37,12 +38,9 @@
 .\objects\rtc_user.o: ..\USER\Include\Sys.h
 .\objects\rtc_user.o: ..\USER\Include\ware.h
 .\objects\rtc_user.o: ..\USER\mcu_sdk\wifi.h
-.\objects\rtc_user.o: ..\USER\mcu_sdk\tuya_type.h
 .\objects\rtc_user.o: ..\USER\mcu_sdk\protocol.h
 .\objects\rtc_user.o: ..\USER\mcu_sdk\system.h
 .\objects\rtc_user.o: ..\USER\mcu_sdk\mcu_api.h
-.\objects\rtc_user.o: ..\USER\mcu_sdk\homekit.h
-.\objects\rtc_user.o: ..\USER\Include\Inf.h
 .\objects\rtc_user.o: ..\USER\external_memory\memory.h
 .\objects\rtc_user.o: ..\USER\external_memory\driver_spi.h
 .\objects\rtc_user.o: ..\USER\external_memory\driver_w25qxx.h
@@ -50,9 +48,11 @@
 .\objects\rtc_user.o: ..\USER\Include\colorbox.h
 .\objects\rtc_user.o: ..\USER\ota\OTA.h
 .\objects\rtc_user.o: ..\USER\external_memory\MEM.h
+.\objects\rtc_user.o: ..\USER\Include\Inf.h
 .\objects\rtc_user.o: ..\USER\debug\printlog.h
 .\objects\rtc_user.o: ..\USER\app\comapp.h
 .\objects\rtc_user.o: ..\USER\slave\slave.h
+.\objects\rtc_user.o: ..\USER\protocolcom\ProtocolCom.H
 .\objects\rtc_user.o: ..\USER\external_memory\user_memory.h
 .\objects\rtc_user.o: ..\USER\debug\debug.h
 .\objects\rtc_user.o: ..\USER\flashapp\flashapp.h
@@ -64,3 +64,5 @@
 .\objects\rtc_user.o: ..\USER\factory\factory.h
 .\objects\rtc_user.o: ..\USER\version\version.h
 .\objects\rtc_user.o: ..\USER\parse\parse.h
+.\objects\rtc_user.o: ..\USER\flow\flow.h
+.\objects\rtc_user.o: ..\USER\mic\mic.h

@@ -17,6 +17,7 @@
 .\objects\newota.o: ..\..\Driver\inc\flash.h
 .\objects\newota.o: ..\..\Driver\inc\rtc.h
 .\objects\newota.o: ..\..\Driver\inc\dma.h
+.\objects\newota.o: ..\..\Driver\inc\wdt.h
 .\objects\newota.o: F:\APP\Keil\ARM\ARMCC\Bin\..\include\stdio.h
 .\objects\newota.o: F:\APP\Keil\ARM\ARMCC\Bin\..\include\string.h
 .\objects\newota.o: F:\APP\Keil\ARM\ARMCC\Bin\..\include\math.h
@@ -38,12 +39,9 @@
 .\objects\newota.o: ..\USER\Include\Sys.h
 .\objects\newota.o: ..\USER\Include\ware.h
 .\objects\newota.o: ..\USER\mcu_sdk\wifi.h
-.\objects\newota.o: ..\USER\mcu_sdk\tuya_type.h
 .\objects\newota.o: ..\USER\mcu_sdk\protocol.h
 .\objects\newota.o: ..\USER\mcu_sdk\system.h
 .\objects\newota.o: ..\USER\mcu_sdk\mcu_api.h
-.\objects\newota.o: ..\USER\mcu_sdk\homekit.h
-.\objects\newota.o: ..\USER\Include\Inf.h
 .\objects\newota.o: ..\USER\external_memory\memory.h
 .\objects\newota.o: ..\USER\external_memory\driver_spi.h
 .\objects\newota.o: ..\USER\external_memory\driver_w25qxx.h
@@ -51,9 +49,11 @@
 .\objects\newota.o: ..\USER\Include\colorbox.h
 .\objects\newota.o: ..\USER\ota\OTA.h
 .\objects\newota.o: ..\USER\external_memory\MEM.h
+.\objects\newota.o: ..\USER\Include\Inf.h
 .\objects\newota.o: ..\USER\debug\printlog.h
 .\objects\newota.o: ..\USER\app\comapp.h
 .\objects\newota.o: ..\USER\slave\slave.h
+.\objects\newota.o: ..\USER\protocolcom\ProtocolCom.H
 .\objects\newota.o: ..\USER\external_memory\user_memory.h
 .\objects\newota.o: ..\USER\debug\debug.h
 .\objects\newota.o: ..\USER\flashapp\flashapp.h
@@ -65,3 +65,5 @@
 .\objects\newota.o: ..\USER\factory\factory.h
 .\objects\newota.o: ..\USER\version\version.h
 .\objects\newota.o: ..\USER\parse\parse.h
+.\objects\newota.o: ..\USER\flow\flow.h
+.\objects\newota.o: ..\USER\mic\mic.h

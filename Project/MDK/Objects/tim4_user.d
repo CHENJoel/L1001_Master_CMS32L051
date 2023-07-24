@@ -16,6 +16,7 @@
 .\objects\tim4_user.o: ..\..\Driver\inc\flash.h
 .\objects\tim4_user.o: ..\..\Driver\inc\rtc.h
 .\objects\tim4_user.o: ..\..\Driver\inc\dma.h
+.\objects\tim4_user.o: ..\..\Driver\inc\wdt.h
 .\objects\tim4_user.o: F:\APP\Keil\ARM\ARMCC\Bin\..\include\stdio.h
 .\objects\tim4_user.o: F:\APP\Keil\ARM\ARMCC\Bin\..\include\string.h
 .\objects\tim4_user.o: F:\APP\Keil\ARM\ARMCC\Bin\..\include\math.h
@@ -37,12 +38,9 @@
 .\objects\tim4_user.o: ..\USER\Include\Sys.h
 .\objects\tim4_user.o: ..\USER\Include\ware.h
 .\objects\tim4_user.o: ..\USER\mcu_sdk\wifi.h
-.\objects\tim4_user.o: ..\USER\mcu_sdk\tuya_type.h
 .\objects\tim4_user.o: ..\USER\mcu_sdk\protocol.h
 .\objects\tim4_user.o: ..\USER\mcu_sdk\system.h
 .\objects\tim4_user.o: ..\USER\mcu_sdk\mcu_api.h
-.\objects\tim4_user.o: ..\USER\mcu_sdk\homekit.h
-.\objects\tim4_user.o: ..\USER\Include\Inf.h
 .\objects\tim4_user.o: ..\USER\external_memory\memory.h
 .\objects\tim4_user.o: ..\USER\external_memory\driver_spi.h
 .\objects\tim4_user.o: ..\USER\external_memory\driver_w25qxx.h
@@ -50,9 +48,11 @@
 .\objects\tim4_user.o: ..\USER\Include\colorbox.h
 .\objects\tim4_user.o: ..\USER\ota\OTA.h
 .\objects\tim4_user.o: ..\USER\external_memory\MEM.h
+.\objects\tim4_user.o: ..\USER\Include\Inf.h
 .\objects\tim4_user.o: ..\USER\debug\printlog.h
 .\objects\tim4_user.o: ..\USER\app\comapp.h
 .\objects\tim4_user.o: ..\USER\slave\slave.h
+.\objects\tim4_user.o: ..\USER\protocolcom\ProtocolCom.H
 .\objects\tim4_user.o: ..\USER\external_memory\user_memory.h
 .\objects\tim4_user.o: ..\USER\debug\debug.h
 .\objects\tim4_user.o: ..\USER\flashapp\flashapp.h
@@ -64,3 +64,5 @@
 .\objects\tim4_user.o: ..\USER\factory\factory.h
 .\objects\tim4_user.o: ..\USER\version\version.h
 .\objects\tim4_user.o: ..\USER\parse\parse.h
+.\objects\tim4_user.o: ..\USER\flow\flow.h
+.\objects\tim4_user.o: ..\USER\mic\mic.h

@@ -1,10 +1,11 @@
 /*
  * @Author: your name
  * @Date: 2022-04-22 10:36:55
- * @LastEditTime: 2022-04-23 16:34:16
- * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2023-07-15 11:52:08
+ * @LastEditors: joel
+.chen sandote@163.om
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
- * @FilePath: \A5441_Master_CMS32L051\Project\USER\Source\Light.c
+ * @FilePath: \L1001_Master_CMS32L051\Project\USER\Source\Light.c
  */
 
 #include "Light.H"
@@ -13,8 +14,8 @@
 
 
 
- unsigned char Bright_Array[5] = {10, 30, 80, 155, 255}; // 亮度表
-unsigned char Bright_Level;                            // 亮度等级
+// //  unsigned char Bright_Array[5] = {10, 30, 80, 155, 255}; // 亮度表
+// // unsigned char Bright_Level;                            // 亮度等级
 
 /**
  * @description:  计算数据属于哪一等级（向上取整）

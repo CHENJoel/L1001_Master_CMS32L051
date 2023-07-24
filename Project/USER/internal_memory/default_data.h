@@ -1,3 +1,16 @@
+/*
+ * @Author: joel
+ * .chen sandote@163.om
+ * @Date: 2023-05-23 16:56:30
+ * @LastEditors: joel
+.chen sandote@163.om
+ * .chen sandote@163.om
+ * @LastEditTime: 2023-07-01 16:05:47
+ * @FilePath: \L1001_Master_CMS32L051\Project\USER\internal_memory\default_data.h
+ * @Description:
+ *
+ * Copyright (c) 2023 by ${git_name_email}, All Rights Reserved.
+ */
 #ifndef  DEFAULT_DATA_H
 #define  DEFAULT_DATA_H
 #include"Function_Init.H"
@@ -10,8 +23,8 @@ typedef struct
     EffectType_Enum EffectType; /* 灯效类型 */
     Flow_Enum Flow;             /* 动态效果 */
 } df_data_TypeDef; /*内置灯效信息*/
-
-extern const uint8_t df_playlist[25];
+extern const uint8_t df_playlist[30];
+// extern const uint8_t df_playlist[15];
 extern const df_data_TypeDef dfdata[built_in_ef_num];
 
 extern const uint8_t df_testcolor1[][4];

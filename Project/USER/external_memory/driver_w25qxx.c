@@ -15,6 +15,7 @@
 #include "driver_spi.h"
 #include "driver_w25qxx.h"
 //#include "driver_timer.h"
+#include "wdt.h"
 
 // 函数重定义
 #define W25_CS_ENABLE()         {W25_CS(0); us_delay(10);}
@@ -210,6 +211,7 @@ void FLASH_ChipErase(void)
 */
 void FLASH_PageWrite(uint8_t* pBuffer, uint32_t WriteAddr, uint16_t NumByteToWrite)
 {
+    WDT_Restart();
     Flash_WritenEN();
 
     W25_CS_ENABLE();
@@ -324,6 +326,7 @@ void FLASH_BufferWrite(uint8_t* pBuffer, uint32_t WriteAddr, uint16_t NumByteToW
 */
 void FLASH_BufferRead(uint8_t* pBuffer, uint32_t ReadAddr, uint16_t NumByteToRead)
 {
+    WDT_Restart();
     W25_CS_ENABLE();
 
     W25_RW_Byte(W25X_ReadData);
@@ -357,6 +360,7 @@ void FLASH_StartReadSequence(uint32_t ReadAddr)
 /**************** Joel补充***************/
 void FLASH_PageErase(uint32_t PageAddr)
 {
+    WDT_Restart();
     Flash_WritenEN();
     FLASH_WaitForWriteEnd();
 

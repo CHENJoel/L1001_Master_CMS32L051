@@ -1,10 +1,11 @@
 /*
  * @Author: your name
  * @Date: 2022-04-01 16:53:11
- * @LastEditTime: 2022-06-18 16:37:16
- * @LastEditors: error: git config user.name && git config user.email & please set dead value or install git
+ * @LastEditTime: 2023-07-24 13:43:33
+ * @LastEditors: joel
+.chen sandote@163.om
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
- * @FilePath: \A5441_Master_CMS32L051\Project\USER\Source\A5441_Master.c
+ * @FilePath: \L1001_Master_CMS32L051\Project\USER\Source\A5441_Master.c
  */
 #include "Function_Init.H"
 #include "A5441_Master.h"
@@ -21,7 +22,7 @@ PlayingStateTypeDef PlayingState;
 SYS_TypeDef SYS;
 
 DeviceTypeDef TangramDevice;
-ModeTypeDef ModeArray[3];
+// // ModeTypeDef ModeArray[3];
 
 uint8_t Mode_num;
 uint8_t Light_Owner; // 0：MCU控灯    1：APP控灯
@@ -178,7 +179,9 @@ void SYS_Init(void)
     ID_Init();
     norflash_data_init();
     play_init();
-    generate_virtual_device();
+    slave_online_data_init();
+    play_effect_init();
+    // // generate_virtual_device();
     // schedule_factory_reset
 }
 
@@ -191,11 +194,11 @@ void KeyS_On(void)
 {
     uint8_t keyVal;
     keyVal = KEY_AD_Test();
-    Key_On(&K1, keyVal, 1, 2, 50, 0, 0);
-    Key_On(&K2, keyVal, 2, 2, 50, 0, 0);
-    Key_On(&K3, keyVal, 3, 2, 50, 0, 0);
-    Key_On(&K4, keyVal, 4, 2, 50, 0, 0);
-    Key_On(&K5, keyVal, 5, 2, 50, 0, 0);
+    Key_On(&K1, keyVal, 1, 2, 50, 1, 0);
+    Key_On(&K2, keyVal, 2, 2, 50, 1, 0);
+    Key_On(&K3, keyVal, 3, 2, 50, 1, 0);
+    Key_On(&K4, keyVal, 4, 2, 50, 1, 0);
+    Key_On(&K5, keyVal, 5, 2, 50, 1, 0);
 
     // // // if (keyVal)
     // // // {
@@ -709,215 +712,70 @@ void KeyS_Click(void)
     uint16_t i, j;
     uint8_t *p;
     // uint8_t test_buf[] = {0xA5, 0x0F, 0x21, 0xE0, 0x01, 0x01, 0xE1, 0x02, 0x02, 0xE2, 0x03, 0x03, 0xE3, 0x04, 0x04, 0x6F};
+
+
     if (KEY1_Click)
     {
-
-        // Debug();
-        // MemoryStruct_Read();
-        // Debug();
-        // Slave_SelfTest();
-
-        // mcu_reset_wifi();
-        // printf("mcu_reset_wifi\r\n");
-
-        // printf("K1\r\n");
-
-        if (SYS.POWER_SW == STA_ON)
+        if (play.work.sw_status == SW_ON)
         {
-            SYS.POWER_SW = STA_OFF;
-            // printf("off\r");
+            play.work.sw_status = SW_OFF;
         }
         else
         {
-            SYS.POWER_SW = STA_ON;
-            // printf("on\r");
+            play.work.sw_status = SW_ON;
         }
-        DataUpdata_TO_APP(&SYS.POWER_SW);
+        mcu_update_switch_led();
+
         debug_K1();
-        // NorFlash_Write_debugtest();
-        // temp++;
-        // DataTx_Master_Protect_OFF(TangramDevice.SlaveData[0].ID);   // 关从机存储写保护
-
-        // DataTx_Master_Write_ROM(TangramDevice.SlaveData[0].ID,0x02,0x07,temp);
-        // DataTx_Master_Protect_ON(TangramDevice.SlaveData[0].ID);    // 开从机存储写保护
-
-        // DataTx_Master_Check_Angle(TangramDevice.SlaveData[0].ID);   // 查询此机角度
-        // DataTx_Master_Set_Angle(TangramDevice.SlaveData[0].ID, 50); // 设置此机角度
-        // // Upload_LightMessage();
-        // TangramDevice.SlaveData[0].Coord.X = temp++;
-        // TangramDevice.SlaveData[0].Coord.Y = temp++;
-
-        // Set_Slave_Coord();
-        // printf("\r[%2d,%2d]\n");
-        // Upload_EffectMessage(62);
     }
     if (KEY2_Click)
     {
-        debug();
+        test_change_color();
+
+        Light_Level_Change(&play.work.brightness.set, &play.work.brightness.dir, bright_table, sizeof(bright_table));
+        mcu_update_bright_val();
         debug_K2();
     }
     if (KEY3_Click)
     {
         debug_K3();
-        // Light_Level_Down(&SYS.Brightness.Set, &Bright_Array, sizeof(Bright_Array));
+        debug_play_last_effect();
 
-        // DataTx_Master_ResetData(TangramDevice.SlaveData[0].ID);
-        // Get_Slave_Angle();
-        // OTA_ResetFlag();
-        // Find_OTA_flag();
-        // Upload_EffectMessage(63);
-        // if (EF_Work.EF_ID < 29)
-        // {
-        //     EF_Work.EF_ID++;
-        // }
-        // Effect_Init();
-        // LED1_REV();
-        // Memorydebug();
-        // mcu_set_wifi_mode(0);
-        // printf("\r\n\r\n\r\n\r\n\r\n");
+        test_click_brightness(1);
 
-        // printf("K3\r\n");
     }
     if (KEY4_Click)
     {
         debug_K4();
-        // if (EF_Work.EF_ID < 4)
-        // {
-        //     EF_Work.EF_ID++;
-        //     Effect_Init();
-        //     // // // Upload_EffectMessage(EF_Work.EF_ID);
-        // }
-        // else
-        // {
-        //     EF_Work.EF_ID=0;
-        //     Effect_Init();
-        // }
-        //
-        // // if (EF_Work.EF_ID < 24)
-        // // {
-        // //     EF_Work.EF_ID++;
-        // //     Effect_Init();
-        // //     Upload_EffectMessage(EF_Work.EF_ID);
-        // // }
-        // // else
-        // // {
-        // //     EF_Work.EF_ID = 0;
-        // //     Effect_Init();
-        // //     Upload_EffectMessage(EF_Work.EF_ID);
-        // // }
+        debug_play_next_effect();
+        test_click_brightness(0);
 
-
-        // if (EF_Work.EF_ID > 0)
-        // {
-        //     EF_Work.EF_ID--;
-        // }
-        // Effect_Init();
-        // LED1_REV();
-        // Get_Slave_Coord();
-        // printf("\r\n\r\n\r\n\r\n\r\n");
-        // for ( i = 0; i < TangramDevice.Device_sum; i++)
-        // {
-        //     printf("%d [%d] : %d\n",i,TangramDevice.SlaveData[i].ID,TangramDevice.SlaveData[i].Lightnum);
-        // }
     }
     if (KEY5_Click)
     {
         debug_K5();
-        // if (EF_Work.EF_ID > 0)
-        // {
-        //     EF_Work.EF_ID--;
-        //     Effect_Init();
-        //     // Upload_EffectMessage(EF_Work.EF_ID);
-        // }
-        // else
-        // {
-        //     EF_Work.EF_ID = 4;
-        //     Effect_Init();
-        // }
-        //
 
-        // if (EF_Work.EF_ID < 24)
-        // {
-        //     // if (EF_Work.EF_ID)
-        //     // {
-        //     //     EF_Work.EF_ID--;
-        //     //     Effect_Init();
-        //     //     Upload_EffectMessage(EF_Work.EF_ID);
-        //     // }
-        // }
-        // else
-        // {
-        //     EF_Work.EF_ID = 0;
-        //     Effect_Init();
-        //     Upload_EffectMessage(EF_Work.EF_ID);
-        // }
-
-        // if (EF_Work.EF_ID < 25)
-        // {
-        //     EF_Work.EF_ID = 25;
-        //     Effect_Init();
-        //     Upload_EffectMessage(EF_Work.EF_ID);
-        // }
-        // else if (EF_Work.EF_ID >= 29)
-        // {
-        //     EF_Work.EF_ID = 25;
-        //     Effect_Init();
-        //     Upload_EffectMessage(EF_Work.EF_ID);
-        // }
-        // else
-        // {
-        //     EF_Work.EF_ID++;
-        //     Effect_Init();
-        //     Upload_EffectMessage(EF_Work.EF_ID);
-        // }
-
-        // // APP_FLASH_LOADDING_test();
-
-        // if (EF_Work.EF_ID < 25)
-        // {
-        //     EF_Work.EF_ID = 25;
-        // }
-        // else if (EF_Work.EF_ID < 29)
-        // {
-        //     EF_Work.EF_ID++;
-        // }
-        // else
-        // {
-        //     EF_Work.EF_ID = 25;
-        // }
-        // if (EF_Work.EF_ID == 26)
-        // {
-        //     EF_Work.EF_ID = 0;
-        // }
-        // else
-        // {
-        //     EF_Work.EF_ID = 26;
-        // }
-        // Effect_Init();
-        // LED1_REV();
-        // mcu_dp_bool_update(DPID_SWITCH_LED,SYS.POWER_SW);
-        // printf("K5\r\n");
-        // if (Mode_num == 2)
-        // {
-        //     Mode_num = 0;
-        // }
-        // else
-        // {
-        //     Mode_num = 2;
-        // }
-
-        // printf("\r\n\r\n\r\n\r\n\r\n");
-        // Get_Slave_ID();
-        // printf("Device number : %d\r\n",TangramDevice.Device_sum);
-        // for ( i = 0; i < TangramDevice.Device_sum; i++)
-        // {
-        //     printf("[%d] : %d\n",i,TangramDevice.SlaveData[i].ID);
-        // }
-        // printf("\r\n finish \r\n");
-
-        // Slave_DataInit();
     }
+    /*************************************/
 
+    if (KEY1_Long)
+    {
+    }
+    if (KEY2_Long)
+    {
+    }
+    if (KEY3_Long)
+    {
+        test_long_brightness(1);
+    }
+    if (KEY4_Long)
+    {
+        test_long_brightness(0);
+    }
+    if (KEY5_Long)
+    {
+    }
+    /**************************/
     if (KEY1_LongOnce)
     {
         mcu_reset_wifi();
@@ -948,193 +806,7 @@ void KeyS_Click(void)
     KEY4_AllLong_Reset;
     KEY5_AllLong_Reset;
 
-    if (Rm_S1_STA)
-    {
-        Rm_S1_FLAG_ClrBit();
-        if (SYS.POWER_SW == STA_ON)
-        {
-            SYS.POWER_SW = STA_OFF;
-        }
-        else
-        {
-            SYS.POWER_SW = STA_ON;
-        }
 
-        // SYS.POWER_SW = STA_ON;
-        // LED2_REV();
-
-        // str = &Slave_Array;
-        // for (i = 0; i < sizeof(Slave_Array); i++)
-        // {
-        //     UART0_Send(*(str + i));
-        // }
-    }
-    if (Rm_S2_STA)
-    {
-        Rm_S2_FLAG_ClrBit();
-        if (EF_Work.EF_ID < 4)
-        {
-            EF_Work.EF_ID++;
-            Effect_Init();
-            // // // Upload_EffectMessage(EF_Work.EF_ID);
-        }
-        else
-        {
-            EF_Work.EF_ID=0;
-            Effect_Init();
-        }
-        // SYS.POWER_SW = STA_OFF;
-        // str = &FixedID_DeviceData;
-        // for (i = 0; i < sizeof(FixedID_DeviceData); i++)
-        // {
-        //     UART0_Send(*(str + i));
-        // }
-    }
-    if (Rm_S3_STA)
-    {
-        Rm_S3_FLAG_ClrBit();
-        // Slave_Allocate_ID();
-
-        // Light_Level_Down(&SYS.Brightness.Set, &Bright_Array, sizeof(Bright_Array));
-    }
-    if (Rm_S4_STA)
-    {
-        Rm_S4_FLAG_ClrBit();
-        // Bubble_Sort_2D(&Slave_Array,SlaveDevive_Num,Slave_Data_num,4);  // 根据序列编号进行向下排序
-        // Light_Level_Up(&SYS.Brightness.Set, &Bright_Array, sizeof(Bright_Array));
-    }
-    if (Rm_S5_STA)
-    {
-        Rm_S5_FLAG_ClrBit();
-        // if (E_Color > 0)
-        // {
-        //     E_Color--;
-        // }
-        // else
-        // {
-        //     E_Color = Image_EF_Num - 1;
-        // }
-        // Image_Reset();
-    }
-    if (Rm_S6_STA)
-    {
-        Rm_S6_FLAG_ClrBit();
-        // if (++E_Color >= Image_EF_Num)
-        // {
-        //     E_Color = 0;
-        // }
-        // Image_Reset();
-    }
-    if (Rm_S7_STA)
-    {
-        Rm_S7_FLAG_ClrBit();
-        // if (E_Type > 0)
-        // {
-        //     E_Type--;
-        // }
-        // else
-        // {
-        //     E_Type = MAX_E_Type - 1;
-        // }
-        // E_Color = 0;
-        // Image_Reset();
-    }
-    if (Rm_S8_STA)
-    {
-        Rm_S8_FLAG_ClrBit();
-        // if (++E_Type >= MAX_E_Type)
-        // {
-        //     E_Type = 0;
-        // }
-        // E_Color = 0;
-        // Image_Reset();
-    }
-    if (Rm_S9_STA)
-    {
-        Rm_S9_FLAG_ClrBit();
-        // Tangram[0].R = 0;
-        // Tangram[0].G = 255;
-        // Tangram[0].B = 0;
-        // Tangram[0].W = 0;
-
-        // Tangram[1].R = 0;
-        // Tangram[1].G = 255;
-        // Tangram[1].B = 0;
-        // Tangram[1].W = 0;
-
-        // Tangram[2].R = 0;
-        // Tangram[2].G = 255;
-        // Tangram[2].B = 0;
-        // Tangram[2].W = 0;
-
-        // Tangram_Buffer_load();
-    }
-    if (Rm_S10_STA)
-    {
-        Rm_S10_FLAG_ClrBit();
-        // Tangram[0].R = 0;
-        // Tangram[0].G = 0;
-        // Tangram[0].B = 255;
-        // Tangram[0].W = 0;
-
-        // Tangram[1].R = 0;
-        // Tangram[1].G = 0;
-        // Tangram[1].B = 255;
-        // Tangram[1].W = 0;
-
-        // Tangram[2].R = 0;
-        // Tangram[2].G = 0;
-        // Tangram[2].B = 255;
-        // Tangram[2].W = 0;
-
-        // Tangram_Buffer_load();
-    }
-    if (Rm_S11_STA)
-    {
-        Rm_S11_FLAG_ClrBit();
-
-        // Tangram[0].R = 255;
-        // Tangram[0].G = 0;
-        // Tangram[0].B = 0;
-        // Tangram[0].W = 0;
-
-        // Tangram[1].R = 255;
-        // Tangram[1].G = 0;
-        // Tangram[1].B = 0;
-        // Tangram[1].W = 0;
-
-        // Tangram[2].R = 255;
-        // Tangram[2].G = 0;
-        // Tangram[2].B = 0;
-        // Tangram[2].W = 0;
-
-        // Tangram_Buffer_load();
-    }
-    if (Rm_S12_STA)
-    {
-        Rm_S12_FLAG_ClrBit();
-        // Tangram[0].R = 0;
-        // Tangram[0].G = 0;
-        // Tangram[0].B = 0;
-        // Tangram[0].W = 255;
-
-        // Tangram[1].R = 0;
-        // Tangram[1].G = 0;
-        // Tangram[1].B = 0;
-        // Tangram[1].W = 255;
-
-        // Tangram[2].R = 0;
-        // Tangram[2].G = 0;
-        // Tangram[2].B = 0;
-        // Tangram[2].W = 255;
-
-        // Tangram_Buffer_load();
-
-        // printf("SET %d    ", SYS.Brightness.Set);
-        // Light_Level_Change(&SYS.Brightness.Set, &SYS.Brightness.Direction, &Bright_Array, sizeof(Bright_Array));
-        // SYS.Brightness.Target = SYS.Brightness.Set;
-        // printf("OUT %d\n", SYS.Brightness.Set);
-    }
 }
 
 unsigned int  Rhythm_Cal(unsigned int adc_val)
@@ -1155,20 +827,32 @@ unsigned int  Rhythm_Cal(unsigned int adc_val)
 
 void Lignt_Control()
 {
-    if (SYS.POWER_SW == STA_ON)
-    {
-        SYS.Brightness.Target = SYS.Brightness.Set;
-        LED2_ON();
-    }
-    else
-    {
-        SYS.Brightness.Target = 0;
-        LED2_OFF();
-    }
-    Gradual_Change(&SYS.Brightness.Now, &SYS.Brightness.Target, 10);
+
+    // if (play.work.sw_status == SW_ON)
+    // {
+    //     if (play.efdetail.EffectType == RHYTHM_TYPE) // 律动模式
+    //     {
+    //         play.work.brightness.now = mic.bri_now;
+    //     }
+    //     else
+    //     {
+            if (play.work.brightness.set == 100)
+            {
+                play.work.brightness.tar = 255;
+            }
+            else
+            {
+                play.work.brightness.tar = play.work.brightness.set * (255 / 100);
+            }
+            Gradual_Change(&play.work.brightness.now, &play.work.brightness.tar, 40);
+    //     }
+    // }
+    // else
+    // {
+    //     play.work.brightness.tar = 0;
+    //     Gradual_Change(&play.work.brightness.now, &play.work.brightness.tar, 40);
+    // }
 }
-
-
 
 void Light_CMD_Send(unsigned char Cmd, unsigned char add,unsigned char Val1, unsigned char Val2)
 {
@@ -1282,9 +966,9 @@ void Data_Init(void)
     Slave_Handshake();
     Slave_Allocate_ID();
 
-    ModeArray[0].Sum = 95;
-    ModeArray[1].Sum = 20;
-    ModeArray[2].Sum = 1;
+    // ModeArray[0].Sum = 95;
+    // ModeArray[1].Sum = 20;
+    // ModeArray[2].Sum = 1;
 
     // for ( i = 0; i < ModuleLight_Num; i++)
     // {
@@ -1464,438 +1148,436 @@ void Remote_Click(unsigned char *KeyVal)
 }
 
 
-void NewParing_Mod(uint8_t *keyval, uint8_t reset)
-{
-    static uint8_t TimeCnt;
-    uint8_t timeFlag;
-    uint8_t i, j, k;
-    static uint8_t BreathVal, dirflag;
-    static uint8_t Cursor=0; // 光标
-    static uint8_t Num=1;    // 序号
-    // static uint8_t Setnum; // 已设编号的数量
-    if (reset) // 初始化数据
-    {
-        TimeCnt = 0;
-        timeFlag = 0;
-        BreathVal = dirflag = 0;
-        Cursor = 0;
-        Num = 1;
-        for (i = 0; i < TangramDevice.Device_sum; i++)
-        {
-            TangramDevice.SlaveData[i].Container.data1 = 0xFF; // 临时灯光序号
-        }
-    }
-    switch (*keyval)
-    {
-    case 5: // 确认键
-        TangramDevice.SlaveData[Cursor].Container.data1 = Num;
-        j = 1;
-        for (i = 0; i < TangramDevice.Device_sum; i++)
-        {
-            if (TangramDevice.SlaveData[i].Container.data1 == 0xFF)
-            {
-                j = 0;
-            }
-        }
-        if (j)
-        {
-            Work_MOD = 0; // 退出配对模式
-            /* 复位参数 */
-            TimeCnt = 0;
-            timeFlag = 0;
-            BreathVal = dirflag = 0;
-            Cursor = 0;
-            Num = 1;
-            for (i = 0; i < TangramDevice.Device_sum; i++)
-            {
-                TangramDevice.SlaveData[i].Lightnum=TangramDevice.SlaveData[i].Container.data1;
-                TangramDevice.SlaveData[i].Container.data1=0XFF;
-            }
-            Set_Slave_Coord();
-            Slave_DataInit();
-            Slave_SelfTest();
-        }
-        break;
-    case 8: // 光标切换键
-        // // // j=0;
-        // // // for (i = 0; i < TangramDevice.Device_sum; i++)
-        // // // {
-        // // //     if (TangramDevice.SlaveData[i].Container.data1 == 0xFF)
-        // // //     {
-        // // //         j++;
-        // // //     }
-        // // // }
-        Cursor++;
-        if (Cursor >= TangramDevice.Device_sum)
-        {
-            Cursor = 0;
-        }
-        break;
-    case 9:
-        if (Num < 32)
-        {
-            Num++;
-        }
-        break;
-    }
+// // // void NewParing_Mod(uint8_t *keyval, uint8_t reset)
+// // // {
+// // //     static uint8_t TimeCnt;
+// // //     uint8_t timeFlag;
+// // //     uint8_t i, j, k;
+// // //     static uint8_t BreathVal, dirflag;
+// // //     static uint8_t Cursor=0; // 光标
+// // //     static uint8_t Num=1;    // 序号
+// // //     // static uint8_t Setnum; // 已设编号的数量
+// // //     if (reset) // 初始化数据
+// // //     {
+// // //         TimeCnt = 0;
+// // //         timeFlag = 0;
+// // //         BreathVal = dirflag = 0;
+// // //         Cursor = 0;
+// // //         Num = 1;
+// // //         for (i = 0; i < TangramDevice.Device_sum; i++)
+// // //         {
+// // //             TangramDevice.SlaveData[i].Container.data1 = 0xFF; // 临时灯光序号
+// // //         }
+// // //     }
+// // //     switch (*keyval)
+// // //     {
+// // //     case 5: // 确认键
+// // //         TangramDevice.SlaveData[Cursor].Container.data1 = Num;
+// // //         j = 1;
+// // //         for (i = 0; i < TangramDevice.Device_sum; i++)
+// // //         {
+// // //             if (TangramDevice.SlaveData[i].Container.data1 == 0xFF)
+// // //             {
+// // //                 j = 0;
+// // //             }
+// // //         }
+// // //         if (j)
+// // //         {
+// // //             Work_MOD = 0; // 退出配对模式
+// // //             /* 复位参数 */
+// // //             TimeCnt = 0;
+// // //             timeFlag = 0;
+// // //             BreathVal = dirflag = 0;
+// // //             Cursor = 0;
+// // //             Num = 1;
+// // //             for (i = 0; i < TangramDevice.Device_sum; i++)
+// // //             {
+// // //                 TangramDevice.SlaveData[i].Lightnum=TangramDevice.SlaveData[i].Container.data1;
+// // //                 TangramDevice.SlaveData[i].Container.data1=0XFF;
+// // //             }
+// // //             Set_Slave_Coord();
+// // //             Slave_DataInit();
+// // //             Slave_SelfTest();
+// // //         }
+// // //         break;
+// // //     case 8: // 光标切换键
+// // //         // // // j=0;
+// // //         // // // for (i = 0; i < TangramDevice.Device_sum; i++)
+// // //         // // // {
+// // //         // // //     if (TangramDevice.SlaveData[i].Container.data1 == 0xFF)
+// // //         // // //     {
+// // //         // // //         j++;
+// // //         // // //     }
+// // //         // // // }
+// // //         Cursor++;
+// // //         if (Cursor >= TangramDevice.Device_sum)
+// // //         {
+// // //             Cursor = 0;
+// // //         }
+// // //         break;
+// // //     case 9:
+// // //         if (Num < 32)
+// // //         {
+// // //             Num++;
+// // //         }
+// // //         break;
+// // //     }
 
-    if (dirflag)
-    {
-        if (BreathVal < 245)
-        {
-            BreathVal += 10;
-        }
-        else
-        {
-            dirflag = 0;
-        }
-    }
-    else
-    {
-        if (BreathVal > 10)
-        {
-            BreathVal -= 10;
-        }
-        else
-        {
-            dirflag = 1;
-        }
-    }
-    for (i = 0; i < TangramDevice.Device_sum; i++)
-    {
-        // // if (TangramDevice.SlaveData[i].Container.data1 == Num)
-        // // {
-        // //     TangramDevice.SlaveData[i].Color.R = 0;
-        // //     TangramDevice.SlaveData[i].Color.G = 0;
-        // //     TangramDevice.SlaveData[i].Color.B = 255;
-        // //     TangramDevice.SlaveData[i].Color.W = 0;
-        // // }
-        // // else if (i == Cursor)
-        // // {
-        // //     TangramDevice.SlaveData[i].Color.R = 0;
-        // //     TangramDevice.SlaveData[i].Color.G = 0;
-        // //     TangramDevice.SlaveData[i].Color.B = BreathVal;
-        // //     TangramDevice.SlaveData[i].Color.W = 0;
-        // // }
-        // // else if (TangramDevice.SlaveData[i].Container.data1 != 0xFF)
-        // // {
-        // //     TangramDevice.SlaveData[i].Color.R = 0;
-        // //     TangramDevice.SlaveData[i].Color.G = 255;
-        // //     TangramDevice.SlaveData[i].Color.B = 0;
-        // //     TangramDevice.SlaveData[i].Color.W = 0;
-        // // }
-        // // else
-        // // {
-        // //     TangramDevice.SlaveData[i].Color.R = 0;
-        // //     TangramDevice.SlaveData[i].Color.G = 0;
-        // //     TangramDevice.SlaveData[i].Color.B = 0;
-        // //     TangramDevice.SlaveData[i].Color.W = 0;
-        // // }
+// // //     if (dirflag)
+// // //     {
+// // //         if (BreathVal < 245)
+// // //         {
+// // //             BreathVal += 10;
+// // //         }
+// // //         else
+// // //         {
+// // //             dirflag = 0;
+// // //         }
+// // //     }
+// // //     else
+// // //     {
+// // //         if (BreathVal > 10)
+// // //         {
+// // //             BreathVal -= 10;
+// // //         }
+// // //         else
+// // //         {
+// // //             dirflag = 1;
+// // //         }
+// // //     }
+// // //     for (i = 0; i < TangramDevice.Device_sum; i++)
+// // //     {
+// // //         // // if (TangramDevice.SlaveData[i].Container.data1 == Num)
+// // //         // // {
+// // //         // //     TangramDevice.SlaveData[i].Color.R = 0;
+// // //         // //     TangramDevice.SlaveData[i].Color.G = 0;
+// // //         // //     TangramDevice.SlaveData[i].Color.B = 255;
+// // //         // //     TangramDevice.SlaveData[i].Color.W = 0;
+// // //         // // }
+// // //         // // else if (i == Cursor)
+// // //         // // {
+// // //         // //     TangramDevice.SlaveData[i].Color.R = 0;
+// // //         // //     TangramDevice.SlaveData[i].Color.G = 0;
+// // //         // //     TangramDevice.SlaveData[i].Color.B = BreathVal;
+// // //         // //     TangramDevice.SlaveData[i].Color.W = 0;
+// // //         // // }
+// // //         // // else if (TangramDevice.SlaveData[i].Container.data1 != 0xFF)
+// // //         // // {
+// // //         // //     TangramDevice.SlaveData[i].Color.R = 0;
+// // //         // //     TangramDevice.SlaveData[i].Color.G = 255;
+// // //         // //     TangramDevice.SlaveData[i].Color.B = 0;
+// // //         // //     TangramDevice.SlaveData[i].Color.W = 0;
+// // //         // // }
+// // //         // // else
+// // //         // // {
+// // //         // //     TangramDevice.SlaveData[i].Color.R = 0;
+// // //         // //     TangramDevice.SlaveData[i].Color.G = 0;
+// // //         // //     TangramDevice.SlaveData[i].Color.B = 0;
+// // //         // //     TangramDevice.SlaveData[i].Color.W = 0;
+// // //         // // }
 
-        if (TangramDevice.SlaveData[i].Container.data1 == 0xFF)
-        {
-            if (i == Cursor)
-            {
-                TangramDevice.SlaveData[i].Color.R = 0;
-                TangramDevice.SlaveData[i].Color.G = 0;
-                TangramDevice.SlaveData[i].Color.B = 0;
-                TangramDevice.SlaveData[i].Color.W = BreathVal;
-            }
-            else
-            {
-                TangramDevice.SlaveData[i].Color.R = 0;
-                TangramDevice.SlaveData[i].Color.G = 0;
-                TangramDevice.SlaveData[i].Color.B = 0;
-                TangramDevice.SlaveData[i].Color.W = 0;
-            }
-        }
-        else
-        {
-            if (TangramDevice.SlaveData[i].Container.data1 == Num)
-            {
-                if (i == Cursor)
-                {
-                    TangramDevice.SlaveData[i].Color.R = 0;
-                    TangramDevice.SlaveData[i].Color.G = 0;
-                    TangramDevice.SlaveData[i].Color.B = BreathVal;
-                    TangramDevice.SlaveData[i].Color.W = 0;
-                }
-                else
-                {
-                    TangramDevice.SlaveData[i].Color.R = 0;
-                    TangramDevice.SlaveData[i].Color.G = 0;
-                    TangramDevice.SlaveData[i].Color.B = 255;
-                    TangramDevice.SlaveData[i].Color.W = 0;
-                }
-            }
-            else
-            {
-                if (i == Cursor)
-                {
-                    TangramDevice.SlaveData[i].Color.R = 0;
-                    TangramDevice.SlaveData[i].Color.G = BreathVal;
-                    TangramDevice.SlaveData[i].Color.B = 0;
-                    TangramDevice.SlaveData[i].Color.W = 0;
-                }
-                else
-                {
-                    TangramDevice.SlaveData[i].Color.R = 0;
-                    TangramDevice.SlaveData[i].Color.G = 255;
-                    TangramDevice.SlaveData[i].Color.B = 0;
-                    TangramDevice.SlaveData[i].Color.W = 0;
-                }
-            }
-        }
+// // //         if (TangramDevice.SlaveData[i].Container.data1 == 0xFF)
+// // //         {
+// // //             if (i == Cursor)
+// // //             {
+// // //                 TangramDevice.SlaveData[i].Color.R = 0;
+// // //                 TangramDevice.SlaveData[i].Color.G = 0;
+// // //                 TangramDevice.SlaveData[i].Color.B = 0;
+// // //                 TangramDevice.SlaveData[i].Color.W = BreathVal;
+// // //             }
+// // //             else
+// // //             {
+// // //                 TangramDevice.SlaveData[i].Color.R = 0;
+// // //                 TangramDevice.SlaveData[i].Color.G = 0;
+// // //                 TangramDevice.SlaveData[i].Color.B = 0;
+// // //                 TangramDevice.SlaveData[i].Color.W = 0;
+// // //             }
+// // //         }
+// // //         else
+// // //         {
+// // //             if (TangramDevice.SlaveData[i].Container.data1 == Num)
+// // //             {
+// // //                 if (i == Cursor)
+// // //                 {
+// // //                     TangramDevice.SlaveData[i].Color.R = 0;
+// // //                     TangramDevice.SlaveData[i].Color.G = 0;
+// // //                     TangramDevice.SlaveData[i].Color.B = BreathVal;
+// // //                     TangramDevice.SlaveData[i].Color.W = 0;
+// // //                 }
+// // //                 else
+// // //                 {
+// // //                     TangramDevice.SlaveData[i].Color.R = 0;
+// // //                     TangramDevice.SlaveData[i].Color.G = 0;
+// // //                     TangramDevice.SlaveData[i].Color.B = 255;
+// // //                     TangramDevice.SlaveData[i].Color.W = 0;
+// // //                 }
+// // //             }
+// // //             else
+// // //             {
+// // //                 if (i == Cursor)
+// // //                 {
+// // //                     TangramDevice.SlaveData[i].Color.R = 0;
+// // //                     TangramDevice.SlaveData[i].Color.G = BreathVal;
+// // //                     TangramDevice.SlaveData[i].Color.B = 0;
+// // //                     TangramDevice.SlaveData[i].Color.W = 0;
+// // //                 }
+// // //                 else
+// // //                 {
+// // //                     TangramDevice.SlaveData[i].Color.R = 0;
+// // //                     TangramDevice.SlaveData[i].Color.G = 255;
+// // //                     TangramDevice.SlaveData[i].Color.B = 0;
+// // //                     TangramDevice.SlaveData[i].Color.W = 0;
+// // //                 }
+// // //             }
+// // //         }
 
-        // if (TangramDevice.SlaveData[i].Container.data1 == 0xFF)
-        // {
-        //     TangramDevice.SlaveData[i].Color.R = 0;
-        //     TangramDevice.SlaveData[i].Color.G = 0;
-        //     TangramDevice.SlaveData[i].Color.B = 0;
-        //     TangramDevice.SlaveData[i].Color.W = 0;
-        // }
-        // else
-        // {
-        //     if (i == Cursor)
-        //     {
-        //         TangramDevice.SlaveData[i].Color.R = 0;
-        //         TangramDevice.SlaveData[i].Color.G = 0;
-        //         TangramDevice.SlaveData[i].Color.B = BreathVal;
-        //         TangramDevice.SlaveData[i].Color.W = 0;
-        //     }
-        //     // // if (TangramDevice.SlaveData[i].Container.data1 == Num)
-        //     // // {
-        //     // //     TangramDevice.SlaveData[i].Color.R = 0;
-        //     // //     TangramDevice.SlaveData[i].Color.G = 0;
-        //     // //     TangramDevice.SlaveData[i].Color.B = 255;
-        //     // //     TangramDevice.SlaveData[i].Color.W = 0;
-        //     // // }
-        //     // // else if (TangramDevice.SlaveData[i].Container.data1 == Cursor)
-        //     // // {
-        //     // //     TangramDevice.SlaveData[i].Color.R = 0;
-        //     // //     TangramDevice.SlaveData[i].Color.G = 0;
-        //     // //     TangramDevice.SlaveData[i].Color.B = BreathVal;
-        //     // //     TangramDevice.SlaveData[i].Color.W = 0;
-        //     // // }
-        //     // // else
-        //     // // {
-        //     // //     TangramDevice.SlaveData[i].Color.R = 0;
-        //     // //     TangramDevice.SlaveData[i].Color.G = 255;
-        //     // //     TangramDevice.SlaveData[i].Color.B = 0;
-        //     // //     TangramDevice.SlaveData[i].Color.W = 0;
-        //     // // }
-        // }
-    }
-    // printf("%d %d %d\r\n",BreathVal,Cursor,Num);
-    Slave_ColorData_DMA();
-}
+// // //         // if (TangramDevice.SlaveData[i].Container.data1 == 0xFF)
+// // //         // {
+// // //         //     TangramDevice.SlaveData[i].Color.R = 0;
+// // //         //     TangramDevice.SlaveData[i].Color.G = 0;
+// // //         //     TangramDevice.SlaveData[i].Color.B = 0;
+// // //         //     TangramDevice.SlaveData[i].Color.W = 0;
+// // //         // }
+// // //         // else
+// // //         // {
+// // //         //     if (i == Cursor)
+// // //         //     {
+// // //         //         TangramDevice.SlaveData[i].Color.R = 0;
+// // //         //         TangramDevice.SlaveData[i].Color.G = 0;
+// // //         //         TangramDevice.SlaveData[i].Color.B = BreathVal;
+// // //         //         TangramDevice.SlaveData[i].Color.W = 0;
+// // //         //     }
+// // //         //     // // if (TangramDevice.SlaveData[i].Container.data1 == Num)
+// // //         //     // // {
+// // //         //     // //     TangramDevice.SlaveData[i].Color.R = 0;
+// // //         //     // //     TangramDevice.SlaveData[i].Color.G = 0;
+// // //         //     // //     TangramDevice.SlaveData[i].Color.B = 255;
+// // //         //     // //     TangramDevice.SlaveData[i].Color.W = 0;
+// // //         //     // // }
+// // //         //     // // else if (TangramDevice.SlaveData[i].Container.data1 == Cursor)
+// // //         //     // // {
+// // //         //     // //     TangramDevice.SlaveData[i].Color.R = 0;
+// // //         //     // //     TangramDevice.SlaveData[i].Color.G = 0;
+// // //         //     // //     TangramDevice.SlaveData[i].Color.B = BreathVal;
+// // //         //     // //     TangramDevice.SlaveData[i].Color.W = 0;
+// // //         //     // // }
+// // //         //     // // else
+// // //         //     // // {
+// // //         //     // //     TangramDevice.SlaveData[i].Color.R = 0;
+// // //         //     // //     TangramDevice.SlaveData[i].Color.G = 255;
+// // //         //     // //     TangramDevice.SlaveData[i].Color.B = 0;
+// // //         //     // //     TangramDevice.SlaveData[i].Color.W = 0;
+// // //         //     // // }
+// // //         // }
+// // //     }
+// // //     // printf("%d %d %d\r\n",BreathVal,Cursor,Num);
+// // //     Slave_ColorData_DMA();
+// // // }
 
-void Paring_Mod(uint8_t *keyval,uint8_t reset)
-{
-    static uint8_t TimeCnt;
-    uint8_t timeFlag;
-    static uint8_t temp;
-    uint8_t i, j, k;
-    static uint8_t BreathVal,dirflag;
-    static uint8_t Module_Select;       // 选中的固定ID
-    static uint8_t Module_LastSelect;   // 上次选中的固定ID
-    static uint8_t Module_Select_num;   // 选中的固定ID的编号（可能有多个相同固定ID设备在线）
-    static uint8_t Module_ComID;
-    if (reset) // 初始化数据
-    {
-        TimeCnt = 0;
-        timeFlag = 0;
-        BreathVal = dirflag = 0;
-        Module_LastSelect = Module_Select = 0;
-        Module_Select_num = 0;
-        Module_ComID = 0;
-        for (i = 0; i < SlaveDevive_Num; i++)
-        {
-            Slave_Array[i][8] = 0;  // 清临时变量
-        }
-    }
+// // // void Paring_Mod(uint8_t *keyval,uint8_t reset)
+// // // {
+// // //     static uint8_t TimeCnt;
+// // //     uint8_t timeFlag;
+// // //     static uint8_t temp;
+// // //     uint8_t i, j, k;
+// // //     static uint8_t BreathVal,dirflag;
+// // //     static uint8_t Module_Select;       // 选中的固定ID
+// // //     static uint8_t Module_LastSelect;   // 上次选中的固定ID
+// // //     static uint8_t Module_Select_num;   // 选中的固定ID的编号（可能有多个相同固定ID设备在线）
+// // //     static uint8_t Module_ComID;
+// // //     if (reset) // 初始化数据
+// // //     {
+// // //         TimeCnt = 0;
+// // //         timeFlag = 0;
+// // //         BreathVal = dirflag = 0;
+// // //         Module_LastSelect = Module_Select = 0;
+// // //         Module_Select_num = 0;
+// // //         Module_ComID = 0;
+// // //         for (i = 0; i < SlaveDevive_Num; i++)
+// // //         {
+// // //             Slave_Array[i][8] = 0;  // 清临时变量
+// // //         }
+// // //     }
 
-    switch (*keyval)
-    {
-    case Key_Tri_A1:
-        Module_LastSelect = Module_Select;
-        Module_Select = Triangle_A1;
-        if (Module_LastSelect != Module_Select)
-        {
-            Module_Select_num = 0;
-        }
-        else
-        {
-            if (++Module_Select_num >= FixedID_DeviceData[0][1])
-            {
-                Module_Select_num = 0;
-            }
-        }
-        break;
-    case Key_Tri_A2:
-        Module_LastSelect = Module_Select;
-        Module_Select = Triangle_A2;
-        if (Module_LastSelect != Module_Select)
-        {
-            Module_Select_num = 0;
-        }
-        else
-        {
-            if (++Module_Select_num >= FixedID_DeviceData[1][1])
-            {
-                Module_Select_num = 0;
-            }
-        }
-        break;
-    case Key_Tri_B1:
-        Module_LastSelect = Module_Select;
-        Module_Select = Triangle_B1;
-        if (Module_LastSelect != Module_Select)
-        {
-            Module_Select_num = 0;
-        }
-        else
-        {
-            if (++Module_Select_num >= FixedID_DeviceData[2][1])
-            {
-                Module_Select_num = 0;
-            }
-        }
-        break;
-    case Key_Tri_C1:
-        Module_LastSelect = Module_Select;
-        Module_Select = Triangle_C1;
-        if (Module_LastSelect != Module_Select)
-        {
-            Module_Select_num = 0;
-        }
-        else
-        {
-            if (++Module_Select_num >= FixedID_DeviceData[3][1])
-            {
-                Module_Select_num = 0;
-            }
-        }
-        break;
-    case Key_Tri_C2:
-        Module_LastSelect = Module_Select;
-        Module_Select = Triangle_C2;
-        if (Module_LastSelect != Module_Select)
-        {
-            Module_Select_num = 0;
-        }
-        else
-        {
-            if (++Module_Select_num >= FixedID_DeviceData[4][1])
-            {
-                Module_Select_num = 0;
-            }
-        }
-        break;
-    case Key_Tri_C3:
-        Module_LastSelect = Module_Select;
-        Module_Select = Triangle_C3;
-        if (Module_LastSelect != Module_Select)
-        {
-            Module_Select_num = 0;
-        }
-        else
-        {
-            if (++Module_Select_num >= FixedID_DeviceData[5][1])
-            {
-                Module_Select_num = 0;
-            }
-        }
-        break;
-    case Key_Tri_C4:
-        Module_LastSelect = Module_Select;
-        Module_Select = Triangle_C4;
-        if (Module_LastSelect != Module_Select)
-        {
-            Module_Select_num = 0;
-        }
-        else
-        {
-            if (++Module_Select_num >= FixedID_DeviceData[6][1])
-            {
-                Module_Select_num = 0;
-            }
-        }
-        break;
-    case Key_Square:
-        Module_LastSelect = Module_Select;
-        Module_Select = Square;
-        if (Module_LastSelect != Module_Select)
-        {
-            Module_Select_num = 0;
-        }
-        else
-        {
-            if (++Module_Select_num >= FixedID_DeviceData[7][1])
-            {
-                Module_Select_num = 0;
-            }
-        }
-        break;
-    case Key_Fu_SET:
-        delay_20ms();
-        delay_20ms();
-        delay_20ms();
-        delay_20ms(); // 等待从机完成缓存处理
-        Post_Device_Series_ID();
-        delay_20ms();
-        delay_20ms();
-        delay_20ms();
-        delay_20ms();
-        // // Poll_Device_ID();
-        Slave_Allocate_ID();
-        TimeCnt = 0;
-        timeFlag = 0;
-        BreathVal = dirflag = 0;
-        Module_LastSelect = Module_Select = 0;
-        Module_Select_num = 0;
-        Module_ComID = 0;
-        for (i = 0; i < SlaveDevive_Num; i++)
-        {
-            Slave_Array[i][8] = 0; // 清临时变量
-        }
-        Work_MOD=0; // 退出配对模式
-        //////////////////////////////////////////////////////////////////
+// // //     switch (*keyval)
+// // //     {
+// // //     case Key_Tri_A1:
+// // //         Module_LastSelect = Module_Select;
+// // //         Module_Select = Triangle_A1;
+// // //         if (Module_LastSelect != Module_Select)
+// // //         {
+// // //             Module_Select_num = 0;
+// // //         }
+// // //         else
+// // //         {
+// // //             if (++Module_Select_num >= FixedID_DeviceData[0][1])
+// // //             {
+// // //                 Module_Select_num = 0;
+// // //             }
+// // //         }
+// // //         break;
+// // //     case Key_Tri_A2:
+// // //         Module_LastSelect = Module_Select;
+// // //         Module_Select = Triangle_A2;
+// // //         if (Module_LastSelect != Module_Select)
+// // //         {
+// // //             Module_Select_num = 0;
+// // //         }
+// // //         else
+// // //         {
+// // //             if (++Module_Select_num >= FixedID_DeviceData[1][1])
+// // //             {
+// // //                 Module_Select_num = 0;
+// // //             }
+// // //         }
+// // //         break;
+// // //     case Key_Tri_B1:
+// // //         Module_LastSelect = Module_Select;
+// // //         Module_Select = Triangle_B1;
+// // //         if (Module_LastSelect != Module_Select)
+// // //         {
+// // //             Module_Select_num = 0;
+// // //         }
+// // //         else
+// // //         {
+// // //             if (++Module_Select_num >= FixedID_DeviceData[2][1])
+// // //             {
+// // //                 Module_Select_num = 0;
+// // //             }
+// // //         }
+// // //         break;
+// // //     case Key_Tri_C1:
+// // //         Module_LastSelect = Module_Select;
+// // //         Module_Select = Triangle_C1;
+// // //         if (Module_LastSelect != Module_Select)
+// // //         {
+// // //             Module_Select_num = 0;
+// // //         }
+// // //         else
+// // //         {
+// // //             if (++Module_Select_num >= FixedID_DeviceData[3][1])
+// // //             {
+// // //                 Module_Select_num = 0;
+// // //             }
+// // //         }
+// // //         break;
+// // //     case Key_Tri_C2:
+// // //         Module_LastSelect = Module_Select;
+// // //         Module_Select = Triangle_C2;
+// // //         if (Module_LastSelect != Module_Select)
+// // //         {
+// // //             Module_Select_num = 0;
+// // //         }
+// // //         else
+// // //         {
+// // //             if (++Module_Select_num >= FixedID_DeviceData[4][1])
+// // //             {
+// // //                 Module_Select_num = 0;
+// // //             }
+// // //         }
+// // //         break;
+// // //     case Key_Tri_C3:
+// // //         Module_LastSelect = Module_Select;
+// // //         Module_Select = Triangle_C3;
+// // //         if (Module_LastSelect != Module_Select)
+// // //         {
+// // //             Module_Select_num = 0;
+// // //         }
+// // //         else
+// // //         {
+// // //             if (++Module_Select_num >= FixedID_DeviceData[5][1])
+// // //             {
+// // //                 Module_Select_num = 0;
+// // //             }
+// // //         }
+// // //         break;
+// // //     case Key_Tri_C4:
+// // //         Module_LastSelect = Module_Select;
+// // //         Module_Select = Triangle_C4;
+// // //         if (Module_LastSelect != Module_Select)
+// // //         {
+// // //             Module_Select_num = 0;
+// // //         }
+// // //         else
+// // //         {
+// // //             if (++Module_Select_num >= FixedID_DeviceData[6][1])
+// // //             {
+// // //                 Module_Select_num = 0;
+// // //             }
+// // //         }
+// // //         break;
+// // //     case Key_Square:
+// // //         Module_LastSelect = Module_Select;
+// // //         Module_Select = Square;
+// // //         if (Module_LastSelect != Module_Select)
+// // //         {
+// // //             Module_Select_num = 0;
+// // //         }
+// // //         else
+// // //         {
+// // //             if (++Module_Select_num >= FixedID_DeviceData[7][1])
+// // //             {
+// // //                 Module_Select_num = 0;
+// // //             }
+// // //         }
+// // //         break;
+// // //     case Key_Fu_SET:
+// // //         delay_20ms();
+// // //         delay_20ms();
+// // //         delay_20ms();
+// // //         delay_20ms(); // 等待从机完成缓存处理
+// // //         Post_Device_Series_ID();
+// // //         delay_20ms();
+// // //         delay_20ms();
+// // //         delay_20ms();
+// // //         delay_20ms();
+// // //         // // Poll_Device_ID();
+// // //         Slave_Allocate_ID();
+// // //         TimeCnt = 0;
+// // //         timeFlag = 0;
+// // //         BreathVal = dirflag = 0;
+// // //         Module_LastSelect = Module_Select = 0;
+// // //         Module_Select_num = 0;
+// // //         Module_ComID = 0;
+// // //         for (i = 0; i < SlaveDevive_Num; i++)
+// // //         {
+// // //             Slave_Array[i][8] = 0; // 清临时变量
+// // //         }
+// // //         Work_MOD=0; // 退出配对模式
+// // //         //////////////////////////////////////////////////////////////////
 
-        // Data_DMA_load(&Bufferarray, SlaveDevive_Num);
-        // // delay_20ms();delay_20ms();delay_20ms();delay_20ms();delay_20ms();delay_20ms();
-        // // for (i = 0; i < ModuleLight_Num; i++)
-        // // {
-        // //     for (j = 0; j < ModuleLight_Num; j++)
-        // //     {
-        // //         Bufferarray[i][0] = i;
-        // //         Bufferarray[i][1] = 255;
-        // //         if (i == j)
-        // //         {
-        // //             Bufferarray[i][2] = 255;
-        // //             Bufferarray[i][3] = 0;
-        // //             Bufferarray[i][4] = 0;
-        // //             Bufferarray[i][5] = 0;
-        // //         }
-        // //         else
-        // //         {
-        // //             Bufferarray[i][2] = 0;
-        // //             Bufferarray[i][3] = 0;
-        // //             Bufferarray[i][4] = 0;
-        // //             Bufferarray[i][5] = 0;
-        // //         }
-        // //     }
-        // //     delay_20ms();delay_20ms();delay_20ms();delay_20ms();delay_20ms();delay_20ms();
-        // //     delay_20ms();delay_20ms();delay_20ms();delay_20ms();delay_20ms();delay_20ms();
-        // //     Data_DMA_load(&Bufferarray, ModuleLight_Num);
-        // // }
-
-
-        Slave_SelfTest();
-        Module_SelfTest();
-        /*
+// // //         // Data_DMA_load(&Bufferarray, SlaveDevive_Num);
+// // //         // // delay_20ms();delay_20ms();delay_20ms();delay_20ms();delay_20ms();delay_20ms();
+// // //         // // for (i = 0; i < ModuleLight_Num; i++)
+// // //         // // {
+// // //         // //     for (j = 0; j < ModuleLight_Num; j++)
+// // //         // //     {
+// // //         // //         Bufferarray[i][0] = i;
+// // //         // //         Bufferarray[i][1] = 255;
+// // //         // //         if (i == j)
+// // //         // //         {
+// // //         // //             Bufferarray[i][2] = 255;
+// // //         // //             Bufferarray[i][3] = 0;
+// // //         // //             Bufferarray[i][4] = 0;
+// // //         // //             Bufferarray[i][5] = 0;
+// // //         // //         }
+// // //         // //         else
+// // //         // //         {
+// // //         // //             Bufferarray[i][2] = 0;
+// // //         // //             Bufferarray[i][3] = 0;
+// // //         // //             Bufferarray[i][4] = 0;
+// // //         // //             Bufferarray[i][5] = 0;
+// // //         // //         }
+// // //         // //     }
+// // //         // //     delay_20ms();delay_20ms();delay_20ms();delay_20ms();delay_20ms();delay_20ms();
+// // //         // //     delay_20ms();delay_20ms();delay_20ms();delay_20ms();delay_20ms();delay_20ms();
+// // //         // //     Data_DMA_load(&Bufferarray, ModuleLight_Num);
+// // //         // // }
 
 
+// // //         Slave_SelfTest();
+// // //         Module_SelfTest();
+// // //         /*
 
 
 
@@ -1904,200 +1586,202 @@ void Paring_Mod(uint8_t *keyval,uint8_t reset)
 
 
 
-        */
-        break;
-        default:
-
-            break;
-        }
-
-    for (i = 0; i < 8; i++)     // 8种固定ID
-    {
-        if (Module_Select == FixedID_DeviceData[i][0])
-        {
-            Module_ComID = FixedID_DeviceData[i][2 + Module_Select_num];
-        }
-    }
-
-    Keyboard_Out(keyval, &Keyboard_NumVal);
-
-    if (dirflag)
-    {
-        if (BreathVal < 250)
-        {
-            BreathVal += 2;
-        }
-        else
-        {
-            dirflag = 0;
-        }
-    }
-    else
-    {
-        if (BreathVal > 5)
-        {
-            BreathVal -= 2;
-        }
-        else
-        {
-            dirflag = 1;
-        }
-    }
-
-    if (++TimeCnt > 30)
-    {
-        TimeCnt = 0;
-        timeFlag = 1;
-    }
-    if (timeFlag)
-    {
-        if (++temp >= SlaveDevive_Num)
-        {
-            temp = 0;
-        }
-    }
-    if (*keyval != 0xFF)
-    {
-        // printf("key=%d\n", *keyval);
-        // printf("ID=%d\n", Module_ComID);
-    }
-
-    // if (Keyboard_NumVal != 0xFF)
-    // {
-    //     printf("OUT=%d\n\n", Keyboard_NumVal);
-    // }
-    // printf("ID=%d\n", Module_ComID);
-    // printf("key=%d\n",*OutVal);
-    if (Keyboard_NumVal != 0XFF)
-    {
-        printf("ID=%d\n", Module_ComID);
-        // printf("key=%d\n\n", Keyboard_NumVal);
-        if ((Keyboard_NumVal <= 16) && (Keyboard_NumVal > 0))
-        {
-
-            // printf("Num=%d\n\n", Keyboard_NumVal);
-            // printf("selectID=%d\n", Module_ComID);
-            for (i = 0; i < SlaveDevive_Num; i++)
-            {
-                // printf("Slave:%d Module:%d\n", Slave_Array[i][5],Module_ComID);
-                if (Slave_Array[i][5] == Module_ComID)
-                {
-                    Slave_Array[i][8] = Keyboard_NumVal;
-                    // printf("set %d %d\n\n", Slave_Array[i][5],Keyboard_NumVal);
-                }
-            }
-        }
-    }
-
-    for (i = 0; i < SlaveDevive_Num; i++)
-    {
-
-        if (Slave_Array[i][5] == Module_ComID)
-        {
-            if (Slave_Array[i][8]) // 已设置编号
-            {
-                Bufferarray[i][0] = Slave_Array[i][5];
-                Bufferarray[i][1] = 255;
-                Bufferarray[i][2] = 0;
-                Bufferarray[i][3] = 255;
-                Bufferarray[i][4] = 0;
-                Bufferarray[i][5] = 0;
-            }
-            else
-            {
-                Bufferarray[i][0] = Slave_Array[i][5];
-                Bufferarray[i][1] = 255;
-                Bufferarray[i][2] = 0;
-                Bufferarray[i][3] = 0;
-                Bufferarray[i][4] = 0;
-                Bufferarray[i][5] = BreathVal;
-            }
-
-        }
-        else
-        {
-
-            if (Slave_Array[i][8]) // 已设置编号
-            {
-                Bufferarray[i][0] = Slave_Array[i][5];
-                Bufferarray[i][1] = 20;
-                Bufferarray[i][2] = 0;
-                Bufferarray[i][3] = 255;
-                Bufferarray[i][4] = 0;
-                Bufferarray[i][5] = 0;
-            }
-            else
-            {
-                Bufferarray[i][0] = Slave_Array[i][5];
-                Bufferarray[i][1] = 20;
-                Bufferarray[i][2] = 0;
-                Bufferarray[i][3] = 0;
-                Bufferarray[i][4] = 0;
-                Bufferarray[i][5] = BreathVal;
-            }
-        }
-    }
-    Data_DMA_load(&Bufferarray, SlaveDevive_Num);
-}
-
-void Scene_MOD(void)
-{
-    static uint8_t ProcessNum;
-    static uint8_t TimeCnt;
-    static uint8_t Cursor;
-    static uint8_t Flash_flag;
-    // static uint8_t Work_MOD;
-    // static uint8_t Last_Work_MOD;
-    uint8_t timeFlag;
-    static uint8_t temp;
-    uint8_t i, j, k;
-
-    if (++TimeCnt > 5)
-    {
-        TimeCnt=0;
-        Flash_flag = ~Flash_flag;
-        timeFlag=1;
-    }
 
 
-    switch (Work_MOD)
-    {
-    case 0:
-        if (IR_KeyVal==4)
-        {
-            Work_MOD=1;
-        }
-        // Frame_Working();
+// // //         */
+// // //         break;
+// // //         default:
 
-        break;
-    case 1:
-        if (IR_KeyVal==4)
-        {
-            Work_MOD=0;
-        }
+// // //             break;
+// // //         }
 
-        if (Last_Work_MOD != Work_MOD)
-        {
-            NewParing_Mod(&IR_KeyVal, 1);
-        }
-        else
-        {
-            NewParing_Mod(&IR_KeyVal, 0);
-        }
-        break;
+// // //     for (i = 0; i < 8; i++)     // 8种固定ID
+// // //     {
+// // //         if (Module_Select == FixedID_DeviceData[i][0])
+// // //         {
+// // //             Module_ComID = FixedID_DeviceData[i][2 + Module_Select_num];
+// // //         }
+// // //     }
 
-    default:
-        break;
-    }
-    Last_Work_MOD = Work_MOD;
-    if (IR_KeyVal==43)
-    {
+// // //     Keyboard_Out(keyval, &Keyboard_NumVal);
 
-        Slave_SelfTest();
+// // //     if (dirflag)
+// // //     {
+// // //         if (BreathVal < 250)
+// // //         {
+// // //             BreathVal += 2;
+// // //         }
+// // //         else
+// // //         {
+// // //             dirflag = 0;
+// // //         }
+// // //     }
+// // //     else
+// // //     {
+// // //         if (BreathVal > 5)
+// // //         {
+// // //             BreathVal -= 2;
+// // //         }
+// // //         else
+// // //         {
+// // //             dirflag = 1;
+// // //         }
+// // //     }
 
-    }
+// // //     if (++TimeCnt > 30)
+// // //     {
+// // //         TimeCnt = 0;
+// // //         timeFlag = 1;
+// // //     }
+// // //     if (timeFlag)
+// // //     {
+// // //         if (++temp >= SlaveDevive_Num)
+// // //         {
+// // //             temp = 0;
+// // //         }
+// // //     }
+// // //     if (*keyval != 0xFF)
+// // //     {
+// // //         // printf("key=%d\n", *keyval);
+// // //         // printf("ID=%d\n", Module_ComID);
+// // //     }
 
-}
+// // //     // if (Keyboard_NumVal != 0xFF)
+// // //     // {
+// // //     //     printf("OUT=%d\n\n", Keyboard_NumVal);
+// // //     // }
+// // //     // printf("ID=%d\n", Module_ComID);
+// // //     // printf("key=%d\n",*OutVal);
+// // //     if (Keyboard_NumVal != 0XFF)
+// // //     {
+// // //         printf("ID=%d\n", Module_ComID);
+// // //         // printf("key=%d\n\n", Keyboard_NumVal);
+// // //         if ((Keyboard_NumVal <= 16) && (Keyboard_NumVal > 0))
+// // //         {
+
+// // //             // printf("Num=%d\n\n", Keyboard_NumVal);
+// // //             // printf("selectID=%d\n", Module_ComID);
+// // //             for (i = 0; i < SlaveDevive_Num; i++)
+// // //             {
+// // //                 // printf("Slave:%d Module:%d\n", Slave_Array[i][5],Module_ComID);
+// // //                 if (Slave_Array[i][5] == Module_ComID)
+// // //                 {
+// // //                     Slave_Array[i][8] = Keyboard_NumVal;
+// // //                     // printf("set %d %d\n\n", Slave_Array[i][5],Keyboard_NumVal);
+// // //                 }
+// // //             }
+// // //         }
+// // //     }
+
+// // //     for (i = 0; i < SlaveDevive_Num; i++)
+// // //     {
+
+// // //         if (Slave_Array[i][5] == Module_ComID)
+// // //         {
+// // //             if (Slave_Array[i][8]) // 已设置编号
+// // //             {
+// // //                 Bufferarray[i][0] = Slave_Array[i][5];
+// // //                 Bufferarray[i][1] = 255;
+// // //                 Bufferarray[i][2] = 0;
+// // //                 Bufferarray[i][3] = 255;
+// // //                 Bufferarray[i][4] = 0;
+// // //                 Bufferarray[i][5] = 0;
+// // //             }
+// // //             else
+// // //             {
+// // //                 Bufferarray[i][0] = Slave_Array[i][5];
+// // //                 Bufferarray[i][1] = 255;
+// // //                 Bufferarray[i][2] = 0;
+// // //                 Bufferarray[i][3] = 0;
+// // //                 Bufferarray[i][4] = 0;
+// // //                 Bufferarray[i][5] = BreathVal;
+// // //             }
+
+// // //         }
+// // //         else
+// // //         {
+
+// // //             if (Slave_Array[i][8]) // 已设置编号
+// // //             {
+// // //                 Bufferarray[i][0] = Slave_Array[i][5];
+// // //                 Bufferarray[i][1] = 20;
+// // //                 Bufferarray[i][2] = 0;
+// // //                 Bufferarray[i][3] = 255;
+// // //                 Bufferarray[i][4] = 0;
+// // //                 Bufferarray[i][5] = 0;
+// // //             }
+// // //             else
+// // //             {
+// // //                 Bufferarray[i][0] = Slave_Array[i][5];
+// // //                 Bufferarray[i][1] = 20;
+// // //                 Bufferarray[i][2] = 0;
+// // //                 Bufferarray[i][3] = 0;
+// // //                 Bufferarray[i][4] = 0;
+// // //                 Bufferarray[i][5] = BreathVal;
+// // //             }
+// // //         }
+// // //     }
+// // //     Data_DMA_load(&Bufferarray, SlaveDevive_Num);
+// // // }
+
+// // // // // void Scene_MOD(void)
+// // // // // {
+// // // // //     static uint8_t ProcessNum;
+// // // // //     static uint8_t TimeCnt;
+// // // // //     static uint8_t Cursor;
+// // // // //     static uint8_t Flash_flag;
+// // // // //     // static uint8_t Work_MOD;
+// // // // //     // static uint8_t Last_Work_MOD;
+// // // // //     uint8_t timeFlag;
+// // // // //     static uint8_t temp;
+// // // // //     uint8_t i, j, k;
+
+// // // // //     if (++TimeCnt > 5)
+// // // // //     {
+// // // // //         TimeCnt=0;
+// // // // //         Flash_flag = ~Flash_flag;
+// // // // //         timeFlag=1;
+// // // // //     }
+
+
+// // // // //     switch (Work_MOD)
+// // // // //     {
+// // // // //     case 0:
+// // // // //         if (IR_KeyVal==4)
+// // // // //         {
+// // // // //             Work_MOD=1;
+// // // // //         }
+// // // // //         // Frame_Working();
+
+// // // // //         break;
+// // // // //     case 1:
+// // // // //         if (IR_KeyVal==4)
+// // // // //         {
+// // // // //             Work_MOD=0;
+// // // // //         }
+
+// // // // //         if (Last_Work_MOD != Work_MOD)
+// // // // //         {
+// // // // //             NewParing_Mod(&IR_KeyVal, 1);
+// // // // //         }
+// // // // //         else
+// // // // //         {
+// // // // //             NewParing_Mod(&IR_KeyVal, 0);
+// // // // //         }
+// // // // //         break;
+
+// // // // //     default:
+// // // // //         break;
+// // // // //     }
+// // // // //     Last_Work_MOD = Work_MOD;
+// // // // //     if (IR_KeyVal==43)
+// // // // //     {
+
+// // // // //         Slave_SelfTest();
+
+// // // // //     }
+
+// // // // // }
 
 // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // void Frame_Working(void)
 // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // {
@@ -2164,198 +1848,198 @@ void Scene_MOD(void)
 // // // // // // // // // // // // // // // // // // // // // // // // // // // // // //     Slave_ColorData_DMA();
 // // // // // // // // // // // // // // // // // // // // // // // // // // // // // // }
 
-void Module_SelfTest(void)
-{
-    uint8_t i, j;
-    for (i = 0; i <= ModuleLight_Num; i++)
-    {
-        for (j = 0; j < ModuleLight_Num; j++)
-        {
-            if (j == i)
-            {
-                Tangram[j].R.Now = 0;
-                Tangram[j].G.Now = 255;
-                Tangram[j].B.Now = 0;
-                Tangram[j].W.Now = 0;
-            }
-            else
-            {
-                Tangram[j].R.Now = 0;
-                Tangram[j].G.Now = 0;
-                Tangram[j].B.Now = 0;
-                Tangram[j].W.Now = 0;
-            }
-        }
-        delay_500ms();
-        TangramBuffer_DMA_load(ModuleLight_Num);
-    }
-}
+// // // // // void Module_SelfTest(void)
+// // // // // {
+// // // // //     uint8_t i, j;
+// // // // //     for (i = 0; i <= ModuleLight_Num; i++)
+// // // // //     {
+// // // // //         for (j = 0; j < ModuleLight_Num; j++)
+// // // // //         {
+// // // // //             if (j == i)
+// // // // //             {
+// // // // //                 Tangram[j].R.Now = 0;
+// // // // //                 Tangram[j].G.Now = 255;
+// // // // //                 Tangram[j].B.Now = 0;
+// // // // //                 Tangram[j].W.Now = 0;
+// // // // //             }
+// // // // //             else
+// // // // //             {
+// // // // //                 Tangram[j].R.Now = 0;
+// // // // //                 Tangram[j].G.Now = 0;
+// // // // //                 Tangram[j].B.Now = 0;
+// // // // //                 Tangram[j].W.Now = 0;
+// // // // //             }
+// // // // //         }
+// // // // //         delay_500ms();
+// // // // //         TangramBuffer_DMA_load(ModuleLight_Num);
+// // // // //     }
+// // // // // }
 
-void Slave_SelfTest(void)
-{
-    uint8_t i, j;
-    if (TangramDevice.Device_sum)
-    {
-        for (i = 0; i < TangramDevice.Device_sum; i++)
-        {
-            for (j = 0; j < TangramDevice.Device_sum; j++)
-            {
-                // if (TangramDevice.SlaveData[j].Runingnum == i)
-                if (j == i)
-                {
-                    TangramDevice.SlaveData[j].Color.R = 0;
-                    TangramDevice.SlaveData[j].Color.G = 0;
-                    TangramDevice.SlaveData[j].Color.B = 0;
-                    TangramDevice.SlaveData[j].Color.W = 255;
-                }
-                else
-                {
-                    TangramDevice.SlaveData[j].Color.R = 0;
-                    TangramDevice.SlaveData[j].Color.G = 0;
-                    TangramDevice.SlaveData[j].Color.B = 0;
-                    TangramDevice.SlaveData[j].Color.W = 0;
-                }
-            }
-            delay_500ms();
-            Slave_ColorData_DMA();
-        }
-        delay_500ms();
-        for (j = 0; j < TangramDevice.Device_sum; j++)
-        {
-            TangramDevice.SlaveData[j].Color.R = 0;
-            TangramDevice.SlaveData[j].Color.G = 0;
-            TangramDevice.SlaveData[j].Color.B = 0;
-            TangramDevice.SlaveData[j].Color.W = 0;
-        }
-        Slave_ColorData_DMA();
-    }
-    else
-    {
-        printf("\r\n\r\n\r\n\r\n\r\n\r\nFound zero device!\r\n\r\n\r\n\r\n");
-    }
-}
+// // void Slave_SelfTest(void)
+// // {
+// //     uint8_t i, j;
+// //     if (TangramDevice.Device_sum)
+// //     {
+// //         for (i = 0; i < TangramDevice.Device_sum; i++)
+// //         {
+// //             for (j = 0; j < TangramDevice.Device_sum; j++)
+// //             {
+// //                 // if (TangramDevice.SlaveData[j].Runingnum == i)
+// //                 if (j == i)
+// //                 {
+// //                     TangramDevice.SlaveData[j].Color.R = 0;
+// //                     TangramDevice.SlaveData[j].Color.G = 0;
+// //                     TangramDevice.SlaveData[j].Color.B = 0;
+// //                     TangramDevice.SlaveData[j].Color.W = 255;
+// //                 }
+// //                 else
+// //                 {
+// //                     TangramDevice.SlaveData[j].Color.R = 0;
+// //                     TangramDevice.SlaveData[j].Color.G = 0;
+// //                     TangramDevice.SlaveData[j].Color.B = 0;
+// //                     TangramDevice.SlaveData[j].Color.W = 0;
+// //                 }
+// //             }
+// //             delay_500ms();
+// //             Slave_ColorData_DMA();
+// //         }
+// //         delay_500ms();
+// //         for (j = 0; j < TangramDevice.Device_sum; j++)
+// //         {
+// //             TangramDevice.SlaveData[j].Color.R = 0;
+// //             TangramDevice.SlaveData[j].Color.G = 0;
+// //             TangramDevice.SlaveData[j].Color.B = 0;
+// //             TangramDevice.SlaveData[j].Color.W = 0;
+// //         }
+// //         Slave_ColorData_DMA();
+// //     }
+// //     else
+// //     {
+// //         printf("\r\n\r\n\r\n\r\n\r\n\r\nFound zero device!\r\n\r\n\r\n\r\n");
+// //     }
+// // }
 
-void Module_All_GradualChange(uint8_t modele_num)
-{
-    uint8_t i;
-    for (i = 0; i < modele_num; i++)
-    {
-        // // // Module_Gradual_Change(&Tangram[i]);
-        Model_Gradual_Change(&Tangram[i]);
-    }
+// // // // // // // // // // // // // // // // void Module_All_GradualChange(uint8_t modele_num)
+// // // // // // // // // // // // // // // // {
+// // // // // // // // // // // // // // // //     uint8_t i;
+// // // // // // // // // // // // // // // //     for (i = 0; i < modele_num; i++)
+// // // // // // // // // // // // // // // //     {
+// // // // // // // // // // // // // // // //         // // // Module_Gradual_Change(&Tangram[i]);
+// // // // // // // // // // // // // // // //         Model_Gradual_Change(&Tangram[i]);
+// // // // // // // // // // // // // // // //     }
 
-//    TangramBuffer_DMA_load(modele_num);
-}
+// // // // // // // // // // // // // // // // //    TangramBuffer_DMA_load(modele_num);
+// // // // // // // // // // // // // // // // }
 
 
 uint8_t MIC_Process(void)
 {
-    uint16_t Max,Min,Average,BaseVal;
-    uint16_t SoundRange;
-    uint8_t i, j;
-    uint16_t temp;
-    static uint16_t Last_Max = 0;
+    // uint16_t Max,Min,Average,BaseVal;
+    // uint16_t SoundRange;
+    // uint8_t i, j;
+    // uint16_t temp;
+    // static uint16_t Last_Max = 0;
 
-    if (DMAVEC->CTRL[CTRL_DATA_ADC].DMACT == 0)
-    {
-        // LED2_REV();
-        // ADC_Stop();
-        Max = 0;
-        Min = 0xFFFF;
-        for (i = 0; i < ADC_CNT; i++)
-        {
-            if (Max < ADC_Buffer[i])
-            {
-                Max = ADC_Buffer[i];
-            }
-            if (Min > ADC_Buffer[i])
-            {
-                Min = ADC_Buffer[i];
-            }
-        }
-        Average = ADC_Buffer[0];
-        SoundRange = Max - Min;
-        BaseVal = Max + Min;
-        BaseVal = BaseVal / 2;
-        // printf("%d\r\n",SoundRange);
-        Last_Max = Max;
-        // if (Edge_detect(SoundRange))
-        // {
-        //     // Random_ColorTrigger(ModuleLight_Num);
-        //     // ColorTrigger(TangramDevice.Light_sum);
-        //     // printf("Trigger\n");
-        // }
+    // if (DMAVEC->CTRL[CTRL_DATA_ADC].DMACT == 0)
+    // {
+    //     // LED2_REV();
+    //     // ADC_Stop();
+    //     Max = 0;
+    //     Min = 0xFFFF;
+    //     for (i = 0; i < ADC_CNT; i++)
+    //     {
+    //         if (Max < ADC_Buffer[i])
+    //         {
+    //             Max = ADC_Buffer[i];
+    //         }
+    //         if (Min > ADC_Buffer[i])
+    //         {
+    //             Min = ADC_Buffer[i];
+    //         }
+    //     }
+    //     Average = ADC_Buffer[0];
+    //     SoundRange = Max - Min;
+    //     BaseVal = Max + Min;
+    //     BaseVal = BaseVal / 2;
+    //     // printf("%d\r\n",SoundRange);
+    //     Last_Max = Max;
+    //     // if (Edge_detect(SoundRange))
+    //     // {
+    //     //     // Random_ColorTrigger(ModuleLight_Num);
+    //     //     // ColorTrigger(TangramDevice.Light_sum);
+    //     //     // printf("Trigger\n");
+    //     // }
 
-        // DMA_Start(DMA_VECTOR_ADC, CTRL_DATA_ADC, DMA_MODE_NORMAL,
-        //           DMA_SIZE_HALF, ADC_CNT, (uint16_t *)&ADC->ADCR, ADC_Buffer);
+    //     // DMA_Start(DMA_VECTOR_ADC, CTRL_DATA_ADC, DMA_MODE_NORMAL,
+    //     //           DMA_SIZE_HALF, ADC_CNT, (uint16_t *)&ADC->ADCR, ADC_Buffer);
 
-        // ADC_Set_HardTrigger(1, AD_TRG_IT);
-        // ADC_Set_Clock(CLOCK_DIV8, 0x0DU);
-        // ADC_Start(ADC_CHANNEL_0);
-        // DMA_Start(DMA_VECTOR_ADC, CTRL_DATA_ADC, DMA_MODE_NORMAL,
-        //           DMA_SIZE_HALF, ADC_CNT, (uint16_t *)&ADC->ADCR, ADC_Buffer);
+    //     // ADC_Set_HardTrigger(1, AD_TRG_IT);
+    //     // ADC_Set_Clock(CLOCK_DIV8, 0x0DU);
+    //     // ADC_Start(ADC_CHANNEL_0);
+    //     // DMA_Start(DMA_VECTOR_ADC, CTRL_DATA_ADC, DMA_MODE_NORMAL,
+    //     //           DMA_SIZE_HALF, ADC_CNT, (uint16_t *)&ADC->ADCR, ADC_Buffer);
 
-        return Edge_detect(SoundRange);
-    }
+    //     return Edge_detect(SoundRange);
+    // }
 }
 
 
-/**
- * @description: 灯光运行编号排序
- * @param
- * @return {*}
- */
-// void Runingnum_Bubble_Sort(uint8_t *array, uint8_t row, uint8_t column, uint8_t num)
-void Runingnum_Bubble_Sort(void)
-{
-    uint8_t TempArray[16][2];
-    uint8_t temp;
-    uint8_t i, j, k;
+// // // /**
+// // //  * @description: 灯光运行编号排序
+// // //  * @param
+// // //  * @return {*}
+// // //  */
+// // // // void Runingnum_Bubble_Sort(uint8_t *array, uint8_t row, uint8_t column, uint8_t num)
+// // // void Runingnum_Bubble_Sort(void)
+// // // {
+// // //     uint8_t TempArray[16][2];
+// // //     uint8_t temp;
+// // //     uint8_t i, j, k;
 
-    // printf("\r\n\r\n\r\n");
-    for (i = 0; i < TangramDevice.Device_sum; i++)  // 提取灯光序号
-    {
-        TempArray[i][0] = TangramDevice.SlaveData[i].ID;
-        TempArray[i][1] = TangramDevice.SlaveData[i].Lightnum;
-        printf("[%d][%d] \n", TempArray[i][0], TempArray[i][1]);
-    }
+// // //     // printf("\r\n\r\n\r\n");
+// // //     for (i = 0; i < TangramDevice.Device_sum; i++)  // 提取灯光序号
+// // //     {
+// // //         TempArray[i][0] = TangramDevice.SlaveData[i].ID;
+// // //         TempArray[i][1] = TangramDevice.SlaveData[i].Lightnum;
+// // //         printf("[%d][%d] \n", TempArray[i][0], TempArray[i][1]);
+// // //     }
 
-    Bubble_Sort_2D(&TempArray, TangramDevice.Device_sum, 2, 1); // 对灯光序号进行排序
+// // //     Bubble_Sort_2D(&TempArray, TangramDevice.Device_sum, 2, 1); // 对灯光序号进行排序
 
-    // printf("\r\n\r\nBubble...\r\n\r\n\r\n");
+// // //     // printf("\r\n\r\nBubble...\r\n\r\n\r\n");
 
-    temp = TempArray[0][1];
-    j = 0;
-    for (i = 0; i < TangramDevice.Device_sum; i++)
-    {
-        if (TempArray[i][1] != temp)
-        {
-            j++;
-        }
-        for (k = 0; k < TangramDevice.Device_sum; k++) // 写入重新编排后的灯光运行序号
-        {
-            if (TangramDevice.SlaveData[k].ID == TempArray[i][0])
-            {
-                TangramDevice.SlaveData[k].Runingnum = j;
-            }
-        }
-        temp = TempArray[i][1];
-    }
-    TangramDevice.Light_sum = j + 1;
+// // //     temp = TempArray[0][1];
+// // //     j = 0;
+// // //     for (i = 0; i < TangramDevice.Device_sum; i++)
+// // //     {
+// // //         if (TempArray[i][1] != temp)
+// // //         {
+// // //             j++;
+// // //         }
+// // //         for (k = 0; k < TangramDevice.Device_sum; k++) // 写入重新编排后的灯光运行序号
+// // //         {
+// // //             if (TangramDevice.SlaveData[k].ID == TempArray[i][0])
+// // //             {
+// // //                 TangramDevice.SlaveData[k].Runingnum = j;
+// // //             }
+// // //         }
+// // //         temp = TempArray[i][1];
+// // //     }
+// // //     TangramDevice.Light_sum = j + 1;
 
-    // // // printf("\r\nLight_sum=%d\r\n", TangramDevice.Light_sum);
+// // //     // // // printf("\r\nLight_sum=%d\r\n", TangramDevice.Light_sum);
 
-    // // // for (i = 0; i < TangramDevice.Device_sum; i++)
-    // // // {
-    // // //     printf("[%d][%d]\n", TempArray[i][0], TempArray[i][1]);
-    // // // }
-    printf("\r\n\r\n");
-    for (i = 0; i < TangramDevice.Device_sum; i++)
-    {
-        printf("ID[%d][%d][%d] \n", TangramDevice.SlaveData[i].ID, TangramDevice.SlaveData[i].Lightnum, TangramDevice.SlaveData[i].Runingnum);
-    }
-    printf("\nDevice_sum %d\nLight_sum %d\n\n",TangramDevice.Device_sum,TangramDevice.Light_sum);
-}
+// // //     // // // for (i = 0; i < TangramDevice.Device_sum; i++)
+// // //     // // // {
+// // //     // // //     printf("[%d][%d]\n", TempArray[i][0], TempArray[i][1]);
+// // //     // // // }
+// // //     printf("\r\n\r\n");
+// // //     for (i = 0; i < TangramDevice.Device_sum; i++)
+// // //     {
+// // //         printf("ID[%d][%d][%d] \n", TangramDevice.SlaveData[i].ID, TangramDevice.SlaveData[i].Lightnum, TangramDevice.SlaveData[i].Runingnum);
+// // //     }
+// // //     printf("\nDevice_sum %d\nLight_sum %d\n\n",TangramDevice.Device_sum,TangramDevice.Light_sum);
+// // // }
 
 void DataUpdata_TO_APP(uint8_t *data_addr)
 {
@@ -2377,27 +2061,45 @@ void LED_Display(void)
     uint8_t blink_frequency;
     // get_wifi_state = get_wifi_homekit_state();
     // printf("homekit_STA:%d\n",get_wifi_state);
-    get_wifi_state = get_wifi_tuya_state();
+    get_wifi_state = mcu_get_wifi_work_state();
     // printf("tuya_STA:%d\r\n",get_wifi_state);
-
+/*
+ * -          SMART_CONFIG_STATE: smartconfig配置状态
+ * -          AP_STATE: AP配置状态
+ * -          WIFI_NOT_CONNECTED: WIFI配置成功但未连上路由器
+ * -          WIFI_CONNECTED: WIFI配置成功且连上路由器
+ * -          WIFI_CONN_CLOUD: WIFI已经连接上云服务器
+ * -          WIFI_LOW_POWER: WIFI处于低功耗模式
+ * -          SMART_AND_AP_STATE: WIFI smartconfig&AP 模式
+*/
     switch (get_wifi_state)
     {
-    case CONFIG_STATE:
+    case SMART_CONFIG_STATE: // smartconfig配置状态
         blink_frequency = 2;
         break;
-    case WIFI_NOT_CONNECTED:
-        blink_frequency = 5;
+    case AP_STATE: // AP配置状态
+        blink_frequency = 2;
         break;
-    case WIFI_CONNECTED:
+    case WIFI_NOT_CONNECTED: // WIFI配置成功但未连上路由器
         blink_frequency = 15;
         break;
-    case WIFI_CONN_CLOUD:
+    case WIFI_CONNECTED: // WIFI配置成功且连上路由器
         blink_frequency = 60;
         break;
-    case WIFI_SATE_UNKNOW:
-        blink_frequency = 100;
+    case WIFI_CONN_CLOUD: // WIFI已经连接上云服务器
+        blink_frequency = 85;
         break;
+    case WIFI_LOW_POWER: // WIFI处于低功耗模式
+        blink_frequency = 2;
+        break;
+    case SMART_AND_AP_STATE: // WIFI smartconfig&AP 模式
+        blink_frequency = 2;
+        break;
+    // case WIFI_SATE_UNKNOW:
+    //     blink_frequency = 100;
+    //     break;
     default:
+        blink_frequency = 100;
         break;
     }
 
@@ -2413,6 +2115,15 @@ void LED_Display(void)
             blink_timecnt = 0;
             LED1_REV();
         }
+    }
+
+    if (play.work.sw_status == SW_ON)
+    {
+        LED2_ON();
+    }
+    else
+    {
+        LED2_OFF();
     }
 }
 uint8_t KEY_AD_Test(void)
@@ -2522,16 +2233,16 @@ void RTC_Check(uint8_t time[])
 
 void RTC_Task(void)
 {
-    rtc_counter_value_t counter_val;
-    if (RTC_CheckFinish == 0)
-    {
-        mcu_get_system_time();  // 从网络获取时间
-    }
-    else
-    {
-        RTC_Get_CounterValue(&counter_val);
-        // // // printf("     20%d/%d/%d  %d %d:%d:%d\r\n",BCD_To_DATA(counter_val.year),BCD_To_DATA(counter_val.month),BCD_To_DATA(counter_val.day),BCD_To_DATA(counter_val.week),BCD_To_DATA(counter_val.hour),BCD_To_DATA(counter_val.min),BCD_To_DATA(counter_val.sec));
-    }
+    // rtc_counter_value_t counter_val;
+    // if (RTC_CheckFinish == 0)
+    // {
+    //     mcu_get_system_time();  // 从网络获取时间
+    // }
+    // else
+    // {
+    //     RTC_Get_CounterValue(&counter_val);
+    //     // // // printf("     20%d/%d/%d  %d %d:%d:%d\r\n",BCD_To_DATA(counter_val.year),BCD_To_DATA(counter_val.month),BCD_To_DATA(counter_val.day),BCD_To_DATA(counter_val.week),BCD_To_DATA(counter_val.hour),BCD_To_DATA(counter_val.min),BCD_To_DATA(counter_val.sec));
+    // }
 }
 
 
@@ -2545,4 +2256,34 @@ uint32_t checksum_calculate(uint8_t *sur, uint32_t len)
 		sum += *sur++;
 	}
 	return sum;
+}
+
+
+void watchdog_test(void)
+{
+// //     extern volatile uint32_t g_WdtIntTaken; 	/* WDT interrupt flag */
+// //     -----------------------------------------------------------------------
+// // Configure Option Byte C0H to enable WDT in system_CMS32L051.c
+// // -----------------------------------------------------------------------
+// //     PORT->PMC7 = 0x00;
+// // 	PORT->P7  |= (3<<1);
+// // 	PORT->PM7 &= ~(3<<1); // P71, P72 output mode
+
+// // 	tmp = RST->RESF;
+// // 	if(tmp & RST_RESF_WDTRF_Msk)
+// // 	{
+// // 		printf("WDT Reset taken! RESF = 0x%02x\n", tmp);
+// // 		PORT->P7 ^= (1<<1); 	// P71 toggle
+// // 		while(1)
+// // 		{
+// // 			WDT_Restart();
+// // 		}
+// // 	}
+// // 	else
+// // 	{
+// // 		while(g_WdtIntTaken == 0){;}
+// // 		printf("WDT Interrupt taken! RESF = 0x%02x\n", RST->RESF);
+// // 		PORT->P7 ^= (1<<2); 	// P72 toggle
+// // 		while(1);
+// // 	}
 }

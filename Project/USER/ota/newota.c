@@ -1,3 +1,20 @@
+/*
+ * @Author: joel
+ * .chen sandote@163.om
+ * @Date: 2023-06-05 09:52:26
+ * @LastEditors: joel
+.chen sandote@163.om
+.chen sandote@163.om
+.chen sandote@163.om
+.chen sandote@163.om
+.chen sandote@163.om
+ * .chen sandote@163.om
+ * @LastEditTime: 2023-07-13 16:24:02
+ * @FilePath: \L1001_Master_CMS32L051\Project\USER\ota\newota.c
+ * @Description:
+ *
+ * Copyright (c) 2023 by ${git_name_email}, All Rights Reserved.
+ */
 #include "newota.h"
 
 /*²Á³ý¹Ì¼þÇø*/

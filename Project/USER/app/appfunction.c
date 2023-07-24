@@ -183,7 +183,7 @@ void mcu_update_device_detail(void)
     for (i = 0; i < slave.num; i++)
     {
         com.data[i].id = slave.data[i].id;
-        com.data[i].type = slave.data[i].type;
+        com.data[i].shape = slave.data[i].shape;
         com.data[i].angle = slave.data[i].angle;
         com.data[i].cooed_x = slave.data[i].cooed_x;
         com.data[i].cooed_y = slave.data[i].cooed_y;
@@ -235,19 +235,43 @@ void mcu_update_schedule_detail(uint8_t num)
     com.checksum = (uint8_t)checksum_calculate((uint8_t *)&com, (uint16_t)sizeof(com) - 1);
     mcu_dp_raw_update(DPID_CLOCK_DETIAL, &com, sizeof(com));
 }
+
+
+
 /******************************************************************************************************************************************************/
-/*针对DPID_SWITCH_LED的处理函数*/
-void mcu_download_switch_led(uint8_t sw)
-{
-    if (sw)
-    {
-        SYS.POWER_SW = 1;
-    }
-    else
-    {
-        SYS.POWER_SW = 0;
-    }
-}
+/*
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+*/
+
 
 /*针对DPID_EFFECT_DETIAL的处理函数*/
 uint8_t mcu_download_effect_detail_handle(uint8_t *sur, uint16_t length)
@@ -363,6 +387,12 @@ uint8_t mcu_download_issue_cmd_handle(uint8_t *sur, uint16_t length)
         printlog("ASK_SCHEDULE_SKETCH\r");
         mcu_update_schedule_sketch();
         break;
+    case PLAY_TEMP_EFFECT: /*播放临时灯效*/
+        printlog("PLAY_TEMP_EFFECT\r");
+        play_new_effect(p->data[0]);
+        mcu_update_current_playdetail(); // 自动上报当前播放详情
+        mcu_update_playstatus();         // 自动上报播放状态
+        break;
     default:
         printlog("[error] wrong command num:%d\r", p->cmd);
         printAssert();
@@ -403,35 +433,32 @@ uint8_t mcu_download_play_detial(uint8_t *sur, uint16_t length)
     return 1;
 }
 /*针对DPID_PLAY_CONTROL_DETIAL的处理函数*/
- uint8_t mcu_download_play_control_detial(uint8_t *sur, uint16_t length)
+uint8_t mcu_download_play_control_detial(uint8_t *sur, uint16_t length)
 {
-    com_play_control_TypeDef *p;
-    p=(com_play_control_TypeDef*)sur;
     printlog("mcu_download_play_control_detial\r");
     if (com_dataverify(sur, length) == 0)
     {
         return 0;
     }
-    switch (p->type)
+    switch (((com_play_control_TypeDef *)sur)->type)
     {
     case PLAY_STATUS: // 播放/暂停
-        play.status = (playstatus_enum)p->value;
+        play.status = (playstatus_enum)(((com_play_control_TypeDef *)sur)->value);
         break;
     case PLAY_SWITCH: // 上下曲切换
-
+        switch_ln_effect((switchplay_enum)(((com_play_control_TypeDef *)sur)->value));
         break;
     case EFFECT_INDEX: // 效果索引
 
         break;
     case PLAY_MODE: // 播放循环模式
-        play.mode = (playmode_enum)p->value;
+        play.mode = (playmode_enum)(((com_play_control_TypeDef *)sur)->value);
         break;
     case PLAYLIST_INDEX: // 播放列表索引
-        switch_playlist(p->value);
+        switch_playlist((((com_play_control_TypeDef *)sur)->value));
         break;
-
     default:
-        printlog("[error] wrong play type num:%d\r",p->type);
+        printlog("[error] wrong play type num:%d\r", ((com_play_control_TypeDef *)sur)->type);
         printAssert();
         break;
     }
@@ -445,7 +472,7 @@ void mcu_download_device_detail(uint8_t *sur, uint16_t length)
     uint8_t i, j;
     com_device_detail_TypeDef com;
     device_detail_TypeDef device;
-    printlog("mcu_download_device_detail");
+    printlog("mcu_download_device_detail\r");
     j = length / sizeof(com_device_detail_TypeDef); // 算出设备数量
     for (i = 0; i < j; i++)
     {
@@ -455,68 +482,90 @@ void mcu_download_device_detail(uint8_t *sur, uint16_t length)
         device.angle = com.angle;
         device.cooed_x = com.cooed_x;
         device.cooed_y = com.cooed_y;
-        refresh_device_data(&device);
+        refresh_slave_data(&device);
     }
     save_all_slave_data(&slave);
     print_slave_data();
+    goto_mcu_control_mode();    // 进入mcu控制模式
 }
 /*针对DPID_DEVICE_CONTROL的处理函数*/
 uint8_t mcu_download_device_control(uint8_t *sur, uint16_t length)
 {
-    com_device_control_TypeDef* p;
+    // // com_device_control_TypeDef* p;
     color_TypeDef color;
     uint8_t i;
     printlog("mcu_download_device_control\r");
+    goto_app_control_mode(); // 进入app控制模式
     if (com_dataverify(sur, length) == 0)
     {
         return 0;
     }
     printhex_my(sur, length);
-    p = (com_device_control_TypeDef *)sur;
-    for (i = 0; i < p->num; i++)
-    {
-        color.brightness = p->data[i].brightness;
-        color.R = p->data[i].R;
-        color.G = p->data[i].G;
-        color.B = p->data[i].B;
-        color.W = p->data[i].W;
-        refresh_device_color(&color, p->data[i].id);
-    }
-    print_slave_color();
+    // // p = (com_device_control_TypeDef *)sur;
+
+    // // printlog("id:%d\r",((com_device_control_TypeDef *)sur)->data[0].id);
+
+    light_up_only_one_slave(((com_device_control_TypeDef *)sur)->data[0].id);
+    // // for (i = 0; i < p->num; i++)
+    // // {
+    // //     color.brightness = p->data[i].brightness;
+    // //     color.R = p->data[i].R;
+    // //     color.G = p->data[i].G;
+    // //     color.B = p->data[i].B;
+    // //     color.W = p->data[i].W;
+    // //     refresh_device_color(&color, p->data[i].id);
+    // // }
+    // // print_slave_color();
+
     return 1;
 }
 /*针对DPID_CLOCK_DETIAL的处理函数*/
 uint8_t mcu_download_clock_detial(uint8_t *sur, uint16_t length)
 {
     schedule_detail_TypeDef schedule_detail;
+
     printlog("mcu_download_clock_detial\r");
     copy_schedule_detail_from_com((com_schedule_detail_TypeDef *)sur, &schedule_detail);
+    print_schedule_detial(&schedule_detail);
     add_schedule(&schedule_detail, ((com_schedule_detail_TypeDef *)sur)->index);
     mcu_update_schedule_sketch();
+    print_all_schedule();
 }
+/*
 
+
+
+
+*/
 /*在线下载固件*/
 void mcu_firmware_download(uint8_t *sur, uint16_t position, uint16_t length)
 {
-    static uint32_t packsum; // 升级包校验和
+    static uint32_t packsum = 0; // 升级包校验和
+    uint32_t chechsum;
     if (length == 0)
     {
         // 固件数据发送完成
-        printlog("package sum is 0x%04x\r", packsum);
-        if (packsum == get_firmware_chechsum_norflash()) // 校验存储数据是否与升级包一致
+
+        chechsum = get_firmware_chechsum_norflash();
+        printlog("package sum is 0x%04x,norflash firmware chechsum:0x%04x\r", packsum, chechsum);
+        if (packsum == chechsum) // 校验存储数据是否与升级包一致
         {
             set_firmware_update_flag(packsum); // 设标志
             /* 重启*/
             printlog("\rsystem restart..\r\n");
             __NVIC_SystemReset();
-            if (check_firmware_update())
-            {
-                printlog("firmware is correct\r\n");
-            }
-            else
-            {
-                printlog("firmware is error\r\n");
-            }
+            // // if (check_firmware_update())
+            // // {
+            // //     printlog("firmware is correct\r\n");
+            // // }
+            // // else
+            // // {
+            // //     printlog("firmware is error\r\n");
+            // // }
+        }
+        else
+        {
+            printlog("firmware is error\r\n");
         }
     }
     else
@@ -532,3 +581,124 @@ void mcu_firmware_download(uint8_t *sur, uint16_t position, uint16_t length)
         packsum += checksum_calculate(sur, 256);      // 累计校验和
     }
 }
+
+/*
+ * @Description: 针对DPID_BRIGHT_VAL的处理函数
+ * @param: 无
+ * @return: 无
+*/
+void mcu_download_bright_val(uint8_t bri)
+{
+    printlog("mcu_download_bright_val:%d\r",bri);
+    play.work.brightness.set = bri;
+}
+
+/*
+ * @Description: 上传亮度
+ * @param:
+ * @return:
+*/
+void mcu_update_bright_val(void)
+{
+    printlog("mcu_download_bright_val:%d\r",play.work.brightness.set);
+    mcu_dp_value_update(DPID_BRIGHT_VAL,play.work.brightness.set); //VALUE型数据上报;
+}
+
+/*
+ * @Description: 针对DPID_SWITCH_LED的处理函数
+ * @param: 无
+ * @return: 无
+*/
+void mcu_download_switch_led(uint8_t sw)
+{
+    printlog("mcu_download_switch_led:%d\r",sw);
+    if (sw)
+    {
+        play.work.sw_status = SW_ON;
+    }
+    else
+    {
+        play.work.sw_status = SW_OFF;
+    }
+}
+
+/*
+ * @Description: 上报开关状态
+ * @param: 无
+ * @return: 无
+*/
+void mcu_update_switch_led(void)
+{
+    printlog("mcu_update_switch_led:%d\r", play.work.sw_status);
+    mcu_dp_bool_update(DPID_SWITCH_LED, play.work.sw_status); // BOOL型数据上报;
+}
+
+
+
+
+/*---------------------------------------------------------------------------------*/
+/*
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+*/

@@ -2,13 +2,11 @@
 .\objects\protocol.o: ..\USER\mcu_sdk\wifi.h
 .\objects\protocol.o: F:\APP\Keil\ARM\ARMCC\Bin\..\include\stdio.h
 .\objects\protocol.o: F:\APP\Keil\ARM\ARMCC\Bin\..\include\string.h
-.\objects\protocol.o: F:\APP\Keil\ARM\ARMCC\Bin\..\include\stdlib.h
-.\objects\protocol.o: ..\USER\mcu_sdk\tuya_type.h
 .\objects\protocol.o: ..\USER\mcu_sdk\protocol.h
 .\objects\protocol.o: ..\USER\mcu_sdk\system.h
 .\objects\protocol.o: ..\USER\mcu_sdk\mcu_api.h
-.\objects\protocol.o: ..\USER\mcu_sdk\homekit.h
 .\objects\protocol.o: ..\USER\Include\Function_Init.H
+.\objects\protocol.o: F:\APP\Keil\ARM\ARMCC\Bin\..\include\stdlib.h
 .\objects\protocol.o: F:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include\CMS32L051.h
 .\objects\protocol.o: F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm0plus.h
 .\objects\protocol.o: F:\APP\Keil\ARM\ARMCC\Bin\..\include\stdint.h
@@ -24,6 +22,7 @@
 .\objects\protocol.o: ..\..\Driver\inc\flash.h
 .\objects\protocol.o: ..\..\Driver\inc\rtc.h
 .\objects\protocol.o: ..\..\Driver\inc\dma.h
+.\objects\protocol.o: ..\..\Driver\inc\wdt.h
 .\objects\protocol.o: F:\APP\Keil\ARM\ARMCC\Bin\..\include\math.h
 .\objects\protocol.o: ..\USER\Include\FIFO.h
 .\objects\protocol.o: ..\USER\Include\IR.H
@@ -54,6 +53,7 @@
 .\objects\protocol.o: ..\USER\debug\printlog.h
 .\objects\protocol.o: ..\USER\app\comapp.h
 .\objects\protocol.o: ..\USER\slave\slave.h
+.\objects\protocol.o: ..\USER\protocolcom\ProtocolCom.H
 .\objects\protocol.o: ..\USER\external_memory\user_memory.h
 .\objects\protocol.o: ..\USER\debug\debug.h
 .\objects\protocol.o: ..\USER\flashapp\flashapp.h
@@ -65,3 +65,5 @@
 .\objects\protocol.o: ..\USER\factory\factory.h
 .\objects\protocol.o: ..\USER\version\version.h
 .\objects\protocol.o: ..\USER\parse\parse.h
+.\objects\protocol.o: ..\USER\flow\flow.h
+.\objects\protocol.o: ..\USER\mic\mic.h

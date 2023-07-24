@@ -19,7 +19,7 @@
 
 
 #define BOOTLOADER_BASIC_ADDR 0     // bootoader基地址
-#define BOOTLOADER_SIZE 0x5000      // 20k
+// #define BOOTLOADER_SIZE 0x5000      // 20k
 
 // #define APP_SIZE 0x97F0             // 38k
 #define CHECKSUM_OFFSET_ADDR 0x9FF0 // APP后16字节作为校验和存放区

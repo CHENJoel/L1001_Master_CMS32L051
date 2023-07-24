@@ -16,6 +16,7 @@
 .\objects\default_data.o: ..\..\Driver\inc\flash.h
 .\objects\default_data.o: ..\..\Driver\inc\rtc.h
 .\objects\default_data.o: ..\..\Driver\inc\dma.h
+.\objects\default_data.o: ..\..\Driver\inc\wdt.h
 .\objects\default_data.o: F:\APP\Keil\ARM\ARMCC\Bin\..\include\stdio.h
 .\objects\default_data.o: F:\APP\Keil\ARM\ARMCC\Bin\..\include\string.h
 .\objects\default_data.o: F:\APP\Keil\ARM\ARMCC\Bin\..\include\math.h
@@ -37,12 +38,9 @@
 .\objects\default_data.o: ..\USER\Include\Sys.h
 .\objects\default_data.o: ..\USER\Include\ware.h
 .\objects\default_data.o: ..\USER\mcu_sdk\wifi.h
-.\objects\default_data.o: ..\USER\mcu_sdk\tuya_type.h
 .\objects\default_data.o: ..\USER\mcu_sdk\protocol.h
 .\objects\default_data.o: ..\USER\mcu_sdk\system.h
 .\objects\default_data.o: ..\USER\mcu_sdk\mcu_api.h
-.\objects\default_data.o: ..\USER\mcu_sdk\homekit.h
-.\objects\default_data.o: ..\USER\Include\Inf.h
 .\objects\default_data.o: ..\USER\external_memory\memory.h
 .\objects\default_data.o: ..\USER\external_memory\driver_spi.h
 .\objects\default_data.o: ..\USER\external_memory\driver_w25qxx.h
@@ -50,9 +48,11 @@
 .\objects\default_data.o: ..\USER\Include\colorbox.h
 .\objects\default_data.o: ..\USER\ota\OTA.h
 .\objects\default_data.o: ..\USER\external_memory\MEM.h
+.\objects\default_data.o: ..\USER\Include\Inf.h
 .\objects\default_data.o: ..\USER\debug\printlog.h
 .\objects\default_data.o: ..\USER\app\comapp.h
 .\objects\default_data.o: ..\USER\slave\slave.h
+.\objects\default_data.o: ..\USER\protocolcom\ProtocolCom.H
 .\objects\default_data.o: ..\USER\external_memory\user_memory.h
 .\objects\default_data.o: ..\USER\debug\debug.h
 .\objects\default_data.o: ..\USER\flashapp\flashapp.h
@@ -64,3 +64,5 @@
 .\objects\default_data.o: ..\USER\factory\factory.h
 .\objects\default_data.o: ..\USER\version\version.h
 .\objects\default_data.o: ..\USER\parse\parse.h
+.\objects\default_data.o: ..\USER\flow\flow.h
+.\objects\default_data.o: ..\USER\mic\mic.h

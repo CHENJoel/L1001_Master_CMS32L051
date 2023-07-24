@@ -16,25 +16,595 @@ Linker/Locator:  ArmLink.exe V5.06 update 7 (build 960)
 Library Manager: ArmAr.exe V5.06 update 7 (build 960)
 Hex Converter:   FromElf.exe V5.06 update 7 (build 960)
 CPU DLL:         SARMCM3.DLL V5.34.0.0
-Dialog DLL:      DARMCM1.DLL V1.19.4.0
+Dialog DLL:      
 Target DLL:      CMSIS_AGDI.dll V1.32.13.0
 Dialog DLL:      TARMCM1.DLL V1.14.3.0
  
 <h2>Project:</h2>
 D:\SynologyDrive\L1001\Software\L1001_Master\L1001_Master_CMS32L051\Project\MDK\A5441_Master_CMS32L051.uvprojx
-Project File Date:  06/16/2023
+Project File Date:  07/03/2023
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 7 (build 960)', folder: 'F:\APP\Keil\ARM\ARMCC\Bin'
-Build target 'CMS32L051'
+Rebuild target 'CMS32L051'
+compiling FIFO.c...
+compiling main.c...
+compiling KEY.C...
+..\USER\Source\KEY.C(190): warning:  #940-D: missing return statement at end of non-void function "Numeric_Keyboard" 
+  }
+..\USER\Source\KEY.C(207): warning:  #167-D: argument of type "const uint8_t (*)[10]" is incompatible with parameter of type "unsigned char *"
+  			temp = KeyNum_Match(keyval, &Numboard_KeyTable, sizeof(Numboard_KeyTable));
+..\USER\Source\KEY.C: 2 warnings, 0 errors
+compiling FFT.c...
+compiling IR.C...
+..\USER\Source\IR.C(58): warning:  #167-D: argument of type "const uint8_t (*)[44]" is incompatible with parameter of type "unsigned char *"
+                  IR_KeyVal = KeyNum_Match(&IR_Data2, &IR_KeyTable, sizeof(IR_KeyTable));
+..\USER\Source\IR.C: 1 warning, 0 errors
+compiling Color.c...
+..\USER\Source\Color.c(112): warning:  #167-D: argument of type "DataTypeDef *" is incompatible with parameter of type "unsigned char *"
+      FrameInsert_Calculate(*(KF_Adr + (Currnt_KF * 4 * Frame_Px_Num) + (Pixel_Num * 4) + 0), *(KF_Adr + (Next_KF * 4 * Frame_Px_Num) + (Pixel_Num * 4) + 0), &struct_adr->R, Temp_FrameNum, Frame_In_Num);
+..\USER\Source\Color.c(113): warning:  #167-D: argument of type "DataTypeDef *" is incompatible with parameter of type "unsigned char *"
+      FrameInsert_Calculate(*(KF_Adr + (Currnt_KF * 4 * Frame_Px_Num) + (Pixel_Num * 4) + 1), *(KF_Adr + (Next_KF * 4 * Frame_Px_Num) + (Pixel_Num * 4) + 1), &struct_adr->G, Temp_FrameNum, Frame_In_Num);
+..\USER\Source\Color.c(114): warning:  #167-D: argument of type "DataTypeDef *" is incompatible with parameter of type "unsigned char *"
+      FrameInsert_Calculate(*(KF_Adr + (Currnt_KF * 4 * Frame_Px_Num) + (Pixel_Num * 4) + 2), *(KF_Adr + (Next_KF * 4 * Frame_Px_Num) + (Pixel_Num * 4) + 2), &struct_adr->B, Temp_FrameNum, Frame_In_Num);
+..\USER\Source\Color.c(115): warning:  #167-D: argument of type "DataTypeDef *" is incompatible with parameter of type "unsigned char *"
+      FrameInsert_Calculate(*(KF_Adr + (Currnt_KF * 4 * Frame_Px_Num) + (Pixel_Num * 4) + 3), *(KF_Adr + (Next_KF * 4 * Frame_Px_Num) + (Pixel_Num * 4) + 3), &struct_adr->W, Temp_FrameNum, Frame_In_Num);
+..\USER\Source\Color.c(536): warning:  #167-D: argument of type "uint8_t (*)[modele_maxnum][2]" is incompatible with parameter of type "uint8_t *"
+      Bubble_Sort_2D(&temp_array, modele_maxnum, 2, 1); // 根据优先级进行排序
+..\USER\Source\Color.c: 5 warnings, 0 errors
+compiling Light.c...
+compiling delay.c...
+compiling image.c...
+compiling uart.c...
+compiling A5441_Master.c...
+..\USER\Source\A5441_Master.c(727): warning:  #223-D: function "mcu_update_switch_led" declared implicitly
+          mcu_update_switch_led();
+..\USER\Source\A5441_Master.c(735): warning:  #167-D: argument of type "const uint8_t *" is incompatible with parameter of type "unsigned char *"
+          Light_Level_Change(&play.work.brightness.set, &play.work.brightness.dir, bright_table, sizeof(bright_table));
+..\USER\Source\A5441_Master.c(736): warning:  #223-D: function "mcu_update_bright_val" declared implicitly
+          mcu_update_bright_val();
+..\USER\Source\A5441_Master.c(707): warning:  #177-D: variable "temp"  was declared but never referenced
+      static unsigned char temp;
+..\USER\Source\A5441_Master.c(709): warning:  #177-D: variable "str"  was declared but never referenced
+      unsigned char *str;
+..\USER\Source\A5441_Master.c(710): warning:  #177-D: variable "Level_Num_Temp"  was declared but never referenced
+      uint8_t Level_Num_Temp;
+..\USER\Source\A5441_Master.c(712): warning:  #177-D: variable "i"  was declared but never referenced
+      uint16_t i, j;
+..\USER\Source\A5441_Master.c(712): warning:  #177-D: variable "j"  was declared but never referenced
+      uint16_t i, j;
+..\USER\Source\A5441_Master.c(713): warning:  #177-D: variable "p"  was declared but never referenced
+      uint8_t *p;
+..\USER\Source\A5441_Master.c(938): warning:  #177-D: variable "test"  was declared but never referenced
+      static unsigned char test;
+..\USER\Source\A5441_Master.c(955): warning:  #223-D: function "delay_20ms" declared implicitly
+      delay_20ms();
+..\USER\Source\A5441_Master.c(952): warning:  #177-D: variable "i"  was declared but never referenced
+      uint8_t i;
+..\USER\Source\A5441_Master.c(1053): warning:  #167-D: argument of type "const uint8_t (*)[44]" is incompatible with parameter of type "unsigned char *"
+      temp = KeyNum_Match(KeyVal, &IR_KeyTable, sizeof(IR_KeyTable));
+..\USER\Source\A5441_Master.c(1984): warning:  #940-D: missing return statement at end of non-void function "MIC_Process" 
+  }
+..\USER\Source\A5441_Master.c(2168): warning:  #111-D: statement is unreachable
+      DMA_Stop(DMA_VECTOR_ADC);
+..\USER\Source\A5441_Master.c(2175): warning:  #940-D: missing return statement at end of non-void function "Light_AD_Test" 
+  }
+..\USER\Source\A5441_Master.c: 16 warnings, 0 errors
+compiling Com.c...
+..\USER\Source\Com.c(111): warning:  #940-D: missing return statement at end of non-void function "DataPackage_Extract" 
+  }
+..\USER\Source\Com.c(163): warning:  #223-D: function "delay_5ms" declared implicitly
+          delay_5ms();                                                                   // 等待从机读取缓存
+..\USER\Source\Com.c(153): warning:  #177-D: variable "j"  was declared but never referenced
+      unsigned int i, j, k, m;
+..\USER\Source\Com.c(223): warning:  #167-D: argument of type "unsigned char (*)[1][10]" is incompatible with parameter of type "uint8_t *"
+      Bubble_Sort_2D(&Slave_Array, SlaveDevive_Num, Slave_Data_num, 3); // 根据序列编号进行向下排序
+..\USER\Source\Com.c(226): warning:  #223-D: function "delay_20ms" declared implicitly
+      delay_20ms();                                                     // 等待从机读取缓存
+..\USER\Source\Com.c(242): warning:  #223-D: function "delay_10ms" declared implicitly
+          delay_10ms();                                                              // 等待从机读取缓存
+..\USER\Source\Com.c(266): warning:  #223-D: function "delay_10ms" declared implicitly
+          delay_10ms();                                                                // 等待从机读取缓存
+..\USER\Source\Com.c(289): warning:  #223-D: function "delay_10ms" declared implicitly
+          delay_10ms(); // 等待从机读取缓存
+..\USER\Source\Com.c(311): warning:  #223-D: function "delay_10ms" declared implicitly
+          delay_10ms(); // 等待从机读取缓存
+..\USER\Source\Com.c(325): warning:  #223-D: function "delay_10ms" declared implicitly
+          delay_10ms(); // 等待从机读取缓存
+..\USER\Source\Com.c(320): warning:  #177-D: variable "j"  was declared but never referenced
+      uint8_t i, j;
+..\USER\Source\Com.c(334): warning:  #177-D: variable "k"  was declared but never referenced
+      uint8_t i, j, k, m, n;
+..\USER\Source\Com.c(417): warning:  #223-D: function "delay_5ms" declared implicitly
+              delay_5ms();                                                               // 等待从机读取缓存
+..\USER\Source\Com.c(485): warning:  #223-D: function "delay_5ms" declared implicitly
+          delay_5ms();
+..\USER\Source\Com.c(509): warning:  #223-D: function "delay_5ms" declared implicitly
+          delay_5ms();
+..\USER\Source\Com.c(522): warning:  #223-D: function "delay_5ms" declared implicitly
+          delay_5ms();
+..\USER\Source\Com.c(542): warning:  #223-D: function "delay_5ms" declared implicitly
+          delay_5ms();
+..\USER\Source\Com.c(765): warning:  #177-D: variable "temp"  was declared but never referenced
+      uint8_t temp;
+..\USER\Source\Com.c(826): warning:  #513-D: a value of type "uint8_t (*)[91]" cannot be assigned to an entity of type "uint8_t *"
+      p_buffer = &protocol_buffer;
+..\USER\Source\Com.c(886): warning:  #188-D: enumerated type mixed with another type
+      EFpara.motion = *++p;
+..\USER\Source\Com.c(887): warning:  #188-D: enumerated type mixed with another type
+      EFpara.move = *++p;
+..\USER\Source\Com.c(888): warning:  #188-D: enumerated type mixed with another type
+      EFpara.Mode = *++p;
+..\USER\Source\Com.c(973): warning:  #513-D: a value of type "uint8_t (*)[72]" cannot be assigned to an entity of type "uint8_t *"
+      p_buffer = &protocol_buffer;
+..\USER\Source\Com.c(993): warning:  #177-D: variable "j"  was declared but never referenced
+      uint8_t i, j;
+..\USER\Source\Com.c(994): warning:  #177-D: variable "temp"  was declared but never referenced
+      uint8_t temp;
+..\USER\Source\Com.c(1034): warning:  #513-D: a value of type "uint8_t (*)[11]" cannot be assigned to an entity of type "uint8_t *"
+      p_buffer = &protocol_buffer;
+..\USER\Source\Com.c(1026): warning:  #177-D: variable "i"  was declared but never referenced
+      uint8_t i;
+..\USER\Source\Com.c(1058): warning:  #188-D: enumerated type mixed with another type
+      schedule.Action = *++p;
+..\USER\Source\Com.c(1111): warning:  #177-D: variable "temp"  was declared but never referenced
+      uint8_t temp;
+..\USER\Source\Com.c: 29 warnings, 0 errors
+compiling Sys.c...
+compiling retarget.c...
+compiling wave.c...
+..\USER\Source\wave.c(16): warning:  #550-D: variable "rising_rate"  was set but never used
+      uint16_t rising_rate=0;
+..\USER\Source\wave.c(17): warning:  #177-D: variable "temp"  was declared but never referenced
+      uint8_t temp = 0;
+..\USER\Source\wave.c: 2 warnings, 0 errors
+compiling colorbox.c...
+..\USER\Source\colorbox.c(269): warning:  #144-D: a value of type "const uint8_t (*)[4]" cannot be used to initialize an entity of type "uint8_t *"
+      {arry(testcolor1), size(testcolor1),  MOTION_STATIC, MOVE_RIGHT, MODE_NORMAL, speed(5)},/*0*/
+..\USER\Source\colorbox.c(270): warning:  #144-D: a value of type "const uint8_t (*)[4]" cannot be used to initialize an entity of type "uint8_t *"
+      {arry(testcolor2), size(testcolor2),  MOTION_STATIC, MOVE_RIGHT, MODE_NORMAL, speed(5)},/*1*/
+..\USER\Source\colorbox.c(271): warning:  #144-D: a value of type "const uint8_t (*)[4]" cannot be used to initialize an entity of type "uint8_t *"
+      {arry(testcolor3), size(testcolor3),  MOTION_STATIC, MOVE_RIGHT, MODE_NORMAL, speed(5)},/*2*/
+..\USER\Source\colorbox.c(272): warning:  #144-D: a value of type "const uint8_t (*)[4]" cannot be used to initialize an entity of type "uint8_t *"
+      {arry(testcolor4), size(testcolor4),  MOTION_REVERB, MOVE_RIGHT, MODE_NORMAL, speed(20)},/*3*/
+..\USER\Source\colorbox.c(273): warning:  #144-D: a value of type "const uint8_t (*)[4]" cannot be used to initialize an entity of type "uint8_t *"
+      {arry(testcolor5), size(testcolor5),  MOTION_RANDOM, MOVE_RIGHT, MODE_NORMAL, speed(5)},/*4*/
+..\USER\Source\colorbox.c(280): warning:  #144-D: a value of type "const uint8_t (*)[4]" cannot be used to initialize an entity of type "uint8_t *"
+      {arry(Spring),      size(Spring),       MOTION_STATIC, MOVE_RIGHT, MODE_NORMAL, speed(5)},/*5*/
+..\USER\Source\colorbox.c(281): warning:  #144-D: a value of type "const uint8_t (*)[4]" cannot be used to initialize an entity of type "uint8_t *"
+      {arry(Summer),      size(Summer),       MOTION_STATIC, MOVE_RIGHT, MODE_NORMAL, speed(5)},/*6*/
+..\USER\Source\colorbox.c(282): warning:  #144-D: a value of type "const uint8_t (*)[4]" cannot be used to initialize an entity of type "uint8_t *"
+      {arry(Autumn),      size(Autumn),       MOTION_STATIC, MOVE_RIGHT, MODE_NORMAL, speed(5)},/*7*/
+..\USER\Source\colorbox.c(283): warning:  #144-D: a value of type "const uint8_t (*)[4]" cannot be used to initialize an entity of type "uint8_t *"
+      {arry(Winter),      size(Winter),       MOTION_STATIC, MOVE_RIGHT, MODE_NORMAL, speed(5)},/*8*/
+..\USER\Source\colorbox.c(284): warning:  #144-D: a value of type "const uint8_t (*)[4]" cannot be used to initialize an entity of type "uint8_t *"
+      {arry(Cyberpunk),   size(Cyberpunk),    MOTION_STATIC, MOVE_RIGHT, MODE_NORMAL, speed(5)},/*9*/
+..\USER\Source\colorbox.c(286): warning:  #144-D: a value of type "const uint8_t (*)[4]" cannot be used to initialize an entity of type "uint8_t *"
+      {arry(Deep_Breath), size(Deep_Breath),  MOTION_BREATH, MOVE_RIGHT, MODE_NORMAL, speed(5)},/*10*/
+..\USER\Source\colorbox.c(287): warning:  #144-D: a value of type "const uint8_t (*)[4]" cannot be used to initialize an entity of type "uint8_t *"
+      {arry(Sweet),       size(Sweet),        MOTION_BREATH, MOVE_RIGHT, MODE_NORMAL, speed(5)},/*11*/
+..\USER\Source\colorbox.c(288): warning:  #144-D: a value of type "const uint8_t (*)[4]" cannot be used to initialize an entity of type "uint8_t *"
+      {arry(Romantic),    size(Romantic),     MOTION_STREAM, MOVE_RIGHT, MODE_NORMAL, speed(5)},/*12*/
+..\USER\Source\colorbox.c(289): warning:  #144-D: a value of type "const uint8_t (*)[4]" cannot be used to initialize an entity of type "uint8_t *"
+      {arry(Aurora),      size(Aurora),       MOTION_REVERB, MOVE_RIGHT, MODE_NORMAL, speed(5)},/*13*/
+..\USER\Source\colorbox.c(290): warning:  #144-D: a value of type "const uint8_t (*)[4]" cannot be used to initialize an entity of type "uint8_t *"
+      {arry(Ocean),       size(Ocean),        MOTION_REVERB, MOVE_RIGHT, MODE_NORMAL, speed(5)},/*14*/
+..\USER\Source\colorbox.c(291): warning:  #144-D: a value of type "const uint8_t (*)[4]" cannot be used to initialize an entity of type "uint8_t *"
+      {arry(lightning),   size(lightning),    MOTION_LIGHTN, MOVE_RIGHT, MODE_NORMAL, speed(5)},/*15*/
+..\USER\Source\colorbox.c(292): warning:  #144-D: a value of type "const uint8_t (*)[4]" cannot be used to initialize an entity of type "uint8_t *"
+      {arry(fireworks),   size(fireworks),    MOTION_IGNITE, MOVE_RIGHT, MODE_NORMAL, speed(5)},/*16*/
+..\USER\Source\colorbox.c(293): warning:  #144-D: a value of type "const uint8_t (*)[4]" cannot be used to initialize an entity of type "uint8_t *"
+      {arry(Snake),       size(Snake),        MOTION_STREAM, MOVE_RIGHT, MODE_NORMAL, speed(5)},/*17*/
+..\USER\Source\colorbox.c(294): warning:  #144-D: a value of type "const uint8_t (*)[4]" cannot be used to initialize an entity of type "uint8_t *"
+      {arry(BouncyBall),  size(BouncyBall),   MOTION_REVERB, MOVE_RIGHT, MODE_NORMAL, speed(5)},/*18*/
+..\USER\Source\colorbox.c(295): warning:  #144-D: a value of type "const uint8_t (*)[4]" cannot be used to initialize an entity of type "uint8_t *"
+      {arry(Lightsaber),  size(Lightsaber),   MOTION_IGNITE, MOVE_RIGHT, MODE_NORMAL, speed(5)},/*19*/
+..\USER\Source\colorbox.c(296): warning:  #144-D: a value of type "const uint8_t (*)[4]" cannot be used to initialize an entity of type "uint8_t *"
+      {arry(Thanksgiving),size(Thanksgiving), MOTION_REVERB, MOVE_RIGHT, MODE_NORMAL, speed(5)},/*20*/
+..\USER\Source\colorbox.c(297): warning:  #144-D: a value of type "const uint8_t (*)[4]" cannot be used to initialize an entity of type "uint8_t *"
+      {arry(Halloween),   size(Halloween),    MOTION_IGNITE, MOVE_RIGHT, MODE_NORMAL, speed(5)},/*21*/
+..\USER\Source\colorbox.c(298): warning:  #144-D: a value of type "const uint8_t (*)[4]" cannot be used to initialize an entity of type "uint8_t *"
+      {arry(Christmas),   size(Christmas),    MOTION_HOPSCO, MOVE_RIGHT, MODE_NORMAL, speed(5)},/*22*/
+..\USER\Source\colorbox.c(299): warning:  #144-D: a value of type "const uint8_t (*)[4]" cannot be used to initialize an entity of type "uint8_t *"
+      {arry(Colorful),    size(Colorful),     MOTION_RANDOM, MOVE_RIGHT, MODE_NORMAL, speed(5)},/*23*/
+..\USER\Source\colorbox.c(300): warning:  #144-D: a value of type "const uint8_t (*)[4]" cannot be used to initialize an entity of type "uint8_t *"
+      {arry(Kaleidoscope),size(Kaleidoscope), MOTION_RANDOM, MOVE_RIGHT, MODE_NORMAL, speed(5)},/*24*/
+..\USER\Source\colorbox.c(302): warning:  #144-D: a value of type "const uint8_t (*)[4]" cannot be used to initialize an entity of type "uint8_t *"
+      {arry(Rhythm),      size(Rhythm),       MOTION_RANDOM, MOVE_RIGHT, MODE_RHYTHM, speed(5)},/*25*/
+..\USER\Source\colorbox.c(303): warning:  #144-D: a value of type "const uint8_t (*)[4]" cannot be used to initialize an entity of type "uint8_t *"
+      {arry(Meditation),  size(Meditation),   MOTION_BREATH, MOVE_RIGHT, MODE_RHYTHM, speed(5)},/*26*/
+..\USER\Source\colorbox.c(304): warning:  #144-D: a value of type "const uint8_t (*)[4]" cannot be used to initialize an entity of type "uint8_t *"
+      {arry(GamingTime),  size(GamingTime),   MOTION_LIGHTN, MOVE_RIGHT, MODE_RHYTHM, speed(5)},/*27*/
+..\USER\Source\colorbox.c(305): warning:  #144-D: a value of type "const uint8_t (*)[4]" cannot be used to initialize an entity of type "uint8_t *"
+      {arry(Disco),       size(Disco),        MOTION_REVERB, MOVE_RIGHT, MODE_RHYTHM, speed(5)},/*28*/
+..\USER\Source\colorbox.c(306): warning:  #144-D: a value of type "const uint8_t (*)[4]" cannot be used to initialize an entity of type "uint8_t *"
+      {arry(DanceParty),  size(DanceParty),   MOTION_RANDOM, MOVE_RIGHT, MODE_RHYTHM, speed(5)},/*29*/
+..\USER\Source\colorbox.c: 30 warnings, 0 errors
+compiling system.c...
+compiling protocol.c...
+..\USER\mcu_sdk\protocol.c(172): warning:  #223-D: function "mcu_update_bright_val" declared implicitly
+      mcu_update_bright_val();
+..\USER\mcu_sdk\protocol.c(173): warning:  #223-D: function "mcu_update_switch_led" declared implicitly
+      mcu_update_switch_led();
+..\USER\mcu_sdk\protocol.c(244): warning:  #223-D: function "mcu_download_switch_led" declared implicitly
+      mcu_download_switch_led(switch_led);
+..\USER\mcu_sdk\protocol.c(338): warning:  #223-D: function "mcu_download_play_control_detial" declared implicitly
+      mcu_download_play_control_detial(value,length);
+..\USER\mcu_sdk\protocol.c(386): warning:  #223-D: function "mcu_download_effect_detail_handle" declared implicitly
+      mcu_download_effect_detail_handle(value, length);
+..\USER\mcu_sdk\protocol.c(433): warning:  #223-D: function "mcu_download_bright_val" declared implicitly
+      mcu_download_bright_val(bright_val);
+..\USER\mcu_sdk\protocol.c(679): warning:  #223-D: function "mcu_download_play_detial" declared implicitly
+      mcu_download_play_detial(value, length);
+..\USER\mcu_sdk\protocol.c(751): warning:  #223-D: function "mcu_download_issue_cmd_handle" declared implicitly
+      mcu_download_issue_cmd_handle(value, length);
+..\USER\mcu_sdk\protocol.c(775): warning:  #223-D: function "mcu_download_effect_preview" declared implicitly
+      mcu_download_effect_preview(value, length);
+..\USER\mcu_sdk\protocol.c(823): warning:  #223-D: function "mcu_update_originalef_ranklist" declared implicitly
+      mcu_update_originalef_ranklist();
+..\USER\mcu_sdk\protocol.c(967): warning:  #223-D: function "mcu_download_clock_detial" declared implicitly
+      mcu_download_clock_detial();
+..\USER\mcu_sdk\protocol.c(991): warning:  #223-D: function "mcu_download_device_detail" declared implicitly
+      mcu_download_device_detail(value, length);
+..\USER\mcu_sdk\protocol.c(1015): warning:  #223-D: function "mcu_download_device_control" declared implicitly
+      mcu_download_device_control(value, length);
+..\USER\mcu_sdk\protocol.c(1516): warning:  #223-D: function "mcu_firmware_download" declared implicitly
+      mcu_firmware_download(value, position, length);
+..\USER\mcu_sdk\protocol.c: 14 warnings, 0 errors
+compiling motion.c...
+..\USER\Source\motion.c(83): warning:  #513-D: a value of type "color_group_TypeDef *" cannot be assigned to an entity of type "uint8_t *"
+      sur = &EF_Buffer.color_buffer;      // 源色表指针
+..\USER\Source\motion.c(72): warning:  #177-D: variable "k"  was declared but never referenced
+      uint16_t i, j, k;
+..\USER\Source\motion.c(134): warning:  #513-D: a value of type "color_group_TypeDef *" cannot be assigned to an entity of type "uint8_t *"
+      sur = &EF_Buffer.color_buffer;      // 源色表指针
+..\USER\Source\motion.c(161): warning:  #513-D: a value of type "color_group_TypeDef *" cannot be assigned to an entity of type "uint8_t *"
+      sur = &EF_Buffer.color_buffer;      // 源色表指针
+..\USER\Source\motion.c(186): warning:  #513-D: a value of type "color_group_TypeDef *" cannot be assigned to an entity of type "uint8_t *"
+      sur = &EF_Buffer.color_buffer;      // 源色表指针
+..\USER\Source\motion.c(198): warning:  #513-D: a value of type "color_group_TypeDef *" cannot be assigned to an entity of type "uint8_t *"
+          sur = &EF_Buffer.color_buffer;
+..\USER\Source\motion.c(225): warning:  #513-D: a value of type "color_group_TypeDef *" cannot be assigned to an entity of type "uint8_t *"
+      sur = &EF_Buffer.color_buffer;      // 源色表指针
+..\USER\Source\motion.c(249): warning:  #513-D: a value of type "color_group_TypeDef *" cannot be assigned to an entity of type "uint8_t *"
+      sur = &EF_Buffer.color_buffer;      // 源色表指针
+..\USER\Source\motion.c(273): warning:  #513-D: a value of type "color_group_TypeDef *" cannot be assigned to an entity of type "uint8_t *"
+      sur = &EF_Buffer.color_buffer;      // 源色表指针
+..\USER\Source\motion.c(296): warning:  #513-D: a value of type "color_group_TypeDef *" cannot be assigned to an entity of type "uint8_t *"
+      sur = &EF_Buffer.color_buffer;      // 源色表指针
+..\USER\Source\motion.c(315): warning:  #177-D: variable "k"  was declared but never referenced
+      uint16_t i, j, k;
+..\USER\Source\motion.c(316): warning:  #177-D: variable "sur"  was declared but never referenced
+      uint8_t *sur;
+..\USER\Source\motion.c(317): warning:  #177-D: variable "tar"  was declared but never referenced
+      uint8_t *tar;
+..\USER\Source\motion.c(817): warning:  #177-D: variable "temp"  was declared but never referenced
+      uint8_t temp;
+..\USER\Source\motion.c: 14 warnings, 0 errors
+compiling sci_user.c...
+..\..\Driver\src\sci_user.c(110): warning:  #167-D: argument of type "volatile uint8_t *" is incompatible with parameter of type "unsigned char *"
+      FIFO_Byte_Push(&Uart0_Buffer, &(SCI0->RXD0)); //  数据压入缓存
+..\..\Driver\src\sci_user.c(192): warning:  #177-D: function "uart0_callback_receiveend"  was declared but never referenced
+  static void uart0_callback_receiveend(void)
+..\..\Driver\src\sci_user.c(207): warning:  #177-D: function "uart0_callback_softwareoverrun"  was declared but never referenced
+  static void uart0_callback_softwareoverrun(uint16_t rx_data)
+..\..\Driver\src\sci_user.c(500): warning:  #177-D: function "iic00_interrupt"  was declared but never referenced
+  static void iic00_interrupt(void)
+..\..\Driver\src\sci_user.c(616): warning:  #177-D: function "iic01_interrupt"  was declared but never referenced
+  static void iic01_interrupt(void)
+..\..\Driver\src\sci_user.c(1086): warning:  #177-D: function "uart2_interrupt_receive"  was declared but never referenced
+  static void uart2_interrupt_receive(void)
+..\..\Driver\src\sci_user.c(1125): warning:  #177-D: function "uart2_interrupt_send"  was declared but never referenced
+  static void uart2_interrupt_send(void)
+..\..\Driver\src\sci_user.c: 7 warnings, 0 errors
+compiling mcu_api.c...
+compiling gpio.c...
+compiling sci.c...
+compiling adc.c...
+compiling adc_user.c...
+compiling tim4_user.c...
+compiling tim4.c...
+..\..\Driver\src\tim4.c(696): warning:  #188-D: enumerated type mixed with another type
+      TM40_Channel_Start(TM4_CHANNEL_0 | TM4_CHANNEL_1);
+..\..\Driver\src\tim4.c(725): warning:  #188-D: enumerated type mixed with another type
+      TM40_Channel_Start(TM4_CHANNEL_0 | TM4_CHANNEL_1);
+..\..\Driver\src\tim4.c(763): warning:  #188-D: enumerated type mixed with another type
+      TM40_Channel_Start(TM4_CHANNEL_0 | TM4_CHANNEL_1 | TM4_CHANNEL_2);
+..\..\Driver\src\tim4.c(810): warning:  #188-D: enumerated type mixed with another type
+      TM40_Channel_Start(TM4_CHANNEL_0 | TM4_CHANNEL_1 | TM4_CHANNEL_2 | TM4_CHANNEL_3);
+..\..\Driver\src\tim4.c(855): warning:  #188-D: enumerated type mixed with another type
+      TM40_Channel_Start(TM4_CHANNEL_0 | TM4_CHANNEL_1 | TM4_CHANNEL_2 | TM4_CHANNEL_3);
+..\..\Driver\src\tim4.c(1481): warning:  #188-D: enumerated type mixed with another type
+      TM41_Channel_Start(TM4_CHANNEL_0 | TM4_CHANNEL_1);
+..\..\Driver\src\tim4.c(1510): warning:  #188-D: enumerated type mixed with another type
+      TM41_Channel_Start(TM4_CHANNEL_0 | TM4_CHANNEL_1);
+..\..\Driver\src\tim4.c(1548): warning:  #188-D: enumerated type mixed with another type
+      TM41_Channel_Start(TM4_CHANNEL_0 | TM4_CHANNEL_1 | TM4_CHANNEL_2);
+..\..\Driver\src\tim4.c(1595): warning:  #188-D: enumerated type mixed with another type
+      TM41_Channel_Start(TM4_CHANNEL_0 | TM4_CHANNEL_1 | TM4_CHANNEL_2 | TM4_CHANNEL_3);
+..\..\Driver\src\tim4.c(1640): warning:  #188-D: enumerated type mixed with another type
+      TM41_Channel_Start(TM4_CHANNEL_0 | TM4_CHANNEL_1 | TM4_CHANNEL_2 | TM4_CHANNEL_3);
+..\..\Driver\src\tim4.c: 10 warnings, 0 errors
+compiling flash_user.c...
+compiling flash.c...
+..\..\Driver\src\flash.c(54): warning:  #223-D: function "WDT_Restart" declared implicitly
+      WDT_Restart();
+..\..\Driver\src\flash.c(90): warning:  #223-D: function "WDT_Restart" declared implicitly
+      WDT_Restart();
+..\..\Driver\src\flash.c: 2 warnings, 0 errors
+compiling rtc.c...
+compiling rtc_user.c...
+..\..\Driver\src\rtc_user.c(47): warning:  #177-D: function "str2bcdtime"  was declared but never referenced
+  static void str2bcdtime(char date_buf[], char bcd_buf[])
+..\..\Driver\src\rtc_user.c: 1 warning, 0 errors
+compiling dma.c...
+compiling wdt.c...
+compiling wdt_user.c...
+compiling driver_spi.c...
+compiling driver_w25qxx.c...
+compiling memory.c...
+..\USER\external_memory\memory.c(29): warning:  #177-D: variable "EFcolor"  was declared but never referenced
+      color_group_TypeDef EFcolor; // 色表
+..\USER\external_memory\memory.c(30): warning:  #177-D: variable "EFid"  was declared but never referenced
+      id_group_TypeDef EFid;       // id信息
+..\USER\external_memory\memory.c(242): warning:  #167-D: argument of type "unsigned int" is incompatible with parameter of type "const void *__restrict__"
+          memcpy(colordata, sector_addr + offset, sizeof(color_group_TypeDef));
+..\USER\external_memory\memory.c(284): warning:  #513-D: a value of type "unsigned int" cannot be assigned to an entity of type "uint8_t *"
+      sur = sector_addr + offset;
+..\USER\external_memory\memory.c(285): warning:  #513-D: a value of type "id_group_TypeDef *" cannot be assigned to an entity of type "uint8_t *"
+      tar = id_group;
+..\USER\external_memory\memory.c(319): warning:  #513-D: a value of type "unsigned int" cannot be assigned to an entity of type "uint8_t *"
+      sur = sector_addr + offset;
+..\USER\external_memory\memory.c(320): warning:  #513-D: a value of type "EF_para_data_TypeDef *" cannot be assigned to an entity of type "uint8_t *"
+      tar = paradata;
+..\USER\external_memory\memory.c(367): warning:  #513-D: a value of type "unsigned int" cannot be assigned to an entity of type "uint8_t *"
+      sur = sector_addr + offset;
+..\USER\external_memory\memory.c(368): warning:  #513-D: a value of type "playlist_TypeDef *" cannot be assigned to an entity of type "uint8_t *"
+      tar = list_p;
+..\USER\external_memory\memory.c(379): warning:  #177-D: variable "i"  was declared but never referenced
+      uint8_t i;
+..\USER\external_memory\memory.c(421): warning:  #513-D: a value of type "unsigned int" cannot be assigned to an entity of type "uint8_t *"
+      sur = sector_addr + offset;
+..\USER\external_memory\memory.c(422): warning:  #513-D: a value of type "schedule_TypeDef *" cannot be assigned to an entity of type "uint8_t *"
+      tar = p;
+..\USER\external_memory\memory.c: 12 warnings, 0 errors
+compiling MEM.c...
+..\USER\external_memory\MEM.c(69): warning:  #223-D: function "FlashSPI_Write" declared implicitly
+      FlashSPI_Write(buf, addr, sizeof(buf));
+..\USER\external_memory\MEM.c(79): warning:  #159-D: declaration is incompatible with previous "FlashSPI_Write"  (declared at line 69)
+  void FlashSPI_Write(uint8_t *pBuffer, uint32_t WriteAddr, uint16_t NumByteToWrite)
+..\USER\external_memory\MEM.c: 2 warnings, 0 errors
+compiling internal_memory.c...
+compiling comapp.c...
+compiling default_data.c...
+compiling user_memory.c...
+..\USER\external_memory\user_memory.c(160): warning:  #167-D: argument of type "verify_Typedef *" is incompatible with parameter of type "const char *"
+      if (strcmp(&verify, EF_MEM_VERIFY) != 0) // flash未存有校验信息
+..\USER\external_memory\user_memory.c(168): warning:  #167-D: argument of type "verify_Typedef *" is incompatible with parameter of type "char *__restrict__"
+          sprintf(&verify, EF_MEM_VERIFY);
+..\USER\external_memory\user_memory.c(219): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "const char *"
+          ef.namelenght = strlen(dfdata[i].name); // 灯效名字长度
+..\USER\external_memory\user_memory.c(220): warning:  #167-D: argument of type "uint8_t (*)[15]" is incompatible with parameter of type "char *__restrict__"
+          strcpy(&ef.Name, dfdata[i].name);       // 拷贝灯效名字
+..\USER\external_memory\user_memory.c(220): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "const char *__restrict__"
+          strcpy(&ef.Name, dfdata[i].name);       // 拷贝灯效名字
+..\USER\external_memory\user_memory.c(295): warning:  #940-D: missing return statement at end of non-void function "compare_same_ranklist" 
+  }
+..\USER\external_memory\user_memory.c(306): warning:  #177-D: variable "ef"  was declared but never referenced
+      Efdetail_TypeDef ef;
+..\USER\external_memory\user_memory.c(681): warning:  #940-D: missing return statement at end of non-void function "delete_original_ef" 
+  }
+..\USER\external_memory\user_memory.c(842): warning:  #177-D: variable "j"  was declared but never referenced
+      uint8_t i,j;
+..\USER\external_memory\user_memory.c: 9 warnings, 0 errors
+compiling appfunction.c...
+..\USER\app\appfunction.c(23): warning:  #167-D: argument of type "com_effect_detial_TypeDef *" is incompatible with parameter of type "const unsigned char *"
+      mcu_dp_raw_update(DPID_EFFECT_DETIAL, &comef, sizeof(comef));
+..\USER\app\appfunction.c(49): warning:  #167-D: argument of type "com_effect_sketch_TypeDef *" is incompatible with parameter of type "const unsigned char *"
+      mcu_dp_raw_update(DPID_EFFECT_SKETCH, &sketch, sizeof(sketch));
+..\USER\app\appfunction.c(74): warning:  #167-D: argument of type "com_effect_sketch_TypeDef *" is incompatible with parameter of type "const unsigned char *"
+      mcu_dp_raw_update(DPID_PLAYLIST_EFFECT_SKETCH, &sketch, sizeof(sketch));
+..\USER\app\appfunction.c(83): warning:  #167-D: argument of type "com_ranklist_TypeDef *" is incompatible with parameter of type "const unsigned char *"
+      mcu_dp_raw_update(DPID_ALL_EFFECT_RANKLIST, &com_ranklist, sizeof(com_ranklist));
+..\USER\app\appfunction.c(85): warning:  #167-D: argument of type "comefranklist_TypeDef *" is incompatible with parameter of type "ef_ranklist_TypeDef *"
+      print_ef_ranklist(&com_ranklist.ranklist);
+..\USER\app\appfunction.c(94): warning:  #167-D: argument of type "com_ranklist_TypeDef *" is incompatible with parameter of type "const unsigned char *"
+      mcu_dp_raw_update(DPID_ORIGINAL_EFFECT_RANKLIST, &com_ranklist, sizeof(com_ranklist));
+..\USER\app\appfunction.c(95): warning:  #167-D: argument of type "comefranklist_TypeDef *" is incompatible with parameter of type "ef_ranklist_TypeDef *"
+      print_ef_ranklist(&com_ranklist.ranklist);
+..\USER\app\appfunction.c(105): warning:  #167-D: argument of type "com_ranklist_TypeDef *" is incompatible with parameter of type "const unsigned char *"
+      mcu_dp_raw_update(DPID_FAVORITES_EFFECT_RANKLIST, &com_ranklist, sizeof(com_ranklist));
+..\USER\app\appfunction.c(106): warning:  #167-D: argument of type "comefranklist_TypeDef *" is incompatible with parameter of type "ef_ranklist_TypeDef *"
+      print_ef_ranklist(&com_ranklist.ranklist);
+..\USER\app\appfunction.c(128): warning:  #167-D: argument of type "com_playlist_TypeDef *" is incompatible with parameter of type "const unsigned char *"
+      mcu_dp_raw_update(DPID_PLAY_LIST, &com_ranklist, sizeof(com_ranklist));
+..\USER\app\appfunction.c(139): warning:  #167-D: argument of type "com_play_detial_TypeDef *" is incompatible with parameter of type "const unsigned char *"
+      mcu_dp_raw_update(DPID_PLAY_DETIAL, &com, sizeof(com));
+..\USER\app\appfunction.c(150): warning:  #167-D: argument of type "com_play_detial_TypeDef *" is incompatible with parameter of type "const unsigned char *"
+      mcu_dp_raw_update(DPID_PLAY_CONTROL_DETIAL, &com, sizeof(com));
+..\USER\app\appfunction.c(162): warning:  #167-D: argument of type "com_play_control_TypeDef *" is incompatible with parameter of type "const unsigned char *"
+      mcu_dp_raw_update(DPID_PLAY_CONTROL, &com, sizeof(com));
+..\USER\app\appfunction.c(166): warning:  #167-D: argument of type "com_play_control_TypeDef *" is incompatible with parameter of type "const unsigned char *"
+      mcu_dp_raw_update(DPID_PLAY_CONTROL, &com, sizeof(com));
+..\USER\app\appfunction.c(170): warning:  #167-D: argument of type "com_play_control_TypeDef *" is incompatible with parameter of type "const unsigned char *"
+      mcu_dp_raw_update(DPID_PLAY_CONTROL, &com, sizeof(com));
+..\USER\app\appfunction.c(174): warning:  #167-D: argument of type "com_play_control_TypeDef *" is incompatible with parameter of type "const unsigned char *"
+      mcu_dp_raw_update(DPID_PLAY_CONTROL, &com, sizeof(com));
+..\USER\app\appfunction.c(192): warning:  #167-D: argument of type "com_device_data_TypeDef *" is incompatible with parameter of type "uint8_t *"
+      printhex_my(&com, (slave.num * sizeof(com_device_detail_TypeDef)));
+..\USER\app\appfunction.c(193): warning:  #167-D: argument of type "com_device_data_TypeDef *" is incompatible with parameter of type "const unsigned char *"
+      mcu_dp_raw_update(DPID_DEVICE_DETAIL, &com, (slave.num * sizeof(com_device_detail_TypeDef))); // RAW型数据上报;
+..\USER\app\appfunction.c(179): warning:  #177-D: variable "j"  was declared but never referenced
+      uint8_t i, j;
+..\USER\app\appfunction.c(223): warning:  #167-D: argument of type "com_schedule_sketchlist_TypeDef *" is incompatible with parameter of type "const unsigned char *"
+      mcu_dp_raw_update(DPID_CLOCK_LIST, &com, sizeof(com));
+..\USER\app\appfunction.c(236): warning:  #167-D: argument of type "com_schedule_detail_TypeDef *" is incompatible with parameter of type "const unsigned char *"
+      mcu_dp_raw_update(DPID_CLOCK_DETIAL, &com, sizeof(com));
+..\USER\app\appfunction.c(431): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "com_play_detial_TypeDef *"
+      print_com_playdetial(sur);
+..\USER\app\appfunction.c(495): warning:  #177-D: variable "color"  was declared but never referenced
+      color_TypeDef color;
+..\USER\app\appfunction.c(496): warning:  #177-D: variable "i"  was declared but never referenced
+      uint8_t i;
+..\USER\app\appfunction.c(533): warning:  #940-D: missing return statement at end of non-void function "mcu_download_clock_detial" 
+  }
+..\USER\app\appfunction.c: 25 warnings, 0 errors
+compiling debug.c...
+..\USER\debug\debug.c(28): warning:  #167-D: argument of type "uint8_t (*)[15]" is incompatible with parameter of type "char *__restrict__"
+      sprintf(&eff.Name, "effectname test");
+..\USER\debug\debug.c(35): warning:  #188-D: enumerated type mixed with another type
+      eff.EffectType = i++;
+..\USER\debug\debug.c(36): warning:  #188-D: enumerated type mixed with another type
+      eff.Attribute = i++;
+..\USER\debug\debug.c(37): warning:  #188-D: enumerated type mixed with another type
+      eff.Direction = i++;
+..\USER\debug\debug.c(38): warning:  #188-D: enumerated type mixed with another type
+      eff.Flow = i++;
+..\USER\debug\debug.c(39): warning:  #513-D: a value of type "ColorID_TypeDef (*)[32]" cannot be assigned to an entity of type "uint8_t *"
+      pp = &eff.EfColorInf.ColorID;
+..\USER\debug\debug.c(215): warning:  #177-D: variable "i"  was declared but never referenced
+      uint8_t i;
+..\USER\debug\debug.c(331): warning:  #177-D: variable "i"  was declared but never referenced
+      uint16_t i;
+..\USER\debug\debug.c(332): warning:  #177-D: variable "chechsum"  was declared but never referenced
+      uint32_t chechsum;
+..\USER\debug\debug.c: 9 warnings, 0 errors
+compiling ota.c...
+..\USER\ota\ota.c(7): warning:  #177-D: variable "i"  was declared but never referenced
+      uint16_t i, j;
+..\USER\ota\ota.c(7): warning:  #177-D: variable "j"  was declared but never referenced
+      uint16_t i, j;
+..\USER\ota\ota.c(10): warning:  #177-D: variable "p"  was declared but never referenced
+      uint8_t *p;
+..\USER\ota\ota.c(148): warning:  #167-D: argument of type "ota_data_TypeDef *" is incompatible with parameter of type "uint16_t"
+      Edit_SectorData((uint32_t)UserData2_ADDR, &(((UserData_Sector2_TypeDef *)0)->data.ota_data), (uint8_t *)&ota_data, sizeof(ota_data));
+..\USER\ota\ota.c(155): warning:  #167-D: argument of type "ota_data_TypeDef *" is incompatible with parameter of type "uint16_t"
+      Edit_SectorData((uint32_t)UserData2_ADDR, &(((UserData_Sector2_TypeDef *)0)->data.ota_data), (uint8_t *)&ota_data, sizeof(ota_data));
+..\USER\ota\ota.c: 5 warnings, 0 errors
+compiling flashapp.c...
+compiling newota.c...
+..\USER\ota\newota.c(66): warning:  #167-D: argument of type "uint8_t (*)[16]" is incompatible with parameter of type "char *__restrict__"
+      sprintf(&update.startflag, FIRMWARE_UPDATE_FLAG);
+..\USER\ota\newota.c(68): warning:  #167-D: argument of type "update_Typedef *" is incompatible with parameter of type "uint8_t *"
+      FlashROM_Insert(&update, &(OCFLASH->update.data), sizeof(update));
+..\USER\ota\newota.c(68): warning:  #167-D: argument of type "update_Typedef *" is incompatible with parameter of type "uint32_t"
+      FlashROM_Insert(&update, &(OCFLASH->update.data), sizeof(update));
+..\USER\ota\newota.c(76): warning:  #167-D: argument of type "update_Typedef *" is incompatible with parameter of type "uint8_t *"
+      FlashROM_Insert(&update, &(OCFLASH->update.data), sizeof(update));
+..\USER\ota\newota.c(76): warning:  #167-D: argument of type "update_Typedef *" is incompatible with parameter of type "uint32_t"
+      FlashROM_Insert(&update, &(OCFLASH->update.data), sizeof(update));
+..\USER\ota\newota.c(82): warning:  #167-D: argument of type "uint8_t (*)[16]" is incompatible with parameter of type "const char *"
+      if (strcmp(&(OCFLASH->update.data.startflag), FIRMWARE_UPDATE_FLAG) == 0) // 检查是否含有升级标志
+..\USER\ota\newota.c: 6 warnings, 0 errors
+compiling printlog.c...
+compiling factory.c...
+compiling slave.c...
+..\USER\slave\slave.c(118): warning:  #167-D: argument of type "comCmd_Typedef *" is incompatible with parameter of type "uint8_t *"
+                  get_section_from_fifo(fifobuf, bufsize, pr, 0, pack, sizeof(comCmd_Typedef));
+..\USER\slave\slave.c(162): warning:  #223-D: function "delay_5ms" declared implicitly
+              delay_5ms();
+..\USER\slave\slave.c(164): warning:  #167-D: argument of type "unsigned char (*)[100]" is incompatible with parameter of type "uint8_t *"
+              packstatus = get_slave_ack_from_fifo(&Uart0_Buffer.Buffer, sizeof(Uart0_Buffer.Buffer), &Uart0_Buffer.Read, &Uart0_Buffer.Write, &packbuff); // 读取缓存数据状态
+..\USER\slave\slave.c(164): warning:  #167-D: argument of type "unsigned int *" is incompatible with parameter of type "uint16_t *"
+              packstatus = get_slave_ack_from_fifo(&Uart0_Buffer.Buffer, sizeof(Uart0_Buffer.Buffer), &Uart0_Buffer.Read, &Uart0_Buffer.Write, &packbuff); // 读取缓存数据状态
+..\USER\slave\slave.c(164): warning:  #167-D: argument of type "unsigned int *" is incompatible with parameter of type "uint16_t *"
+              packstatus = get_slave_ack_from_fifo(&Uart0_Buffer.Buffer, sizeof(Uart0_Buffer.Buffer), &Uart0_Buffer.Read, &Uart0_Buffer.Write, &packbuff); // 读取缓存数据状态
+..\USER\slave\slave.c(203): warning:  #223-D: function "delay_5ms" declared implicitly
+          delay_5ms();
+..\USER\slave\slave.c(204): warning:  #167-D: argument of type "unsigned char (*)[100]" is incompatible with parameter of type "uint8_t *"
+          packstatus = get_slave_ack_from_fifo(&Uart0_Buffer.Buffer, sizeof(Uart0_Buffer.Buffer), &Uart0_Buffer.Read, &Uart0_Buffer.Write, &packbuff);       // 读取缓存数据状态
+..\USER\slave\slave.c(204): warning:  #167-D: argument of type "unsigned int *" is incompatible with parameter of type "uint16_t *"
+          packstatus = get_slave_ack_from_fifo(&Uart0_Buffer.Buffer, sizeof(Uart0_Buffer.Buffer), &Uart0_Buffer.Read, &Uart0_Buffer.Write, &packbuff);       // 读取缓存数据状态
+..\USER\slave\slave.c(204): warning:  #167-D: argument of type "unsigned int *" is incompatible with parameter of type "uint16_t *"
+          packstatus = get_slave_ack_from_fifo(&Uart0_Buffer.Buffer, sizeof(Uart0_Buffer.Buffer), &Uart0_Buffer.Read, &Uart0_Buffer.Write, &packbuff);       // 读取缓存数据状态
+..\USER\slave\slave.c(204): warning:  #167-D: argument of type "comRW_Typedef *" is incompatible with parameter of type "comCmd_Typedef *"
+          packstatus = get_slave_ack_from_fifo(&Uart0_Buffer.Buffer, sizeof(Uart0_Buffer.Buffer), &Uart0_Buffer.Read, &Uart0_Buffer.Write, &packbuff);       // 读取缓存数据状态
+..\USER\slave\slave.c(207): warning:  #188-D: enumerated type mixed with another type
+              slave.data[i].shape = packbuff.com_regval;
+..\USER\slave\slave.c(211): warning:  #188-D: enumerated type mixed with another type
+              slave.data[i].shape = OTHER_SHAPE;
+..\USER\slave\slave.c(417): warning:  #167-D: argument of type "uint8_t (*)[194]" is incompatible with parameter of type "uint8_t *"
+              transmit_protocol_frame(&buffer, size, &parse.tx_framebuf); // 通过不定长协议发送
+..\USER\slave\slave.c(417): warning:  #167-D: argument of type "uint8_t (*)[305]" is incompatible with parameter of type "uint8_t *"
+              transmit_protocol_frame(&buffer, size, &parse.tx_framebuf); // 通过不定长协议发送
+..\USER\slave\slave.c(458): warning:  #167-D: argument of type "uint8_t (*)[194]" is incompatible with parameter of type "uint8_t *"
+          transmit_protocol_frame(&buffer, size, &parse.tx_framebuf); // 通过不定长协议发送
+..\USER\slave\slave.c(458): warning:  #167-D: argument of type "uint8_t (*)[305]" is incompatible with parameter of type "uint8_t *"
+          transmit_protocol_frame(&buffer, size, &parse.tx_framebuf); // 通过不定长协议发送
+..\USER\slave\slave.c: 16 warnings, 0 errors
+compiling master.c...
+compiling play.c...
+..\USER\play\play.c(151): warning:  #940-D: missing return statement at end of non-void function "get_list_next_num" 
+  }
+..\USER\play\play.c(204): warning:  #940-D: missing return statement at end of non-void function "switch_ln_effect" 
+  }
+..\USER\play\play.c(190): warning:  #177-D: variable "playdetail"  was declared but never referenced
+     playdetail_TypeDef playdetail;
+..\USER\play\play.c(354): warning:  #68-D: integer conversion resulted in a change of sign
+      X_min = -1;
+..\USER\play\play.c(356): warning:  #68-D: integer conversion resulted in a change of sign
+      Y_min = -1;
+..\USER\play\play.c(358): warning:  #68-D: integer conversion resulted in a change of sign
+      temp1 = temp2 = -1;
+..\USER\play\play.c(462): warning:  #223-D: function "diff_cal" declared implicitly
+                  temp1 = diff_cal(X_center, slave.data[i].cooed_x);
+..\USER\play\play.c(346): warning:  #177-D: variable "k"  was declared but never referenced
+      uint16_t i, j,k;
+..\USER\play\play.c(347): warning:  #177-D: variable "sur"  was declared but never referenced
+      uint8_t *sur;
+..\USER\play\play.c(348): warning:  #177-D: variable "tar"  was declared but never referenced
+      uint8_t *tar;
+..\USER\play\play.c(640): warning:  #167-D: argument of type "uint8_t (*)[194]" is incompatible with parameter of type "uint8_t *"
+          transmit_protocol_frame(&buffer, size, &parse.tx_framebuf); // 通过不定长协议发送
+..\USER\play\play.c(640): warning:  #167-D: argument of type "uint8_t (*)[305]" is incompatible with parameter of type "uint8_t *"
+          transmit_protocol_frame(&buffer, size, &parse.tx_framebuf); // 通过不定长协议发送
+..\USER\play\play.c(686): warning:  #167-D: argument of type "uint8_t (*)[8]" is incompatible with parameter of type "uint8_t *"
+      transmit_protocol_frame(&buffer, sizeof(buffer), &parse.tx_framebuf); // 通过不定长协议发送
+..\USER\play\play.c(686): warning:  #167-D: argument of type "uint8_t (*)[305]" is incompatible with parameter of type "uint8_t *"
+      transmit_protocol_frame(&buffer, sizeof(buffer), &parse.tx_framebuf); // 通过不定长协议发送
+..\USER\play\play.c(676): warning:  #177-D: variable "size"  was declared but never referenced
+      uint16_t size;
+..\USER\play\play.c: 15 warnings, 0 errors
+compiling version.c...
 compiling parse.c...
+compiling ProtocolCom.c...
+assembling startup_CMS32L051.s...
+compiling mic.c...
+..\USER\mic\mic.c(83): warning:  #167-D: argument of type "uint16_t (*)[200]" is incompatible with parameter of type "uint16_t *"
+          convert_to_real_mic_val(&mic.buffer, MIC_BUF_SIZE);
+..\USER\mic\mic.c(84): warning:  #167-D: argument of type "uint16_t (*)[200]" is incompatible with parameter of type "uint16_t *"
+          mic.avg = get_average(&mic.buffer, MIC_BUF_SIZE);
+..\USER\mic\mic.c(79): warning:  #177-D: variable "i"  was declared but never referenced
+      uint8_t i;
+..\USER\mic\mic.c(80): warning:  #177-D: variable "temp"  was declared but never referenced
+      uint16_t temp;
+..\USER\mic\mic.c(188): warning:  #177-D: variable "i"  was declared but never referenced
+      uint8_t i;
+..\USER\mic\mic.c(189): warning:  #177-D: variable "level"  was declared but never referenced
+      uint16_t gra, level;
+..\USER\mic\mic.c: 6 warnings, 0 errors
+compiling flow.c...
+..\USER\flow\flow.c(135): warning:  #513-D: a value of type "color_group_TypeDef *" cannot be assigned to an entity of type "uint8_t *"
+      sur = &EF_Buffer.color_buffer;      // 源色表指针
+..\USER\flow\flow.c(162): warning:  #513-D: a value of type "color_group_TypeDef *" cannot be assigned to an entity of type "uint8_t *"
+      sur = &EF_Buffer.color_buffer;      // 源色表指针
+..\USER\flow\flow.c(187): warning:  #513-D: a value of type "color_group_TypeDef *" cannot be assigned to an entity of type "uint8_t *"
+      sur = &EF_Buffer.color_buffer;      // 源色表指针
+..\USER\flow\flow.c(199): warning:  #513-D: a value of type "color_group_TypeDef *" cannot be assigned to an entity of type "uint8_t *"
+          sur = &EF_Buffer.color_buffer;
+..\USER\flow\flow.c(226): warning:  #513-D: a value of type "color_group_TypeDef *" cannot be assigned to an entity of type "uint8_t *"
+      sur = &EF_Buffer.color_buffer;      // 源色表指针
+..\USER\flow\flow.c(250): warning:  #513-D: a value of type "color_group_TypeDef *" cannot be assigned to an entity of type "uint8_t *"
+      sur = &EF_Buffer.color_buffer;      // 源色表指针
+..\USER\flow\flow.c(274): warning:  #513-D: a value of type "color_group_TypeDef *" cannot be assigned to an entity of type "uint8_t *"
+      sur = &EF_Buffer.color_buffer;      // 源色表指针
+..\USER\flow\flow.c: 7 warnings, 0 errors
+compiling system_CMS32L051.c...
 linking...
-.\Objects\L1001_Master.axf: Warning: L6969W: Changing AT Section .ARM.__AT_0x00006000 type from RW to RO in ER_IROM1.
-Program Size: Code=39104 RO-data=2820 RW-data=708 ZI-data=6940  
-Finished: 0 information, 1 warning and 0 error messages.
+Program Size: Code=30820 RO-data=1896 RW-data=564 ZI-data=6172  
 FromELF: creating hex file...
 After Build - User command #1: F:\APP\Keil\\ARM\ARMCC\bin\fromelf.exe --bin --output=L1001_Master.bin .\Objects\L1001_Master.axf
-".\Objects\L1001_Master.axf" - 0 Error(s), 1 Warning(s).
+".\Objects\L1001_Master.axf" - 0 Error(s), 245 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -62,9 +632,9 @@ Package Vendor: Cmsemicon
 
    * Component: Cmsemicon::Device:Startup:1.0.0
       Source file:   Device\Source\ARM\startup_CMS32L051.s
-      Include file:  Device\Source\userdefine.h
       Source file:   Device\Source\system_CMS32L051.c
-Build Time Elapsed:  00:00:02
+      Include file:  Device\Source\userdefine.h
+Build Time Elapsed:  00:00:07
 </pre>
 </body>
 </html>

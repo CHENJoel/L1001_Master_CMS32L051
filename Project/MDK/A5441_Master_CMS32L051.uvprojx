@@ -111,8 +111,8 @@
         <DllOption>
           <SimDllName>SARMCM3.DLL</SimDllName>
           <SimDllArguments> -MPU </SimDllArguments>
-          <SimDlgDll>DARMCM1.DLL</SimDlgDll>
-          <SimDlgDllArguments>-pCM0+</SimDlgDllArguments>
+          <SimDlgDll></SimDlgDll>
+          <SimDlgDllArguments></SimDlgDllArguments>
           <TargetDllName>SARMCM3.DLL</TargetDllName>
           <TargetDllArguments>-MPU </TargetDllArguments>
           <TargetDlgDll>TARMCM1.DLL</TargetDlgDll>
@@ -275,8 +275,8 @@
               </OCR_RVCT3>
               <OCR_RVCT4>
                 <Type>1</Type>
-                <StartAddress>0x5000</StartAddress>
-                <Size>0xb000</Size>
+                <StartAddress>0x4000</StartAddress>
+                <Size>0xbfff</Size>
               </OCR_RVCT4>
               <OCR_RVCT5>
                 <Type>1</Type>
@@ -301,7 +301,7 @@
               <OCR_RVCT9>
                 <Type>0</Type>
                 <StartAddress>0x20000200</StartAddress>
-                <Size>0x1e00</Size>
+                <Size>0x1dff</Size>
               </OCR_RVCT9>
               <OCR_RVCT10>
                 <Type>0</Type>
@@ -339,7 +339,7 @@
               <MiscControls></MiscControls>
               <Define></Define>
               <Undefine></Undefine>
-              <IncludePath>..\USER\Include;..\..\Driver\inc;..\USER\mcu_sdk;..\USER\ota;..\USER\internal_memory;..\USER\external_memory;..\USER\debug;..\USER\app;..\USER\flashapp;..\USER\master;..\USER\play;..\USER\slave;..\USER\factory;..\USER\version;..\USER\parse</IncludePath>
+              <IncludePath>..\USER\Include;..\..\Driver\inc;..\USER\mcu_sdk;..\USER\ota;..\USER\internal_memory;..\USER\external_memory;..\USER\debug;..\USER\app;..\USER\flashapp;..\USER\master;..\USER\play;..\USER\slave;..\USER\factory;..\USER\version;..\USER\parse;..\USER\protocolcom;..\USER\flow;..\USER\mic</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -469,11 +469,6 @@
           <GroupName>SDK</GroupName>
           <Files>
             <File>
-              <FileName>homekit.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\USER\mcu_sdk\homekit.c</FilePath>
-            </File>
-            <File>
               <FileName>mcu_api.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\USER\mcu_sdk\mcu_api.c</FilePath>
@@ -557,6 +552,16 @@
               <FileName>dma.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\Driver\src\dma.c</FilePath>
+            </File>
+            <File>
+              <FileName>wdt.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Driver\src\wdt.c</FilePath>
+            </File>
+            <File>
+              <FileName>wdt_user.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\Driver\src\wdt_user.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -817,6 +822,51 @@
               <FileName>parse.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\USER\parse\parse.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>user_protocolcom</GroupName>
+          <Files>
+            <File>
+              <FileName>ProtocolCom.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\USER\protocolcom\ProtocolCom.c</FilePath>
+            </File>
+            <File>
+              <FileName>ProtocolCom.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\USER\protocolcom\ProtocolCom.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>user_flow</GroupName>
+          <Files>
+            <File>
+              <FileName>flow.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\USER\flow\flow.c</FilePath>
+            </File>
+            <File>
+              <FileName>flow.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\USER\flow\flow.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>user_mic</GroupName>
+          <Files>
+            <File>
+              <FileName>mic.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\USER\mic\mic.c</FilePath>
+            </File>
+            <File>
+              <FileName>mic.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\USER\mic\mic.h</FilePath>
             </File>
           </Files>
         </Group>

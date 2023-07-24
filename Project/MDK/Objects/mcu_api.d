@@ -2,13 +2,11 @@
 .\objects\mcu_api.o: ..\USER\mcu_sdk\wifi.h
 .\objects\mcu_api.o: F:\APP\Keil\ARM\ARMCC\Bin\..\include\stdio.h
 .\objects\mcu_api.o: F:\APP\Keil\ARM\ARMCC\Bin\..\include\string.h
-.\objects\mcu_api.o: F:\APP\Keil\ARM\ARMCC\Bin\..\include\stdlib.h
-.\objects\mcu_api.o: ..\USER\mcu_sdk\tuya_type.h
 .\objects\mcu_api.o: ..\USER\mcu_sdk\protocol.h
 .\objects\mcu_api.o: ..\USER\mcu_sdk\system.h
 .\objects\mcu_api.o: ..\USER\mcu_sdk\mcu_api.h
-.\objects\mcu_api.o: ..\USER\mcu_sdk\homekit.h
 .\objects\mcu_api.o: ..\USER\Include\Function_Init.H
+.\objects\mcu_api.o: F:\APP\Keil\ARM\ARMCC\Bin\..\include\stdlib.h
 .\objects\mcu_api.o: F:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include\CMS32L051.h
 .\objects\mcu_api.o: F:\APP\Keil\ARM\CMSIS\5.7.0\CMSIS\Core\Include\core_cm0plus.h
 .\objects\mcu_api.o: F:\APP\Keil\ARM\ARMCC\Bin\..\include\stdint.h
@@ -24,6 +22,7 @@
 .\objects\mcu_api.o: ..\..\Driver\inc\flash.h
 .\objects\mcu_api.o: ..\..\Driver\inc\rtc.h
 .\objects\mcu_api.o: ..\..\Driver\inc\dma.h
+.\objects\mcu_api.o: ..\..\Driver\inc\wdt.h
 .\objects\mcu_api.o: F:\APP\Keil\ARM\ARMCC\Bin\..\include\math.h
 .\objects\mcu_api.o: ..\USER\Include\FIFO.h
 .\objects\mcu_api.o: ..\USER\Include\IR.H
@@ -54,6 +53,7 @@
 .\objects\mcu_api.o: ..\USER\debug\printlog.h
 .\objects\mcu_api.o: ..\USER\app\comapp.h
 .\objects\mcu_api.o: ..\USER\slave\slave.h
+.\objects\mcu_api.o: ..\USER\protocolcom\ProtocolCom.H
 .\objects\mcu_api.o: ..\USER\external_memory\user_memory.h
 .\objects\mcu_api.o: ..\USER\debug\debug.h
 .\objects\mcu_api.o: ..\USER\flashapp\flashapp.h
@@ -65,3 +65,5 @@
 .\objects\mcu_api.o: ..\USER\factory\factory.h
 .\objects\mcu_api.o: ..\USER\version\version.h
 .\objects\mcu_api.o: ..\USER\parse\parse.h
+.\objects\mcu_api.o: ..\USER\flow\flow.h
+.\objects\mcu_api.o: ..\USER\mic\mic.h

@@ -817,7 +817,7 @@ void copy_schedule_detail_to_com(schedule_detail_TypeDef *sur, com_schedule_deta
 uint8_t add_schedule(schedule_detail_TypeDef *p, uint8_t num)
 {
     schedule_list_TypeDef schedule;
-    printlog("add_schedule\r");
+    printlog("add_schedule %d\r",num);
     get_all_schedule(&schedule);
     if ((schedule.num != 0) && (num > schedule.num || num >= SCHEDULE_NUM))
     {

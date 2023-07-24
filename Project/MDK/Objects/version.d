@@ -17,6 +17,7 @@
 .\objects\version.o: ..\..\Driver\inc\flash.h
 .\objects\version.o: ..\..\Driver\inc\rtc.h
 .\objects\version.o: ..\..\Driver\inc\dma.h
+.\objects\version.o: ..\..\Driver\inc\wdt.h
 .\objects\version.o: F:\APP\Keil\ARM\ARMCC\Bin\..\include\stdio.h
 .\objects\version.o: F:\APP\Keil\ARM\ARMCC\Bin\..\include\string.h
 .\objects\version.o: F:\APP\Keil\ARM\ARMCC\Bin\..\include\math.h
@@ -38,12 +39,9 @@
 .\objects\version.o: ..\USER\Include\Sys.h
 .\objects\version.o: ..\USER\Include\ware.h
 .\objects\version.o: ..\USER\mcu_sdk\wifi.h
-.\objects\version.o: ..\USER\mcu_sdk\tuya_type.h
 .\objects\version.o: ..\USER\mcu_sdk\protocol.h
 .\objects\version.o: ..\USER\mcu_sdk\system.h
 .\objects\version.o: ..\USER\mcu_sdk\mcu_api.h
-.\objects\version.o: ..\USER\mcu_sdk\homekit.h
-.\objects\version.o: ..\USER\Include\Inf.h
 .\objects\version.o: ..\USER\external_memory\memory.h
 .\objects\version.o: ..\USER\external_memory\driver_spi.h
 .\objects\version.o: ..\USER\external_memory\driver_w25qxx.h
@@ -51,9 +49,11 @@
 .\objects\version.o: ..\USER\Include\colorbox.h
 .\objects\version.o: ..\USER\ota\OTA.h
 .\objects\version.o: ..\USER\external_memory\MEM.h
+.\objects\version.o: ..\USER\Include\Inf.h
 .\objects\version.o: ..\USER\debug\printlog.h
 .\objects\version.o: ..\USER\app\comapp.h
 .\objects\version.o: ..\USER\slave\slave.h
+.\objects\version.o: ..\USER\protocolcom\ProtocolCom.H
 .\objects\version.o: ..\USER\external_memory\user_memory.h
 .\objects\version.o: ..\USER\debug\debug.h
 .\objects\version.o: ..\USER\flashapp\flashapp.h
@@ -65,3 +65,5 @@
 .\objects\version.o: ..\USER\factory\factory.h
 .\objects\version.o: ..\USER\version\version.h
 .\objects\version.o: ..\USER\parse\parse.h
+.\objects\version.o: ..\USER\flow\flow.h
+.\objects\version.o: ..\USER\mic\mic.h

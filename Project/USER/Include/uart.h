@@ -15,12 +15,12 @@ typedef enum
 
 void Uart0_Send_String(uint8_t* sur,uint8_t len);
 void DMA_Uart_Init(void);
-void Tangram_Buffer_load(void);
-// void Bubble_Sort_2D(uint8_t *array[0][0], uint8_t row, uint8_t column, uint8_t num);
+// // // void Tangram_Buffer_load(void);
+// // // void Bubble_Sort_2D(uint8_t *array[0][0], uint8_t row, uint8_t column, uint8_t num);
 
 void Bubble_Sort_2D(uint8_t *array, uint8_t row, uint8_t column, uint8_t num);
-void Data_DMA_load(uint8_t *array, uint8_t num);
-void TangramBuffer_DMA_load(uint8_t Num);
+// // // // void Data_DMA_load(uint8_t *array, uint8_t num);
+// // // // void TangramBuffer_DMA_load(uint8_t Num);
 
 void Slave_ColorData_Allot(void );
 void Slave_ColorData_DMA(void);

@@ -26,7 +26,7 @@ Size: 0x40000 , 262144 byte , 2097152 bit , 0x200000 bit
 #define SPARE_SIZE   0x10000UL
 #define VERIFY_SIZE  0xFF
 
-#define EF_MEM_VERIFY "effect data 2023/06/13 54888 "
+#define EF_MEM_VERIFY "effect data 2023/07/15 "
 #define DEFAULE_PLAYLIST_NAME "default list"
 
 typedef struct
@@ -199,9 +199,9 @@ uint8_t delete_schedule(uint8_t num);
 /**************************************************************************************/
 /*主闪存区*/
 #define BOOTLOADER_BASEADDR 0x0000     // 引导程序基地址
-#define BOOTLOADER_SIZE 0x5000         // 引导程序大小 20K,20480byte
-#define APP_BASEADDR 0x5000            // 应用程序基地址
-#define APP_SIZE 0xA000                // 应用程序大小 40K,40960byte
+// #define BOOTLOADER_SIZE 0x5000         // 引导程序大小 20K,20480byte
+// #define APP_BASEADDR 0x5000            // 应用程序基地址
+// #define APP_SIZE 0xA000                // 应用程序大小 40K,40960byte
 #define FLASH_RESERVED_BASEADDR 0xF000 // fash保留区基地址.后续可拓展为APP/数据存储区
 #define FLASH_RESERVED_SIZE 0x1000     // fash保留区大小 4K,4096byte
 /*数据闪存*/

@@ -16,6 +16,7 @@
 .\objects\a5441_master.o: ..\..\Driver\inc\flash.h
 .\objects\a5441_master.o: ..\..\Driver\inc\rtc.h
 .\objects\a5441_master.o: ..\..\Driver\inc\dma.h
+.\objects\a5441_master.o: ..\..\Driver\inc\wdt.h
 .\objects\a5441_master.o: F:\APP\Keil\ARM\ARMCC\Bin\..\include\stdio.h
 .\objects\a5441_master.o: F:\APP\Keil\ARM\ARMCC\Bin\..\include\string.h
 .\objects\a5441_master.o: F:\APP\Keil\ARM\ARMCC\Bin\..\include\math.h
@@ -37,12 +38,9 @@
 .\objects\a5441_master.o: ..\USER\Include\Sys.h
 .\objects\a5441_master.o: ..\USER\Include\ware.h
 .\objects\a5441_master.o: ..\USER\mcu_sdk\wifi.h
-.\objects\a5441_master.o: ..\USER\mcu_sdk\tuya_type.h
 .\objects\a5441_master.o: ..\USER\mcu_sdk\protocol.h
 .\objects\a5441_master.o: ..\USER\mcu_sdk\system.h
 .\objects\a5441_master.o: ..\USER\mcu_sdk\mcu_api.h
-.\objects\a5441_master.o: ..\USER\mcu_sdk\homekit.h
-.\objects\a5441_master.o: ..\USER\Include\Inf.h
 .\objects\a5441_master.o: ..\USER\external_memory\memory.h
 .\objects\a5441_master.o: ..\USER\external_memory\driver_spi.h
 .\objects\a5441_master.o: ..\USER\external_memory\driver_w25qxx.h
@@ -50,9 +48,11 @@
 .\objects\a5441_master.o: ..\USER\Include\colorbox.h
 .\objects\a5441_master.o: ..\USER\ota\OTA.h
 .\objects\a5441_master.o: ..\USER\external_memory\MEM.h
+.\objects\a5441_master.o: ..\USER\Include\Inf.h
 .\objects\a5441_master.o: ..\USER\debug\printlog.h
 .\objects\a5441_master.o: ..\USER\app\comapp.h
 .\objects\a5441_master.o: ..\USER\slave\slave.h
+.\objects\a5441_master.o: ..\USER\protocolcom\ProtocolCom.H
 .\objects\a5441_master.o: ..\USER\external_memory\user_memory.h
 .\objects\a5441_master.o: ..\USER\debug\debug.h
 .\objects\a5441_master.o: ..\USER\flashapp\flashapp.h
@@ -64,3 +64,5 @@
 .\objects\a5441_master.o: ..\USER\factory\factory.h
 .\objects\a5441_master.o: ..\USER\version\version.h
 .\objects\a5441_master.o: ..\USER\parse\parse.h
+.\objects\a5441_master.o: ..\USER\flow\flow.h
+.\objects\a5441_master.o: ..\USER\mic\mic.h

@@ -257,7 +257,7 @@ typedef struct
 
 typedef struct
 {
-    RGBW_TypeDef color[16]; // 每个灯效最多包含16个颜色
+    RGBW_TypeDef color[32]; // 每个灯效最多包含16个颜色
 } color_group_TypeDef;
 //typedef struct
 //{

@@ -1,9 +1,13 @@
 /*
  * @Author: error: git config user.name && git config user.email & please set dead value or install git
  * @Date: 2022-05-25 20:19:26
- * @LastEditors: error: git config user.name && git config user.email & please set dead value or install git
- * @LastEditTime: 2022-06-18 16:52:36
- * @FilePath: \A5441_Master_CMS32L051\Project\USER\Source\Com.c
+ * @LastEditors: joel
+.chen sandote@163.om
+.chen sandote@163.om
+.chen sandote@163.om
+.chen sandote@163.om
+ * @LastEditTime: 2023-06-25 15:08:57
+ * @FilePath: \L1001_Master_CMS32L051\Project\USER\Source\Com.c
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
 

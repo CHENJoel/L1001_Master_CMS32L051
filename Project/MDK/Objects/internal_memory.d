@@ -17,6 +17,7 @@
 .\objects\internal_memory.o: ..\..\Driver\inc\flash.h
 .\objects\internal_memory.o: ..\..\Driver\inc\rtc.h
 .\objects\internal_memory.o: ..\..\Driver\inc\dma.h
+.\objects\internal_memory.o: ..\..\Driver\inc\wdt.h
 .\objects\internal_memory.o: F:\APP\Keil\ARM\ARMCC\Bin\..\include\stdio.h
 .\objects\internal_memory.o: F:\APP\Keil\ARM\ARMCC\Bin\..\include\string.h
 .\objects\internal_memory.o: F:\APP\Keil\ARM\ARMCC\Bin\..\include\math.h
@@ -38,12 +39,9 @@
 .\objects\internal_memory.o: ..\USER\Include\Sys.h
 .\objects\internal_memory.o: ..\USER\Include\ware.h
 .\objects\internal_memory.o: ..\USER\mcu_sdk\wifi.h
-.\objects\internal_memory.o: ..\USER\mcu_sdk\tuya_type.h
 .\objects\internal_memory.o: ..\USER\mcu_sdk\protocol.h
 .\objects\internal_memory.o: ..\USER\mcu_sdk\system.h
 .\objects\internal_memory.o: ..\USER\mcu_sdk\mcu_api.h
-.\objects\internal_memory.o: ..\USER\mcu_sdk\homekit.h
-.\objects\internal_memory.o: ..\USER\Include\Inf.h
 .\objects\internal_memory.o: ..\USER\external_memory\memory.h
 .\objects\internal_memory.o: ..\USER\external_memory\driver_spi.h
 .\objects\internal_memory.o: ..\USER\external_memory\driver_w25qxx.h
@@ -51,9 +49,11 @@
 .\objects\internal_memory.o: ..\USER\Include\colorbox.h
 .\objects\internal_memory.o: ..\USER\ota\OTA.h
 .\objects\internal_memory.o: ..\USER\external_memory\MEM.h
+.\objects\internal_memory.o: ..\USER\Include\Inf.h
 .\objects\internal_memory.o: ..\USER\debug\printlog.h
 .\objects\internal_memory.o: ..\USER\app\comapp.h
 .\objects\internal_memory.o: ..\USER\slave\slave.h
+.\objects\internal_memory.o: ..\USER\protocolcom\ProtocolCom.H
 .\objects\internal_memory.o: ..\USER\external_memory\user_memory.h
 .\objects\internal_memory.o: ..\USER\debug\debug.h
 .\objects\internal_memory.o: ..\USER\flashapp\flashapp.h
@@ -65,3 +65,5 @@
 .\objects\internal_memory.o: ..\USER\factory\factory.h
 .\objects\internal_memory.o: ..\USER\version\version.h
 .\objects\internal_memory.o: ..\USER\parse\parse.h
+.\objects\internal_memory.o: ..\USER\flow\flow.h
+.\objects\internal_memory.o: ..\USER\mic\mic.h

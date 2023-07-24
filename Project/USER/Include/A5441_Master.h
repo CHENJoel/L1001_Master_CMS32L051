@@ -114,7 +114,7 @@ typedef struct
 {
     uint8_t Device_sum;         // 设备数量
     uint8_t Light_sum;          // 灯光数量（按灯光序号）
-    SlaveTypeDef SlaveData[16]; // 从机数据包
+    SlaveTypeDef SlaveData[32]; // 从机数据包
 } DeviceTypeDef;
 extern DeviceTypeDef TangramDevice;
 
@@ -160,13 +160,13 @@ void KeyS_On(void);
 void Scene_MOD(void);
 void Paring_Mod(uint8_t *keyval,uint8_t reset);
 void NewParing_Mod(uint8_t *keyval,uint8_t reset);
-// void Frame_Working(void);
+// // // // void Frame_Working(void);
 
-void Module_All_GradualChange(uint8_t modele_num);
-void Module_SelfTest(void);
+// // // // // // // // void Module_All_GradualChange(uint8_t modele_num);
+// // // // // // void Module_SelfTest(void);
 
 uint8_t MIC_Process(void);
-void Runingnum_Bubble_Sort(void);
+// // void Runingnum_Bubble_Sort(void);
 
 void Slave_SelfTest(void);
 

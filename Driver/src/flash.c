@@ -23,7 +23,7 @@ Includes
 /***********************************************************************************************************************
 * Function Name: EraseChip
 * @brief  Chip Erase Flash
-* @param  adr - Any address of user code flash 	
+* @param  adr - Any address of user code flash
 * @return None
 ***********************************************************************************************************************/
 int EraseChip (uint32_t adr)
@@ -31,10 +31,10 @@ int EraseChip (uint32_t adr)
     FMC->FLERMD = 0x08;
     FMC->FLPROT = 0xF1;
     FMC->FLOPMD1 = 0x55;
-    FMC->FLOPMD2 = 0xAA;  
+    FMC->FLOPMD2 = 0xAA;
     // Write data to start address of sector to trigger Erase Operation
     *(uint32_t *) adr = 0xFFFFFFFF;
-    
+
     // polling OVER Flag
     while((FMC->FLSTS & FMC_FLSTS_OVF_Msk) == 0);
     FMC->FLSTS |= FMC_FLSTS_OVF_Msk;
@@ -51,13 +51,14 @@ int EraseChip (uint32_t adr)
 ***********************************************************************************************************************/
 int EraseSector (uint32_t adr)
 {
+    WDT_Restart();
     FMC->FLERMD = 0x10;
     FMC->FLPROT = 0xF1;
     FMC->FLOPMD1 = 0x55;
-    FMC->FLOPMD2 = 0xAA;  
+    FMC->FLOPMD2 = 0xAA;
     // Write data to start address of sector to trigger Erase Operation
     *(uint32_t *) adr = 0xFFFFFFFF;
-    
+
     // polling Erase Over Flag
     while((FMC->FLSTS & FMC_FLSTS_OVF_Msk) == 0);
     FMC->FLSTS |= FMC_FLSTS_OVF_Msk;
@@ -77,32 +78,32 @@ int EraseSector (uint32_t adr)
 /***********************************************************************************************************************
 * Function Name: ProgramPage
 * @brief  Write data to Flash
-* @param  adr - Page Start Address 
-* @param  sz - Page Size 
-* @param  buf - Page Data 
+* @param  adr - Page Start Address
+* @param  sz - Page Size
+* @param  buf - Page Data
 * @return None
 ***********************************************************************************************************************/
 int ProgramPage (uint32_t adr, uint32_t sz, uint8_t *buf)
 {
     uint32_t i;
     uint8_t *ptr;
-    
+    WDT_Restart();
     ptr = (uint8_t *) adr;
-    
+
     FMC->FLPROT = 0xF1;
-    
-    for(i=0; i<sz; i++) 
+
+    for(i=0; i<sz; i++)
     {
         FMC->FLOPMD1 = 0xAA;
-        FMC->FLOPMD2 = 0x55;  
-        *ptr++ = *buf++;    
+        FMC->FLOPMD2 = 0x55;
+        *ptr++ = *buf++;
         // polling OVER Flag
         while((FMC->FLSTS & FMC_FLSTS_OVF_Msk) == 0);
         FMC->FLSTS |= FMC_FLSTS_OVF_Msk;
     }
 
     FMC->FLPROT = 0x00;
-    
+
     return (0);
 }
 

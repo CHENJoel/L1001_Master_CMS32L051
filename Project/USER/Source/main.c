@@ -52,7 +52,7 @@ uint32_t i;
 
 unsigned char RandomNum;
 
-uint16_t ADC_Buffer[ADC_CNT];	//
+// uint16_t ADC_Buffer[ADC_CNT];	//
 // uint16_t ADC_Buffer[200];	//
 
 // // uint16_t sdghgeydu;
@@ -136,14 +136,14 @@ int main()
 	// // // status = UART0_Init(SystemCoreClock, 9600);
 
 	status = UART0_Init(SystemCoreClock, 76800);
-	UART1_Init(SystemCoreClock, 76800); // 实际为9600
-	UART1_Receive(&Uart1_rx_data, 1);
+
 
 	if(status == MD_ERROR)
 	{
 		while(1); // The baud rate 0x9800cannot get at the current system clock frequency.
 	}
-
+	UART1_Init(SystemCoreClock, 76800); // 实际为9600
+	UART1_Receive(&Uart1_rx_data, 1);
 
 	printf("\nHello,I am Matser\n");
 	INTC_EnableIRQ(SR0_IRQn); // 开串口接收中断
@@ -163,9 +163,10 @@ int main()
 	/* ADC_Init(); */
 	ADC_Set_HardTrigger(1, AD_TRG_IT);
 	ADC_Set_Clock(CLOCK_DIV8, 0x0DU);
-	ADC_Start(ADC_CHANNEL_0);
-	DMA_Start(DMA_VECTOR_ADC, CTRL_DATA_ADC, DMA_MODE_NORMAL,
-			  DMA_SIZE_HALF, ADC_CNT, (uint16_t *)&ADC->ADCR, ADC_Buffer);
+	start_mic_sample();
+	// ADC_Start(ADC_CHANNEL_0);
+	// DMA_Start(DMA_VECTOR_ADC, CTRL_DATA_ADC, DMA_MODE_NORMAL,
+	// 		  DMA_SIZE_HALF, ADC_CNT, (uint16_t *)&ADC->ADCR, ADC_Buffer);
 
 	User_TM40_IntervalTimer(TM4_CHANNEL_0,5);
 	INTC_EnableIRQ(TM00_IRQn);
@@ -186,59 +187,42 @@ int main()
     // // ModeArray[1].Sum = Static_SUM;
     // // ModeArray[2].Sum = Rhythm_SUM;
 
-	SYS.Brightness.Target = SYS.Brightness.Set = SYS.Brightness.Now = 255;
+	// // SYS.Brightness.Target = SYS.Brightness.Set = SYS.Brightness.Now = 255;
 
 	delayMS(100);
 	SPI_Init();
 
-	// MemoryStruct_Read();
-/*
-	Slave_DataInit();
-	// slave_data_debug();
-	Slave_SelfTest();
-	EF_Work.EF_ID=3;
-	Effect_Init();
-
-
-
-	Effect_DefaultParaData_Init();
-	Verify_EF_data();
-	Verify_PlayList_data();
-	*/
-	// printf("V1.0.0\r\n");
-
-	// DMA_Stop(DMA_VECTOR_ST0);
-	// Debug();
-
 	SYS_Init();
+	play.work.brightness.set=100;
+	play.work.sw_status = SW_ON;
+	play.status = RUN;
 	while (1)
 	{
 		if (T_4MS_FLAG_GetBit)
 		{
 			T_4MS_FLAG_ClrBit();
+			WDT_Restart();
 			wifi_uart_service();
-			// OTA_ResetFlag();
-			fifo_parse(&Uart0_Buffer.Buffer,sizeof(Uart0_Buffer.Buffer),&parse.read,&Uart0_Buffer.Write,parse.process_buf);
+			// // printf("test\r\n");
 		}
 		if (T_8MS_FLAG_GetBit)
 		{
 			T_8MS_FLAG_ClrBit();
-
 		}
 		if (T_20MS_FLAG_GetBit)
 		{
 			T_20MS_FLAG_ClrBit();
-			// IR_Decode();
-			Motion_Output();
-			MIC_Process();
+
+			// Motion_Output();
+
+			// MIC_Process();
 			KeyS_On();
-
+			WDT_Restart();
 			KeyS_Click();
-			Lignt_Control();
 
-			ADC_Start(ADC_CHANNEL_0);
-			DMA_Start(DMA_VECTOR_ADC, CTRL_DATA_ADC, DMA_MODE_NORMAL,
-					  DMA_SIZE_HALF, ADC_CNT, (uint16_t *)&ADC->ADCR, ADC_Buffer);
+			LED_Display();
+
+
 
 			// // // Light_AD_Test();
 
@@ -253,21 +237,28 @@ int main()
 		if (T_28MS_FLAG_GetBit)
 		{
 			T_28MS_FLAG_ClrBit();
+			// test_play_color();
 
-			LED_Display();
+			Lignt_Control();
+			// process_mic_data();
+			// play.work.brightness.now = 250;
+			effect_play_color_calu();
+			play_effect_video();
 
-			// UART1_Send(&UART_TEST,9);
 		}
 		if (T_100MS_FLAG_GetBit)
 		{
 			T_100MS_FLAG_ClrBit();
 			// // printf("%d\r\n",EF_Work.EF_ID);
+			// LED1_REV();
 		}
 		if (T_200MS_FLAG_GetBit)
 		{
 			T_200MS_FLAG_ClrBit();
+			// // norflash_auto_rw_test();
 			// printf("test\r\n");
-//////			LED2_REV();
+			//////			LED2_REV();
+			// LED2_REV();
 		}
 		if (T_500MS_FLAG_GetBit)
 		{
@@ -280,17 +271,19 @@ int main()
 		{
 			T_1000MS_FLAG_ClrBit();
 			RTC_Task();
+
+			// UART0_Send(0xc5);
 			// Debug();
 			// SPI_FlashDebug();
 			// SYS_Record();
 			// LED1_REV();
-			//  printf("\r\nAPP running %d S\r\n",RunningTimeCnt++);
+			// //  printf("\r\nAPP running %d S\r\n",RunningTimeCnt++);
 			// KeyS_On();
 			// APP_checksum_verify(1);
 			// printf("test\r\n");
 			// APP_update_check();
 			// // // runtime_cnt=0x1234;
-			// printlog("MCU VER 5.2.0 | run:%d\r",runtime_cnt);
+			// printlog("MCU VER 5.3.0 | run:%d\r",runtime_cnt);
 			runtime_cnt++;
 			// printf("%d\r\n",sizeof(UserData_TypeDef));
 			// Memory_AutoUpdate();

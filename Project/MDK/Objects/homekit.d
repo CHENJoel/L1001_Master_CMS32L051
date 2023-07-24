@@ -54,6 +54,7 @@
 .\objects\homekit.o: ..\USER\debug\printlog.h
 .\objects\homekit.o: ..\USER\app\comapp.h
 .\objects\homekit.o: ..\USER\slave\slave.h
+.\objects\homekit.o: ..\USER\protocolcom\ProtocolCom.H
 .\objects\homekit.o: ..\USER\external_memory\user_memory.h
 .\objects\homekit.o: ..\USER\debug\debug.h
 .\objects\homekit.o: ..\USER\flashapp\flashapp.h
@@ -65,3 +66,4 @@
 .\objects\homekit.o: ..\USER\factory\factory.h
 .\objects\homekit.o: ..\USER\version\version.h
 .\objects\homekit.o: ..\USER\parse\parse.h
+.\objects\homekit.o: ..\USER\flow\flow.h

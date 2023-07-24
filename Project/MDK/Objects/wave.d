@@ -16,6 +16,7 @@
 .\objects\wave.o: ..\..\Driver\inc\flash.h
 .\objects\wave.o: ..\..\Driver\inc\rtc.h
 .\objects\wave.o: ..\..\Driver\inc\dma.h
+.\objects\wave.o: ..\..\Driver\inc\wdt.h
 .\objects\wave.o: F:\APP\Keil\ARM\ARMCC\Bin\..\include\stdio.h
 .\objects\wave.o: F:\APP\Keil\ARM\ARMCC\Bin\..\include\string.h
 .\objects\wave.o: F:\APP\Keil\ARM\ARMCC\Bin\..\include\math.h
@@ -37,12 +38,9 @@
 .\objects\wave.o: ..\USER\Include\Sys.h
 .\objects\wave.o: ..\USER\Include\ware.h
 .\objects\wave.o: ..\USER\mcu_sdk\wifi.h
-.\objects\wave.o: ..\USER\mcu_sdk\tuya_type.h
 .\objects\wave.o: ..\USER\mcu_sdk\protocol.h
 .\objects\wave.o: ..\USER\mcu_sdk\system.h
 .\objects\wave.o: ..\USER\mcu_sdk\mcu_api.h
-.\objects\wave.o: ..\USER\mcu_sdk\homekit.h
-.\objects\wave.o: ..\USER\Include\Inf.h
 .\objects\wave.o: ..\USER\external_memory\memory.h
 .\objects\wave.o: ..\USER\external_memory\driver_spi.h
 .\objects\wave.o: ..\USER\external_memory\driver_w25qxx.h
@@ -50,9 +48,11 @@
 .\objects\wave.o: ..\USER\Include\colorbox.h
 .\objects\wave.o: ..\USER\ota\OTA.h
 .\objects\wave.o: ..\USER\external_memory\MEM.h
+.\objects\wave.o: ..\USER\Include\Inf.h
 .\objects\wave.o: ..\USER\debug\printlog.h
 .\objects\wave.o: ..\USER\app\comapp.h
 .\objects\wave.o: ..\USER\slave\slave.h
+.\objects\wave.o: ..\USER\protocolcom\ProtocolCom.H
 .\objects\wave.o: ..\USER\external_memory\user_memory.h
 .\objects\wave.o: ..\USER\debug\debug.h
 .\objects\wave.o: ..\USER\flashapp\flashapp.h
@@ -64,3 +64,5 @@
 .\objects\wave.o: ..\USER\factory\factory.h
 .\objects\wave.o: ..\USER\version\version.h
 .\objects\wave.o: ..\USER\parse\parse.h
+.\objects\wave.o: ..\USER\flow\flow.h
+.\objects\wave.o: ..\USER\mic\mic.h

@@ -1,3 +1,15 @@
+/*
+ * @Author: joel
+ * .chen sandote@163.om
+ * @Date: 2023-06-15 13:43:49
+ * @LastEditors: joel
+ * .chen sandote@163.om
+ * @LastEditTime: 2023-06-20 13:45:22
+ * @FilePath: \L1001_Master_CMS32L051\Project\USER\version\version.h
+ * @Description:
+ *
+ * Copyright (c) 2023 by ${git_name_email}, All Rights Reserved.
+ */
 #ifndef _VERSION_H
 #define _VERSION_H
 #include "Function_Init.H"
@@ -5,9 +17,10 @@
 #define BOOT_INF_ADDR (BOOTLOADER_ADDR + 0X1000) // 固件信息记录地址
 #define APP_INF_ADDR (APP_BASIC_ADDR + 0X1000)   // 固件信息记录地址
 
+#define FIRMWARE_VER MCU_VER
 #define PRODUCT_MODEL "L1001" // 产品型号
-
 #define FIRMWARE_DATE "2023/06/15" // 固件日期
+#define FIRMWARE_TYPE FIRMWARE_MASTER // 主机程序
 
 #define FIRMWARE_MASTER "MASTER" // 主机程序
 #define FIRMWARE_SLAVE "SLAVE"   // 从机程序
@@ -22,7 +35,7 @@ typedef struct
     uint8_t reserve[64]; // 保留
 } firmware_inf_TypeDef;  // 固件信息
 
-extern volatile const firmware_inf_TypeDef firmware_inf;
+extern const firmware_inf_TypeDef firmware_inf;
 void print_firmware_information(void);
 
 

@@ -1,9 +1,16 @@
 /*
  * @Author: error: git config user.name && git config user.email & please set dead value or install git
  * @Date: 2022-04-01 16:53:48
- * @LastEditors: error: git config user.name && git config user.email & please set dead value or install git
- * @LastEditTime: 2022-06-18 16:52:09
- * @FilePath: \A5441_Master_CMS32L051\Project\USER\Include\Function_Init.H
+ * @LastEditors: joel
+.chen sandote@163.om
+.chen sandote@163.om
+.chen sandote@163.om
+.chen sandote@163.om
+.chen sandote@163.om
+.chen sandote@163.om
+.chen sandote@163.om
+ * @LastEditTime: 2023-07-19 17:48:37
+ * @FilePath: \L1001_Master_CMS32L051\Project\USER\Include\Function_Init.H
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
 /*
@@ -29,7 +36,7 @@
 #include "flash.h"
 #include "rtc.h"
 #include "dma.h"
-
+#include"wdt.h"
 #include <stdio.h>
 #include <string.h>
 #include <math.h>
@@ -72,6 +79,10 @@
 #include "factory.h"
 #include "version.h"
 #include "parse.h"
+#include "ProtocolCom.H"
+#include "flow.h"
+#include "mic.h"
+
 #define IR_Version 0
 
 
@@ -103,9 +114,35 @@
 
 */
 
+// struct
+// {
+//     unsigned char PowerON : 1;     // 1开机/0关机
+//     unsigned char LightON : 1;     // 1开灯/0关灯
+//     unsigned char FlowMod : 1;     // 1流光/0单色
+//     unsigned char LockSta : 1;     // 1童锁/0无锁
+//     unsigned char timing : 1;      // 1童锁/0无锁
+//     unsigned char Battery_Low : 1; // 低电量标志
+// } sys;
+
+typedef union
+{
+	uint8_t byte;
+	struct
+	{
+		uint8_t bit0 : 1;
+		uint8_t bit1 : 1;
+		uint8_t bit2 : 1;
+		uint8_t bit3 : 1;
+		uint8_t bit4 : 1;
+		uint8_t bit5 : 1;
+		uint8_t bit6 : 1;
+		uint8_t bit7 : 1;
+	} bits;
+}Flag;
+
 #define ADC_CNT 200
 
-extern uint16_t ADC_Buffer[ADC_CNT];	//
+// extern uint16_t ADC_Buffer[ADC_CNT];	//
 // extern uint16_t ADC_Buffer[200];	//
 
 

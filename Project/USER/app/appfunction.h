@@ -1,3 +1,15 @@
+/*
+ * @Author: joel
+ * .chen sandote@163.om
+ * @Date: 2023-05-19 11:16:26
+ * @LastEditors: joel
+ * .chen sandote@163.om
+ * @LastEditTime: 2023-07-15 11:09:25
+ * @FilePath: \L1001_Master_CMS32L051\Project\USER\app\appfunction.h
+ * @Description:
+ *
+ * Copyright (c) 2023 by ${git_name_email}, All Rights Reserved.
+ */
 #ifndef APPFUNCTION_H
 #define APPFUNCTION_H
 #include "Function_Init.H"
@@ -28,6 +40,7 @@ void mcu_update_playstatus(void);
 void mcu_update_schedule_sketch(void);
 /*mcu上报定时详情*/
 void mcu_update_schedule_detail(uint8_t num);
+
 /*
 
 
@@ -40,8 +53,7 @@ void mcu_update_schedule_detail(uint8_t num);
 
 
 */
-/*针对DPID_SWITCH_LED的处理函数*/
-void mcu_download_switch_led(uint8_t sw);
+
 /*针对DPID_EFFECT_DETIAL的处理函数*/
 uint8_t mcu_download_effect_detail_handle(uint8_t *sur, uint16_t length);
 /*针对DPID_ISSUE_CMD的处理函数*/
@@ -56,6 +68,15 @@ uint8_t mcu_download_play_control_detial(uint8_t *sur, uint16_t length);
 void mcu_download_device_detail(uint8_t *sur, uint16_t length);
 /*针对DPID_DEVICE_CONTROL的处理函数*/
 uint8_t mcu_download_device_control(uint8_t *sur, uint16_t length);
+/*针对DPID_BRIGHT_VAL的处理函数*/
+void mcu_download_bright_val(uint8_t bri);
+/*上传亮度*/
+void mcu_update_bright_val(void);
+/*针对DPID_SWITCH_LED的处理函数*/
+void mcu_download_switch_led(uint8_t sw);
+/*上报开关状态*/
+void mcu_update_switch_led(void);
+
 /*
  */
 

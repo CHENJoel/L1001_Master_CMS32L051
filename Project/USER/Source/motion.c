@@ -43,7 +43,6 @@ void Fetch_EF_DATA(void)
     //     Read_UserEF_Colordata(EF_Work.EF_ID, &color_group);
     //     memcpy(&EF_Buffer.color_buffer, &color_group, sizeof(color_group_TypeDef));
     // }
-
 }
 
 // 帧进度复位
@@ -75,12 +74,11 @@ void Motion_Static_Init(void)
     uint8_t *tar;
     uint8_t randomVal;
 
-    EF_Work.FrameInfro.KeySum = EF_Buffer.para_data.color_sum;      // 关键帧数
-    EF_Work.FrameInfro.InsertNum = Motion_Static_framepara; // 插帧数
-    EF_Work.FrameInfro.IntervalTime = 1;                    // 帧间隔时间
-    EF_Work.FrameInfro.FrameAmount = 1;                     // 总帧数
+    EF_Work.FrameInfro.KeySum = EF_Buffer.para_data.color_sum; // 关键帧数
+    EF_Work.FrameInfro.InsertNum = Motion_Static_framepara;    // 插帧数
+    EF_Work.FrameInfro.IntervalTime = 1;                       // 帧间隔时间
+    EF_Work.FrameInfro.FrameAmount = 1;                        // 总帧数
     EF_Work.FrameInfro.Speed = 1;
-    // // EF_Work.FrameInfro.addr_table = EF_WorkData.addr_table;
     tar = EF_Work.FrameInfro.image_adr; // 色表缓存指针
     sur = &EF_Buffer.color_buffer;      // 源色表指针
     for (i = 0; i < EF_Work.FrameInfro.KeySum; i++)
@@ -127,13 +125,13 @@ void Motion_Breath_Init(void)
     uint8_t *sur;
     uint8_t *tar;
 
-    EF_Work.FrameInfro.KeySum = EF_Buffer.para_data.color_sum * 2;                            // 关键帧数
-    EF_Work.FrameInfro.InsertNum = Motion_Breath_framepara;                                                              // 插帧数
-    EF_Work.FrameInfro.IntervalTime = 1;                       // 帧间隔时间
+    EF_Work.FrameInfro.KeySum = EF_Buffer.para_data.color_sum * 2;                                   // 关键帧数
+    EF_Work.FrameInfro.InsertNum = Motion_Breath_framepara;                                          // 插帧数
+    EF_Work.FrameInfro.IntervalTime = 1;                                                             // 帧间隔时间
     EF_Work.FrameInfro.FrameAmount = EF_Work.FrameInfro.KeySum * (EF_Work.FrameInfro.InsertNum + 1); // 总帧数
 
-    tar = EF_Work.FrameInfro.image_adr;           // 色表缓存指针
-    sur = &EF_Buffer.color_buffer; // 源色表指针
+    tar = EF_Work.FrameInfro.image_adr; // 色表缓存指针
+    sur = &EF_Buffer.color_buffer;      // 源色表指针
     for (i = 0; i < EF_Buffer.para_data.color_sum; i++)
     {
         for (j = 0; j < 4; j++) // 复制源数据
@@ -154,13 +152,13 @@ void Motion_Stream_Init(void)
     uint16_t i, j;
     uint8_t *sur;
     uint8_t *tar;
-    EF_Work.FrameInfro.KeySum = EF_Buffer.para_data.color_sum;                                // 关键帧数
-    EF_Work.FrameInfro.InsertNum = Motion_Stream_framepara;                             // 插帧数
-    EF_Work.FrameInfro.IntervalTime = 1;                       // 帧间隔时间
+    EF_Work.FrameInfro.KeySum = EF_Buffer.para_data.color_sum;                                       // 关键帧数
+    EF_Work.FrameInfro.InsertNum = Motion_Stream_framepara;                                          // 插帧数
+    EF_Work.FrameInfro.IntervalTime = 1;                                                             // 帧间隔时间
     EF_Work.FrameInfro.FrameAmount = EF_Work.FrameInfro.KeySum * (EF_Work.FrameInfro.InsertNum + 1); // 总帧数
 
-    tar = EF_Work.FrameInfro.image_adr;                                                              // 色表缓存指针
-    sur = &EF_Buffer.color_buffer;                                                    // 源色表指针
+    tar = EF_Work.FrameInfro.image_adr; // 色表缓存指针
+    sur = &EF_Buffer.color_buffer;      // 源色表指针
     for (i = 0; i < EF_Work.FrameInfro.KeySum; i++)
     {
         for (j = 0; j < 4; j++) // 复制源数据
@@ -171,19 +169,21 @@ void Motion_Stream_Init(void)
         }
     }
 }
+
 void Motion_Reverberate_Init(void)
 {
     uint16_t i, j;
     uint8_t *sur;
     uint8_t *tar;
-    EF_Work.FrameInfro.KeySum = EF_Buffer.para_data.color_sum * 2 - 1;                        // 关键帧数
-    EF_Work.FrameInfro.InsertNum = Motion_Reverberate_framepara;                             // 插帧数
-    EF_Work.FrameInfro.IntervalTime = 1;                       // 帧间隔时间
+
+    EF_Work.FrameInfro.KeySum = EF_Buffer.para_data.color_sum * 2 - 1;                               // 关键帧数
+    EF_Work.FrameInfro.InsertNum = Motion_Reverberate_framepara;                                     // 插帧数
+    EF_Work.FrameInfro.IntervalTime = 1;                                                             // 帧间隔时间
     EF_Work.FrameInfro.FrameAmount = EF_Work.FrameInfro.KeySum * (EF_Work.FrameInfro.InsertNum + 1); // 总帧数
                                                                                                      // printf("k:%d Is:%d It:%d Am:%d\r\n",EF_Work.FrameInfro.KeySum,EF_Work.FrameInfro.InsertNum,EF_Work.FrameInfro.IntervalTime,EF_Work.FrameInfro.FrameAmount);
 
-    tar = EF_Work.FrameInfro.image_adr;                                                              // 色表缓存指针
-    sur = &EF_Buffer.color_buffer;                                                    // 源色表指针
+    tar = EF_Work.FrameInfro.image_adr; // 色表缓存指针
+    sur = &EF_Buffer.color_buffer;      // 源色表指针
     for (i = 0; i < EF_Buffer.para_data.color_sum; i++)
     {
         for (j = 0; j < 4; j++) // 复制源数据
@@ -215,14 +215,14 @@ void Motion_Hopscotch_Init(void)
     uint8_t *sur;
     uint8_t *tar;
 
-    EF_Work.FrameInfro.KeySum = EF_Buffer.para_data.color_sum;                                // 关键帧数
+    EF_Work.FrameInfro.KeySum = EF_Buffer.para_data.color_sum;                                       // 关键帧数
     EF_Work.FrameInfro.InsertNum = (EF_Work.Module_WorkNum + 1) * Motion_Hopscotch_framepara;        // 插帧数
     EF_Work.FrameInfro.IntervalTime = 1;                                                             // 帧间隔时间(使用插帧数)
     EF_Work.FrameInfro.FrameAmount = EF_Work.FrameInfro.KeySum * (EF_Work.FrameInfro.InsertNum + 1); // 总帧数
 
     // //  printf("k:%d Is:%d It:%d Am:%d\r\n",EF_Work.FrameInfro.KeySum,EF_Work.FrameInfro.InsertNum,EF_Work.FrameInfro.IntervalTime,EF_Work.FrameInfro.FrameAmount);
-    tar = EF_Work.FrameInfro.image_adr;                                                              // 色表缓存指针
-    sur = &EF_Buffer.color_buffer;                                                    // 源色表指针
+    tar = EF_Work.FrameInfro.image_adr; // 色表缓存指针
+    sur = &EF_Buffer.color_buffer;      // 源色表指针
     for (i = 0; i < EF_Work.FrameInfro.KeySum; i++)
     {
         for (j = 0; j < 4; j++) // 复制源数据
@@ -239,14 +239,14 @@ void Motion_Lightning_Init(void)
     uint8_t *sur;
     uint8_t *tar;
 
-    EF_Work.FrameInfro.KeySum = EF_Buffer.para_data.color_sum;                                // 关键帧数
-    EF_Work.FrameInfro.InsertNum = EF_Work.FrameInfro.KeySum * Motion_Lightning_framepara;  // 插帧数*基础插帧
-    EF_Work.FrameInfro.IntervalTime = 1;                       // 帧间隔时间
+    EF_Work.FrameInfro.KeySum = EF_Buffer.para_data.color_sum;                                       // 关键帧数
+    EF_Work.FrameInfro.InsertNum = EF_Work.FrameInfro.KeySum * Motion_Lightning_framepara;           // 插帧数*基础插帧
+    EF_Work.FrameInfro.IntervalTime = 1;                                                             // 帧间隔时间
     EF_Work.FrameInfro.FrameAmount = EF_Work.FrameInfro.KeySum * (EF_Work.FrameInfro.InsertNum + 1); // 总帧数
     // // // // printf("k:%d Is:%d It:%d Am:%d\r\n",EF_Work.FrameInfro.KeySum,EF_Work.FrameInfro.InsertNum,EF_Work.FrameInfro.IntervalTime,EF_Work.FrameInfro.FrameAmount);
 
-    tar = EF_Work.FrameInfro.image_adr;           // 色表缓存指针
-    sur = &EF_Buffer.color_buffer; // 源色表指针
+    tar = EF_Work.FrameInfro.image_adr; // 色表缓存指针
+    sur = &EF_Buffer.color_buffer;      // 源色表指针
     for (i = 0; i < EF_Work.FrameInfro.KeySum; i++)
     {
         for (j = 0; j < 4; j++) // 复制源数据
@@ -263,14 +263,14 @@ void Motion_Ignite_Init(void)
     uint8_t *sur;
     uint8_t *tar;
 
-    EF_Work.FrameInfro.KeySum = EF_Buffer.para_data.color_sum;                                // 关键帧数
-    EF_Work.FrameInfro.InsertNum = Motion_Ignite_framepara;                             // 插帧数
-    EF_Work.FrameInfro.IntervalTime = 1;                       // 帧间隔时间
+    EF_Work.FrameInfro.KeySum = EF_Buffer.para_data.color_sum;                                       // 关键帧数
+    EF_Work.FrameInfro.InsertNum = Motion_Ignite_framepara;                                          // 插帧数
+    EF_Work.FrameInfro.IntervalTime = 1;                                                             // 帧间隔时间
     EF_Work.FrameInfro.FrameAmount = EF_Work.FrameInfro.KeySum * (EF_Work.FrameInfro.InsertNum + 1); // 总帧数
     // // printf("k:%d Is:%d It:%d Am:%d\r\n",EF_Work.FrameInfro.KeySum,EF_Work.FrameInfro.InsertNum,EF_Work.FrameInfro.IntervalTime,EF_Work.FrameInfro.FrameAmount);
 
-    tar = EF_Work.FrameInfro.image_adr;           // 色表缓存指针
-    sur = &EF_Buffer.color_buffer; // 源色表指针
+    tar = EF_Work.FrameInfro.image_adr; // 色表缓存指针
+    sur = &EF_Buffer.color_buffer;      // 源色表指针
     for (i = 0; i < EF_Work.FrameInfro.KeySum; i++)
     {
         for (j = 0; j < 4; j++) // 复制源数据
@@ -287,14 +287,13 @@ void Motion_Random_Init(void)
     uint8_t *sur;
     uint8_t *tar;
 
-    EF_Work.FrameInfro.KeySum = EF_Buffer.para_data.color_sum;                                // 关键帧数
-    EF_Work.FrameInfro.InsertNum = Motion_Random_framepara;                             // 插帧数
-    EF_Work.FrameInfro.IntervalTime = 1;                       // 帧间隔时间
+    EF_Work.FrameInfro.KeySum = EF_Buffer.para_data.color_sum;                                       // 关键帧数
+    EF_Work.FrameInfro.InsertNum = Motion_Random_framepara;                                          // 插帧数
+    EF_Work.FrameInfro.IntervalTime = 1;                                                             // 帧间隔时间
     EF_Work.FrameInfro.FrameAmount = EF_Work.FrameInfro.KeySum * (EF_Work.FrameInfro.InsertNum + 1); // 总帧数
 
-
-    tar = EF_Work.FrameInfro.image_adr;           // 色表缓存指针
-    sur = &EF_Buffer.color_buffer; // 源色表指针
+    tar = EF_Work.FrameInfro.image_adr; // 色表缓存指针
+    sur = &EF_Buffer.color_buffer;      // 源色表指针
     for (i = 0; i < EF_Work.FrameInfro.KeySum; i++)
     {
         for (j = 0; j < 4; j++) // 复制源数据
@@ -313,33 +312,30 @@ void Motion_Random_Init(void)
 
 void Effect_Init(void)
 {
-    uint16_t i, j,k;
+    uint16_t i, j, k;
     uint8_t *sur;
     uint8_t *tar;
-    uint8_t temp1, temp2,temp3,temp4;
+    uint8_t temp1, temp2, temp3, temp4;
     uint8_t X_max, X_min, Y_max, Y_min, X_center, Y_center;
-    uint8_t X_num,Y_num;
+    uint8_t X_num, Y_num;
     printf("\r\n");
-    Fetch_EF_DATA();// 提取当前灯效的相关数据
+    Fetch_EF_DATA(); // 提取当前灯效的相关数据
     Frame_Reset();
     // for (i = 0; i < 30; i++)    // 提取默认配置信息
     // {
     // EF_Work.EF_ID = i = 11;
-    i=EF_Work.EF_ID;
-    printf("EF:%2d\r",EF_Work.EF_ID);
-
+    i = EF_Work.EF_ID;
+    printf("EF:%2d\r", EF_Work.EF_ID);
 
     // EF_Buffer
     // EF_Buffer.para_data
-
-
 
     // // // EF_WorkData.color_array = EF_DefaultData[i].color_array;    // 源色表指针 替换成 &EF_Buffer.color_buffer
     // // // EF_WorkData.color_sum = EF_DefaultData[i].color_sum;    // 色表颜色数量 替换成 EF_Buffer.para_data.color_sum
     // // // EF_WorkData.Speed = EF_DefaultData[i].Speed;
     // // // EF_Work.FrameInfro.Speed = EF_WorkData.Speed;   // 速度 EF_Work.FrameInfro.Speed=EF_Buffer.para_data.speed
 
-    EF_Work.FrameInfro.Speed=EF_Buffer.para_data.speed;  /*保留 EF_Work.FrameInfro.Speed */
+    EF_Work.FrameInfro.Speed = EF_Buffer.para_data.speed; /*保留 EF_Work.FrameInfro.Speed */
 
     // // // // EF_WorkData.motion_flag = EF_DefaultData[i].motion_flag;    //动效编号  EF_WorkData.motion_flag=EF_Buffer.para_data.motion；
     // // // // EF_Work.MotionType = EF_WorkData.motion_flag; // 灯效类型
@@ -347,16 +343,11 @@ void Effect_Init(void)
     // // // EF_WorkData.Mode = EF_DefaultData[i].Mode;
     // // // EF_Work.FrameInfro.Mode = EF_WorkData.Mode; // 普通/律动    EF_Work.FrameInfro.Mode 替换成 EF_Buffer.para_data.Mode
 
-////    EF_WorkData.addr_table = EF_DefaultData[i].addr_table;
-
-
+    ////    EF_WorkData.addr_table = EF_DefaultData[i].addr_table;
 
     // // // // EF_Work.MoveType = EF_WorkData.move_flag;     // 运动方向   替换成 EF_Buffer.para_data.move
 
-
     EF_Work.FrameInfro.image_adr = (uint8_t *)&EF_Work.Color_buffer; // 色表缓存区
-
-
 
     /* test */
 
@@ -459,8 +450,8 @@ void Effect_Init(void)
     else if (EF_Buffer.para_data.move == MOVE_SEPARATE || EF_Buffer.para_data.move == MOVE_CONVERGE)
     {
 
-        X_center = (X_max + X_min)/2;
-        Y_center = (Y_max + Y_min)/2;
+        X_center = (X_max + X_min) / 2;
+        Y_center = (Y_max + Y_min) / 2;
         temp4 = 0;
         for (j = 0; j < 16; j++)
         {
@@ -538,7 +529,8 @@ void Effect_Init(void)
     default:
         break;
     }
-    printf("k:%d Is:%d It:%d Am:%d\r\n",EF_Work.FrameInfro.KeySum,EF_Work.FrameInfro.InsertNum,EF_Work.FrameInfro.IntervalTime,EF_Work.FrameInfro.FrameAmount);
+
+    printf("k:%d Is:%d It:%d Am:%d\r\n", EF_Work.FrameInfro.KeySum, EF_Work.FrameInfro.InsertNum, EF_Work.FrameInfro.IntervalTime, EF_Work.FrameInfro.FrameAmount);
 
     // switch (EF_Buffer.para_data.move)
     // {
@@ -673,14 +665,14 @@ void Motion_Breath(uint8_t speed) /*呼吸*/
     // // // printf("%4d / %4d\r",EF_Work.FrameInfro.FrameAmount, Tangram[0].Frame_Now);
 }
 
-void Motion_Stream(uint8_t speed)/*流动*/
+void Motion_Stream(uint8_t speed) /*流动*/
 {
     uint8_t i;
     Frame_Skewing(EF_Work.FrameInfro.FrameAmount, &Tangram[0].Frame_Now, &Tangram[0].Frame_Now, speed);
     ModuleColor_Cal(&EF_Work.FrameInfro, &Tangram[0], 0);
     for (i = 1; i <= EF_Work.Module_WorkNum; i++)
     {
-        Frame_Skewing(EF_Work.FrameInfro.FrameAmount, &Tangram[i].Frame_Now, &Tangram[i-1].Frame_Now, 60);
+        Frame_Skewing(EF_Work.FrameInfro.FrameAmount, &Tangram[i].Frame_Now, &Tangram[i - 1].Frame_Now, 60);
         ModuleColor_Cal(&EF_Work.FrameInfro, &Tangram[i], 0);
     }
 }
@@ -692,7 +684,7 @@ void Motion_Reverberate(uint8_t speed) /*来回*/
     ModuleColor_Cal(&EF_Work.FrameInfro, &Tangram[0], 0);
     for (i = 1; i <= EF_Work.Module_WorkNum; i++)
     {
-        Frame_Skewing(EF_Work.FrameInfro.FrameAmount, &Tangram[i].Frame_Now, &Tangram[i-1].Frame_Now, 60);
+        Frame_Skewing(EF_Work.FrameInfro.FrameAmount, &Tangram[i].Frame_Now, &Tangram[i - 1].Frame_Now, 60);
         ModuleColor_Cal(&EF_Work.FrameInfro, &Tangram[i], 0);
     }
     // printf("%d %d %d \r",EF_Work.FrameInfro.FrameAmount, Tangram[0].Frame_Now,speed);
@@ -749,10 +741,10 @@ void Motion_Hopscotch(uint8_t speed) /*跳动*/
 void Motion_Lightning(uint8_t speed) /*闪电*/
 {
     uint16_t temp;
-    uint16_t on_p1,on_p2,off_p1,off_p2;
+    uint16_t on_p1, on_p2, off_p1, off_p2;
     uint8_t i;
-    uint8_t Currnt_KF;                                                    // 当前关键帧（keyframe）编号
-    uint16_t Temp_FrameNum;                                                // 临时帧编号，换算为当前帧（frame）处于当前关键帧（keyframe）至下一关键帧（keyframe）的之间的帧编号
+    uint8_t Currnt_KF;      // 当前关键帧（keyframe）编号
+    uint16_t Temp_FrameNum; // 临时帧编号，换算为当前帧（frame）处于当前关键帧（keyframe）至下一关键帧（keyframe）的之间的帧编号
     Frame_Skewing(EF_Work.FrameInfro.FrameAmount, &Tangram[0].Frame_Now, &Tangram[0].Frame_Now, speed);
     Currnt_KF = Tangram[0].Frame_Now / (EF_Work.FrameInfro.InsertNum + 1);     // 计算当前帧 已经过的 最近/当前 关键帧
     Temp_FrameNum = Tangram[0].Frame_Now % (EF_Work.FrameInfro.InsertNum + 1); //
@@ -786,7 +778,6 @@ void Motion_Lightning(uint8_t speed) /*闪电*/
         Tangram[i].B.Now = Tangram[0].B.Now;
         Tangram[i].W.Now = Tangram[0].W.Now;
     }
-
 }
 
 void Motion_Ignite(uint8_t speed) /*点燃*/
@@ -803,7 +794,7 @@ void Motion_Ignite(uint8_t speed) /*点燃*/
     {
         Next_KF = 0; // 切回数组的第一个关键帧
     }
-    for (i = 0; i <= EF_Work.Module_WorkNum; i++)   // 底色
+    for (i = 0; i <= EF_Work.Module_WorkNum; i++) // 底色
     {
         Tangram[i].R.Now = *(EF_Work.FrameInfro.image_adr + Currnt_KF * 4 + 0);
         Tangram[i].G.Now = *(EF_Work.FrameInfro.image_adr + Currnt_KF * 4 + 1);
@@ -821,7 +812,7 @@ void Motion_Ignite(uint8_t speed) /*点燃*/
 void Motion_Random(uint8_t speed) /*随机*/
 {
     static uint8_t last_KF;
-    uint8_t Currnt_KF;      // 当前关键帧（keyframe）编号
+    uint8_t Currnt_KF; // 当前关键帧（keyframe）编号
     uint8_t i;
     uint8_t temp;
     uint8_t random1, random2, random3;
@@ -848,13 +839,6 @@ void Motion_Random(uint8_t speed) /*随机*/
 // 闪电	Lightning
 // 点燃	Ignite
 // 随机	Random
-
-
-
-
-
-
-
 
 /*
 

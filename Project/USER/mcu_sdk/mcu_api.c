@@ -1,20 +1,20 @@
 /**********************************Copyright (c)**********************************
-**                       ç‰ˆæƒæ‰€æœ‰ (C), 2015-2030, æ¶‚é¸¦ç§‘æŠ€
+**                       °æÈ¨ËùÓĞ (C), 2015-2020, Í¿Ñ»¿Æ¼¼
 **
 **                             http://www.tuya.com
 **
 *********************************************************************************/
 /**
  * @file    mcu_api.c
- * @author  æ¶‚é¸¦ç»¼åˆåè®®å¼€å‘ç»„
- * @version v1.0.4
- * @date    2021.6.1
- * @brief   ç”¨æˆ·éœ€è¦ä¸»åŠ¨è°ƒç”¨çš„å‡½æ•°éƒ½åœ¨è¯¥æ–‡ä»¶å†…
+ * @author  Í¿Ñ»×ÛºÏĞ­Òé¿ª·¢×é
+ * @version v2.5.6
+ * @date    2020.12.16
+ * @brief   ÓÃ»§ĞèÒªÖ÷¶¯µ÷ÓÃµÄº¯Êı¶¼ÔÚ¸ÃÎÄ¼şÄÚ
  */
 
-/****************************** å…è´£å£°æ˜ ï¼ï¼ï¼ *******************************
-ç”±äºMCUç±»å‹å’Œç¼–è¯‘ç¯å¢ƒå¤šç§å¤šæ ·ï¼Œæ‰€ä»¥æ­¤ä»£ç ä»…ä¾›å‚è€ƒï¼Œç”¨æˆ·è¯·è‡ªè¡ŒæŠŠæ§æœ€ç»ˆä»£ç è´¨é‡ï¼Œ
-æ¶‚é¸¦ä¸å¯¹MCUåŠŸèƒ½ç»“æœè´Ÿè´£ã€‚
+/****************************** ÃâÔğÉùÃ÷ £¡£¡£¡ *******************************
+ÓÉÓÚMCUÀàĞÍºÍ±àÒë»·¾³¶àÖÖ¶àÑù£¬ËùÒÔ´Ë´úÂë½ö¹©²Î¿¼£¬ÓÃ»§Çë×ÔĞĞ°Ñ¿Ø×îÖÕ´úÂëÖÊÁ¿£¬
+Í¿Ñ»²»¶ÔMCU¹¦ÄÜ½á¹û¸ºÔğ¡£
 ******************************************************************************/
 
 #define MCU_API_GLOBAL
@@ -22,14 +22,14 @@
 #include "wifi.h"
 
 /**
- * @brief  hexè½¬bcd
- * @param[in] {Value_H} é«˜å­—èŠ‚
- * @param[in] {Value_L} ä½å­—èŠ‚
- * @return è½¬æ¢å®Œæˆåæ•°æ®
+ * @brief  hex×ªbcd
+ * @param[in] {Value_H} ¸ß×Ö½Ú
+ * @param[in] {Value_L} µÍ×Ö½Ú
+ * @return ×ª»»Íê³ÉºóÊı¾İ
  */
-u8 hex_to_bcd(u8 Value_H,u8 Value_L)
+unsigned char hex_to_bcd(unsigned char Value_H,unsigned char Value_L)
 {
-    u8 bcd_value;
+    unsigned char bcd_value;
 
     if((Value_H >= '0') && (Value_H <= '9'))
         Value_H -= '0';
@@ -54,49 +54,34 @@ u8 hex_to_bcd(u8 Value_H,u8 Value_L)
 }
 
 /**
- * @brief  å°†intç±»å‹æ‹†åˆ†å››ä¸ªå­—èŠ‚
- * @param[in] {number} 4å­—èŠ‚åŸæ•°æ®
- * @param[out] {value} å¤„ç†å®Œæˆå4å­—èŠ‚æ•°æ®
- * @return Null
+ * @brief  Çó×Ö·û´®³¤¶È
+ * @param[in] {str} ×Ö·û´®µØÖ·
+ * @return Êı¾İ³¤¶È
  */
-void int_to_byte(u32 number,u8 value[4])
+unsigned long my_strlen(unsigned char *str)
 {
-    value[0] = number >> 24;
-    value[1] = number >> 16;
-    value[2] = number >> 8;
-    value[3] = number & 0xff;
+    unsigned long len = 0;
+    if(str == NULL) {
+        return 0;
+    }
+
+    for(len = 0; *str ++ != '\0'; ) {
+        len ++;
+    }
+
+    return len;
 }
 
 /**
- * @brief  å°†4å­—èŠ‚åˆå¹¶ä¸º1ä¸ª32bitå˜é‡
- * @param[in] {value} 4å­—èŠ‚æ•°ç»„
- * @return åˆå¹¶å®Œæˆåçš„32bitå˜é‡
+ * @brief  °ÑsrcËùÖ¸ÄÚ´æÇøÓòµÄÇ°count¸ö×Ö½ÚÉèÖÃ³É×Ö·ûc
+ * @param[out] {src} ´ıÉèÖÃµÄÄÚ´æÊ×µØÖ·
+ * @param[in] {ch} ÉèÖÃµÄ×Ö·û
+ * @param[in] {count} ÉèÖÃµÄÄÚ´æ³¤¶È
+ * @return ´ıÉèÖÃµÄÄÚ´æÊ×µØÖ·
  */
-u32 byte_to_int(const u8 value[4])
+void *my_memset(void *src,unsigned char ch,unsigned short count)
 {
-    u32 nubmer = 0;
-
-    nubmer = (u32)value[0];
-    nubmer <<= 8;
-    nubmer |= (u32)value[1];
-    nubmer <<= 8;
-    nubmer |= (u32)value[2];
-    nubmer <<= 8;
-    nubmer |= (u32)value[3];
-
-    return nubmer;
-}
-
-/**
- * @brief  æŠŠsrcæ‰€æŒ‡å†…å­˜åŒºåŸŸçš„å‰countä¸ªå­—èŠ‚è®¾ç½®æˆå­—ç¬¦c
- * @param[out] {src} å¾…è®¾ç½®çš„å†…å­˜é¦–åœ°å€
- * @param[in] {ch} è®¾ç½®çš„å­—ç¬¦
- * @param[in] {count} è®¾ç½®çš„å†…å­˜é•¿åº¦
- * @return å¾…è®¾ç½®çš„å†…å­˜é¦–åœ°å€
- */
-void *my_memset(void *src,u8 ch,u16 count)
-{
-    u8 *tmp = (u8 *)src;
+    unsigned char *tmp = (unsigned char *)src;
 
     if(src == NULL) {
         return NULL;
@@ -110,17 +95,17 @@ void *my_memset(void *src,u8 ch,u16 count)
 }
 
 /**
- * @brief  å†…å­˜æ‹·è´
- * @param[out] {dest} ç›®æ ‡åœ°å€
- * @param[in] {src} æºåœ°å€
- * @param[in] {count} æ‹·è´æ•°æ®ä¸ªæ•°
- * @return æ•°æ®å¤„ç†å®Œåçš„æºåœ°å€
+ * @brief  ÄÚ´æ¿½±´
+ * @param[out] {dest} Ä¿±êµØÖ·
+ * @param[in] {src} Ô´µØÖ·
+ * @param[in] {count} ¿½±´Êı¾İ¸öÊı
+ * @return Êı¾İ´¦ÀíÍêºóµÄÔ´µØÖ·
  */
-void *my_memcpy(void *dest, const void *src, u16 count)
+void *my_memcpy(void *dest, const void *src, unsigned short count)
 {
-    u8 *pdest = (u8 *)dest;
-    const u8 *psrc  = (const u8 *)src;
-    u16 i;
+    unsigned char *pdest = (unsigned char *)dest;
+    const unsigned char *psrc  = (const unsigned char *)src;
+    unsigned short i;
 
     if(dest == NULL || src == NULL) {
         return NULL;
@@ -128,11 +113,6 @@ void *my_memcpy(void *dest, const void *src, u16 count)
 
     if((pdest <= psrc) || (pdest > psrc + count)) {
         for(i = 0; i < count; i ++) {
-            // if (&pdest[i]==&slave.num)
-            // {
-            //     printlog("memcpy");
-            // }
-
             pdest[i] = psrc[i];
         }
     }else {
@@ -145,38 +125,18 @@ void *my_memcpy(void *dest, const void *src, u16 count)
 }
 
 /**
- * @brief  æ±‚å­—ç¬¦ä¸²é•¿åº¦
- * @param[in] {str} å­—ç¬¦ä¸²åœ°å€
- * @return æ•°æ®é•¿åº¦
+ * @brief  ×Ö·û´®¿½±´
+ * @param[in] {dest} Ä¿±êµØÖ·
+ * @param[in] {src} Ô´µØÖ·
+ * @return Êı¾İ´¦ÀíÍêºóµÄÔ´µØÖ·
  */
-u32 my_strlen(i8 *str)
+char *my_strcpy(char *dest, const char *src)
 {
-    u32 len = 0;
-    if(str == NULL) {
-        return 0;
-    }
-
-    for(len = 0; *str ++ != '\0'; ) {
-        len ++;
-    }
-
-    return len;
-}
-
-/**
- * @brief  å­—ç¬¦ä¸²æ‹·è´
- * @param[in] {dest} ç›®æ ‡åœ°å€
- * @param[in] {src} æºåœ°å€
- * @return æ•°æ®å¤„ç†å®Œåçš„æºåœ°å€
- */
-i8 *my_strcpy(i8 *dest, const i8 *src)
-{
-    i8 *p = dest;
-
-    if(dest == NULL || src == NULL) {
+    if((NULL == dest) || (NULL == src)) {
         return NULL;
     }
 
+    char *p = dest;
     while(*src!='\0') {
         *dest++ = *src++;
     }
@@ -185,15 +145,15 @@ i8 *my_strcpy(i8 *dest, const i8 *src)
 }
 
 /**
- * @brief  å­—ç¬¦ä¸²æ¯”è¾ƒ
- * @param[in] {s1} å­—ç¬¦ä¸² 1
- * @param[in] {s2} å­—ç¬¦ä¸² 2
- * @return å¤§å°æ¯”è¾ƒå€¼
+ * @brief  ×Ö·û´®±È½Ï
+ * @param[in] {s1} ×Ö·û´® 1
+ * @param[in] {s2} ×Ö·û´® 2
+ * @return ´óĞ¡±È½ÏÖµ
  * -         0:s1=s2
  * -         <0:s1<s2
  * -         >0:s1>s2
  */
-i32 my_strcmp(i8 *s1 , i8 *s2)
+int my_strcmp(char *s1 , char *s2)
 {
     while( *s1 && *s2 && *s1 == *s2 ) {
         s1++;
@@ -203,19 +163,53 @@ i32 my_strcmp(i8 *s1 , i8 *s2)
 }
 
 /**
- * @brief  rawå‹dpæ•°æ®ä¸Šä¼ 
- * @param[in] {dpid} dpidå·
- * @param[in] {value} å½“å‰dpå€¼æŒ‡é’ˆ
- * @param[in] {len} æ•°æ®é•¿åº¦
+ * @brief  ½«intÀàĞÍ²ğ·ÖËÄ¸ö×Ö½Ú
+ * @param[in] {number} 4×Ö½ÚÔ­Êı¾İ
+ * @param[out] {value} ´¦ÀíÍê³Éºó4×Ö½ÚÊı¾İ
+ * @return Null
+ */
+void int_to_byte(unsigned long number,unsigned char value[4])
+{
+    value[0] = number >> 24;
+    value[1] = number >> 16;
+    value[2] = number >> 8;
+    value[3] = number & 0xff;
+}
+
+/**
+ * @brief  ½«4×Ö½ÚºÏ²¢Îª1¸ö32bit±äÁ¿
+ * @param[in] {value} 4×Ö½ÚÊı×é
+ * @return ºÏ²¢Íê³ÉºóµÄ32bit±äÁ¿
+ */
+unsigned long byte_to_int(const unsigned char value[4])
+{
+    unsigned long nubmer = 0;
+
+    nubmer = (unsigned long)value[0];
+    nubmer <<= 8;
+    nubmer |= (unsigned long)value[1];
+    nubmer <<= 8;
+    nubmer |= (unsigned long)value[2];
+    nubmer <<= 8;
+    nubmer |= (unsigned long)value[3];
+
+    return nubmer;
+}
+
+/**
+ * @brief  rawĞÍdpÊı¾İÉÏ´«
+ * @param[in] {dpid} dpidºÅ
+ * @param[in] {value} µ±Ç°dpÖµÖ¸Õë
+ * @param[in] {len} Êı¾İ³¤¶È
  * @return Null
  * @note   Null
  */
-u8 mcu_dp_raw_update(u8 dpid,const u8 value[],u16 len)
+unsigned char mcu_dp_raw_update(unsigned char dpid,const unsigned char value[],unsigned short len)
 {
-    u16 send_len = 0;
+    unsigned short send_len = 0;
 
     if(stop_update_flag == ENABLE)
-      return SUCCESS;
+        return SUCCESS;
     //
     send_len = set_wifi_uart_byte(send_len,dpid);
     send_len = set_wifi_uart_byte(send_len,DP_TYPE_RAW);
@@ -223,7 +217,7 @@ u8 mcu_dp_raw_update(u8 dpid,const u8 value[],u16 len)
     send_len = set_wifi_uart_byte(send_len,len / 0x100);
     send_len = set_wifi_uart_byte(send_len,len % 0x100);
     //
-    send_len = set_wifi_uart_buffer(send_len,(u8 *)value,len);
+    send_len = set_wifi_uart_buffer(send_len,(unsigned char *)value,len);
 
     wifi_uart_write_frame(STATE_UPLOAD_CMD,MCU_TX_VER,send_len);
 
@@ -231,15 +225,15 @@ u8 mcu_dp_raw_update(u8 dpid,const u8 value[],u16 len)
 }
 
 /**
- * @brief  boolå‹dpæ•°æ®ä¸Šä¼ 
- * @param[in] {dpid} dpidå·
- * @param[in] {value} å½“å‰dpå€¼
+ * @brief  boolĞÍdpÊı¾İÉÏ´«
+ * @param[in] {dpid} dpidºÅ
+ * @param[in] {value} µ±Ç°dpÖµ
  * @return Null
  * @note   Null
  */
-u8 mcu_dp_bool_update(u8 dpid,u8 value)
+unsigned char mcu_dp_bool_update(unsigned char dpid,unsigned char value)
 {
-    u16 send_len = 0;
+    unsigned short send_len = 0;
 
     if(stop_update_flag == ENABLE)
         return SUCCESS;
@@ -262,15 +256,15 @@ u8 mcu_dp_bool_update(u8 dpid,u8 value)
 }
 
 /**
- * @brief  valueå‹dpæ•°æ®ä¸Šä¼ 
- * @param[in] {dpid} dpidå·
- * @param[in] {value} å½“å‰dpå€¼
+ * @brief  valueĞÍdpÊı¾İÉÏ´«
+ * @param[in] {dpid} dpidºÅ
+ * @param[in] {value} µ±Ç°dpÖµ
  * @return Null
  * @note   Null
  */
-u8 mcu_dp_value_update(u8 dpid,u32 value)
+unsigned char mcu_dp_value_update(unsigned char dpid,unsigned long value)
 {
-    u16 send_len = 0;
+    unsigned short send_len = 0;
 
     if(stop_update_flag == ENABLE)
         return SUCCESS;
@@ -292,16 +286,16 @@ u8 mcu_dp_value_update(u8 dpid,u32 value)
 }
 
 /**
- * @brief  stringå‹dpæ•°æ®ä¸Šä¼ 
- * @param[in] {dpid} dpidå·
- * @param[in] {value} å½“å‰dpå€¼æŒ‡é’ˆ
- * @param[in] {len} æ•°æ®é•¿åº¦
+ * @brief  stringĞÍdpÊı¾İÉÏ´«
+ * @param[in] {dpid} dpidºÅ
+ * @param[in] {value} µ±Ç°dpÖµÖ¸Õë
+ * @param[in] {len} Êı¾İ³¤¶È
  * @return Null
  * @note   Null
  */
-u8 mcu_dp_string_update(u8 dpid,const u8 value[],u16 len)
+unsigned char mcu_dp_string_update(unsigned char dpid,const unsigned char value[],unsigned short len)
 {
-    u16 send_len = 0;
+    unsigned short send_len = 0;
 
     if(stop_update_flag == ENABLE)
         return SUCCESS;
@@ -312,7 +306,7 @@ u8 mcu_dp_string_update(u8 dpid,const u8 value[],u16 len)
     send_len = set_wifi_uart_byte(send_len,len / 0x100);
     send_len = set_wifi_uart_byte(send_len,len % 0x100);
     //
-    send_len = set_wifi_uart_buffer(send_len,(u8 *)value,len);
+    send_len = set_wifi_uart_buffer(send_len,(unsigned char *)value,len);
 
     wifi_uart_write_frame(STATE_UPLOAD_CMD,MCU_TX_VER,send_len);
 
@@ -320,15 +314,15 @@ u8 mcu_dp_string_update(u8 dpid,const u8 value[],u16 len)
 }
 
 /**
- * @brief  enumå‹dpæ•°æ®ä¸Šä¼ 
- * @param[in] {dpid} dpidå·
- * @param[in] {value} å½“å‰dpå€¼
+ * @brief  enumĞÍdpÊı¾İÉÏ´«
+ * @param[in] {dpid} dpidºÅ
+ * @param[in] {value} µ±Ç°dpÖµ
  * @return Null
  * @note   Null
  */
-u8 mcu_dp_enum_update(u8 dpid,u8 value)
+unsigned char mcu_dp_enum_update(unsigned char dpid,unsigned char value)
 {
-    u16 send_len = 0;
+    unsigned short send_len = 0;
 
     if(stop_update_flag == ENABLE)
         return SUCCESS;
@@ -347,15 +341,15 @@ u8 mcu_dp_enum_update(u8 dpid,u8 value)
 }
 
 /**
- * @brief  faultå‹dpæ•°æ®ä¸Šä¼ 
- * @param[in] {dpid} dpidå·
- * @param[in] {value} å½“å‰dpå€¼
+ * @brief  faultĞÍdpÊı¾İÉÏ´«
+ * @param[in] {dpid} dpidºÅ
+ * @param[in] {value} µ±Ç°dpÖµ
  * @return Null
  * @note   Null
  */
-u8 mcu_dp_fault_update(u8 dpid,u32 value)
+unsigned char mcu_dp_fault_update(unsigned char dpid,unsigned long value)
 {
-    u16 send_len = 0;
+    unsigned short send_len = 0;
 
     if(stop_update_flag == ENABLE)
         return SUCCESS;
@@ -385,61 +379,245 @@ u8 mcu_dp_fault_update(u8 dpid,u32 value)
     return SUCCESS;
 }
 
-
+#ifdef MCU_DP_UPLOAD_SYN
 /**
- * @brief  mcuè·å–boolå‹ä¸‹å‘dpå€¼
- * @param[in] {value} dpæ•°æ®ç¼“å†²åŒºåœ°å€
- * @param[in] {len} dpæ•°æ®é•¿åº¦
- * @return å½“å‰dpå€¼
+ * @brief  rawĞÍdpÊı¾İÍ¬²½ÉÏ´«
+ * @param[in] {dpid} dpidºÅ
+ * @param[in] {value} µ±Ç°dpÖµÖ¸Õë
+ * @param[in] {len} Êı¾İ³¤¶È
+ * @return Null
  * @note   Null
  */
-u8 mcu_get_dp_download_bool(const u8 value[],u16 len)
+unsigned char mcu_dp_raw_update_syn(unsigned char dpid,const unsigned char value[],unsigned short len)
+{
+    unsigned short send_len = 0;
+
+    if(stop_update_flag == ENABLE)
+        return SUCCESS;
+    //
+    send_len = set_wifi_uart_byte(send_len,dpid);
+    send_len = set_wifi_uart_byte(send_len,DP_TYPE_RAW);
+    //
+    send_len = set_wifi_uart_byte(send_len,len / 0x100);
+    send_len = set_wifi_uart_byte(send_len,len % 0x100);
+    //
+    send_len = set_wifi_uart_buffer(send_len,(unsigned char *)value,len);
+
+    wifi_uart_write_frame(STATE_UPLOAD_SYN_CMD,MCU_TX_VER,send_len);
+
+    return SUCCESS;
+}
+
+/**
+ * @brief  boolĞÍdpÊı¾İÍ¬²½ÉÏ´«
+ * @param[in] {dpid} dpidºÅ
+ * @param[in] {value} µ±Ç°dpÖµÖ¸Õë
+ * @return Null
+ * @note   Null
+ */
+unsigned char mcu_dp_bool_update_syn(unsigned char dpid,unsigned char value)
+{
+    unsigned short send_len = 0;
+
+    if(stop_update_flag == ENABLE)
+        return SUCCESS;
+
+    send_len = set_wifi_uart_byte(send_len,dpid);
+    send_len = set_wifi_uart_byte(send_len,DP_TYPE_BOOL);
+    //
+    send_len = set_wifi_uart_byte(send_len,0);
+    send_len = set_wifi_uart_byte(send_len,1);
+    //
+    if(value == FALSE) {
+        send_len = set_wifi_uart_byte(send_len,FALSE);
+    }else {
+        send_len = set_wifi_uart_byte(send_len,1);
+    }
+
+    wifi_uart_write_frame(STATE_UPLOAD_SYN_CMD, MCU_TX_VER, send_len);
+
+    return SUCCESS;
+}
+
+/**
+ * @brief  valueĞÍdpÊı¾İÍ¬²½ÉÏ´«
+ * @param[in] {dpid} dpidºÅ
+ * @param[in] {value} µ±Ç°dpÖµÖ¸Õë
+ * @return Null
+ * @note   Null
+ */
+unsigned char mcu_dp_value_update_syn(unsigned char dpid,unsigned long value)
+{
+    unsigned short send_len = 0;
+
+    if(stop_update_flag == ENABLE)
+        return SUCCESS;
+
+    send_len = set_wifi_uart_byte(send_len,dpid);
+    send_len = set_wifi_uart_byte(send_len,DP_TYPE_VALUE);
+    //
+    send_len = set_wifi_uart_byte(send_len,0);
+    send_len = set_wifi_uart_byte(send_len,4);
+    //
+    send_len = set_wifi_uart_byte(send_len,value >> 24);
+    send_len = set_wifi_uart_byte(send_len,value >> 16);
+    send_len = set_wifi_uart_byte(send_len,value >> 8);
+    send_len = set_wifi_uart_byte(send_len,value & 0xff);
+
+    wifi_uart_write_frame(STATE_UPLOAD_SYN_CMD, MCU_TX_VER, send_len);
+
+    return SUCCESS;
+}
+
+/**
+ * @brief  stringĞÍdpÊı¾İÍ¬²½ÉÏ´«
+ * @param[in] {dpid} dpidºÅ
+ * @param[in] {value} µ±Ç°dpÖµÖ¸Õë
+ * @param[in] {len} Êı¾İ³¤¶È
+ * @return Null
+ * @note   Null
+ */
+unsigned char mcu_dp_string_update_syn(unsigned char dpid,const unsigned char value[],unsigned short len)
+{
+    unsigned short send_len = 0;
+
+    if(stop_update_flag == ENABLE)
+        return SUCCESS;
+    //
+    send_len = set_wifi_uart_byte(send_len,dpid);
+    send_len = set_wifi_uart_byte(send_len,DP_TYPE_STRING);
+    //
+    send_len = set_wifi_uart_byte(send_len,len / 0x100);
+    send_len = set_wifi_uart_byte(send_len,len % 0x100);
+    //
+    send_len = set_wifi_uart_buffer(send_len,(unsigned char *)value,len);
+
+    wifi_uart_write_frame(STATE_UPLOAD_SYN_CMD,MCU_TX_VER,send_len);
+
+    return SUCCESS;
+}
+
+/**
+ * @brief  enumĞÍdpÊı¾İÍ¬²½ÉÏ´«
+ * @param[in] {dpid} dpidºÅ
+ * @param[in] {value} µ±Ç°dpÖµÖ¸Õë
+ * @return Null
+ * @note   Null
+ */
+unsigned char mcu_dp_enum_update_syn(unsigned char dpid,unsigned char value)
+{
+    unsigned short send_len = 0;
+
+    if(stop_update_flag == ENABLE)
+        return SUCCESS;
+
+    send_len = set_wifi_uart_byte(send_len,dpid);
+    send_len = set_wifi_uart_byte(send_len,DP_TYPE_ENUM);
+    //
+    send_len = set_wifi_uart_byte(send_len,0);
+    send_len = set_wifi_uart_byte(send_len,1);
+
+    send_len = set_wifi_uart_byte(send_len,value);
+
+    wifi_uart_write_frame(STATE_UPLOAD_SYN_CMD,MCU_TX_VER,send_len);
+
+    return SUCCESS;
+}
+
+/**
+ * @brief  faultĞÍdpÊı¾İÍ¬²½ÉÏ´«
+ * @param[in] {dpid} dpidºÅ
+ * @param[in] {value} µ±Ç°dpÖµÖ¸Õë
+ * @return Null
+ * @note   Null
+ */
+unsigned char mcu_dp_fault_update_syn(unsigned char dpid,unsigned long value)
+{
+    unsigned short send_len = 0;
+
+    if(stop_update_flag == ENABLE)
+        return SUCCESS;
+
+    send_len = set_wifi_uart_byte(send_len,dpid);
+    send_len = set_wifi_uart_byte(send_len,DP_TYPE_BITMAP);
+    //
+    send_len = set_wifi_uart_byte(send_len,0);
+
+    if((value | 0xff) == 0xff) {
+        send_len = set_wifi_uart_byte(send_len,1);
+        send_len = set_wifi_uart_byte(send_len,value);
+    }else if((value | 0xffff) == 0xffff) {
+        send_len = set_wifi_uart_byte(send_len,2);
+        send_len = set_wifi_uart_byte(send_len,value >> 8);
+        send_len = set_wifi_uart_byte(send_len,value & 0xff);
+    }else {
+        send_len = set_wifi_uart_byte(send_len,4);
+        send_len = set_wifi_uart_byte(send_len,value >> 24);
+        send_len = set_wifi_uart_byte(send_len,value >> 16);
+        send_len = set_wifi_uart_byte(send_len,value >> 8);
+        send_len = set_wifi_uart_byte(send_len,value & 0xff);
+    }
+
+    wifi_uart_write_frame(STATE_UPLOAD_SYN_CMD,MCU_TX_VER,send_len);
+
+    return SUCCESS;
+}
+#endif
+
+/**
+ * @brief  mcu»ñÈ¡boolĞÍÏÂ·¢dpÖµ
+ * @param[in] {value} dpÊı¾İ»º³åÇøµØÖ·
+ * @param[in] {len} dpÊı¾İ³¤¶È
+ * @return µ±Ç°dpÖµ
+ * @note   Null
+ */
+unsigned char mcu_get_dp_download_bool(const unsigned char value[],unsigned short len)
 {
     return(value[0]);
 }
 
 /**
- * @brief  mcuè·å–valueå‹ä¸‹å‘dpå€¼
- * @param[in] {value} dpæ•°æ®ç¼“å†²åŒºåœ°å€
- * @param[in] {len} dpæ•°æ®é•¿åº¦
- * @return å½“å‰dpå€¼
+ * @brief  mcu»ñÈ¡enumĞÍÏÂ·¢dpÖµ
+ * @param[in] {value} dpÊı¾İ»º³åÇøµØÖ·
+ * @param[in] {len} dpÊı¾İ³¤¶È
+ * @return µ±Ç°dpÖµ
  * @note   Null
  */
-u8 mcu_get_dp_download_enum(const u8 value[],u16 len)
+unsigned char mcu_get_dp_download_enum(const unsigned char value[],unsigned short len)
 {
     return(value[0]);
 }
 
 /**
- * @brief  mcuè·å–enumå‹ä¸‹å‘dpå€¼
- * @param[in] {value} dpæ•°æ®ç¼“å†²åŒºåœ°å€
- * @param[in] {len} dpæ•°æ®é•¿åº¦
- * @return å½“å‰dpå€¼
+ * @brief  mcu»ñÈ¡valueĞÍÏÂ·¢dpÖµ
+ * @param[in] {value} dpÊı¾İ»º³åÇøµØÖ·
+ * @param[in] {len} dpÊı¾İ³¤¶È
+ * @return µ±Ç°dpÖµ
  * @note   Null
  */
-u32 mcu_get_dp_download_value(const u8 value[],u16 len)
+unsigned long mcu_get_dp_download_value(const unsigned char value[],unsigned short len)
 {
     return(byte_to_int(value));
 }
 
 /**
- * @brief  ä¸²å£æ¥æ”¶æ•°æ®æš‚å­˜å¤„ç†
- * @param[in] {value} ä¸²å£æ”¶åˆ°çš„1å­—èŠ‚æ•°æ®
+ * @brief  ´®¿Ú½ÓÊÕÊı¾İÔİ´æ´¦Àí
+ * @param[in] {value} ´®¿ÚÊÕµ½µÄ1×Ö½ÚÊı¾İ
  * @return Null
- * @note   åœ¨MCUä¸²å£å¤„ç†å‡½æ•°ä¸­è°ƒç”¨è¯¥å‡½æ•°,å¹¶å°†æ¥æ”¶åˆ°çš„æ•°æ®ä½œä¸ºå‚æ•°ä¼ å…¥
+ * @note   ÔÚMCU´®¿Ú´¦Àíº¯ÊıÖĞµ÷ÓÃ¸Ãº¯Êı,²¢½«½ÓÊÕµ½µÄÊı¾İ×÷Îª²ÎÊı´«Èë
  */
-void uart_receive_input(u8 value)
+void uart_receive_input(unsigned char value)
 {
-    //#error "è¯·åœ¨ä¸²å£æ¥æ”¶ä¸­æ–­ä¸­è°ƒç”¨uart_receive_input(value),ä¸²å£æ•°æ®ç”±MCU_SDKå¤„ç†,ç”¨æˆ·è¯·å‹¿å†å¦è¡Œå¤„ç†,å®Œæˆååˆ é™¤è¯¥è¡Œ"
+    // // #error "ÇëÔÚ´®¿Ú½ÓÊÕÖĞ¶ÏÖĞµ÷ÓÃuart_receive_input(value),´®¿ÚÊı¾İÓÉMCU_SDK´¦Àí,ÓÃ»§ÇëÎğÔÙÁíĞĞ´¦Àí,Íê³ÉºóÉ¾³ı¸ÃĞĞ"
 
     if(1 == rx_buf_out - rx_buf_in) {
-        //ä¸²å£æ¥æ”¶ç¼“å­˜å·²æ»¡
+        //´®¿Ú½ÓÊÕ»º´æÒÑÂú
     }else if((rx_buf_in > rx_buf_out) && ((rx_buf_in - rx_buf_out) >= sizeof(wifi_uart_rx_buf))) {
-        //ä¸²å£æ¥æ”¶ç¼“å­˜å·²æ»¡
+        //´®¿Ú½ÓÊÕ»º´æÒÑÂú
     }else {
-        //ä¸²å£æ¥æ”¶ç¼“å­˜æœªæ»¡
-        if(rx_buf_in >= (u8 *)(wifi_uart_rx_buf + sizeof(wifi_uart_rx_buf))) {
-            rx_buf_in = (u8 *)(wifi_uart_rx_buf);
+        //´®¿Ú½ÓÊÕ»º´æÎ´Âú
+        if(rx_buf_in >= (unsigned char *)(wifi_uart_rx_buf + sizeof(wifi_uart_rx_buf))) {
+            rx_buf_in = (unsigned char *)(wifi_uart_rx_buf);
         }
 
         *rx_buf_in ++ = value;
@@ -447,96 +625,103 @@ void uart_receive_input(u8 value)
 }
 
 /**
- * @brief  wifiä¸²å£æ•°æ®å¤„ç†æœåŠ¡
+ * @brief  ´®¿Ú½ÓÊÕ¶à¸ö×Ö½ÚÊı¾İÔİ´æ´¦Àí
+ * @param[in] {value} ´®¿ÚÒª½ÓÊÕµÄÊı¾İµÄÔ´µØÖ·
+ * @param[in] {data_len} ´®¿ÚÒª½ÓÊÕµÄÊı¾İµÄÊı¾İ³¤¶È
+ * @return Null
+ * @note   ÈçĞèÒªÖ§³ÖÒ»´Î¶à×Ö½Ú»º´æ£¬¿Éµ÷ÓÃ¸Ãº¯Êı
+ */
+void uart_receive_buff_input(unsigned char value[], unsigned short data_len)
+{
+    // // #error "ÇëÔÚĞèÒªÒ»´Î»º´æ¶à¸ö×Ö½Ú´®¿ÚÊı¾İ´¦µ÷ÓÃ´Ëº¯Êı,´®¿ÚÊı¾İÓÉMCU_SDK´¦Àí,ÓÃ»§ÇëÎğÔÙÁíĞĞ´¦Àí,Íê³ÉºóÉ¾³ı¸ÃĞĞ"
+
+    unsigned short i = 0;
+    for(i = 0; i < data_len; i++) {
+        uart_receive_input(value[i]);
+    }
+}
+
+/**
+ * @brief  wifi´®¿ÚÊı¾İ´¦Àí·şÎñ
  * @param  Null
  * @return Null
- * @note   åœ¨MCUä¸»å‡½æ•°whileå¾ªç¯ä¸­è°ƒç”¨è¯¥å‡½æ•°
+ * @note   ÔÚMCUÖ÷º¯ÊıwhileÑ­»·ÖĞµ÷ÓÃ¸Ãº¯Êı
  */
 void wifi_uart_service(void)
 {
-    // #error "è¯·ç›´æ¥åœ¨mainå‡½æ•°çš„while(1){}ä¸­æ·»åŠ wifi_uart_service(),è°ƒç”¨è¯¥å‡½æ•°ä¸è¦åŠ ä»»ä½•æ¡ä»¶åˆ¤æ–­,å®Œæˆååˆ é™¤è¯¥è¡Œ"
-    static u16 rx_in = 0;
-    u16 offset = 0;
-    u16 rx_value_len = 0;
+    // // #error "ÇëÖ±½ÓÔÚmainº¯ÊıµÄwhile(1){}ÖĞÌí¼Ówifi_uart_service(),µ÷ÓÃ¸Ãº¯Êı²»Òª¼ÓÈÎºÎÌõ¼şÅĞ¶Ï,Íê³ÉºóÉ¾³ı¸ÃĞĞ"
+    static unsigned short rx_in = 0;
+    unsigned short offset = 0;
+    unsigned short rx_value_len = 0;
 
-    while ((rx_in < sizeof(wifi_data_process_buf)) && with_data_rxbuff() > 0)
-    {
-        wifi_data_process_buf[rx_in++] = take_byte_rxbuff();
+    while((rx_in < sizeof(wifi_data_process_buf)) && with_data_rxbuff() > 0) {
+        wifi_data_process_buf[rx_in ++] = take_byte_rxbuff();
     }
 
-    if (rx_in < PROTOCOL_HEAD)
+    if(rx_in < PROTOCOL_HEAD)
         return;
 
-    while ((rx_in - offset) >= PROTOCOL_HEAD)
-    {
-        if (wifi_data_process_buf[offset + HEAD_FIRST] != FRAME_FIRST)
-        {
-            offset++;
+    while((rx_in - offset) >= PROTOCOL_HEAD) {
+        if(wifi_data_process_buf[offset + HEAD_FIRST] != FRAME_FIRST) {
+            offset ++;
             continue;
         }
 
-        if (wifi_data_process_buf[offset + HEAD_SECOND] != FRAME_SECOND)
-        {
-            offset++;
+        if(wifi_data_process_buf[offset + HEAD_SECOND] != FRAME_SECOND) {
+            offset ++;
             continue;
         }
 
-        if (wifi_data_process_buf[offset + PROTOCOL_VERSION] != MCU_RX_VER)
-        {
+        if(wifi_data_process_buf[offset + PROTOCOL_VERSION] != MCU_RX_VER) {
             offset += 2;
             continue;
         }
 
         rx_value_len = wifi_data_process_buf[offset + LENGTH_HIGH] * 0x100;
         rx_value_len += (wifi_data_process_buf[offset + LENGTH_LOW] + PROTOCOL_HEAD);
-        if (rx_value_len > sizeof(wifi_data_process_buf) + PROTOCOL_HEAD)
-        {
+        if(rx_value_len > sizeof(wifi_data_process_buf) + PROTOCOL_HEAD) {
             offset += 3;
             continue;
         }
 
-        if ((rx_in - offset) < rx_value_len)
-        {
+        if((rx_in - offset) < rx_value_len) {
             break;
         }
 
-        // æ•°æ®æ¥æ”¶å®Œæˆ
-        if (get_check_sum((u8 *)wifi_data_process_buf + offset, rx_value_len - 1) != wifi_data_process_buf[offset + rx_value_len - 1])
-        {
-            // æ ¡éªŒå‡ºé”™
-            // printf("crc error (crc:0x%X  but data:0x%X)\r\n",get_check_sum((u8 *)wifi_data_process_buf + offset,rx_value_len - 1),wifi_data_process_buf[offset + rx_value_len - 1]);
+        //Êı¾İ½ÓÊÕÍê³É
+        if(get_check_sum((unsigned char *)wifi_data_process_buf + offset,rx_value_len - 1) != wifi_data_process_buf[offset + rx_value_len - 1]) {
+            //Ğ£Ñé³ö´í
+            //printf("crc error (crc:0x%X  but data:0x%X)\r\n",get_check_sum((unsigned char *)wifi_data_process_buf + offset,rx_value_len - 1),wifi_data_process_buf[offset + rx_value_len - 1]);
             offset += 3;
             continue;
         }
 
         data_handle(offset);
         offset += rx_value_len;
-    } // end while
+    }//end while
 
     rx_in -= offset;
-    if (rx_in > 0)
-    {
+    if(rx_in > 0) {
         my_memcpy((char *)wifi_data_process_buf, (const char *)wifi_data_process_buf + offset, rx_in);
     }
 }
 
 /**
- * @brief  åè®®ä¸²å£åˆå§‹åŒ–å‡½æ•°
+ * @brief  Ğ­Òé´®¿Ú³õÊ¼»¯º¯Êı
  * @param  Null
  * @return Null
- * @note   åœ¨MCUåˆå§‹åŒ–ä»£ç ä¸­è°ƒç”¨è¯¥å‡½æ•°
+ * @note   ÔÚMCU³õÊ¼»¯´úÂëÖĞµ÷ÓÃ¸Ãº¯Êı
  */
 void wifi_protocol_init(void)
 {
-    // // #error " è¯·åœ¨mainå‡½æ•°ä¸­æ·»åŠ wifi_protocol_init()å®Œæˆwifiåè®®åˆå§‹åŒ–,å¹¶åˆ é™¤è¯¥è¡Œ"
-    rx_buf_in = (u8 *)wifi_uart_rx_buf;
-    rx_buf_out = (u8 *)wifi_uart_rx_buf;
+    // #error " ÇëÔÚmainº¯ÊıÖĞÌí¼Ówifi_protocol_init()Íê³ÉwifiĞ­Òé³õÊ¼»¯,²¢É¾³ı¸ÃĞĞ"
+    rx_buf_in = (unsigned char *)wifi_uart_rx_buf;
+    rx_buf_out = (unsigned char *)wifi_uart_rx_buf;
 
     stop_update_flag = DISABLE;
 
 #ifndef WIFI_CONTROL_SELF_MODE
-    ty_wifi_work_state = WIFI_SATE_UNKNOW;
-    hk_wifi_work_state = WIFI_SATE_UNKNOW;
+    wifi_work_state = WIFI_SATE_UNKNOW;
 #endif
 }
 
@@ -544,25 +729,25 @@ void wifi_protocol_init(void)
 
 #ifndef WIFI_CONTROL_SELF_MODE
 /**
- * @brief  MCUè·å–å¤ä½wifiæˆåŠŸæ ‡å¿—
+ * @brief  MCU»ñÈ¡¸´Î»wifi³É¹¦±êÖ¾
  * @param  Null
- * @return å¤ä½æ ‡å¿—
- * -           0(RESET_WIFI_ERROR):å¤±è´¥
- * -           1(RESET_WIFI_SUCCESS):æˆåŠŸ
- * @note   1:MCUä¸»åŠ¨è°ƒç”¨mcu_reset_wifi()åè°ƒç”¨è¯¥å‡½æ•°è·å–å¤ä½çŠ¶æ€
- *         2:å¦‚æœä¸ºæ¨¡å—è‡ªå¤„ç†æ¨¡å¼,MCUæ— é¡»è°ƒç”¨è¯¥å‡½æ•°
+ * @return ¸´Î»±êÖ¾
+ * -           0(RESET_WIFI_ERROR):Ê§°Ü
+ * -           1(RESET_WIFI_SUCCESS):³É¹¦
+ * @note   1:MCUÖ÷¶¯µ÷ÓÃmcu_reset_wifi()ºóµ÷ÓÃ¸Ãº¯Êı»ñÈ¡¸´Î»×´Ì¬
+ *         2:Èç¹ûÎªÄ£¿é×Ô´¦ÀíÄ£Ê½,MCUÎŞĞëµ÷ÓÃ¸Ãº¯Êı
  */
-u8 mcu_get_reset_wifi_flag(void)
+unsigned char mcu_get_reset_wifi_flag(void)
 {
     return reset_wifi_flag;
 }
 
 /**
- * @brief  MCUä¸»åŠ¨é‡ç½®wifiå·¥ä½œæ¨¡å¼
+ * @brief  MCUÖ÷¶¯ÖØÖÃwifi¹¤×÷Ä£Ê½
  * @param  Null
  * @return Null
- * @note   1:MCUä¸»åŠ¨è°ƒç”¨,é€šè¿‡mcu_get_reset_wifi_flag()å‡½æ•°è·å–é‡ç½®wifiæ˜¯å¦æˆåŠŸ
- *         2:å¦‚æœä¸ºæ¨¡å—è‡ªå¤„ç†æ¨¡å¼,MCUæ— é¡»è°ƒç”¨è¯¥å‡½æ•°
+ * @note   1:MCUÖ÷¶¯µ÷ÓÃ,Í¨¹ımcu_get_reset_wifi_flag()º¯Êı»ñÈ¡ÖØÖÃwifiÊÇ·ñ³É¹¦
+ *         2:Èç¹ûÎªÄ£¿é×Ô´¦ÀíÄ£Ê½,MCUÎŞĞëµ÷ÓÃ¸Ãº¯Êı
  */
 void mcu_reset_wifi(void)
 {
@@ -572,41 +757,65 @@ void mcu_reset_wifi(void)
 }
 
 /**
- * @brief  è·å–å½“å‰wifi tuyaç½‘ç»œçŠ¶æ€
+ * @brief  »ñÈ¡ÉèÖÃwifi×´Ì¬³É¹¦±êÖ¾
  * @param  Null
- * @return tuyaç½‘ç»œçŠ¶æ€
- * -          CONFIG_STATE: é…ç½®çŠ¶æ€
- * -          WIFI_NOT_CONNECTED: WIFIé…ç½®æˆåŠŸä½†æœªè¿ä¸Šè·¯ç”±å™¨
- * -          WIFI_CONNECTED: WIFIé…ç½®æˆåŠŸä¸”è¿ä¸Šè·¯ç”±å™¨
- * -          WIFI_CONN_CLOUD: WIFIå·²ç»è¿æ¥ä¸Šäº‘æœåŠ¡å™¨
- * @note   å¦‚æœä¸ºæ¨¡å—è‡ªå¤„ç†æ¨¡å¼,MCUæ— é¡»è°ƒç”¨è¯¥å‡½æ•°
+ * @return wifimode flag
+ * -           0(SET_WIFICONFIG_ERROR):Ê§°Ü
+ * -           1(SET_WIFICONFIG_SUCCESS):³É¹¦
+ * @note   1:MCUÖ÷¶¯µ÷ÓÃmcu_set_wifi_mode()ºóµ÷ÓÃ¸Ãº¯Êı»ñÈ¡¸´Î»×´Ì¬
+ *         2:Èç¹ûÎªÄ£¿é×Ô´¦ÀíÄ£Ê½,MCUÎŞĞëµ÷ÓÃ¸Ãº¯Êı
  */
-u8 get_wifi_tuya_state(void)
+unsigned char mcu_get_wifimode_flag(void)
 {
-    return ty_wifi_work_state;
+    return set_wifimode_flag;
 }
 
 /**
- * @brief  è·å–å½“å‰wifi homekitç½‘ç»œçŠ¶æ€
- * @param  Null
- * @return homekitç½‘ç»œçŠ¶æ€
- * -          CONFIG_STATE: é…ç½®çŠ¶æ€
- * -          WIFI_NOT_CONNECTED: WIFIé…ç½®æˆåŠŸä½†æœªè¿APP
- * -          WIFI_CONNECTED: WIFIé…ç½®æˆåŠŸä¸”è¿ä¸ŠAPP
- * @note   å¦‚æœä¸ºæ¨¡å—è‡ªå¤„ç†æ¨¡å¼,MCUæ— é¡»è°ƒç”¨è¯¥å‡½æ•°
+ * @brief  MCUÉèÖÃwifi¹¤×÷Ä£Ê½
+ * @param[in] {mode} ½øÈëµÄÄ£Ê½
+ * @ref        0(SMART_CONFIG):½øÈësmartconfigÄ£Ê½
+ * @ref        1(AP_CONFIG):½øÈëAPÄ£Ê½
+ * @return Null
+ * @note   1:MCUÖ÷¶¯µ÷ÓÃ
+ *         2:³É¹¦ºó,¿ÉÅĞ¶Ïset_wifi_config_stateÊÇ·ñÎªTRUE;TRUE±íÊ¾ÎªÉèÖÃwifi¹¤×÷Ä£Ê½³É¹¦
+ *         3:Èç¹ûÎªÄ£¿é×Ô´¦ÀíÄ£Ê½,MCUÎŞĞëµ÷ÓÃ¸Ãº¯Êı
  */
-u8 get_wifi_homekit_state(void)
+void mcu_set_wifi_mode(unsigned char mode)
 {
-    return hk_wifi_work_state;
+    unsigned char length = 0;
+
+    set_wifimode_flag = SET_WIFICONFIG_ERROR;
+
+    length = set_wifi_uart_byte(length, mode);
+
+    wifi_uart_write_frame(WIFI_MODE_CMD, MCU_TX_VER, length);
+}
+
+/**
+ * @brief  MCUÖ÷¶¯»ñÈ¡µ±Ç°wifi¹¤×÷×´Ì¬
+ * @param  Null
+ * @return wifi work state
+ * -          SMART_CONFIG_STATE: smartconfigÅäÖÃ×´Ì¬
+ * -          AP_STATE: APÅäÖÃ×´Ì¬
+ * -          WIFI_NOT_CONNECTED: WIFIÅäÖÃ³É¹¦µ«Î´Á¬ÉÏÂ·ÓÉÆ÷
+ * -          WIFI_CONNECTED: WIFIÅäÖÃ³É¹¦ÇÒÁ¬ÉÏÂ·ÓÉÆ÷
+ * -          WIFI_CONN_CLOUD: WIFIÒÑ¾­Á¬½ÓÉÏÔÆ·şÎñÆ÷
+ * -          WIFI_LOW_POWER: WIFI´¦ÓÚµÍ¹¦ºÄÄ£Ê½
+ * -          SMART_AND_AP_STATE: WIFI smartconfig&AP Ä£Ê½
+ * @note   Èç¹ûÎªÄ£¿é×Ô´¦ÀíÄ£Ê½,MCUÎŞĞëµ÷ÓÃ¸Ãº¯Êı
+ */
+unsigned char mcu_get_wifi_work_state(void)
+{
+    return wifi_work_state;
 }
 #endif
 
 #ifdef SUPPORT_GREEN_TIME
 /**
- * @brief  MCUè·å–æ ¼æ—æ—¶é—´
+ * @brief  MCU»ñÈ¡¸ñÁÖÊ±¼ä
  * @param  Null
  * @return Null
- * @note   MCUéœ€è¦è‡ªè¡Œè°ƒç”¨è¯¥åŠŸèƒ½
+ * @note   MCUĞèÒª×ÔĞĞµ÷ÓÃ¸Ã¹¦ÄÜ
  */
 void mcu_get_green_time(void)
 {
@@ -616,10 +825,10 @@ void mcu_get_green_time(void)
 
 #ifdef SUPPORT_MCU_RTC_CHECK
 /**
- * @brief  MCUè·å–ç³»ç»Ÿæ—¶é—´,ç”¨äºæ ¡å¯¹æœ¬åœ°æ—¶é’Ÿ
+ * @brief  MCU»ñÈ¡ÏµÍ³Ê±¼ä,ÓÃÓÚĞ£¶Ô±¾µØÊ±ÖÓ
  * @param  Null
  * @return Null
- * @note   MCUä¸»åŠ¨è°ƒç”¨å®Œæˆååœ¨mcu_write_rtctimeå‡½æ•°å†…æ ¡å¯¹rtcæ—¶é’Ÿ
+ * @note   MCUÖ÷¶¯µ÷ÓÃÍê³ÉºóÔÚmcu_write_rtctimeº¯ÊıÄÚĞ£¶ÔrtcÊ±ÖÓ
  */
 void mcu_get_system_time(void)
 {
@@ -629,10 +838,10 @@ void mcu_get_system_time(void)
 
 #ifdef WIFI_TEST_ENABLE
 /**
- * @brief  mcuå‘èµ·wifiåŠŸèƒ½æµ‹è¯•
+ * @brief  mcu·¢Æğwifi¹¦ÄÜ²âÊÔ
  * @param  Null
  * @return Null
- * @note   MCUéœ€è¦è‡ªè¡Œè°ƒç”¨è¯¥åŠŸèƒ½
+ * @note   MCUĞèÒª×ÔĞĞµ÷ÓÃ¸Ã¹¦ÄÜ
  */
 void mcu_start_wifitest(void)
 {
@@ -640,38 +849,12 @@ void mcu_start_wifitest(void)
 }
 #endif
 
-#ifdef GET_MODULE_REMAIN_MEMORY_ENABLE
-/**
- * @brief  è·å– WIFI æ¨¡å—å‰©ä½™å†…å­˜
- * @param  Null
- * @return Null
- * @note   MCUéœ€è¦è‡ªè¡Œè°ƒç”¨è¯¥åŠŸèƒ½
- */
-void get_module_remain_memory(void)
-{
-    wifi_uart_write_frame(GET_MODULE_REMAIN_MEMORY_CMD, MCU_TX_VER, 0);
-}
-#endif
-
-#ifdef GET_ROUTE_RSSI_ENABLE
-/**
- * @brief  è·å–å½“å‰WIFIä¿¡å·å¼ºåº¦
- * @param  Null
- * @return Null
- * @note   MCUéœ€è¦è‡ªè¡Œè°ƒç”¨è¯¥åŠŸèƒ½
- */
-void mcu_get_router_rssi(void)
-{
-  wifi_uart_write_frame(GET_ROUTE_RSSI_CMD, MCU_TX_VER, 0);
-}
-#endif
-
 #ifdef WIFI_HEARTSTOP_ENABLE
 /**
- * @brief  é€šçŸ¥WIFIæ¨¡ç»„å…³é—­å¿ƒè·³
+ * @brief  Í¨ÖªWIFIÄ£×é¹Ø±ÕĞÄÌø
  * @param  Null
  * @return Null
- * @note   MCUéœ€è¦è‡ªè¡Œè°ƒç”¨è¯¥åŠŸèƒ½
+ * @note   MCUĞèÒª×ÔĞĞµ÷ÓÃ¸Ã¹¦ÄÜ
  */
 void wifi_heart_stop(void)
 {
@@ -681,10 +864,10 @@ void wifi_heart_stop(void)
 
 #ifdef GET_WIFI_STATUS_ENABLE
 /**
- * @brief  è·å–å½“å‰wifiè”ç½‘çŠ¶æ€
+ * @brief  »ñÈ¡µ±Ç°wifiÁªÍø×´Ì¬
  * @param  Null
  * @return Null
- * @note   MCUéœ€è¦è‡ªè¡Œè°ƒç”¨è¯¥åŠŸèƒ½
+ * @note   MCUĞèÒª×ÔĞĞµ÷ÓÃ¸Ã¹¦ÄÜ
  */
 void mcu_get_wifi_connect_status(void)
 {
@@ -692,12 +875,160 @@ void mcu_get_wifi_connect_status(void)
 }
 #endif
 
+#ifdef WIFI_STREAM_ENABLE
+/**
+ * @brief  Á÷·şÎñ·¢ËÍ
+ * @param[in] {id} IDºÅ
+ * @param[in] {buffer} ·¢ËÍ°üµÄµØÖ·
+ * @param[in] {buf_len} ·¢ËÍ°ü³¤¶È
+ * @return Á÷·şÎñ´«Êä½á¹û
+ * -           0(ERROR): Ê§°Ü
+ * -           1(SUCCESS): ³É¹¦
+ * @note   MCUĞèÒª×ÔĞĞÊµÏÖ¸Ã¹¦ÄÜ
+ */
+unsigned char stream_trans_send(unsigned int id, unsigned char *buffer, unsigned long buf_len)
+{
+    unsigned long map_offset = 0;
+    unsigned int pack_num = 0;
+    unsigned int rest_length = 0;
+
+    if(stop_update_flag == ENABLE)
+        return ERROR;
+
+    pack_num = buf_len / STREM_PACK_LEN;
+    rest_length = buf_len - pack_num * STREM_PACK_LEN;
+    if (rest_length > 0) {
+        pack_num++;
+    }
+
+    int this_len = STREM_PACK_LEN;
+    for (int cnt = 0; cnt < pack_num; cnt++,map_offset += this_len) {
+        if (cnt == pack_num - 1 && rest_length > 0) {
+            this_len = rest_length;
+        }else {
+            this_len = STREM_PACK_LEN;
+        }
+
+        if(ERROR == stream_trans(id, map_offset, buffer + map_offset, this_len)) {
+            //mcuÕıÔÚÉı¼¶ÖĞ£¬²»¿ÉÒÔ½øĞĞÁ÷·şÎñ´«Êä
+            //printf("is upgrade\n");
+            return ERROR;
+        }
+
+        #error "Çë¸ù¾İÌáÊ¾£¬×ÔĞĞÍêÉÆÁ÷·şÎñ·¢ËÍ´úÂë£¬Íê³ÉºóÇëÉ¾³ı¸ÃĞĞ"
+        /*  Èç¹ûMCU¿ÉÒÔÊ¹ÓÃ¶à½ø³Ì»ò¶àÏß³Ì£¬¿ÉÒÔ½«´Ëº¯Êı·ÅÔÚÒ»¸öµ¥¶ÀµÄ½ø³Ì»òÏß³ÌÀïÖ´ĞĞ£¬²¢´ò¿ªÏÂÃæËùÊ¾µÄ´úÂë  */
+        /*
+        while(0xff == stream_status); //µÈ´ıÄ£¿é»Ø¸´
+
+        if(0x00 != stream_status) {
+            //Ê§°Ü  ¿ÉÔÚ stream_trans_send_result º¯ÊıÖĞ²é¿´´íÎóÂë
+            return ERROR;
+        }
+        */
+
+        /*  Èç¹ûMCU²»Ö§³Ö¶à½ø³Ì»ò¶àÏß³Ì£¬Ê¹ÓÃ´Ëº¯ÊıÊ±Ã¿´ÎÖ»·¢Ò»°ü£¨Êı¾İ³¤¶È²»´óÓÚSTREM_PACK_LEN£©£¬
+        ·¢ËÍÍêÖ®ºóÔÚ stream_trans_send_result º¯ÊıÖĞ´¦ÀíÄ£¿é·µ»ØµÄ½á¹û£¬·¢ËÍ³É¹¦Ê±ÔÙ´Îµ÷ÓÃ´Ëº¯Êı·¢ËÍÏÂÒ»°ü£¬×¢Òâ°üÆ«ÒÆÒªÔö¼Ó  */
+    }
+
+    return SUCCESS;
+}
+
+/**
+ * @brief  ¶àµØÍ¼Á÷·şÎñ·¢ËÍ
+ * @param[in] {id} µØÍ¼Á÷·şÎñ»á»°ID
+ * @param[in] {sub_id} ×ÓµØÍ¼ID
+ * @param[in] {sub_id_pro_mode} ×ÓµØÍ¼IDÊı¾İ´¦Àí·½Ê½
+ * @ref       0x00: ¼ÌĞøÀÛ¼Ó
+ * @ref       0x01: Çå³ıÉÏ´«µÄÊı¾İ
+ * @param[in] {buffer} Êı¾İ°ü·¢ËÍµÄµØÖ·
+ * @param[in] {buf_len} Êı¾İ°ü·¢ËÍµÄ³¤¶È
+ * @return Á÷·şÎñ´«Êä½á¹û
+ * -           0(ERROR): Ê§°Ü
+ * -           1(SUCCESS): ³É¹¦
+ * @note   MCUĞèÒª×ÔĞĞÊµÏÖ¸Ã¹¦ÄÜ
+ */
+unsigned char maps_stream_trans_send(unsigned int id, unsigned char sub_id, unsigned char sub_id_pro_mode, unsigned char *buffer, unsigned long buf_len)
+{
+    unsigned long map_offset = 0;
+    unsigned int pack_num = 0;
+    unsigned int rest_length = 0;
+    unsigned char pro_ver = 0; //µØÍ¼·şÎñĞ­Òé°æ±¾ Ä¬ÈÏÎª0
+
+    if(stop_update_flag == ENABLE)
+        return SUCCESS;
+
+    pack_num = buf_len / STREM_PACK_LEN;
+    rest_length = buf_len - pack_num * STREM_PACK_LEN;
+    if (rest_length > 0) {
+        pack_num++;
+    }
+
+    int this_len = STREM_PACK_LEN;
+    for (int cnt = 0; cnt < pack_num; cnt++,map_offset += this_len) {
+        if (cnt == pack_num - 1 && rest_length > 0) {
+            this_len = rest_length;
+        }else {
+            this_len = STREM_PACK_LEN;
+        }
+
+        if(ERROR == maps_stream_trans(pro_ver, id, sub_id, sub_id_pro_mode, map_offset, buffer + map_offset, this_len)) {
+            //mcuÕıÔÚÉı¼¶ÖĞ£¬²»¿ÉÒÔ½øĞĞÁ÷·şÎñ´«Êä
+            //printf("is upgrade\n");
+            return ERROR;
+        }
+
+        #error "Çë¸ù¾İÌáÊ¾£¬×ÔĞĞÍêÉÆÁ÷·şÎñ·¢ËÍ´úÂë£¬Íê³ÉºóÇëÉ¾³ı¸ÃĞĞ"
+        /*  Èç¹ûMCU¿ÉÒÔÊ¹ÓÃ¶à½ø³Ì»ò¶àÏß³Ì£¬¿ÉÒÔ½«´Ëº¯Êı·ÅÔÚÒ»¸öµ¥¶ÀµÄ½ø³Ì»òÏß³ÌÀïÖ´ĞĞ£¬²¢´ò¿ªÏÂÃæËùÊ¾µÄ´úÂë  */
+        /*
+        while(0xff == maps_stream_status); //µÈ´ıÄ£¿é»Ø¸´
+
+        if(0x00 != maps_stream_status) {
+            //Ê§°Ü  ¿ÉÔÚ maps_stream_trans_send_result º¯ÊıÖĞ²é¿´´íÎóÂë
+            return ERROR;
+        }
+        */
+
+        /*  Èç¹ûMCU²»Ö§³Ö¶à½ø³Ì»ò¶àÏß³Ì£¬Ê¹ÓÃ´Ëº¯ÊıÊ±Ã¿´ÎÖ»·¢Ò»°ü£¨Êı¾İ³¤¶È²»´óÓÚSTREM_PACK_LEN£©£¬
+        ·¢ËÍÍêÖ®ºóÔÚ maps_stream_trans_send_result º¯ÊıÖĞ´¦ÀíÄ£¿é·µ»ØµÄ½á¹û£¬·¢ËÍ³É¹¦Ê±ÔÙ´Îµ÷ÓÃ´Ëº¯Êı·¢ËÍÏÂÒ»°ü£¬×¢Òâ°üÆ«ÒÆÒªÔö¼Ó  */
+    }
+
+    return SUCCESS;
+}
+#endif
+
+#ifdef WIFI_CONNECT_TEST_ENABLE
+/**
+ * @brief  mcu·¢Æğwifi¹¦ÄÜ²âÊÔ(Á¬½ÓÖ¸¶¨Â·ÓÉ)
+ * @param[in] {ssid_buf} ´æ·ÅÂ·ÓÉÆ÷Ãû³Æ×Ö·û´®Êı¾İµÄµØÖ·(ssid³¤¶È×î´óÖ§³Ö32¸ö×Ö½Ú)
+ * @param[in] {passwd_buffer} ´æ·ÅÂ·ÓÉÆ÷Ãû³Æ×Ö·û´®Êı¾İµÄµØÖ·(passwd³¤¶È×î´óÖ§³Ö64¸ö×Ö½Ú)
+ * @return Null
+ * @note   MCUĞèÒª×ÔĞĞµ÷ÓÃ¸Ã¹¦ÄÜ
+ */
+void mcu_start_connect_wifitest(unsigned char *ssid_buf,unsigned char *passwd_buffer)
+{
+    unsigned short send_len = 0;
+
+    if( my_strlen(ssid_buf) > 32 || my_strlen(passwd_buffer) > 64) {
+        //printf("ssid_buf or passwd_buffer is too long!");
+        return;
+    }
+
+    send_len = set_wifi_uart_buffer(send_len, "{\"ssid\":\"", my_strlen("{\"ssid\":\""));
+    send_len = set_wifi_uart_buffer(send_len,ssid_buf,my_strlen(ssid_buf));
+    send_len = set_wifi_uart_buffer(send_len, "\",\"password\":\"", my_strlen("\",\"password\":\""));
+    send_len = set_wifi_uart_buffer(send_len,passwd_buffer,my_strlen(passwd_buffer));
+    send_len = set_wifi_uart_buffer(send_len, "\"}", my_strlen("\"}"));
+
+    wifi_uart_write_frame(WIFI_CONNECT_TEST_CMD, MCU_TX_VER, send_len);
+}
+#endif
+
 #ifdef GET_MODULE_MAC_ENABLE
 /**
- * @brief  è·å–æ¨¡å—MAC
+ * @brief  »ñÈ¡Ä£¿éMAC
  * @param  Null
  * @return Null
- * @note   MCUéœ€è¦è‡ªè¡Œè°ƒç”¨è¯¥åŠŸèƒ½
+ * @note   MCUĞèÒª×ÔĞĞµ÷ÓÃ¸Ã¹¦ÄÜ
  */
 void mcu_get_module_mac(void)
 {
@@ -705,18 +1036,167 @@ void mcu_get_module_mac(void)
 }
 #endif
 
-#ifdef MODULE_EXTEND_FUN_ENABLE
+#ifdef IR_TX_RX_TEST_ENABLE
 /**
- * @brief  è·å–æ¨¡å—ç›¸å…³ä¿¡æ¯
+ * @brief  mcu·¢ÆğºìÍâ½øÈëÊÕ·¢²ú²â
  * @param  Null
  * @return Null
- * @note   MCUéœ€è¦è‡ªè¡Œè°ƒç”¨è¯¥åŠŸèƒ½
+ * @note   MCUĞèÒª×ÔĞĞµ÷ÓÃ¸Ã¹¦ÄÜ
  */
-void mcu_get_module_infor(u8 p_get_inf[], u16 data_len)
+void mcu_start_ir_test(void)
 {
-    u16 send_len = 0;
-    send_len = set_wifi_uart_byte(send_len, SUB_CMD_GET_MODULE_INFOR);
-    send_len = set_wifi_uart_buffer(send_len, p_get_inf, data_len);
+    wifi_uart_write_frame(IR_TX_RX_TEST_CMD, MCU_TX_VER, 0);
+}
+#endif
+
+#ifdef MODULE_EXPANDING_SERVICE_ENABLE
+/**
+ * @brief  ´ò¿ªÄ£¿éÊ±¼ä·şÎñÍ¨Öª
+ * @param[in] {time_type} Ê±¼äÀàĞÍ
+ * @ref       0x00: ¸ñÁÖÊ±¼ä
+ * @ref       0x01: ±¾µØÊ±¼ä
+ * @return Null
+ * @note   MCUĞèÒª×ÔĞĞµ÷ÓÃ¸Ã¹¦ÄÜ
+ */
+void open_module_time_serve(unsigned char time_type)
+{
+    unsigned short send_len = 0;
+    send_len = set_wifi_uart_byte(send_len, 0x01);
+    send_len = set_wifi_uart_byte(send_len, time_type);
     wifi_uart_write_frame(MODULE_EXTEND_FUN_CMD, MCU_TX_VER, send_len);
+}
+
+/**
+ * @brief  Ö÷¶¯ÇëÇóÌìÆø·şÎñÊı¾İ
+ * @param  Null
+ * @return Null
+ * @note   MCUĞèÒª×ÔĞĞµ÷ÓÃ¸Ã¹¦ÄÜ
+ */
+void request_weather_serve(void)
+{
+    unsigned short send_len = 0;
+    send_len = set_wifi_uart_byte(send_len, 0x03);
+    wifi_uart_write_frame(MODULE_EXTEND_FUN_CMD, MCU_TX_VER, send_len);
+}
+
+/**
+ * @brief  ´ò¿ªÄ£¿éÖØÖÃ×´Ì¬Í¨Öª
+ * @param  Null
+ * @return Null
+ * @note   MCUĞèÒª×ÔĞĞµ÷ÓÃ¸Ã¹¦ÄÜ
+ */
+void open_module_reset_state_serve(void)
+{
+    unsigned short send_len = 0;
+    send_len = set_wifi_uart_byte(send_len, 0x04);
+    wifi_uart_write_frame(MODULE_EXTEND_FUN_CMD, MCU_TX_VER, send_len);
+}
+#endif
+
+#ifdef BLE_RELATED_FUNCTION_ENABLE
+/**
+ * @brief  mcu·¢ÆğÀ¶ÑÀ¹¦ÄÜĞÔ²âÊÔ£¨É¨ÃèÖ¸¶¨À¶ÑÀĞÅ±ê£©
+ * @param  Null
+ * @return Null
+ * @note   MCUĞèÒª×ÔĞĞµ÷ÓÃ¸Ã¹¦ÄÜ
+ */
+void mcu_start_BLE_test(void)
+{
+    unsigned short send_len = 0;
+    send_len = set_wifi_uart_byte(send_len, 0x01);
+    wifi_uart_write_frame(BLE_TEST_CMD, MCU_TX_VER, send_len);
+}
+#endif
+
+#ifdef VOICE_MODULE_PROTOCOL_ENABLE
+/**
+ * @brief  »ñÈ¡ÓïÒô×´Ì¬Âë
+ * @param  Null
+ * @return Null
+ * @note   MCUĞèÒª×ÔĞĞµ÷ÓÃ¸Ã¹¦ÄÜ
+ */
+void get_voice_state(void)
+{
+    wifi_uart_write_frame(GET_VOICE_STATE_CMD, MCU_TX_VER, 0);
+}
+
+/**
+ * @brief  MIC¾²ÒôÉèÖÃ
+ * @param[in] {set_val} ¾²ÒôÉèÖÃÖµ
+ * @ref       0x00: mic¿ªÆô
+ * @ref       0x01: mic¾²Òô
+ * @ref       0xA0: ²éÑ¯¾²Òô×´Ì¬
+ * @return Null
+ * @note   MCUĞèÒª×ÔĞĞµ÷ÓÃ¸Ã¹¦ÄÜ
+ */
+void set_voice_MIC_silence(unsigned char set_val)
+{
+    unsigned short send_len = 0;
+    send_len = set_wifi_uart_byte(send_len, set_val);
+    wifi_uart_write_frame(MIC_SILENCE_CMD, MCU_TX_VER, send_len);
+}
+
+/**
+ * @brief  speakerÒôÁ¿ÉèÖÃ
+ * @param[in] {set_val} ÒôÁ¿ÉèÖÃÖµ
+ * @ref       0~10: ÒôÁ¿·¶Î§
+ * @ref       0xA0: ²éÑ¯ÒôÁ¿Öµ
+ * @return Null
+ * @note   MCUĞèÒª×ÔĞĞµ÷ÓÃ¸Ã¹¦ÄÜ
+ */
+void set_speaker_voice(unsigned char set_val)
+{
+    unsigned short send_len = 0;
+    send_len = set_wifi_uart_byte(send_len, set_val);
+    wifi_uart_write_frame(SET_SPEAKER_VOLUME_CMD, MCU_TX_VER, send_len);
+}
+
+/**
+ * @brief  ÒôÆµ²ú²â
+ * @param[in] {set_val} ÒôÆµ²ú²âÖµ
+ * @ref       0x00: ¹Ø±ÕÒôÆµ²ú²â
+ * @ref       0x01: mic1ÒôÆµ»·Â·²âÊÔ
+ * @ref       0x02: mic2ÒôÆµ»·Â·²âÊÔ
+ * @ref       0xA0: ²éÑ¯µ±Ç°²ú²â×´Ì¬
+ * @return Null
+ * @note   MCUĞèÒª×ÔĞĞµ÷ÓÃ¸Ã¹¦ÄÜ
+ */
+void voice_test(unsigned char test_val)
+{
+    unsigned short send_len = 0;
+    send_len = set_wifi_uart_byte(send_len, test_val);
+    wifi_uart_write_frame(VOICE_TEST_CMD, MCU_TX_VER, send_len);
+}
+
+/**
+ * @brief  »½ĞÑ²ú²â
+ * @param  Null
+ * @return Null
+ * @note   MCUĞèÒª×ÔĞĞµ÷ÓÃ¸Ã¹¦ÄÜ
+ */
+void voice_awaken_test(void)
+{
+    wifi_uart_write_frame(VOICE_AWAKEN_TEST_CMD, MCU_TX_VER, 0);
+}
+
+/**
+ * @brief  ÓïÒôÄ£×éMCU¹¦ÄÜÉèÖÃ
+ * @param[in] {play} ²¥·Å/ÔİÍ£¹¦ÄÜ 1(²¥·Å) / 0(ÔİÍ£)
+ * @param[in] {bt_play} À¶ÑÀ¿ª¹Ø¹¦ÄÜ 1(¿ª) / 0(¹Ø)
+ * @return Null
+ * @note   MCUĞèÒª×ÔĞĞµ÷ÓÃ¸Ã¹¦ÄÜ
+ */
+void voice_mcu_fun_set(unsigned char play, unsigned char bt_play)
+{
+    unsigned short send_len = 0;
+    unsigned char str[50];
+
+    //MCUÉèÖÃÔİ½öÖ§³Ö¡±²¥·Å/ÔİÍ£¡± ¡±À¶ÑÀ¿ª¹Ø¡±
+
+    sprintf((char*)str,"{\"play\":%s,\"bt_play\":%s}", play?"true":"false", bt_play?"true":"false");
+
+    send_len = set_wifi_uart_byte(send_len, 0x00);
+    send_len = set_wifi_uart_buffer(send_len, str, my_strlen(str));
+    wifi_uart_write_frame(VOICE_EXTEND_FUN_CMD, MCU_TX_VER, send_len);
 }
 #endif

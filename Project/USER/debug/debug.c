@@ -1,9 +1,24 @@
+
 #include "Function_Init.H"
 #include "debug.h"
 
+const uint8_t tastcolor[][4] =
+{
+    {0, 0, 0, 255},
+    {255, 0, 0, 0},
+    {255, 255, 0, 0},
+    {0, 255, 0, 0},
+    {0, 255, 255, 0},
+    {0, 0, 255, 0},
+};
+uint8_t test_onoff=1;
+uint8_t test_color_num;
+uint8_t test_brightness=255;
 
-/*æµ‹è¯•ç¯æ•ˆçš„å­˜å‚¨è¯»å†™*/
-void debug_save_effect_detial(void)
+
+/*²âÊÔµÆĞ§µÄ´æ´¢¶ÁĞ´*/
+void
+debug_save_effect_detial(void)
 {
     static uint8_t i,j;
     uint8_t *pp;
@@ -40,7 +55,7 @@ void debug_save_effect_detial(void)
     // printhex_my(&eff,sizeof(eff));
     i++;
 }
-/*æµ‹è¯•æ·»åŠ è‡ªå®šä¹‰ç¯æ•ˆ*/
+/*²âÊÔÌí¼Ó×Ô¶¨ÒåµÆĞ§*/
 void debug_add_original_ef(void)
 {
     static uint8_t i=128;
@@ -49,11 +64,11 @@ void debug_add_original_ef(void)
     // // i += 128;
     i++;
     printf("add original ranklist %d\r", i);
-    get_effect(&ef,0);  // æ‹·è´ç¬¬0ä¸ªç¯æ•ˆ
+    get_effect(&ef,0);  // ¿½±´µÚ0¸öµÆĞ§
     add_original_ef(&ef, i);
     print_get_original_ef_ranklist();
 }
-/*æµ‹è¯•åˆ é™¤è‡ªå®šä¹‰ç¯æ•ˆ*/
+/*²âÊÔÉ¾³ı×Ô¶¨ÒåµÆĞ§*/
 void debug_delete_original_ef(void)
 {
     ef_ranklist_TypeDef list;
@@ -81,10 +96,11 @@ void norflash_rw_debug(uint32_t addr)
     uint32_t readaddr;
 
     printf("i:%d\r",i);
-    // memset(arry,0x66,sizeof(arry));
 
-    // FLASHSPI_PageRead(arry, addr, sizeof(arry));
-    // printhex_my(arry,sizeof(arry));
+    memset(arry,0x66,sizeof(arry));
+
+    FLASHSPI_PageRead(arry, addr, sizeof(arry));
+    printhex_my(arry,sizeof(arry));
 
 
     memset(Warry,i,sizeof(Warry));
@@ -105,8 +121,68 @@ void norflash_rw_debug(uint32_t addr)
     FLASHSPI_PageRead(arry, readaddr, sizeof(arry));
     printhex_my(arry, sizeof(arry));
     i++;
+
+//    FlashROM_Erase()
+
 }
-/*æµ‹è¯•æ·»åŠ æ’­æ”¾åˆ—è¡¨*/
+
+
+/*
+ * @Description: norflashÑ­»·¶ÁĞ´²âÊÔ
+ * @param:
+ * @return:
+*/
+void norflash_auto_rw_test(void)
+{
+    // #define TESTSIZE FIRMWARE_SIZE //(256*256)
+    #define TESTSIZE (256*1)
+    static uint8_t num;
+    uint32_t i;
+    uint32_t chechsum = 0;
+    uint32_t norsum = 0;
+    uint8_t arry[256];
+    num++;
+
+    memset(arry, num, sizeof(arry));
+    // erase_firmware_block64K_norflash(); // ²Á³ı¹Ì¼şÇø
+
+    FLASH_BlockErase(0);
+    for (i = 0; i < TESTSIZE;)
+    {
+        // // FLASHSPI_PageErase(0);
+        FLASH_PageWrite(arry, i, sizeof(arry));
+        // // FlashSPI_Insert(arry, i, sizeof(arry));
+        chechsum += checksum_calculate(arry, sizeof(arry));
+        i += sizeof(arry);
+    }
+    // norsum = get_firmware_chechsum_norflash();
+
+    for (i = 0; i < TESTSIZE;)
+    {
+        FLASHSPI_PageRead(arry, i, sizeof(arry));
+        norsum += checksum_calculate(arry, sizeof(arry));
+        i += sizeof(arry);
+    }
+
+    if (norsum==chechsum)
+    {
+        printlog("[%3d]:chechsum: Ox%04x ,norsum: Ox%04x\r",num,chechsum,norsum);
+    }
+    else
+    {
+        LED1_REV();
+        LED2_REV();
+        printlog("ERROR-[%3d]:chechsum: Ox%04x ,norsum: Ox%04x\r",num,chechsum,norsum);
+        printhex_my(arry, sizeof(arry));
+    }
+    // printlog("[%3d]:chechsum: Ox%04x ,norsum: Ox%04x",num,chechsum,norsum);
+    // // FLASH_PageWrite(sur, FIRMWARE_ADDR + offset, 256);
+
+
+
+}
+
+/*²âÊÔÌí¼Ó²¥·ÅÁĞ±í*/
 void debug_add_playlist(void)
 {
     static uint8_t i;
@@ -119,11 +195,11 @@ void debug_add_playlist(void)
 }
 
 
-/*æµ‹è¯•åˆ é™¤æ’­æ”¾åˆ—è¡¨*/
+/*²âÊÔÉ¾³ı²¥·ÅÁĞ±í*/
 void debug_delete_playlist(void)
 {
 
-    playlist_ranklist_TypeDef ranklist; // åˆ—è¡¨ä¿¡æ¯
+    playlist_ranklist_TypeDef ranklist; // ÁĞ±íĞÅÏ¢
     get_playlist_ranklist(&ranklist);
     printf("delete playlist ranklist %d\r", ranklist.list[0]);
     delete_playlist( ranklist.list[0]);
@@ -131,7 +207,7 @@ void debug_delete_playlist(void)
     print_playlist_ranklist(&ranklist);
 }
 
-/*æµ‹è¯•æ·»åŠ å®šæ—¶è¡¨*/
+/*²âÊÔÌí¼Ó¶¨Ê±±í*/
 void debug_add_schedule(void)
 {
     schedule_list_TypeDef schedule;
@@ -152,11 +228,35 @@ void debug_add_schedule(void)
     add_schedule(&detail, schedule.num);
 }
 
-/*æµ‹è¯•åˆ é™¤å®šæ—¶è¡¨*/
+/*²âÊÔÉ¾³ı¶¨Ê±±í*/
 void debug_delete_schedule(void)
 {
     printlog(" debug delete schedule\r");
     delete_schedule(0);
+}
+
+/*ÇĞ»»ÏÂÒ»ÄÚÖÃµÆĞ§*/
+void debug_play_next_effect(void)
+{
+    uint8_t num;
+    num = play.detail.efnum + 1;
+    if (num > 29)
+    {
+        num = 0;
+    }
+    play_new_effect(num);
+}
+
+/*ÇĞ»»ÉÏÒ»ÄÚÖÃµÆĞ§*/
+void debug_play_last_effect(void)
+{
+    uint8_t num;
+    num = play.detail.efnum - 1;
+    if (num > 29)
+    {
+        num = 29;
+    }
+    play_new_effect(num);
 }
 
 void debug(void)
@@ -166,40 +266,51 @@ void debug(void)
 
 
 
-/*æŒ‰é”®1æœåŠ¡è°ƒè¯•å‡½æ•°*/
+/*°´¼ü1·şÎñµ÷ÊÔº¯Êı*/
 void debug_K1(void)
 {
     printf("\rK1\r");
-    printf("init effect...\r");
-    // mcu_update_allef_ranklist();
-    copy_built_in_ef_to_norflash(); // åˆå§‹åŒ–ç¯æ•ˆä¿¡æ¯
+    print_slave_data();
+    // printf("init effect...\r");
+    // // mcu_update_allef_ranklist();
+    // copy_built_in_ef_to_norflash(); // ³õÊ¼»¯µÆĞ§ĞÅÏ¢
 }
-/*æŒ‰é”®2æœåŠ¡è°ƒè¯•å‡½æ•°*/
+/*°´¼ü2·şÎñµ÷ÊÔº¯Êı*/
 void debug_K2(void)
 {
     printf("\rK2\r");
+    // //  light_up_only_one_slave(slave.data[0].id);
     // debug_add_original_ef();
     // debug_add_playlist();
-    debug_add_schedule();
+//     debug_add_schedule();
+// print_all_schedule();
+    // print_online_slave_data();
 }
-/*æŒ‰é”®3æœåŠ¡è°ƒè¯•å‡½æ•°*/
+/*°´¼ü3·şÎñµ÷ÊÔº¯Êı*/
 void debug_K3(void)
 {
     printf("\rK3\r\n");
-    debug_delete_schedule();
+    // debug_delete_schedule();
     // debug_delete_original_ef();
     // debug_delete_playlist();
+    // Flow_Reverberate(10);
+    // play_effect_video();
+    debug_play_last_effect();
 }
-/*æŒ‰é”®4æœåŠ¡è°ƒè¯•å‡½æ•°*/
+/*°´¼ü4·şÎñµ÷ÊÔº¯Êı*/
 void debug_K4(void)
 {
     printf("\rK4\r");
-    // debug_fifo();
+    debug_play_next_effect();
+
+    // play_effect_video();
+    // slave_online_data_init();
+    // // debug_fifo();
     // print_firmware_information();
     // print_slave_data();
     // norflash_rw_debug(0x600);
 
-    // add_num_in_list(Random_Generate());
+    // push_playnum_in_history(Random_Generate());
     // a("\r66666\r");
 
     // printf("norflash_Typedef size:0x%x,%dbyte\r\n",sizeof(norflash_Typedef));
@@ -210,16 +321,32 @@ void debug_K4(void)
     // // // search_norflash_ranklist();
     // // print_get_original_ef_ranklist();
     // norflash_rw_debug(0);
+    // erase_firmware_block64K_norflash();
+    // // Flow_Reverberate_Init();
 }
 
-/*æŒ‰é”®5æœåŠ¡è°ƒè¯•å‡½æ•°*/
+/*°´¼ü5·şÎñµ÷ÊÔº¯Êı*/
 void debug_K5(void)
 {
-
+    uint16_t i;
+    uint32_t chechsum;
     printf("\rK5\r");
-    print_schedule();
 
+    // // play_effect_init();
+    // // print_online_slave_data();
+    slave_light_in_turn();
+    // // chechsum = get_firmware_chechsum_norflash();
+    // // printlog("norflash firmware chechsum:0x%04x\r", chechsum);
+    // push_playnum_in_history()
+    // play_effect_video();
+    // transmit_slave_play_data();
 
+    // print_play_effect_detial();
+
+    // print_all_schedule();
+    // i=-1;
+    // printf("-1:%d",i);
+    // slave_online_data_init();
 
 
     // mcu_update_efsketch(12);
@@ -236,4 +363,87 @@ void debug_K5(void)
     // printf("FLASH_ChipErase\r");
     // // norflash_data_init();
     // // printf("Original_Efdata %d \r",(uint32_t)(((uint32_t)&((EffectInf_TypeDef *)0)->Original_Efdata) / sizeof(Efdetail_TypeDef)));
+}
+
+/*
+
+dp_download_all_effect_ranklist_handle ¿Õ
+
+*/
+/*²âÊÔ¿ªÊ¼ÔİÍ£²¥·ÅÑÕÉ«*/
+void test_onoff_play(void)
+{
+    if (test_onoff)
+    {
+        test_onoff = 0;
+    }
+    else
+    {
+        test_onoff = 1;
+    }
+}
+
+/*²âÊÔ²¥·ÅÑÕÉ«*/
+void test_play_color(void)
+{
+    if (test_onoff)
+    {
+        play_color_in_all_salve_light(test_brightness, tastcolor[test_color_num][0], tastcolor[test_color_num][1], tastcolor[test_color_num][2], tastcolor[test_color_num][3]);
+    }
+    else
+    {
+        play_color_in_all_salve_light(0, tastcolor[test_color_num][0], tastcolor[test_color_num][1], tastcolor[test_color_num][2], tastcolor[test_color_num][3]);
+    }
+}
+/*²âÊÔÇĞ»»ÑÕÉ«*/
+void test_change_color(void)
+{
+    if (++test_color_num >= (sizeof(tastcolor) / 4))
+    {
+        test_color_num = 0;
+    }
+}
+/*²âÊÔµ¥»÷¼Ó¼õÁÁ¶È*/
+void test_click_brightness(uint8_t dir)
+{
+    if (dir)
+    {
+        if (test_brightness < 230)
+        {
+            test_brightness += 30;
+        }
+        else
+        {
+            test_brightness = 255;
+        }
+    }
+    else
+    {
+        if (test_brightness > 30)
+        {
+            test_brightness -= 30;
+        }
+        else
+        {
+            test_brightness = 1;
+        }
+    }
+}
+/*²âÊÔ³¤°´¼Ó¼õÁÁ¶È*/
+void test_long_brightness(uint8_t dir)
+{
+    if (dir)
+    {
+        if (test_brightness < 255)
+        {
+            test_brightness++;
+        }
+    }
+    else
+    {
+        if (test_brightness > 2)
+        {
+            test_brightness--;
+        }
+    }
 }

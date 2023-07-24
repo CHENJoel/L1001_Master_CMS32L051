@@ -1,4 +1,16 @@
 /*
+ * @Author: joel
+ * .chen sandote@163.om
+ * @Date: 2022-10-17 11:28:51
+ * @LastEditors: joel
+ * .chen sandote@163.om
+ * @LastEditTime: 2023-06-25 11:09:19
+ * @FilePath: \L1001_Master_CMS32L051\Project\USER\Include\Com.h
+ * @Description:
+ *
+ * Copyright (c) 2023 by ${git_name_email}, All Rights Reserved.
+ */
+/*
  * @Author: error: git config user.name && git config user.email & please set dead value or install git
  * @Date: 2022-05-25 20:19:42
  * @LastEditors: error: git config user.name && git config user.email & please set dead value or install git

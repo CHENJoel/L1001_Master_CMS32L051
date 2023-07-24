@@ -108,6 +108,7 @@ void uart0_interrupt_receive(void)
 
     rx_data = SCI0->RXD0;
     FIFO_Byte_Push(&Uart0_Buffer, &(SCI0->RXD0)); //  Êı¾İÑ¹Èë»º´æ
+
     // if (g_uart0_rx_length > g_uart0_rx_count)
     // {
     //     *gp_uart0_rx_address = rx_data;

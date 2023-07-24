@@ -1,10 +1,11 @@
 /*
  * @Author: your name
  * @Date: 2021-12-31 11:54:33
- * @LastEditTime: 2022-06-14 16:11:43
- * @LastEditors: error: git config user.name && git config user.email & please set dead value or install git
+ * @LastEditTime: 2023-06-26 19:59:49
+ * @LastEditors: joel
+.chen sandote@163.om
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
- * @FilePath: \A5441_Master\Color.h
+ * @FilePath: \L1001_Master_CMS32L051\Project\USER\Include\Color.H
  */
 #ifndef _COLOR_H_
 #define _COLOR_H_
@@ -66,7 +67,7 @@ typedef struct
     uint16_t Frame_Now; // 当前帧
 } ModuleTypeDef;
 
-extern ModuleTypeDef Tangram[16];   // 模组
+extern ModuleTypeDef Tangram[32];   // 模组
 
 
 // extern ModelTypeDef Model[16];   // 模型（律动）

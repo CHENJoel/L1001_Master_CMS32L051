@@ -1,10 +1,55 @@
+/*
+ * @Author: joel
+ * .chen sandote@163.om
+ * @Date: 2023-05-17 11:45:10
+ * @LastEditors: joel
+.chen sandote@163.om
+.chen sandote@163.om
+.chen sandote@163.om
+.chen sandote@163.om
+.chen sandote@163.om
+.chen sandote@163.om
+.chen sandote@163.om
+.chen sandote@163.om
+.chen sandote@163.om
+.chen sandote@163.om
+.chen sandote@163.om
+.chen sandote@163.om
+.chen sandote@163.om
+.chen sandote@163.om
+.chen sandote@163.om
+.chen sandote@163.om
+.chen sandote@163.om
+.chen sandote@163.om
+.chen sandote@163.om
+.chen sandote@163.om
+.chen sandote@163.om
+.chen sandote@163.om
+.chen sandote@163.om
+.chen sandote@163.om
+.chen sandote@163.om
+.chen sandote@163.om
+.chen sandote@163.om
+.chen sandote@163.om
+.chen sandote@163.om
+.chen sandote@163.om
+ * .chen sandote@163.om
+ * @LastEditTime: 2023-07-12 15:50:33
+ * @FilePath: \L1001_Master_CMS32L051\Project\USER\debug\printlog.h
+ * @Description:
+ *
+ * Copyright (c) 2023 by ${git_name_email}, All Rights Reserved.
+ */
 #ifndef _PRINTLOG_H_
 #define _PRINTLOG_H_
 #include "Function_Init.H"
 #include "comapp.h"
 
-#define printlog_enabled    // 使能打印log
-// assert
+// #define printlog_enabled     // 使能打印log
+// #define virtual_device  // 虚拟灯板信息
+
+
+
 //断言
 #define vAssertCalled(char,int) printf("Error:%s,%d\r\n",char,int)
 
@@ -23,7 +68,17 @@
     #define printnumlog(num) printf("[num:%d]\r",num)
 #endif
 
+#define PRINT(window, fmt, args...) printlog("{"#window"}"fmt"\n", ##args)
 
+// C语言示例代码
+//         1.首先定义宏函数简化后期工作（ARMCC/ARMGCC/GCC编译器）：
+//             #define PRINT(window, fmt, args...) printf("{"#window"}"fmt"\n", ##args)
+//         2.若要将电压和电流数据进行绘图，并将功率数据分窗显示，可这样调用：
+//             PRINT(plotter, "%d,%d", current, voltage);
+//             PRINT(power, "the power is %d W", current * voltage);
+//         3.实际显示效果可能如下：
+//             {plotter}3,2
+//             {power}the power is 6 W
 
 
 
@@ -76,6 +131,14 @@ void print_slave_color(void);
 
 /*打印名字*/
 void print_name(name_TypeDef*p);
-/*打印定时表*/
-void print_schedule(void);
+/*打印定时表详情*/
+void print_schedule_detial(schedule_detail_TypeDef *p);
+/*打印全部定时表*/
+void print_all_schedule(void);
+/*打印在线从机信息*/
+void print_online_slave_data(void);
+/*运行灯效详情log*/
+void print_play_effect_detial(void);
+
+
 #endif
