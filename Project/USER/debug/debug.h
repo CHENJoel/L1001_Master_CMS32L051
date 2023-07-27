@@ -38,7 +38,7 @@ void test_onoff_play(void);
 /*测试播放颜色*/
 void test_play_color(void);
 /*测试切换颜色*/
-void test_change_color(void);
+void test_change_color(uint8_t dir);
 /*测试单击加减亮度*/
 void test_click_brightness(uint8_t dir);
 /*测试长按加减亮度*/

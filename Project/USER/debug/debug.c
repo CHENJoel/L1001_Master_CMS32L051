@@ -3,13 +3,55 @@
 #include "debug.h"
 
 const uint8_t tastcolor[][4] =
-{
-    {0, 0, 0, 255},
-    {255, 0, 0, 0},
-    {255, 255, 0, 0},
-    {0, 255, 0, 0},
-    {0, 255, 255, 0},
-    {0, 0, 255, 0},
+    {
+        {0, 0, 0, 255},
+        {255, 0, 0, 0},
+        {255, 255, 0, 0},
+        {0, 255, 0, 0},
+        {0, 255, 255, 0},
+        {0, 0, 255, 0},
+        {255, 128, 0, 0},   // 橙色
+        {200, 255, 37, 0},  // 淡黄绿
+        {233, 71, 9, 0},    // 橙红
+        {237, 175, 32, 0},  // 黄色
+        {87, 140, 188, 0},  // 蓝色
+        {37, 188, 255, 0},  // 浅蓝
+        {23, 129, 232, 0},  // 蓝
+        {146, 35, 255, 0},  // 紫
+        {230, 45, 232, 0},  // 粉紫
+        {255, 13, 192, 0},  // 紫红
+        {90, 167, 167, 0},  // 青
+        {150, 215, 198, 0}, // 粉绿
+        {186, 201, 74, 0},  // 嫩绿
+        {240, 218, 220, 0}, // 粉色
+        {245, 150, 176, 0}, // 深粉
+        {254, 225, 153, 0}, // 黄色
+        {118, 214, 201, 0}, // 青色
+        {133, 188, 218, 0}, // 蓝色
+        {252, 172, 230, 0}, // 浅粉
+        {253, 135, 221, 0}, // 粉色
+        {250, 28, 195, 0},  // 深粉色
+        {238, 0, 242, 0},   // 浅紫红
+        {112, 0, 240, 0},   // 浅紫色
+        {60, 0, 169, 0},    // 蓝紫色
+        {24, 16, 55, 0},    // 深紫色
+        {57, 35, 97, 0},    // 紫色
+        {113, 84, 174, 0},  // 浅紫
+        {128, 156, 228, 0}, // 浅蓝紫
+        {98, 191, 215, 0},  // 浅蓝
+        {82, 209, 192, 0},  // 浅青
+        {121, 246, 194, 0}, // 粉绿
+        {4, 164, 94, 0},    // 绿色
+        {241, 242, 237, 0}, // 灰白
+        {128, 211, 215, 0}, // 浅蓝
+        {113, 185, 223, 0}, // 蓝色
+        {41, 15, 180, 0},   // 海蓝色
+        {246, 234, 246, 0}, // 白紫
+        {72, 27, 137, 0},   // 紫色
+        {247, 198, 166, 0}, // 橙色
+        {247, 131, 137, 0}, // 红色
+        {166, 58, 76, 0},   // 朱红
+        {38, 38, 94, 0},    // 蓝紫
 };
 uint8_t test_onoff=1;
 uint8_t test_color_num;
@@ -270,7 +312,8 @@ void debug(void)
 void debug_K1(void)
 {
     printf("\rK1\r");
-    print_slave_data();
+    test_onoff_play();
+    // print_slave_data();
     // printf("init effect...\r");
     // // mcu_update_allef_ranklist();
     // copy_built_in_ef_to_norflash(); // 初始化灯效信息
@@ -279,50 +322,24 @@ void debug_K1(void)
 void debug_K2(void)
 {
     printf("\rK2\r");
-    // //  light_up_only_one_slave(slave.data[0].id);
-    // debug_add_original_ef();
-    // debug_add_playlist();
-//     debug_add_schedule();
-// print_all_schedule();
-    // print_online_slave_data();
+    test_change_color(1);
+
 }
 /*按键3服务调试函数*/
 void debug_K3(void)
 {
     printf("\rK3\r\n");
-    // debug_delete_schedule();
-    // debug_delete_original_ef();
-    // debug_delete_playlist();
-    // Flow_Reverberate(10);
-    // play_effect_video();
-    debug_play_last_effect();
+    test_change_color(0);
+
 }
 /*按键4服务调试函数*/
 void debug_K4(void)
 {
     printf("\rK4\r");
-    debug_play_next_effect();
+    test_click_brightness(1);
+    // debug_play_next_effect();
 
-    // play_effect_video();
-    // slave_online_data_init();
-    // // debug_fifo();
-    // print_firmware_information();
-    // print_slave_data();
-    // norflash_rw_debug(0x600);
 
-    // push_playnum_in_history(Random_Generate());
-    // a("\r66666\r");
-
-    // printf("norflash_Typedef size:0x%x,%dbyte\r\n",sizeof(norflash_Typedef));
-    // printf("otapack_area_Typedef size:0x%x,%dbyte\r\n",sizeof(otapack_area_Typedef));
-    // printf("sysdata_area_Typedef size:0x%x,%dbyte\r\n",sizeof(sysdata_area_Typedef));
-    // printf("efdata_area_Typedef size:0x%x,%dbyte\r\n",sizeof(efdata_area_Typedef));
-    // printf("spare_area_Typedef size:0x%x,%dbyte\r\n",sizeof(spare_area_Typedef));
-    // // // search_norflash_ranklist();
-    // // print_get_original_ef_ranklist();
-    // norflash_rw_debug(0);
-    // erase_firmware_block64K_norflash();
-    // // Flow_Reverberate_Init();
 }
 
 /*按键5服务调试函数*/
@@ -331,38 +348,7 @@ void debug_K5(void)
     uint16_t i;
     uint32_t chechsum;
     printf("\rK5\r");
-
-    // // play_effect_init();
-    // // print_online_slave_data();
-    slave_light_in_turn();
-    // // chechsum = get_firmware_chechsum_norflash();
-    // // printlog("norflash firmware chechsum:0x%04x\r", chechsum);
-    // push_playnum_in_history()
-    // play_effect_video();
-    // transmit_slave_play_data();
-
-    // print_play_effect_detial();
-
-    // print_all_schedule();
-    // i=-1;
-    // printf("-1:%d",i);
-    // slave_online_data_init();
-
-
-    // mcu_update_efsketch(12);
-    // mcu_dp_raw_update(DPID_EFFECT_SKETCH, &sketch, sizeof(sketch));
-    // print_slave_color();
-    // // print_get_ef_detial(18);
-    // debug_save_effect_detial();
-    // print_get_all_ef_ranklist();
-    // print_get_original_ef_ranklist();
-    // print_get_favorites_ef_ranklist();
-    // print_get_playlist_ranklist();
-    // FLASH_BlockErase(0);
-    // FLASH_ChipErase();
-    // printf("FLASH_ChipErase\r");
-    // // norflash_data_init();
-    // // printf("Original_Efdata %d \r",(uint32_t)(((uint32_t)&((EffectInf_TypeDef *)0)->Original_Efdata) / sizeof(Efdetail_TypeDef)));
+    test_click_brightness(0);
 }
 
 /*
@@ -396,11 +382,21 @@ void test_play_color(void)
     }
 }
 /*测试切换颜色*/
-void test_change_color(void)
+void test_change_color(uint8_t dir)
 {
-    if (++test_color_num >= (sizeof(tastcolor) / 4))
+    if (dir)
     {
-        test_color_num = 0;
+        if (++test_color_num >= (sizeof(tastcolor) / 4))
+        {
+            test_color_num = 0;
+        }
+    }
+    else
+    {
+        if (test_color_num)
+        {
+            test_color_num--;
+        }
     }
 }
 /*测试单击加减亮度*/

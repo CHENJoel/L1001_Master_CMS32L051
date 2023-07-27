@@ -1,8 +1,9 @@
 /*
  * @Author: your name
  * @Date: 2022-04-01 16:53:11
- * @LastEditTime: 2023-07-24 13:43:33
+ * @LastEditTime: 2023-07-24 19:20:31
  * @LastEditors: joel
+.chen sandote@163.om
 .chen sandote@163.om
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \L1001_Master_CMS32L051\Project\USER\Source\A5441_Master.c
@@ -730,7 +731,7 @@ void KeyS_Click(void)
     }
     if (KEY2_Click)
     {
-        test_change_color();
+        // test_change_color();
 
         Light_Level_Change(&play.work.brightness.set, &play.work.brightness.dir, bright_table, sizeof(bright_table));
         mcu_update_bright_val();
@@ -741,14 +742,14 @@ void KeyS_Click(void)
         debug_K3();
         debug_play_last_effect();
 
-        test_click_brightness(1);
+        // test_click_brightness(1);
 
     }
     if (KEY4_Click)
     {
         debug_K4();
         debug_play_next_effect();
-        test_click_brightness(0);
+        // test_click_brightness(0);
 
     }
     if (KEY5_Click)
@@ -766,11 +767,11 @@ void KeyS_Click(void)
     }
     if (KEY3_Long)
     {
-        test_long_brightness(1);
+        // test_long_brightness(1);
     }
     if (KEY4_Long)
     {
-        test_long_brightness(0);
+        // test_long_brightness(0);
     }
     if (KEY5_Long)
     {

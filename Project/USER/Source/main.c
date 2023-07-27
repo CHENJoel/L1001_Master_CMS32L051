@@ -196,6 +196,8 @@ int main()
 	play.work.brightness.set=100;
 	play.work.sw_status = SW_ON;
 	play.status = RUN;
+	LED1_ON();
+	LED2_OFF();
 	while (1)
 	{
 		if (T_4MS_FLAG_GetBit)
@@ -219,6 +221,8 @@ int main()
 			KeyS_On();
 			WDT_Restart();
 			KeyS_Click();
+			// UART0_Send(0x5a);
+
 
 			LED_Display();
 
@@ -237,13 +241,13 @@ int main()
 		if (T_28MS_FLAG_GetBit)
 		{
 			T_28MS_FLAG_ClrBit();
-			// test_play_color();
+			test_play_color();
 
-			Lignt_Control();
+			// Lignt_Control();
 			// process_mic_data();
 			// play.work.brightness.now = 250;
-			effect_play_color_calu();
-			play_effect_video();
+			// effect_play_color_calu();
+			// play_effect_video();
 
 		}
 		if (T_100MS_FLAG_GetBit)
@@ -270,6 +274,8 @@ int main()
 		if (T_1000MS_FLAG_GetBit)
 		{
 			T_1000MS_FLAG_ClrBit();
+		// 			LED1_REV();
+		// LED2_REV();
 			RTC_Task();
 
 			// UART0_Send(0xc5);
