@@ -1,11 +1,10 @@
-#include "appfunction.h"
-#include "Function_Init.H"
 
-/*Ğ£ÑéÍ¨ĞÅÊı¾İÊÇ·ñÕıÈ·*/
+#include "Function_Init.H"
+/*æ ¡éªŒé€šä¿¡æ•°æ®æ˜¯å¦æ­£ç¡®*/
 uint8_t com_dataverify(uint8_t *sur, uint16_t size)
 {
     if ((uint8_t)checksum_calculate((uint8_t *)sur, size - 1) != *(sur + size - 1))
-    { // Ğ£Ñé×îºóÒ»×Ö½ÚÊÇ·ñÎªĞ£ÑéºÍ
+    { // æ ¡éªŒæœ€åä¸€å­—èŠ‚æ˜¯å¦ä¸ºæ ¡éªŒå’Œ
         printhex_my(sur, size);
         printlog("com data verify error\r\n");
         return 0;
@@ -13,7 +12,7 @@ uint8_t com_dataverify(uint8_t *sur, uint16_t size)
     return 1;
 }
 
-/*mcuÉÏ±¨µÆĞ§ÏêÇé*/
+/*mcuä¸ŠæŠ¥ç¯æ•ˆè¯¦æƒ…*/
 void mcu_update_efdetail(uint8_t efnum)
 {
     com_effect_detial_TypeDef comef;
@@ -21,13 +20,19 @@ void mcu_update_efdetail(uint8_t efnum)
     get_effect(&comef.Efdata, efnum);
     comef.checksum = (uint8_t)checksum_calculate((uint8_t *)&comef, sizeof(comef) - 1);
     mcu_dp_raw_update(DPID_EFFECT_DETIAL, &comef, sizeof(comef));
+    print_effect_detial(&comef.Efdata, efnum);
 }
-/*mcuÉÏ±¨µÆĞ§¸ÅÊö*/
+
+/* 
+ * @Description: æ ¹æ®æŒ‡ä»¤ä¸ŠæŠ¥ç¯æ•ˆæ¦‚è¿°
+ * @param: 
+ * @return: 
+*/ 
 void mcu_update_efsketch(com_issue_cmd_TypeDef *p)
 {
     com_effect_sketch_TypeDef sketch;
     Efdetail_TypeDef efdata;
-    memset(&sketch, 0, sizeof(sketch)); // ÇåÁã
+    memset(&sketch, 0, sizeof(sketch)); // æ¸…é›¶
     uint8_t i;
     if (p->data[0] > 4)
     {
@@ -36,24 +41,49 @@ void mcu_update_efsketch(com_issue_cmd_TypeDef *p)
     sketch.num = p->data[0];
     for (i = 0; i < sketch.num; i++)
     {
-        sketch.Efdata[i].index = p->data[i + 1]; // Ë÷Òı
+        sketch.Efdata[i].index = p->data[i + 1]; // ç´¢å¼•
         get_effect(&efdata, sketch.Efdata[i].index);
         sketch.Efdata[i].namelenght = efdata.namelenght;
-        memcpy(&sketch.Efdata[i].Name, &efdata.Name, sizeof(sketch.Efdata[i].Name));                             // Ãû×Ö
-        sketch.Efdata[i].Attribute = efdata.Attribute;                                                           // ÊôĞÔ
-        sketch.Efdata[i].EffectType = efdata.EffectType;                                                         // ÀàĞÍ
-        memcpy(&sketch.Efdata[i].EfColormioniInf, &efdata.EfColorInf, sizeof(sketch.Efdata[i].EfColormioniInf)); // ÑÕÉ«
+        memcpy(&sketch.Efdata[i].Name, &efdata.Name, sizeof(sketch.Efdata[i].Name));                             // åå­—
+        sketch.Efdata[i].Attribute = efdata.Attribute;                                                           // å±æ€§
+        sketch.Efdata[i].EffectType = efdata.EffectType;                                                         // ç±»å‹
+        memcpy(&sketch.Efdata[i].EfColormioniInf, &efdata.EfColorInf, sizeof(sketch.Efdata[i].EfColormioniInf)); // é¢œè‰²
+        // printlog("update efsketch :%d\r", sketch.Efdata[i].index);
     }
     sketch.checksum = (uint8_t)checksum_calculate((uint8_t *)&sketch, sizeof(sketch) - 1);
     // // printlog("sketch SIZE %d",sizeof(sketch));
     mcu_dp_raw_update(DPID_EFFECT_SKETCH, &sketch, sizeof(sketch));
 }
-/*mcuÉÏ±¨µÆĞ§¸ÅÊö-´Ó²¥·ÅÁĞ±íµÄdpÉÏ´«*/
+/* 
+ * @Description: ä¸ŠæŠ¥æŸç¯æ•ˆæ¦‚è¿°
+ * @param: 
+ * @return: 
+*/ 
+void mcu_update_one_efsketch(uint8_t efnum)
+{
+    com_effect_sketch_TypeDef sketch;
+    Efdetail_TypeDef efdata;
+    printlog("mcu_update_one_efsketch : %d\n", efnum);
+    memset(&sketch, 0, sizeof(sketch)); // æ¸…é›¶
+    sketch.num = 1;
+    sketch.Efdata[0].index = efnum; // ç´¢å¼•
+    get_effect(&efdata, sketch.Efdata[0].index);
+    sketch.Efdata[0].namelenght = efdata.namelenght;
+    memcpy(&sketch.Efdata[0].Name, &efdata.Name, sizeof(sketch.Efdata[0].Name));                             // åå­—
+    sketch.Efdata[0].Attribute = efdata.Attribute;                                                           // å±æ€§
+    sketch.Efdata[0].EffectType = efdata.EffectType;                                                         // ç±»å‹
+    memcpy(&sketch.Efdata[0].EfColormioniInf, &efdata.EfColorInf, sizeof(sketch.Efdata[0].EfColormioniInf)); // é¢œè‰²
+    sketch.checksum = (uint8_t)checksum_calculate((uint8_t *)&sketch, sizeof(sketch) - 1);
+    mcu_dp_raw_update(DPID_EFFECT_SKETCH, &sketch, sizeof(sketch));
+}
+
+
+/*mcuä¸ŠæŠ¥ç¯æ•ˆæ¦‚è¿°-ä»æ’­æ”¾åˆ—è¡¨çš„dpä¸Šä¼ */
 void mcu_update_playlist_efsketch(com_issue_cmd_TypeDef *p)
 {
     com_effect_sketch_TypeDef sketch;
     Efdetail_TypeDef efdata;
-    memset(&sketch, 0, sizeof(sketch)); // ÇåÁã
+    memset(&sketch, 0, sizeof(sketch)); // æ¸…é›¶
     uint8_t i;
     if (p->data[0] > 4)
     {
@@ -62,18 +92,18 @@ void mcu_update_playlist_efsketch(com_issue_cmd_TypeDef *p)
     sketch.num = p->data[0];
     for (i = 0; i < sketch.num; i++)
     {
-        sketch.Efdata[i].index = p->data[i + 1]; // Ë÷Òı
+        sketch.Efdata[i].index = p->data[i + 1]; // ç´¢å¼•
         get_effect(&efdata, sketch.Efdata[i].index);
         sketch.Efdata[i].namelenght = efdata.namelenght;
-        memcpy(&sketch.Efdata[i].Name, &efdata.Name, sizeof(sketch.Efdata[i].Name));                             // Ãû×Ö
-        sketch.Efdata[i].Attribute = efdata.Attribute;                                                           // ÊôĞÔ
-        sketch.Efdata[i].EffectType = efdata.EffectType;                                                         // ÀàĞÍ
-        memcpy(&sketch.Efdata[i].EfColormioniInf, &efdata.EfColorInf, sizeof(sketch.Efdata[i].EfColormioniInf)); // ÑÕÉ«
+        memcpy(&sketch.Efdata[i].Name, &efdata.Name, sizeof(sketch.Efdata[i].Name));                             // åå­—
+        sketch.Efdata[i].Attribute = efdata.Attribute;                                                           // å±æ€§
+        sketch.Efdata[i].EffectType = efdata.EffectType;                                                         // ç±»å‹
+        memcpy(&sketch.Efdata[i].EfColormioniInf, &efdata.EfColorInf, sizeof(sketch.Efdata[i].EfColormioniInf)); // é¢œè‰²
     }
     sketch.checksum = (uint8_t)checksum_calculate((uint8_t *)&sketch, sizeof(sketch) - 1);
     mcu_dp_raw_update(DPID_PLAYLIST_EFFECT_SKETCH, &sketch, sizeof(sketch));
 }
-/*mcuÉÏ±¨È«²¿µÆĞ§µÄË³Ğò±í*/
+/*mcuä¸ŠæŠ¥å…¨éƒ¨ç¯æ•ˆçš„é¡ºåºè¡¨*/
 void mcu_update_allef_ranklist(void)
 {
     com_ranklist_TypeDef com_ranklist;
@@ -81,21 +111,21 @@ void mcu_update_allef_ranklist(void)
     get_allef_ranklist((ef_ranklist_TypeDef *)&com_ranklist.ranklist);
     com_ranklist.checksum = (uint8_t)checksum_calculate((uint8_t *)&com_ranklist, (uint16_t)sizeof(com_ranklist) - 1);
     mcu_dp_raw_update(DPID_ALL_EFFECT_RANKLIST, &com_ranklist, sizeof(com_ranklist));
-    // // printhex_my(&com_ranklist, sizeof(com_ranklist));
+    // printhex_my(&com_ranklist, sizeof(com_ranklist));
     print_ef_ranklist(&com_ranklist.ranklist);
 }
-/*mcuÉÏ±¨×Ô¶¨ÒåµÆĞ§µÄË³Ğò±í*/
+/*mcuä¸ŠæŠ¥è‡ªå®šä¹‰ç¯æ•ˆçš„é¡ºåºè¡¨*/
 void mcu_update_originalef_ranklist(void)
 {
     com_ranklist_TypeDef com_ranklist;
-    printlog("mcu_update_originalef_ranklist\r");
+    printlog("<mcu_update_originalef_ranklist>\r");
     get_originalef_ranklist((ef_ranklist_TypeDef *)&com_ranklist.ranklist);
     com_ranklist.checksum = (uint8_t)checksum_calculate((uint8_t *)&com_ranklist, (uint16_t)sizeof(com_ranklist) - 1);
     mcu_dp_raw_update(DPID_ORIGINAL_EFFECT_RANKLIST, &com_ranklist, sizeof(com_ranklist));
     print_ef_ranklist(&com_ranklist.ranklist);
     // // // printhex_my(&com_ranklist,sizeof(com_ranklist.ranklist));
 }
-/*mcuÉÏ±¨ÊÕ²ØµÆĞ§µÄË³Ğò±í*/
+/*mcuä¸ŠæŠ¥æ”¶è—ç¯æ•ˆçš„é¡ºåºè¡¨*/
 void mcu_update_favoritesef_ranklist(void)
 {
     com_ranklist_TypeDef com_ranklist;
@@ -105,7 +135,7 @@ void mcu_update_favoritesef_ranklist(void)
     mcu_dp_raw_update(DPID_FAVORITES_EFFECT_RANKLIST, &com_ranklist, sizeof(com_ranklist));
     print_ef_ranklist(&com_ranklist.ranklist);
 }
-/*mcuÉÏ±¨²¥·ÅÁĞ±íµÄË³Ğò±í*/
+/*mcuä¸ŠæŠ¥æ’­æ”¾åˆ—è¡¨çš„é¡ºåºè¡¨*/
 void mcu_update_playlist_ranklist(void)
 {
     com_playlist_TypeDef com_ranklist;
@@ -116,19 +146,19 @@ void mcu_update_playlist_ranklist(void)
     get_playlist_ranklist((playlist_ranklist_TypeDef *)&ranklist);
     print_playlist_ranklist(&ranklist);
     memset(&com_ranklist, 0, sizeof(com_ranklist));
-    com_ranklist.sum = ranklist.num; // »ñÈ¡ÁĞ±í¸öÊı
+    com_ranklist.sum = ranklist.num; // è·å–åˆ—è¡¨ä¸ªæ•°
     for (i = 0; i < com_ranklist.sum; i++)
     {
-        com_ranklist.list[i].index = ranklist.list[i];                          // ¿½±´Ë÷ÒıºÅ
-        get_playlist_name(&name, com_ranklist.list[i].index);                   // »ñÈ¡ÁĞ±íÏêÇéµÄÃû×Ö
-        com_ranklist.list[i].name.length = name.length;                         // ¿½±´Ãû×Ö³¤¶È
-        memcpy(&com_ranklist.list[i].name.text, &name.text, sizeof(name.text)); // ¿½±´Ãû×Ö
+        com_ranklist.list[i].index = ranklist.list[i];                          // æ‹·è´ç´¢å¼•å·
+        get_playlist_name(&name, com_ranklist.list[i].index);                   // è·å–åˆ—è¡¨è¯¦æƒ…çš„åå­—
+        com_ranklist.list[i].name.length = name.length;                         // æ‹·è´åå­—é•¿åº¦
+        memcpy(&com_ranklist.list[i].name.text, &name.text, sizeof(name.text)); // æ‹·è´åå­—
     }
     com_ranklist.checksum = (uint8_t)checksum_calculate((uint8_t *)&com_ranklist, (uint16_t)sizeof(com_ranklist) - 1);
     mcu_dp_raw_update(DPID_PLAY_LIST, &com_ranklist, sizeof(com_ranklist));
     print_com_playlist_ranklist(&com_ranklist);
 }
-/*mcuÉÏ±¨²¥·ÅÏêÇé*/
+/*mcuä¸ŠæŠ¥æ’­æ”¾è¯¦æƒ…*/
 void mcu_update_playdetail(uint8_t playnum)
 {
     com_play_detial_TypeDef com;
@@ -139,7 +169,7 @@ void mcu_update_playdetail(uint8_t playnum)
     mcu_dp_raw_update(DPID_PLAY_DETIAL, &com, sizeof(com));
     print_playdetial(&com.pldata, com.idex);
 }
-/*mcuÉÏ±¨µ±Ç°²¥·ÅÏêÇé*/
+/*mcuä¸ŠæŠ¥å½“å‰æ’­æ”¾è¯¦æƒ…*/
 void mcu_update_current_playdetail(void)
 {
     com_play_detial_TypeDef com;
@@ -152,28 +182,28 @@ void mcu_update_current_playdetail(void)
     print_playdetial(&com.pldata, com.idex);
 }
 
-/*mcuÉÏ±¨²¥·Å×´Ì¬*/
+/*mcuä¸ŠæŠ¥æ’­æ”¾çŠ¶æ€*/
 void mcu_update_playstatus(void)
 {
     com_play_control_TypeDef com;
-    com.type = PLAY_STATUS;// ²¥·Å/ÔİÍ£
+    com.type = PLAY_STATUS;// æ’­æ”¾/æš‚åœ
     com.value = play.status;
     com.checksum = (uint8_t)checksum_calculate((uint8_t *)&com, (uint16_t)sizeof(com) - 1);
     mcu_dp_raw_update(DPID_PLAY_CONTROL, &com, sizeof(com));
-    com.type = PLAYLIST_INDEX;// ²¥·ÅÁĞ±íË÷Òı
+    com.type = PLAYLIST_INDEX;// æ’­æ”¾åˆ—è¡¨ç´¢å¼•
     com.value = play.detail.listnum;
     com.checksum = (uint8_t)checksum_calculate((uint8_t *)&com, (uint16_t)sizeof(com) - 1);
     mcu_dp_raw_update(DPID_PLAY_CONTROL, &com, sizeof(com));
-    com.type = EFFECT_INDEX;// Ğ§¹ûË÷Òı
+    com.type = EFFECT_INDEX;// æ•ˆæœç´¢å¼•
     com.value = play.detail.efnum;
     com.checksum = (uint8_t)checksum_calculate((uint8_t *)&com, (uint16_t)sizeof(com) - 1);
     mcu_dp_raw_update(DPID_PLAY_CONTROL, &com, sizeof(com));
-    com.type = PLAY_MODE;// ²¥·ÅÑ­»·Ä£Ê½
+    com.type = PLAY_MODE;// æ’­æ”¾å¾ªç¯æ¨¡å¼
     com.value = play.mode;
     com.checksum = (uint8_t)checksum_calculate((uint8_t *)&com, (uint16_t)sizeof(com) - 1);
     mcu_dp_raw_update(DPID_PLAY_CONTROL, &com, sizeof(com));
 }
-/*mcuÉÏ±¨Éè±¸ĞÅÏ¢*/
+/*mcuä¸ŠæŠ¥è®¾å¤‡ä¿¡æ¯*/
 void mcu_update_device_detail(void)
 {
     uint8_t i, j;
@@ -189,51 +219,8 @@ void mcu_update_device_detail(void)
         com.data[i].cooed_y = slave.data[i].cooed_y;
     }
     printlog("slave.num:%d\r",slave.num);
-    printhex_my(&com, (slave.num * sizeof(com_device_detail_TypeDef)));
-    mcu_dp_raw_update(DPID_DEVICE_DETAIL, &com, (slave.num * sizeof(com_device_detail_TypeDef))); // RAWĞÍÊı¾İÉÏ±¨;
-}
-
-/*mcuÉÏ±¨¶¨Ê±¼Æ»®¸ÅÊö±í*/
-void mcu_update_schedule_sketch(void)
-{
-    com_schedule_sketchlist_TypeDef  com;
-    schedule_list_TypeDef schedule;
-    uint8_t i;
-    printlog("mcu_update_schedule_sketch\r");
-    get_all_schedule(&schedule);
-    memset(&com, 0, sizeof(com));
-    if (schedule.num < SCHEDULE_NUM)
-    {
-        com.num=schedule.num;
-        for (i = 0; i < schedule.num; i++)
-        {
-            com.list[i].index = i;
-            com.list[i].action = schedule.list[i].action;                 // ¶¯×÷ÀàĞÍ
-            com.list[i].actiontime.Min = schedule.list[i].actiontime.Min; // ¶¯×÷Ê±¼ä
-            com.list[i].actiontime.Sec = schedule.list[i].actiontime.Sec; // ¶¯×÷Ê±¼ä
-            com.list[i].repeat = schedule.list[i].repeat;                 // ĞÇÆÚ¼Æ»®
-        }
-    }
-    else
-    {
-        printlog("[error] schedule data exception \r");
-        printAssert();
-    }
-    com.checksum = (uint8_t)checksum_calculate((uint8_t *)&com, (uint16_t)sizeof(com) - 1);
-    mcu_dp_raw_update(DPID_CLOCK_LIST, &com, sizeof(com));
-}
-/*mcuÉÏ±¨¶¨Ê±ÏêÇé*/
-void mcu_update_schedule_detail(uint8_t num)
-{
-    com_schedule_detail_TypeDef com;
-    schedule_detail_TypeDef schedule_detail;
-    printlog("mcu_update_schedule_detail\r");
-    memset(&com, 0, sizeof(com));
-    get_schedule_detail(&schedule_detail, num);
-    com.index = num;
-    copy_schedule_detail_to_com(&schedule_detail, &com);
-    com.checksum = (uint8_t)checksum_calculate((uint8_t *)&com, (uint16_t)sizeof(com) - 1);
-    mcu_dp_raw_update(DPID_CLOCK_DETIAL, &com, sizeof(com));
+    // printhex_my(&com, (slave.num * sizeof(com_device_detail_TypeDef)));
+    mcu_dp_raw_update(DPID_DEVICE_DETAIL, &com, (slave.num * sizeof(com_device_detail_TypeDef))); // RAWå‹æ•°æ®ä¸ŠæŠ¥;
 }
 
 
@@ -273,25 +260,34 @@ void mcu_update_schedule_detail(uint8_t num)
 */
 
 
-/*Õë¶ÔDPID_EFFECT_DETIALµÄ´¦Àíº¯Êı*/
+/*é’ˆå¯¹DPID_EFFECT_DETIALçš„å¤„ç†å‡½æ•°*/
 uint8_t mcu_download_effect_detail_handle(uint8_t *sur, uint16_t length)
 {
-    printlog("mcu_download_effect_detail_handle\r");
+    printlog("<mcu_download_effect_detail_handle>\r");
     if (com_dataverify(sur, length) == 0)
     {
         return 0;
     }
-    add_original_ef((Efdetail_TypeDef *)(&((com_effect_detial_TypeDef *)sur)->Efdata), (uint8_t)(((com_effect_detial_TypeDef *)sur)->idex));
+    print_com_effect_detial_log(sur); // æ‰“å°log
+    if ((uint8_t)(((com_effect_detial_TypeDef *)sur)->idex) < original_ef_basenum)
+    { /* å†…ç½®åŸç”Ÿç¯æ•ˆ */
+        update_built_in_effect((Efdetail_TypeDef *)(&((com_effect_detial_TypeDef *)sur)->Efdata), (uint8_t)(((com_effect_detial_TypeDef *)sur)->idex));
+    }
+    else
+    { /* è‡ªå®šä¹‰ç¯æ•ˆ */
+        add_original_ef((Efdetail_TypeDef *)(&((com_effect_detial_TypeDef *)sur)->Efdata), (uint8_t)(((com_effect_detial_TypeDef *)sur)->idex));
+    }
     mcu_update_allef_ranklist();
     mcu_update_originalef_ranklist();
+    mcu_update_favoritesef_ranklist();
     return 1;
 }
 
-/*Õë¶ÔDPID_ISSUE_CMDµÄ´¦Àíº¯Êı*/
+/*é’ˆå¯¹DPID_ISSUE_CMDçš„å¤„ç†å‡½æ•°*/
 uint8_t mcu_download_issue_cmd_handle(uint8_t *sur, uint16_t length)
 {
     com_issue_cmd_TypeDef *p;
-    // // // // printlog("mcu_download_issue_cmd_handle\r");
+    // printlog("\r>mcu_download_issue_cmd_handle<\r");
     if (com_dataverify(sur, length) == 0)
     {
         return 0;
@@ -299,99 +295,118 @@ uint8_t mcu_download_issue_cmd_handle(uint8_t *sur, uint16_t length)
     p = (com_issue_cmd_TypeDef *)sur;
     switch (p->cmd)
     {
-    case ASK_EFSKETCH: /*Ğ§¹û¸ÅÊö*/
-        printlog("ASK_EFSKETCH\r");
+    case ASK_EFSKETCH: /*æ•ˆæœæ¦‚è¿°*/
+        // printlog("ASK_EFSKETCH\r");
         mcu_update_efsketch(p);
         // printlog("mcu update efsketch:%d [%3d] [%3d] [%3d] [%3d]\r",p->data[0],p->data[1],p->data[2],p->data[3],p->data[4]);
         // printlog("mcu_update_efsketch\r");
         break;
-    case ASK_EFDETAIL:                   /*Ğ§¹ûÏêÇé*/
-        mcu_update_efdetail(p->data[0]); // mcuÉÏ±¨µÆĞ§ÏêÇé
+    case ASK_EFDETAIL: /*æ•ˆæœè¯¦æƒ…*/
         printlog("mcu_update_efdetail\r");
+        mcu_update_efdetail(p->data[0]); // mcuä¸ŠæŠ¥ç¯æ•ˆè¯¦æƒ…
         break;
-    case DELETE_EF: /*É¾³ıĞ§¹û*/
+    case DELETE_ORIGINAL_EF: /*åˆ é™¤è‡ªå®šä¹‰ç¯æ•ˆ*/
+        printlog("DELETE_ORIGINAL_EF\r");
         delete_original_ef(p->data[0]);
-        printlog("delete_original_ef\r");
+        mcu_update_allef_ranklist();
+        mcu_update_originalef_ranklist();
+        mcu_update_favoritesef_ranklist();
+        // // // // // // // mcu_update_originalef_ranklist();
         break;
-    case ADD_FAVORITES: /*¼ÓÈëÊÕ²Ø*/
+    case ADD_FAVORITES_EF: /*åŠ å…¥æ”¶è—*/
+        printlog("ADD_FAVORITES_EF\r");
         add_favorites_ef(p->data[0]);
-        printlog("add_favorites_ef\r");
+        // // mcu_update_allef_ranklist();
+        // // mcu_update_originalef_ranklist();
+        mcu_update_favoritesef_ranklist();
+        mcu_update_one_efsketch(p->data[0]);
         break;
-    case DELETE_FAVORITES: /*È¡ÏûÊÕ²Ø*/
+    case DELETE_FAVORITES_EF: /*å–æ¶ˆæ”¶è—*/
+        printlog("DELETE_FAVORITES_EF\r");
         delete_favorites_ef(p->data[0]);
-        printlog("delete_favorites_ef\r");
+        // // mcu_update_allef_ranklist();
+        // // mcu_update_originalef_ranklist();
+        mcu_update_favoritesef_ranklist();
+        mcu_update_one_efsketch(p->data[0]);
         break;
-    case ASK_ALLEFRANKLIST: /*ÇëÇóÈ«²¿µÆĞ§µÄË³Ğò±í*/
+    case ASK_ALLEFRANKLIST: /*è¯·æ±‚å…¨éƒ¨ç¯æ•ˆçš„é¡ºåºè¡¨*/
         printlog("ASK_ALLEFRANKLIST\r");
         mcu_update_allef_ranklist();
         break;
-    case ASK_ORINGINALRANKLIST: /*ÇëÇó×Ô¶¨ÒåµÆĞ§µÄË³Ğò±í*/
-        printlog("ASK_ORINGINALRANKLIST\r");
+    case ASK_ORINGINAL_RANKLIST: /*è¯·æ±‚è‡ªå®šä¹‰ç¯æ•ˆçš„é¡ºåºè¡¨*/
+        printlog("ASK_ORINGINAL_RANKLIST\r");
         mcu_update_originalef_ranklist();
         break;
-    case ASK_FAVORITESRANKLIST: /*ÇëÇóÊÕ²ØµÆĞ§µÄË³Ğò±í*/
-        printlog("ASK_FAVORITESRANKLIST\r");
+    case ASK_FAVORITES_RANKLIST: /*è¯·æ±‚æ”¶è—ç¯æ•ˆçš„é¡ºåºè¡¨*/
+        printlog("ASK_FAVORITES_RANKLIST\r");
         mcu_update_favoritesef_ranklist();
         break;
-    case ASK_PLAYLISTRANKLIST: /*ÇëÇó²¥·ÅÁĞ±íµÄË³Ğò±í*/
-        printlog("ASK_PLAYLISTRANKLIST\r");
+    case ASK_PLAYLIST_RANKLIST: /*è¯·æ±‚æ’­æ”¾åˆ—è¡¨çš„é¡ºåºè¡¨*/
+        printlog("ASK_PLAYLIST_RANKLIST\r");
         mcu_update_playlist_ranklist();
         break;
-    case ASK_EFFECTANKLIST: /*ÇëÇóµÆĞ§Ïà¹ØµÄË³Ğò±í*/
-        printlog("ASK_EFFECTANKLIST\r");
+    case ASK_EFFECT_RANKLIST: /*è¯·æ±‚ç¯æ•ˆç›¸å…³çš„é¡ºåºè¡¨*/
+        printlog("ASK_EFFECT_RANKLIST\r");
         mcu_update_allef_ranklist();
         mcu_update_originalef_ranklist();
         mcu_update_favoritesef_ranklist();
         break;
-    case ASK_PLAY_EFSKETCH: /*ÇëÇóĞ§¹û¸ÅÊö*/
+    case ASK_PLAY_EFSKETCH: /*è¯·æ±‚æ•ˆæœæ¦‚è¿°*/
         printlog("ASK_PLAY_EFSKETCH\r");
         mcu_update_playlist_efsketch(p);
         break;
-    case REAERVE_CMD11: /*±£Áô*/
+    case REAERVE_CMD11: /*ä¿ç•™*/
         break;
-    case DELETE_PLAYLISTRANKLISTLIST: /*É¾³ı²¥·ÅÁĞ±íÖĞÄ³¸öÏêÇé±í*/
-        printlog("DELETE_PLAYLISTRANKLISTLIST\r");
+    case DELETE_PLAYLIST_RANKLISTLIST: /*åˆ é™¤æ’­æ”¾åˆ—è¡¨ä¸­æŸä¸ªè¯¦æƒ…è¡¨*/
+        printlog("DELETE_PLAYLIST_RANKLISTLIST\r");
         delete_playlist(p->data[0]);
         break;
-    case SWITCH_PLAYLIST: /*ÇĞ»»²¥·ÅÁĞ±í*/
+    case SWITCH_PLAYLIST: /*åˆ‡æ¢æ’­æ”¾åˆ—è¡¨*/
         printlog("SWITCH_PLAYLIST\r");
         switch_playlist(p->data[0]);
-        mcu_update_current_playdetail(); // ×Ô¶¯ÉÏ±¨µ±Ç°²¥·ÅÏêÇé
-        mcu_update_playstatus();         // ×Ô¶¯ÉÏ±¨²¥·Å×´Ì¬
+        mcu_update_current_playdetail(); // è‡ªåŠ¨ä¸ŠæŠ¥å½“å‰æ’­æ”¾è¯¦æƒ…
+        mcu_update_playstatus();         // è‡ªåŠ¨ä¸ŠæŠ¥æ’­æ”¾çŠ¶æ€
         break;
-    case ASK_PLAYDETAIL: /*ÇëÇó²¥·ÅÏêÇé*/
+    case ASK_PLAYDETAIL: /*è¯·æ±‚æ’­æ”¾è¯¦æƒ…*/
         printlog("ASK_PLAYDETAIL\r");
         mcu_update_playdetail(p->data[0]);
         break;
-    case ASK_PLAYSTATUS: /*ÇëÇó²¥·Å×´Ì¬*/
+    case ASK_PLAYSTATUS: /*è¯·æ±‚æ’­æ”¾çŠ¶æ€*/
         printlog("ASK_PLAYSTATUS\r");
         break;
-    case DELETE_SCHEDULE: /*É¾³ı¶¨Ê±¼Æ»®*/
+    case DELETE_SCHEDULE: /*åˆ é™¤å®šæ—¶è®¡åˆ’*/
         printlog("DELETE_SCHEDULE\r");
         delete_schedule(p->data[0]);
         break;
-    case ASK_SCHEDULE_DETAIL: /*ÇëÇó¶¨Ê±ÏêÇé*/
+    case ASK_SCHEDULE_DETAIL: /*è¯·æ±‚å®šæ—¶è¯¦æƒ…*/
         printlog("ASK_SCHEDULE_DETAIL\r");
-        mcu_update_schedule_detail(p->data[0]);
+        mcu_update_clock_detial(p->data[0]);
         break;
-    case ASK_DEVICEDATA: /*ÇëÇóµÆ°åĞÅÏ¢*/
-        printlog("ASK_DEVICEDATA\r");
+    case INTER_APPCONNTROL: /*è¿›å…¥appæ§åˆ¶*/
+        printlog("INTER_APPCONNTROL\r");
+        enter_device_pairing_mode();    // è¿›å…¥ç¯æ¿é…å¯¹æ¨¡å¼
+        turn_off_all_salve_light(); // å…³é—­æ‰€æœ‰ç¯å…‰
         mcu_update_device_detail();
         print_slave_data();
         break;
-    case EXIT_APPCONNTROL: /*ÍË³öapp¿ØÖÆ*/
+    case EXIT_APPCONNTROL: /*é€€å‡ºappæ§åˆ¶*/
         printlog("EXIT_APPCONNTROL\r");
-
+        enter_playing_effect_mode(); // è¿›å…¥æ­£å¸¸æ’­æ”¾ç¯æ•ˆæ¨¡å¼
         break;
-    case ASK_SCHEDULE_SKETCH: /*ÇëÇó¶¨Ê±¼Æ»®±í*/
+    case ASK_SCHEDULE_SKETCH: /*è¯·æ±‚å®šæ—¶è®¡åˆ’è¡¨*/
         printlog("ASK_SCHEDULE_SKETCH\r");
-        mcu_update_schedule_sketch();
+        mcu_update_clock_list();
         break;
-    case PLAY_TEMP_EFFECT: /*²¥·ÅÁÙÊ±µÆĞ§*/
+    case PLAY_TEMP_EFFECT: /*æ’­æ”¾ä¸´æ—¶ç¯æ•ˆ*/
         printlog("PLAY_TEMP_EFFECT\r");
         play_new_effect(p->data[0]);
-        mcu_update_current_playdetail(); // ×Ô¶¯ÉÏ±¨µ±Ç°²¥·ÅÏêÇé
-        mcu_update_playstatus();         // ×Ô¶¯ÉÏ±¨²¥·Å×´Ì¬
+        mcu_update_current_playdetail(); // è‡ªåŠ¨ä¸ŠæŠ¥å½“å‰æ’­æ”¾è¯¦æƒ…
+        mcu_update_playstatus();         // è‡ªåŠ¨ä¸ŠæŠ¥æ’­æ”¾çŠ¶æ€
+        break;
+    case RESET_BUILTIN_EF:  /* é‡ç½®å†…ç½®ç¯æ•ˆ */
+        printlog("RESET_BUILTIN_EF\r");
+        reset_built_in_effect(p->data[0]);
+        mcu_update_one_efsketch(p->data[0]);
         break;
     default:
         printlog("[error] wrong command num:%d\r", p->cmd);
@@ -400,16 +415,20 @@ uint8_t mcu_download_issue_cmd_handle(uint8_t *sur, uint16_t length)
     }
     return 1;
 }
-/*Õë¶ÔDPID_EFFECT_PREVIEWµÄ´¦Àíº¯Êı*/
+/*é’ˆå¯¹DPID_EFFECT_PREVIEWçš„å¤„ç†å‡½æ•°*/
 void mcu_download_effect_preview(uint8_t *sur, uint16_t length)
 {
-    printlog("effect_preview \r");
+    printlog("<effect_preview>\r");
+    print_com_effect_detial_log(sur); // æ‰“å°log
+    enter_preview_effect_mode(&(((com_effect_detial_TypeDef*)sur)->Efdata));
+    // // print_effect_detial();
+   // print_com_playdetial(sur);
 //    com_effect_detial_TypeDef p;
 //    printlog("\r\r\r{effect_preview}\r\r");
 //    memcpy(&p, value, sizeof(p));
 //    if ((uint8_t)checksum_calculate(value, length - 1) == p.sum)
 //    {
-//        print_com_effect_detial_log(&p); // ´òÓ¡log
+//        print_com_effect_detial_log(&p); // æ‰“å°log
 //    }
 //    else
 //    {
@@ -419,10 +438,10 @@ void mcu_download_effect_preview(uint8_t *sur, uint16_t length)
 //    }
 }
 
-/*Õë¶ÔDPID_PLAY_DETIALµÄ´¦Àíº¯Êı*/
+/*é’ˆå¯¹DPID_PLAY_DETIALçš„å¤„ç†å‡½æ•°*/
 uint8_t mcu_download_play_detial(uint8_t *sur, uint16_t length)
 {
-    printlog("mcu_download_play_detial \r");
+    printlog("<mcu_download_play_detial>\r");
     if (com_dataverify(sur, length) == 0)
     {
         return 0;
@@ -432,29 +451,29 @@ uint8_t mcu_download_play_detial(uint8_t *sur, uint16_t length)
     mcu_update_playlist_ranklist();
     return 1;
 }
-/*Õë¶ÔDPID_PLAY_CONTROL_DETIALµÄ´¦Àíº¯Êı*/
+/*é’ˆå¯¹DPID_PLAY_CONTROL_DETIALçš„å¤„ç†å‡½æ•°*/
 uint8_t mcu_download_play_control_detial(uint8_t *sur, uint16_t length)
 {
-    printlog("mcu_download_play_control_detial\r");
+    printlog("<mcu_download_play_control_detial>\r");
     if (com_dataverify(sur, length) == 0)
     {
         return 0;
     }
     switch (((com_play_control_TypeDef *)sur)->type)
     {
-    case PLAY_STATUS: // ²¥·Å/ÔİÍ£
+    case PLAY_STATUS: // æ’­æ”¾/æš‚åœ
         play.status = (playstatus_enum)(((com_play_control_TypeDef *)sur)->value);
         break;
-    case PLAY_SWITCH: // ÉÏÏÂÇúÇĞ»»
+    case PLAY_SWITCH: // ä¸Šä¸‹æ›²åˆ‡æ¢
         switch_ln_effect((switchplay_enum)(((com_play_control_TypeDef *)sur)->value));
         break;
-    case EFFECT_INDEX: // Ğ§¹ûË÷Òı
+    case EFFECT_INDEX: // æ•ˆæœç´¢å¼•
 
         break;
-    case PLAY_MODE: // ²¥·ÅÑ­»·Ä£Ê½
+    case PLAY_MODE: // æ’­æ”¾å¾ªç¯æ¨¡å¼
         play.mode = (playmode_enum)(((com_play_control_TypeDef *)sur)->value);
         break;
-    case PLAYLIST_INDEX: // ²¥·ÅÁĞ±íË÷Òı
+    case PLAYLIST_INDEX: // æ’­æ”¾åˆ—è¡¨ç´¢å¼•
         switch_playlist((((com_play_control_TypeDef *)sur)->value));
         break;
     default:
@@ -466,14 +485,14 @@ uint8_t mcu_download_play_control_detial(uint8_t *sur, uint16_t length)
     return 1;
 }
 
-/*Õë¶ÔDPID_DEVICE_DETAILµÄ´¦Àíº¯Êı*/
+/*é’ˆå¯¹DPID_DEVICE_DETAILçš„å¤„ç†å‡½æ•°*/
 void mcu_download_device_detail(uint8_t *sur, uint16_t length)
 {
     uint8_t i, j;
     com_device_detail_TypeDef com;
     device_detail_TypeDef device;
-    printlog("mcu_download_device_detail\r");
-    j = length / sizeof(com_device_detail_TypeDef); // Ëã³öÉè±¸ÊıÁ¿
+    printlog("<mcu_download_device_detail>\r");
+    j = length / sizeof(com_device_detail_TypeDef); // ç®—å‡ºè®¾å¤‡æ•°é‡
     for (i = 0; i < j; i++)
     {
         memset(&device, 0, sizeof(device));
@@ -486,82 +505,76 @@ void mcu_download_device_detail(uint8_t *sur, uint16_t length)
     }
     save_all_slave_data(&slave);
     print_slave_data();
-    goto_mcu_control_mode();    // ½øÈëmcu¿ØÖÆÄ£Ê½
+    enter_playing_effect_mode();    // è¿›å…¥æ­£å¸¸æ’­æ”¾ç¯æ•ˆæ¨¡å¼
 }
-/*Õë¶ÔDPID_DEVICE_CONTROLµÄ´¦Àíº¯Êı*/
+/*é’ˆå¯¹DPID_DEVICE_CONTROLçš„å¤„ç†å‡½æ•°*/
 uint8_t mcu_download_device_control(uint8_t *sur, uint16_t length)
 {
     // // com_device_control_TypeDef* p;
     color_TypeDef color;
     uint8_t i;
-    printlog("mcu_download_device_control\r");
-    goto_app_control_mode(); // ½øÈëapp¿ØÖÆÄ£Ê½
-    if (com_dataverify(sur, length) == 0)
-    {
-        return 0;
-    }
-    printhex_my(sur, length);
-    // // p = (com_device_control_TypeDef *)sur;
+    printlog("<mcu_download_device_control>\r");
+    enter_device_pairing_mode(); // è¿›å…¥ç¯æ¿é…å¯¹æ¨¡å¼
+    light_device_pairing_play((app_device_control_Typedef*)sur);
+    // print_device_control((app_device_control_Typedef*)sur);
+    
+    // if (com_dataverify(sur, length) == 0)
+    // {
+    //     return 0;
+    // }
+    // printhex_my(sur, length);
+    // p = (com_device_control_TypeDef *)sur;
 
-    // // printlog("id:%d\r",((com_device_control_TypeDef *)sur)->data[0].id);
+    // printlog("id:%d\r",((com_device_control_TypeDef *)sur)->data[0].id);
 
-    light_up_only_one_slave(((com_device_control_TypeDef *)sur)->data[0].id);
-    // // for (i = 0; i < p->num; i++)
-    // // {
-    // //     color.brightness = p->data[i].brightness;
-    // //     color.R = p->data[i].R;
-    // //     color.G = p->data[i].G;
-    // //     color.B = p->data[i].B;
-    // //     color.W = p->data[i].W;
-    // //     refresh_device_color(&color, p->data[i].id);
-    // // }
+    // light_up_only_one_slave(((com_device_control_TypeDef *)sur)->data[0].id);
+    // for (i = 0; i < p->num; i++)
+    // {
+    //     color.brightness = p->data[i].brightness;
+    //     color.R = p->data[i].R;
+    //     color.G = p->data[i].G;
+    //     color.B = p->data[i].B;
+    //     color.W = p->data[i].W;
+    //     refresh_device_color(&color, p->data[i].id);
+    // }
     // // print_slave_color();
 
     return 1;
 }
-/*Õë¶ÔDPID_CLOCK_DETIALµÄ´¦Àíº¯Êı*/
-uint8_t mcu_download_clock_detial(uint8_t *sur, uint16_t length)
-{
-    schedule_detail_TypeDef schedule_detail;
 
-    printlog("mcu_download_clock_detial\r");
-    copy_schedule_detail_from_com((com_schedule_detail_TypeDef *)sur, &schedule_detail);
-    print_schedule_detial(&schedule_detail);
-    add_schedule(&schedule_detail, ((com_schedule_detail_TypeDef *)sur)->index);
-    mcu_update_schedule_sketch();
-    print_all_schedule();
-}
 /*
 
 
 
 
 */
-/*ÔÚÏßÏÂÔØ¹Ì¼ş*/
+/*åœ¨çº¿ä¸‹è½½å›ºä»¶*/
 void mcu_firmware_download(uint8_t *sur, uint16_t position, uint16_t length)
 {
-    static uint32_t packsum = 0; // Éı¼¶°üĞ£ÑéºÍ
+    static uint32_t packsum = 0; // å‡çº§åŒ…æ ¡éªŒå’Œ
     uint32_t chechsum;
+    sys.sta.firmware_dowmload = 1;
     if (length == 0)
     {
-        // ¹Ì¼şÊı¾İ·¢ËÍÍê³É
-
+        // å›ºä»¶æ•°æ®å‘é€å®Œæˆ
         chechsum = get_firmware_chechsum_norflash();
         printlog("package sum is 0x%04x,norflash firmware chechsum:0x%04x\r", packsum, chechsum);
-        if (packsum == chechsum) // Ğ£Ñé´æ´¢Êı¾İÊÇ·ñÓëÉı¼¶°üÒ»ÖÂ
+        if (packsum == chechsum) // æ ¡éªŒå­˜å‚¨æ•°æ®æ˜¯å¦ä¸å‡çº§åŒ…ä¸€è‡´
         {
-            set_firmware_update_flag(packsum); // Éè±êÖ¾
-            /* ÖØÆô*/
+            set_firmware_update_flag(packsum); // è®¾æ ‡å¿—
+            /* é‡å¯*/
             printlog("\rsystem restart..\r\n");
             __NVIC_SystemReset();
-            // // if (check_firmware_update())
-            // // {
-            // //     printlog("firmware is correct\r\n");
-            // // }
-            // // else
-            // // {
-            // //     printlog("firmware is error\r\n");
-            // // }
+            /*
+            if (check_firmware_update())
+            {
+                printlog("firmware is correct\r\n");
+            }
+            else
+            {
+                printlog("firmware is error\r\n");
+            }
+            */
         }
         else
         {
@@ -570,44 +583,22 @@ void mcu_firmware_download(uint8_t *sur, uint16_t position, uint16_t length)
     }
     else
     {
-        // ¹Ì¼şÊı¾İ´¦Àí
-        if (position == 0) // ÊÕ°ü³õÊ¼»¯
+        // å›ºä»¶æ•°æ®å¤„ç†
+        if (position == 0) // æ”¶åŒ…åˆå§‹åŒ–
         {
             packsum = 0;
-            clear_firmware_update_flag();       // Çå±êÖ¾
-            erase_firmware_block64K_norflash(); // ²Á³ı¹Ì¼şÇø
+            clear_firmware_update_flag();       // æ¸…æ ‡å¿—
+            erase_firmware_block64K_norflash(); // æ“¦é™¤å›ºä»¶åŒº
         }
-        download_firmware_to_norflash(sur, position); // ÏÂÔØ¹Ì¼ş°ü
-        packsum += checksum_calculate(sur, 256);      // ÀÛ¼ÆĞ£ÑéºÍ
+        download_firmware_to_norflash(sur, position); // ä¸‹è½½å›ºä»¶åŒ…
+        packsum += checksum_calculate(sur, 256);      // ç´¯è®¡æ ¡éªŒå’Œ
     }
 }
 
 /*
- * @Description: Õë¶ÔDPID_BRIGHT_VALµÄ´¦Àíº¯Êı
- * @param: ÎŞ
- * @return: ÎŞ
-*/
-void mcu_download_bright_val(uint8_t bri)
-{
-    printlog("mcu_download_bright_val:%d\r",bri);
-    play.work.brightness.set = bri;
-}
-
-/*
- * @Description: ÉÏ´«ÁÁ¶È
- * @param:
- * @return:
-*/
-void mcu_update_bright_val(void)
-{
-    printlog("mcu_download_bright_val:%d\r",play.work.brightness.set);
-    mcu_dp_value_update(DPID_BRIGHT_VAL,play.work.brightness.set); //VALUEĞÍÊı¾İÉÏ±¨;
-}
-
-/*
- * @Description: Õë¶ÔDPID_SWITCH_LEDµÄ´¦Àíº¯Êı
- * @param: ÎŞ
- * @return: ÎŞ
+ * @Description: é’ˆå¯¹DPID_SWITCH_LEDçš„å¤„ç†å‡½æ•°
+ * @param: æ— 
+ * @return: æ— 
 */
 void mcu_download_switch_led(uint8_t sw)
 {
@@ -623,82 +614,256 @@ void mcu_download_switch_led(uint8_t sw)
 }
 
 /*
- * @Description: ÉÏ±¨¿ª¹Ø×´Ì¬
- * @param: ÎŞ
- * @return: ÎŞ
+ * @Description: ä¸ŠæŠ¥å¼€å…³çŠ¶æ€
+ * @param: æ— 
+ * @return: æ— 
 */
 void mcu_update_switch_led(void)
 {
     printlog("mcu_update_switch_led:%d\r", play.work.sw_status);
-    mcu_dp_bool_update(DPID_SWITCH_LED, play.work.sw_status); // BOOLĞÍÊı¾İÉÏ±¨;
+    mcu_dp_bool_update(DPID_SWITCH_LED, play.work.sw_status); // BOOLå‹æ•°æ®ä¸ŠæŠ¥;
+}
+
+/*-------------------------------------------------------------*/
+/* 
+ * @Description: ä¸‹è½½æŒ‡ç¤ºç¯å¼€å…³çŠ¶æ€
+ * @param: 
+ * @return: 
+*/ 
+void mcu_download_switch_indicator(uint8_t bool)
+{
+    printlog("mcu_download_switch_indicator:%d\r", bool);
+    if (bool == DISABLE_STA)
+    {
+        play.work.global_setting.indicator_sta = DISABLE_STA; // å¤±èƒ½çŠ¶æ€
+    }
+    else
+    {
+        play.work.global_setting.indicator_sta = ENABLE_STA; //ä½¿èƒ½çŠ¶æ€
+    }
+    save_global_setting(&play.work.global_setting);
+}
+
+/* 
+ * @Description: ä¸Šä¼ æŒ‡ç¤ºç¯å¼€å…³çŠ¶æ€
+ * @param: 
+ * @return: 
+*/ 
+void mcu_update_switch_indicator(void)
+{
+    printlog("mcu_update_switch_indicator:%d\r", play.work.global_setting.indicator_sta);
+    mcu_dp_bool_update(DPID_SWITCH_INDICATOR,play.work.global_setting.indicator_sta); //BOOLå‹æ•°æ®ä¸ŠæŠ¥;
+}
+/*-------------------------------------------------------------*/
+
+/*
+ * @Description: ä¸‹è½½éº¦å…‹é£å¼€å…³çŠ¶æ€
+ * @param:
+ * @return:
+ */
+void mcu_download_switch_mic(uint8_t bool)
+{
+    printlog("mcu_download_switch_mic:%d\r", bool);
+    if (bool == DISABLE_STA)
+    {
+        play.work.global_setting.microphone_ensta = DISABLE_STA; // å¤±èƒ½çŠ¶æ€
+    }
+    else
+    {
+        play.work.global_setting.microphone_ensta = ENABLE_STA; // ä½¿èƒ½çŠ¶æ€
+    }
+    save_global_setting(&play.work.global_setting);
+}
+
+/*
+ * @Description: ä¸Šä¼ éº¦å…‹é£å¼€å…³çŠ¶æ€
+ * @param:
+ * @return:
+ */
+void mcu_update_switch_mic(void)
+{
+    printlog("mcu_update_switch_mic:%d\r", play.work.global_setting.microphone_ensta);
+    mcu_dp_bool_update(DPID_SWITCH_MIC, play.work.global_setting.microphone_ensta); // BOOLå‹æ•°æ®ä¸ŠæŠ¥;
+}
+/*-------------------------------------------------------------*/
+
+/*
+ * @Description: ä¸‹è½½å…¨å±€äº®åº¦
+ * @param: æ— 
+ * @return: æ— 
+ */
+void mcu_download_bright_val(uint8_t bri)
+{
+    printlog("mcu_download_bright_val:%d\r", bri);
+    play.work.global_setting.brightness_set = bri;
+    save_global_setting(&play.work.global_setting);
+}
+
+/*
+ * @Description: ä¸Šä¼ å…¨å±€äº®åº¦
+ * @param:
+ * @return:
+ */
+void mcu_update_bright_val(void)
+{
+    printlog("mcu_download_bright_val:%d\r", play.work.global_setting.brightness_set);
+    mcu_dp_value_update(DPID_BRIGHT_VAL, play.work.global_setting.brightness_set); // VALUEå‹æ•°æ®ä¸ŠæŠ¥;
+}
+
+/*---------------------------------------------------------------------------------*/
+
+/* 
+ * @Description: ä¸‹è½½è‡ªåŠ¨äº®åº¦çš„å¼€å…³
+ * @param: 
+ * @return: 
+*/ 
+void mcu_download_auto_brightness_switch(uint8_t bool)
+{
+    printlog("mcu_download_auto_brightness_switch:%d\r", bool);
+    if (bool == DISABLE_STA)
+    {
+       play.work.global_setting.autobright_ensta  = DISABLE_STA; // å¤±èƒ½çŠ¶æ€
+    }
+    else
+    {
+        play.work.global_setting.autobright_ensta  = ENABLE_STA; // ä½¿èƒ½çŠ¶æ€
+    }
+    save_global_setting(&play.work.global_setting);
+}
+
+/* 
+ * @Description: ä¸Šä¼ è‡ªåŠ¨äº®åº¦çš„å¼€å…³
+ * @param: 
+ * @return: 
+*/ 
+void mcu_update_auto_brightness_switch(void)
+{
+    printlog("mcu_update_auto_brightness_switch:%d\r", play.work.global_setting.autobright_ensta);
+    mcu_dp_bool_update(DPID_AUTO_BRIGHTNESS_SWITCH,play.work.global_setting.autobright_ensta);
+}
+
+/*---------------------------------------------------------------------------------*/
+/* 
+ * @Description: ä¸‹è½½è‡ªåŠ¨äº®åº¦çš„æ¨¡å¼
+ * @param: 
+ * @return: 
+*/ 
+void mcu_download_auto_brightness_mode(uint8_t num)
+{
+    printlog("mcu_download_auto_brightness_switch:%d\r", num);
+    if (num == Illumination)
+    {
+       play.work.global_setting.autobright_ensta  = Illumination; // è´Ÿåé¦ˆè‡ªåŠ¨äº®åº¦.ç…§æ˜
+    }
+    else
+    {
+        play.work.global_setting.autobright_ensta  = Ambient; // æ­£åé¦ˆè‡ªåŠ¨äº®åº¦.ç¯å¢ƒ
+    }
+    save_global_setting(&play.work.global_setting);
+}
+
+/* 
+ * @Description: ä¸Šä¼ è‡ªåŠ¨äº®åº¦çš„æ¨¡å¼
+ * @param: 
+ * @return: 
+*/ 
+void mcu_update_auto_brightness_mode(void)
+{
+    printlog("mcu_update_auto_brightness_switch:%d\r", play.work.global_setting.autobright_ensta);
+    mcu_dp_enum_update(DPID_AUTO_BRIGHTNESS_MODE, play.work.global_setting.autobright_ensta);
+}
+
+/*---------------------------------------------------------------------------------*/
+/* 
+ * @Description: ä¸‹è½½é—¹é’Ÿè®¡åˆ’æ¦‚è¿°è¡¨
+ * @param: 
+ * @param: 
+ * @return: 
+*/ 
+void mcu_download_clock_list(uint8_t *sur, uint16_t length)
+{
+    printlog("<mcu_download_clock_list>\r");
+    if (com_dataverify(sur, length) == 0)
+    {
+        return 0;
+    }
+    printlog("com_dataverify pass\r");
+    printhex_my(sur, length);
+}
+
+/* 
+ * @Description: ä¸Šä¼ é—¹é’Ÿè®¡åˆ’æ¦‚è¿°è¡¨
+ * @param: 
+ * @return: 
+*/ 
+void mcu_update_clock_list(void)
+{
+    com_schedule_sketchlist_TypeDef  com;
+    clock_list_TypeDef schedule;
+    uint8_t i;
+    printlog("mcu_update_clock_list\r");
+    get_all_schedule(&schedule);
+    memset(&com, 0, sizeof(com));
+    if (schedule.num < SCHEDULE_NUM)
+    {
+        com.num=schedule.num;
+        for (i = 0; i < schedule.num; i++)
+        {
+            com.list[i].index = i;
+            com.list[i].en_sta = schedule.list[i].en_sta;                 // å¯ç”¨çŠ¶æ€
+            com.list[i].action = schedule.list[i].action;                 // åŠ¨ä½œç±»å‹
+            com.list[i].actiontime.Min = schedule.list[i].actiontime.Min; // åŠ¨ä½œæ—¶é—´
+            com.list[i].actiontime.Sec = schedule.list[i].actiontime.Sec; // åŠ¨ä½œæ—¶é—´
+            com.list[i].repeat = schedule.list[i].repeat;                 // æ˜ŸæœŸè®¡åˆ’
+        }
+    }
+    else
+    {
+        printlog("[error] schedule data exception \r");
+        printAssert();
+    }
+    com.checksum = (uint8_t)checksum_calculate((uint8_t *)&com, (uint16_t)sizeof(com) - 1);
+    mcu_dp_raw_update(DPID_CLOCK_LIST, &com, sizeof(com));
 }
 
 
 
+/*---------------------------------------------------------------------------------*/
+/* 
+ * @Description: ä¸Šä¼ é—¹é’Ÿè¯¦æƒ…
+ * @param: 
+ * @return: 
+*/ 
+void mcu_update_clock_detial(uint8_t num)
+{
+    com_schedule_detail_TypeDef com;
+    clock_detail_TypeDef schedule_detail;
+    printlog("mcu_update_clock_detial\r");
+    memset(&com, 0, sizeof(com));
+    get_schedule_detail(&schedule_detail, num);
+    com.index = num;
+    copy_schedule_detail_to_com(&schedule_detail, &com);
+    com.checksum = (uint8_t)checksum_calculate((uint8_t *)&com, (uint16_t)sizeof(com) - 1);
+    mcu_dp_raw_update(DPID_CLOCK_DETIAL, &com, sizeof(com));
+}
+
+/* 
+ * @Description: ä¸‹è½½é—¹é’Ÿè¯¦æƒ…
+ * @param: 
+ * @param: 
+ * @return: 
+*/ 
+uint8_t mcu_download_clock_detial(uint8_t *sur, uint16_t length)
+{
+    clock_detail_TypeDef schedule_detail;
+    printlog("<mcu_download_clock_detial>\r");
+    printhex_my(sur, length);
+    copy_schedule_detail_from_com((com_schedule_detail_TypeDef *)sur, &schedule_detail);
+    print_clock_detial(&schedule_detail);
+    add_clock_schedule(&schedule_detail, ((com_schedule_detail_TypeDef *)sur)->index);
+    mcu_update_clock_list();
+    print_all_clock_detail();
+}
+
 
 /*---------------------------------------------------------------------------------*/
-/*
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-*/

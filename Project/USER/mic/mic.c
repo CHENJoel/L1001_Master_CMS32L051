@@ -2,7 +2,7 @@
  * @Author: joel
  * .chen sandote@163.om
  * @Date: 2023-06-30 14:13:00
- * @LastEditors: joel
+ * @LastEditors: DESKTOP-AKTRQKB\MY sandote@163.com
 .chen sandote@163.om
 .chen sandote@163.om
 .chen sandote@163.om
@@ -88,7 +88,7 @@ void process_mic_data(void)
         //     mic.grade = 2;
         // }
 
-        mic.bri_tar = mic.grade * (255 / MIC_SOUND_GRADE);
+        mic.bri_tar = mic.grade * (100 / MIC_SOUND_GRADE);
         // mic.bri_tar=temp
          // if (mic.bri_now < temp)
         // {
@@ -102,11 +102,11 @@ void process_mic_data(void)
         // }
         if (mic.bri_tar>mic.bri_now)
         {
-            Gradual_Change(&mic.bri_now,&mic.bri_tar,150);
+            Gradual_Change(&mic.bri_now,&mic.bri_tar,60);
         }
         else
         {
-            Gradual_Change(&mic.bri_now,&mic.bri_tar,10);
+            Gradual_Change(&mic.bri_now,&mic.bri_tar,4);
         }
 
         // printlog("bri_now %d",mic.bri_now);

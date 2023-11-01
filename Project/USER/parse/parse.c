@@ -102,7 +102,7 @@ __weak void protocol_rxdata_handle(uint8_t *p, uint16_t len)
     printlog("\rprotocol_rxdata_handle\r");
     for (i = 0; i < len; i++)
     {
-        printlog("%x ", *(p + i));
+        printlog("%02x ", *(p + i));
     }
     printlog("\r\n");
 }

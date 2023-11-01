@@ -71,12 +71,15 @@ void W25_CS(uint8_t level)
 */
 void SPI_Init(void)
 {
-    PORT_Init(PORT1, PIN1, INPUT);            /* (16) P11/SDI11/SDA11/ANI8/epwmmo01   MISO */
-    PORT_Init(PORT1, PIN2, OPENDRAIN_OUTPUT); /* (15) P12/SDO11/ANI13/epwmmo02        MOSI */
-    PORT_Init(PORT1, PIN3, OPENDRAIN_OUTPUT); /* (14) P13/ANI16/epwmmo03              SCLK */
-    PORT_Init(PORT1, PIN4, OPENDRAIN_OUTPUT); /* (13) P14/SDA20/ANI17/epwmmo04        CS   */
+    PORT_Init(PORT1, PIN1, PULLUP_INPUT); /* (16) P11/SDI11/SDA11/ANI8/epwmmo01   MISO */
+    PORT_Init(PORT1, PIN2, OUTPUT);       /* (15) P12/SDO11/ANI13/epwmmo02        MOSI */
+    PORT_Init(PORT1, PIN3, OUTPUT);       /* (14) P13/ANI16/epwmmo03              SCLK */
+    PORT_Init(PORT1, PIN4, OUTPUT);       /* (13) P14/SDA20/ANI17/epwmmo04        CS   */
 
-
+    // GPIO_PullUp_Enable(PORT1, PIN1);
+    // GPIO_PullUp_Enable(PORT1, PIN2);
+    // GPIO_PullUp_Enable(PORT1, PIN3);
+    // GPIO_PullUp_Enable(PORT1, PIN4);
     W25_CS(1);      // CS初始化高
     SPI_CLK(0);     // CLK初始化低
 }

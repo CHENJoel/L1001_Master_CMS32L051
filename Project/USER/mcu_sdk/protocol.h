@@ -9,7 +9,7 @@
  * @author  涂鸦综合协议开发组
  * @version v2.5.6
  * @date    2020.12.16
- * @brief
+ * @brief                
  *                       *******非常重要，一定要看哦！！！********
  *          1. 用户在此文件中实现数据下发/上报功能
  *          2. DP的ID/TYPE及数据处理函数都需要用户按照实际定义实现
@@ -33,7 +33,7 @@
 ******************************************************************************/
 #define PRODUCT_KEY "lhrbvicwsqvfuz0g"    //开发平台创建产品后生成的16位字符产品唯一标识
 
-#define MCU_VER "0.0.10"         //用户的软件版本,用于MCU固件升级,MCU升级版本需修改
+#define MCU_VER "1.0.05"         //用户的软件版本,用于MCU固件升级,MCU升级版本需修改
 
 /*  模块工作方式选择,只能三选一,推荐使用防误触模式  */
 //#define CONFIG_MODE     CONFIG_MODE_DEFAULT             //默认工作模式
@@ -41,7 +41,7 @@
 #define CONFIG_MODE     CONFIG_MODE_SPECIAL             //防误触模式(特殊配网方式)
 
 /*  设置低功耗配网方式和特殊配网方式的配网模式打开时间,该宏处于注释状态将按三分钟处理,可以支持的设置数据范围: 3~10 分钟  */
-#define CONFIG_MODE_DELAY_TIME    10         //配网模式打开时间 单位:分钟
+//#define CONFIG_MODE_DELAY_TIME    10         //配网模式打开时间 单位:分钟
 
 /*  选择smart模式和AP模式,该宏都注释将保持smart模式和AP模式互相切换  */
 //#define CONFIG_MODE_CHOOSE        0         //模块同时支持AP连接配网和EZ配网无需用户切换,对应的配网状态0x06
@@ -66,7 +66,7 @@ MCU可调用mcu_api.c文件内的mcu_firm_update_query()函数获取当前MCU固
 当前接收缓冲区为关闭固件更新功能的大小,固件升级包可选择，默认256字节大小
 如需要开启该功能,串口接收缓冲区会变大
 ******************************************************************************/
-#define SUPPORT_MCU_FIRM_UPDATE // 开启MCU固件升级功能(默认关闭)
+#define         SUPPORT_MCU_FIRM_UPDATE                 //开启MCU固件升级功能(默认关闭)
 /*  Firmware package size selection  */
 #ifdef SUPPORT_MCU_FIRM_UPDATE
 #define PACKAGE_SIZE                   0        //包大小为256字节
@@ -78,10 +78,10 @@ MCU可调用mcu_api.c文件内的mcu_firm_update_query()函数获取当前MCU固
                     如当前使用MCU的RAM不够,可修改为24
 ******************************************************************************/
 #ifndef SUPPORT_MCU_FIRM_UPDATE
-#define WIFI_UART_RECV_BUF_LMT          16              //串口数据接收缓存区大小,如MCU的RAM不够,可缩小
-#define WIFI_DATA_PROCESS_LMT           24              //串口数据处理缓存区大小,根据用户DP数据大小量定,必须大于24
+#define WIFI_UART_RECV_BUF_LMT          300              //串口数据接收缓存区大小,如MCU的RAM不够,可缩小
+#define WIFI_DATA_PROCESS_LMT           300              //串口数据处理缓存区大小,根据用户DP数据大小量定,必须大于24
 #else
-#define WIFI_UART_RECV_BUF_LMT          128             //串口数据接收缓存区大小,如MCU的RAM不够,可缩小
+#define WIFI_UART_RECV_BUF_LMT          300             //串口数据接收缓存区大小,如MCU的RAM不够,可缩小
 
 //请在此处选择合适的串口数据处理缓存大小（根据上面MCU固件升级包选择的大小和是否开启天气服务来选择开启多大的缓存）
 #define WIFI_DATA_PROCESS_LMT           300             //串口数据处理缓存大小,如需MCU固件升级,若单包大小选择256,则缓存必须大于260,若开启天气服务,则需要更大
@@ -145,7 +145,7 @@ wifi_test_result内部有#err提示,完成函数后请删除该#err
 
 /******************************************************************************
                       9:是否支持流服务功能
-STREM_PACK_LEN为流服务传输一包的大小，目前模块串口最大可以缓存的数据部分可以达到 1024 字节，一包地图
+STREM_PACK_LEN为流服务传输一包的大小，目前模块串口最大可以缓存的数据部分可以达到 1024 字节，一包地图 
 数据包数据部分不能超过 1024 字节，每包地图数据内容建议 512 字节每包。
 ******************************************************************************/
 //#define         WIFI_STREAM_ENABLE              //支持流服务相关功能
@@ -159,7 +159,7 @@ STREM_PACK_LEN为流服务传输一包的大小，目前模块串口最大可以
 并在protocol.c文件wifi_connect_test_result函数内查看测试结果,
 wifi_connect_test_result内部有#err提示,完成函数后请删除该#err
 ******************************************************************************/
-#define         WIFI_CONNECT_TEST_ENABLE                //开启WIFI产测功能（连接指定路由）
+//#define         WIFI_CONNECT_TEST_ENABLE                //开启WIFI产测功能（连接指定路由）
 
 /******************************************************************************
                       11:MCU是否需要开启获取当前WIFI联网状态功能
@@ -167,7 +167,7 @@ wifi_connect_test_result内部有#err提示,完成函数后请删除该#err
 并在protocol.c文件wifi_test_result函数内查看结果,
 wifi_test_result内部有#err提示,完成函数后请删除该#err
 ******************************************************************************/
-// // #define         GET_WIFI_STATUS_ENABLE                  //开启获取当前WIFI联网状态功能
+#define         GET_WIFI_STATUS_ENABLE                  //开启获取当前WIFI联网状态功能
 
 /******************************************************************************
                       12:MCU是否需要开启获取模块mac地址功能
@@ -240,7 +240,7 @@ get_voice_state/set_voice_MIC_silence/set_speaker_voice/voice_test/voice_awaken_
 并在protocol.c文件open_module_time_serve_result函数内查看结果,
 open_module_time_serve_result内部有#err提示,完成函数后请删除该#err
 ******************************************************************************/
-//#define         MODULE_EXPANDING_SERVICE_ENABLE        //开启模块拓展服务功能
+#define         MODULE_EXPANDING_SERVICE_ENABLE        //开启模块拓展服务功能
 
 /******************************************************************************
                       20:MCU是否需要支持蓝牙相关功能
@@ -255,7 +255,7 @@ BLE_test_result内部有#err提示,完成函数后请删除该#err
 
 /******************************************************************************
                         1:dp数据点序列号重新定义
-          **此为自动生成代码,如在开发平台有相关修改请重新下载MCU_SDK**
+          **此为自动生成代码,如在开发平台有相关修改请重新下载MCU_SDK**         
 ******************************************************************************/
 //开关(可下发可上报)
 //备注:
@@ -263,20 +263,26 @@ BLE_test_result内部有#err提示,完成函数后请删除该#err
 //模式(可下发可上报)
 //备注:
 #define DPID_WORK_MODE 21
+//冷暖值(可下发可上报)
+//备注:
+#define DPID_TEMP_VALUE 23
+//彩光(可下发可上报)
+//备注:彩光颜色、饱和度、亮度调节
+#define DPID_COLOUR_DATA 24
 //播放列表的某个效果的详情(可下发可上报)
 //备注:
 #define DPID_PLAYLIST_EFFECT_SKETCH 101
 //播放控制(可下发可上报)
-//备注:
+//备注:100:播放列表的索引 0:播放/暂停控制 1:上下曲控制 2: 效果索引 3:循环模式 ------------------------- 操作类型为100: 下发播放列表的索引 操作类型为0: 0-暂停,1-播放 操作类型为1: 0-上一曲,1-下一曲 操作类型为2: 播放效果索引(注意,app只解析,,固件上报当前的索引) 操作类型为3: 0-循环模式1,1-循环模式2
 #define DPID_PLAY_CONTROL 102
 //特效列表数据(可下发可上报)
-//备注:
+//备注:与返回参数一致，可下发可上报、透传型（Raw）、格式如下: 索引 0 1 0-32 所有effects的序号，查询详情效果详情入参 动作类型 1 1 0:Static,、1:Dynamic、2：Rhythm 效果类型 2 1 1：Origin、2：favorites、0：其他 形状数量 2 1 效果中七灯块的数量 色调1 3、4 2 0-360，0X0000-0X0168 饱和度1 5、6 2 0-1000, 0X0000-0X03E8 色调2 7、8 2 0-360，0X0000-0X0168 饱和度2 9、10 2 0-1000, 0X0000-0X03E8
 #define DPID_EFFECT_LIST 103
 //某个特效的详情(可下发可上报)
-//备注:
+//备注:索引 0 1 0-16 效果类型 1 1 1：Origin、2：favorites、0：其他 动作类型 2 1 0:Static,、1:Dynamic、2：Rhythm motion 类型 3 1 0:breath,、1:stream、2：reverberate，3Hopscotch,4lighting,5:lgnite,6Random 亮度1 4 1 0-100%，百分比的值 亮度2 5 1 0-100%，如若不是 Rhthm，则传值101 麦克风 6 1 0-100%，如若不是 Rhthm，则传值101 方向 7 1 0、1、2、3、4、5（上/下/左/右/内聚/外扩） 形状类型 8 1 0、1、2、3 位置 9 2 0x0000,高位代表x，地位代表y 角度 10 2 0-360 ... 颜色序列
 #define DPID_EFFECT_DETIAL 104
 //自定义协议(可下发可上报)
-//备注:
+//备注:自定义协议
 #define DPID_USER_PROTOCOL 105
 //亮度值(可下发可上报)
 //备注:
@@ -303,22 +309,22 @@ BLE_test_result内部有#err提示,完成函数后请删除该#err
 //备注:
 #define DPID_RUNNING_STATE 113
 //播放列表(可下发可上报)
-//备注:
+//备注:索引1 0 1 播放列表索引，用来记录 播放状态1 1 1 0:暂停 1:播放 循环模式1 2 1 0：循环模式1，1:循环模式2 索引2 4 1 播放列表索引，用来记录 播放状态2 5 1 0:暂停 1:播放 循环模式2 6 1 0：循环模式1，1:循环模式2
 #define DPID_PLAY_LIST 114
 //播放详情(可下发可上报)
-//备注:
+//备注:索引 0 1 播放列表索引，用来记录 播放状态 1 1 0:暂停 1:播放 循环模式 2 1 0：循环模式1，1:循环模式2 效果索引1 3 1 0-所有效果个数 duration1 4 1 0-240s 效果索引2 5 0-所有效果个数 duration12 6 1 0-所有效果个数
 #define DPID_PLAY_DETIAL 115
 //连接状态(可下发可上报)
-//备注:
+//备注:0 1 保留 1 1 0:断开，1连接
 #define DPID_LINK_STATUS 116
 //全局状态(可下发可上报)
-//备注:
+//备注:效果索引 0 1 0- 百分比 当前效果索引 1 1 色调1 2、3 2 0-360，0X0000-0X0168 饱和度1 4、5 2 0-1000, 0X0000-0X03E8 色调2 6、7 2 0-360，0X0000-0X0168 饱和度2 8、5 2 0-1000, 0X0000-0X03E8
 #define DPID_GLOBAL_STATUS 117
 //下发指令(可下发可上报)
 //备注:
 #define DPID_ISSUE_CMD 118
 //效果预览(可下发可上报)
-//备注:
+//备注:效果编辑界面预览,操作任意参数下发上报
 #define DPID_EFFECT_PREVIEW 119
 //全部灯效的顺序列表(可下发可上报)
 //备注:
@@ -345,17 +351,17 @@ BLE_test_result内部有#err提示,完成函数后请删除该#err
 //备注:
 #define DPID_CLOCK_DETIAL 127
 //灯板信息(可下发可上报)
-//备注:
+//备注:id、坐标、角度
 #define DPID_DEVICE_DETAIL 128
 //控制灯板(可下发可上报)
-//备注:
+//备注:控制灯板亮灯
 #define DPID_DEVICE_CONTROL 129
-//保留1(可下发可上报)
-//备注:
-#define DPID_RESERVED1 130
-//保留2(可下发可上报)
-//备注:
-#define DPID_RESERVED2 131
+//自动亮度开关/关闭(可下发可上报)
+//备注:控制自动亮度的开关
+#define DPID_AUTO_BRIGHTNESS_SWITCH 130
+//自动亮度的模式(可下发可上报)
+//备注:Illumination:照明， Ambient:氛围
+#define DPID_AUTO_BRIGHTNESS_MODE 131
 //保留3(可下发可上报)
 //备注:
 #define DPID_RESERVED3 132

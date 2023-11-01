@@ -17,7 +17,7 @@ Includes
 /* Start user code for include. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
 #include "userdefine.h"
-
+#include "Function_Init.H"
 /***********************************************************************************************************************
 Pragma directive
 ***********************************************************************************************************************/
@@ -51,6 +51,8 @@ void adc_interrupt(void)
     g_AdcIntTaken++;
     // g_temperature = adc_get_temperature(ADC->ADCR);
     /* End user code. Do not edit comment generated here */
+
+    
 }
 
 /***********************************************************************************************************************

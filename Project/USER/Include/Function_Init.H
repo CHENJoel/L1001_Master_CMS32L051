@@ -1,7 +1,7 @@
 /*
  * @Author: error: git config user.name && git config user.email & please set dead value or install git
  * @Date: 2022-04-01 16:53:48
- * @LastEditors: joel
+ * @LastEditors: DESKTOP-AKTRQKB\MY sandote@163.com
 .chen sandote@163.om
 .chen sandote@163.om
 .chen sandote@163.om
@@ -9,7 +9,8 @@
 .chen sandote@163.om
 .chen sandote@163.om
 .chen sandote@163.om
- * @LastEditTime: 2023-07-19 17:48:37
+.chen sandote@163.om
+ * @LastEditTime: 2023-10-31 10:56:16
  * @FilePath: \L1001_Master_CMS32L051\Project\USER\Include\Function_Init.H
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -27,8 +28,11 @@
 
 // // #include "Function_Init.H"
 #include <stdlib.h>
-#include "CMS32L051.h"
 #include "userdefine.h"
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+#include "CMS32L051.h"
 #include "sci.h"
 #include "gpio.h"
 #include "tim4.h"
@@ -37,9 +41,7 @@
 #include "rtc.h"
 #include "dma.h"
 #include"wdt.h"
-#include <stdio.h>
-#include <string.h>
-#include <math.h>
+
 
 #include "FIFO.h"
 #include "IR.H"
@@ -65,7 +67,7 @@
 #include "MEM.h"
 #include "Inf.h"
 
-#include "printlog.h"
+
 #include "comapp.h"
 #include "user_memory.h"
 #include "debug.h"
@@ -82,7 +84,11 @@
 #include "ProtocolCom.H"
 #include "flow.h"
 #include "mic.h"
-
+#include "calibration.H"
+// // #include "L0.H"
+// // #include "L0_slave.h"
+#include "appfunction.h"
+#include "printlog.h"
 #define IR_Version 0
 
 
@@ -163,8 +169,18 @@ extern unsigned int Fre_Val[65];
 // extern unsigned char FFT_OK;
 // extern unsigned char FFT_Flash;	//
 
-#define WIFI_SET()    PORT_SetBit(PORT12, PIN1)
-#define WIFI_RST()    PORT_ClrBit(PORT12, PIN1)
+// // #define WIFI_SET()    PORT_SetBit(PORT12, PIN1)
+// // #define WIFI_RST()    PORT_ClrBit(PORT12, PIN1)
+
+#define LED_R_PORT PORT12
+#define LED_B_PORT PORT12
+
+#define LED_R_PIN PIN4  // 新板
+#define LED_B_PIN PIN3  // 新板
+
+// // // #define LED_R_PIN PIN3  // 旧板
+// // // #define LED_B_PIN PIN4  // 旧板
+
 
 #define LED1_ON() PORT_SetBit(PORT12, PIN4)
 #define LED1_OFF() PORT_ClrBit(PORT12, PIN4)
@@ -172,17 +188,29 @@ extern unsigned int Fre_Val[65];
 #define LED2_ON() PORT_SetBit(PORT12, PIN3)
 #define LED2_OFF() PORT_ClrBit(PORT12, PIN3)
 
-// #define LED3_ON() PORT_SetBit(PORT12, PIN2)
-// #define LED3_OFF() PORT_ClrBit(PORT12, PIN2)
-
-// // #define LED4_ON() PORT_SetBit(PORT12, PIN3)
-// // #define LED4_OFF() PORT_ClrBit(PORT12, PIN3)
-
-// #define Master_RX_IO  PORT_GetBit(PORT2, PIN3)
-
 #define LED1_REV() PORT_ToggleBit(PORT12, PIN4);
-
 #define LED2_REV() PORT_ToggleBit(PORT12, PIN3);
+
+
+
+#define LED_Blue_flash() PORT_ToggleBit(LED_B_PORT, LED_B_PIN) // 闪烁
+#define LED_Blue_on() PORT_ClrBit(LED_B_PORT, LED_B_PIN)       // 亮
+#define LED_Blue_off() PORT_SetBit(LED_B_PORT, LED_B_PIN)      // 灭
+
+#define LED_Red_flash() PORT_ToggleBit(LED_R_PORT, LED_R_PIN) // 闪烁
+#define LED_Red_on() PORT_ClrBit(LED_R_PORT, LED_R_PIN)       // 亮
+#define LED_Red_off() PORT_SetBit(LED_R_PORT, LED_R_PIN)      // 灭
+
+#define LED_FLASH_INTURN()                  \
+    LED_Blue_flash();                       \
+    if (PORT_GetBit(LED_B_PORT, LED_B_PIN)) \
+    {                                       \
+        PORT_ClrBit(LED_R_PORT, LED_R_PIN); \
+    }                                       \
+    else                                    \
+    {                                       \
+        PORT_SetBit(LED_R_PORT, LED_R_PIN); \
+    }
 
 // #define LED3_REV()                 \
 //     if (PORT_GetBit(PORT12, PIN2)) \

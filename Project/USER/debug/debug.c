@@ -4,63 +4,98 @@
 
 const uint8_t tastcolor[][4] =
     {
-        {0, 0, 0, 255},
+        // // {0, 0, 0, 255},
         {255, 0, 0, 0},
         {255, 255, 0, 0},
         {0, 255, 0, 0},
         {0, 255, 255, 0},
         {0, 0, 255, 0},
-        {255, 128, 0, 0},   // 橙色
-        {200, 255, 37, 0},  // 淡黄绿
-        {233, 71, 9, 0},    // 橙红
-        {237, 175, 32, 0},  // 黄色
-        {87, 140, 188, 0},  // 蓝色
-        {37, 188, 255, 0},  // 浅蓝
-        {23, 129, 232, 0},  // 蓝
-        {146, 35, 255, 0},  // 紫
-        {230, 45, 232, 0},  // 粉紫
-        {255, 13, 192, 0},  // 紫红
-        {90, 167, 167, 0},  // 青
-        {150, 215, 198, 0}, // 粉绿
-        {186, 201, 74, 0},  // 嫩绿
-        {240, 218, 220, 0}, // 粉色
-        {245, 150, 176, 0}, // 深粉
-        {254, 225, 153, 0}, // 黄色
-        {118, 214, 201, 0}, // 青色
-        {133, 188, 218, 0}, // 蓝色
-        {252, 172, 230, 0}, // 浅粉
-        {253, 135, 221, 0}, // 粉色
-        {250, 28, 195, 0},  // 深粉色
-        {238, 0, 242, 0},   // 浅紫红
-        {112, 0, 240, 0},   // 浅紫色
-        {60, 0, 169, 0},    // 蓝紫色
-        {24, 16, 55, 0},    // 深紫色
-        {57, 35, 97, 0},    // 紫色
-        {113, 84, 174, 0},  // 浅紫
-        {128, 156, 228, 0}, // 浅蓝紫
-        {98, 191, 215, 0},  // 浅蓝
-        {82, 209, 192, 0},  // 浅青
-        {121, 246, 194, 0}, // 粉绿
-        {4, 164, 94, 0},    // 绿色
-        {241, 242, 237, 0}, // 灰白
-        {128, 211, 215, 0}, // 浅蓝
-        {113, 185, 223, 0}, // 蓝色
-        {41, 15, 180, 0},   // 海蓝色
-        {246, 234, 246, 0}, // 白紫
-        {72, 27, 137, 0},   // 紫色
-        {247, 198, 166, 0}, // 橙色
-        {247, 131, 137, 0}, // 红色
-        {166, 58, 76, 0},   // 朱红
-        {38, 38, 94, 0},    // 蓝紫
+        {255, 0, 255, 0},
+        // // {255, 0, 130, 0},
+        // // {255, 0, 60, 0},
+        // // {255, 0, 20, 0},
+        // // {180, 0, 255, 0},
+        // // {130, 0, 255, 0},
+        // // {75, 0, 255, 0},
+        // // {10, 0, 255, 0},
+        // // {150, 255, 0, 0},
+        // // {120, 255, 0, 0},
+        // // {60, 255, 0, 0},
+        // // {10, 255, 0, 0},
+        // // {255, 200, 0, 0},
+        // // {255, 160, 0, 0},
+        // // {255, 130, 0, 0},
+        // // {255, 80, 0, 0},
+        // // {255, 60, 0, 0},
+        // // {255, 40, 0, 0},
+        // // {255, 20, 0, 0},
+        // // {0, 255, 200, 0},
+        // // {0, 255, 180, 0},
+        // // {0, 255, 160, 0},
+        // // {0, 255, 130, 0},
+        // // {0, 255, 100, 0},
+        // // {0, 255, 80, 0},
+        // // {0, 255, 60, 0},
+        // // {0, 255, 10, 0},
+        // // {0, 210, 255, 0},
+        // // {0, 200, 255, 0},
+        // // {0, 170, 255, 0},
+        // // {0, 140, 255, 0},
+        // // {0, 100, 255, 0},
+        // // {0, 75, 255, 0},
+        // // {0, 55, 255, 0},
+        // // {0, 35, 255, 0},
+        // // {0, 10, 255, 0},
+        // // {255, 128, 0, 0},   // 橙色
+        // // {200, 255, 37, 0},  // 淡黄绿
+        // // {233, 71, 9, 0},    // 橙红
+        // // {237, 175, 32, 0},  // 黄色
+        // // {87, 140, 188, 0},  // 蓝色
+        // // {37, 188, 255, 0},  // 浅蓝
+        // // {23, 129, 232, 0},  // 蓝
+        // // {146, 35, 255, 0},  // 紫
+        // // {230, 45, 232, 0},  // 粉紫
+        // // {255, 13, 192, 0},  // 紫红
+        // // {90, 167, 167, 0},  // 青
+        // // {150, 215, 198, 0}, // 粉绿
+        // // {186, 201, 74, 0},  // 嫩绿
+        // // {240, 218, 220, 0}, // 粉色
+        // // {245, 150, 176, 0}, // 深粉
+        // // {254, 225, 153, 0}, // 黄色
+        // // {118, 214, 201, 0}, // 青色
+        // // {133, 188, 218, 0}, // 蓝色
+        // // {252, 172, 230, 0}, // 浅粉
+        // // {253, 135, 221, 0}, // 粉色
+        // // {250, 28, 195, 0},  // 深粉色
+        // // {238, 0, 242, 0},   // 浅紫红
+        // // {112, 0, 240, 0},   // 浅紫色
+        // // {60, 0, 169, 0},    // 蓝紫色
+        // // {24, 16, 55, 0},    // 深紫色
+        // // {57, 35, 97, 0},    // 紫色
+        // // {113, 84, 174, 0},  // 浅紫
+        // // {128, 156, 228, 0}, // 浅蓝紫
+        // // {98, 191, 215, 0},  // 浅蓝
+        // // {82, 209, 192, 0},  // 浅青
+        // // {121, 246, 194, 0}, // 粉绿
+        // // {4, 164, 94, 0},    // 绿色
+        // // {241, 242, 237, 0}, // 灰白
+        // // {128, 211, 215, 0}, // 浅蓝
+        // // {113, 185, 223, 0}, // 蓝色
+        // // {41, 15, 180, 0},   // 海蓝色
+        // // {246, 234, 246, 0}, // 白紫
+        // // {72, 27, 137, 0},   // 紫色
+        // // {247, 198, 166, 0}, // 橙色
+        // // {247, 131, 137, 0}, // 红色
+        // // {166, 58, 76, 0},   // 朱红
+        // // {38, 38, 94, 0},    // 蓝紫
 };
 uint8_t test_onoff=1;
 uint8_t test_color_num;
-uint8_t test_brightness=255;
+uint8_t test_brightness=50;
 
 
 /*测试灯效的存储读写*/
-void
-debug_save_effect_detial(void)
+void debug_save_effect_detial(void)
 {
     static uint8_t i,j;
     uint8_t *pp;
@@ -250,10 +285,10 @@ void debug_delete_playlist(void)
 }
 
 /*测试添加定时表*/
-void debug_add_schedule(void)
+void debug_add_clock_schedule(void)
 {
-    schedule_list_TypeDef schedule;
-    schedule_detail_TypeDef detail;
+    clock_list_TypeDef schedule;
+    clock_detail_TypeDef detail;
     uint8_t i;
     printlog("debug add schedule\r");
     detail.name.length = 4;
@@ -267,7 +302,7 @@ void debug_add_schedule(void)
     detail.duration.Sec = 53;
     detail.repeat.week = 0x66;
     get_all_schedule(&schedule);
-    add_schedule(&detail, schedule.num);
+    add_clock_schedule(&detail, schedule.num);
 }
 
 /*测试删除定时表*/
@@ -303,16 +338,66 @@ void debug_play_last_effect(void)
 
 void debug(void)
 {
+    // static uint8_t i;
+    // if (i)
+    // {
+    //     i = 0;
+    //     // SPI_MOSI(0);
+    //     // SPI_CLK(0);
+    //     // W25_CS(0);
+    //     // LED1_OFF();
+    //     LED2_REV();
+    //     PORT_ClrBit(PORT1, PIN2);
+    //     PORT_ClrBit(PORT1, PIN3);
+    //     PORT_ClrBit(PORT1, PIN4);
 
+    //     PORT_ClrBit(PORT12, PIN4);
+    // }
+    // else
+    // {
+    //     i = 1;
+    //     // SPI_MOSI(1);
+    //     // SPI_CLK(1);
+    //     // W25_CS(1);
+    //     PORT_SetBit(PORT1, PIN2);
+    //     PORT_SetBit(PORT1, PIN3);
+    //     PORT_SetBit(PORT1, PIN4);
+    //     PORT_SetBit(PORT12, PIN4);
+    //      LED2_REV();
+    // }
+    // norflash_rw_debug(0);
+    // slave.num=3;
+    // // transmit_playdata_RGBbr();
+    // void transmit_playsame_RGBbr(L0_playRGBbr_Typedef *x)
+    // L0_playRGBbr_Typedef x;
+    // x.
+    // transmit_playsame_RGBbr();
 }
 
 
+void debug_K1_LONG(void)
+{
+    // if (calibration_enable)
+    // {
+    //     calibration_enable = 0;
+    // }
+    // else
+    // {
+    //     calibration_enable = 1;
+    // }
+}
 
 /*按键1服务调试函数*/
 void debug_K1(void)
 {
-    printf("\rK1\r");
-    test_onoff_play();
+    // printf("\rK1\r");
+    // debug_add_original_ef();
+    // slave_light_in_turn();
+    // connect_slave_device(0X36);
+    // // LED1_REV();
+    // poll_slave_id();
+    // slave_light_in_turn();
+    // test_onoff_play();
     // print_slave_data();
     // printf("init effect...\r");
     // // mcu_update_allef_ranklist();
@@ -321,34 +406,71 @@ void debug_K1(void)
 /*按键2服务调试函数*/
 void debug_K2(void)
 {
-    printf("\rK2\r");
-    test_change_color(1);
-
+    // printf("\rK2\r");
+    // slave_light_in_turn();
+    // test_change_color(1);
+    print_get_all_ef_ranklist();
 }
 /*按键3服务调试函数*/
 void debug_K3(void)
 {
-    printf("\rK3\r\n");
-    test_change_color(0);
-
+    // printf("\rK3\r\n");
+    // test_change_color(0);
+    //   print_get_favorites_ef_ranklist();  
+    // print_all_clock_detail();
+    search_norflash_ranklist();
 }
 /*按键4服务调试函数*/
 void debug_K4(void)
 {
-    printf("\rK4\r");
-    test_click_brightness(1);
+    ef_ranklist_TypeDef ranklist; // 列表信息
+    // debug_add_clock_schedule();
+    // print_all_clock_detail();
+    // printf("\rK4\r");
+    // test_click_brightness(1);
     // debug_play_next_effect();
-
-
+    // test_switch_brightness();
+    // // printlog("-------------------------------------------------------------------------------\n");
+    // // printlog("all effect\n");
+    // // get_allef_ranklist(&ranklist); // 获取全部灯效顺序表
+    // // print_ef_ranklist(&ranklist);  // 打印顺序列表信息
+    // // printlog("original effect\n");
+    // // get_originalef_ranklist(&ranklist); // 获取全部灯效顺序表
+    // // print_ef_ranklist(&ranklist);       // 打印顺序列表信息
+    // // printlog("favorite effect\n");
+    // // get_favoritesef_ranklist(&ranklist); // 获取全部灯效顺序表
+    // // print_ef_ranklist(&ranklist);        // 打印顺序列表信息
+    // // printlog("-------------------------------------------------------------------------------\n");
+    factoryreset_norflash();
 }
 
 /*按键5服务调试函数*/
 void debug_K5(void)
 {
-    uint16_t i;
-    uint32_t chechsum;
-    printf("\rK5\r");
-    test_click_brightness(0);
+    // // // uint16_t i;
+    // // // uint32_t chechsum;
+    // // // uint8_t num;
+    // // // // debug_delete_schedule();
+    // // // // printf("\rK5\r");
+    // // // // test_click_brightness(0);
+    // // // // if (calibration_enable)
+    // // // // {
+    // // // //     calibration_enable = 0;
+    // // // // }
+    // // // // else
+    // // // // {
+    // // // //     calibration_enable = 1;
+    // // // // }
+    // // // num = slave.num;
+    // // // slave.num = 32;
+    // // // transmit_playdata_RGBbr();
+    // // // slave.num = num;
+    // // norflash_reset_to_zreo();
+        printlog("-------------------------------------------------------------------------------\n");
+    print_get_original_ef_ranklist();
+    print_get_all_ef_ranklist();
+    print_get_favorites_ef_ranklist();
+        printlog("-------------------------------------------------------------------------------\n");
 }
 
 /*
@@ -372,14 +494,96 @@ void test_onoff_play(void)
 /*测试播放颜色*/
 void test_play_color(void)
 {
-    if (test_onoff)
+    uint8_t i;
+    static uint8_t j = 0;
+    switch (j)
     {
-        play_color_in_all_salve_light(test_brightness, tastcolor[test_color_num][0], tastcolor[test_color_num][1], tastcolor[test_color_num][2], tastcolor[test_color_num][3]);
+    case 0:
+        if (Tangram[0].R.Now < 250)
+        {
+            Tangram[0].R.Now+=3;
+        }
+        else
+        {
+            j++;
+        }
+        break;
+    case 1:
+        if (Tangram[0].G.Now < 250)
+        {
+            Tangram[0].G.Now+=3;
+        }
+        else
+        {
+            j++;
+        }
+        break;
+    case 2:
+        if (Tangram[0].B.Now < 250)
+        {
+            Tangram[0].B.Now+=3;
+            Tangram[0].R.Now-=3;
+        }
+        else
+        {
+            j++;
+        }
+        break;
+    case 3:
+
+        if (Tangram[0].G.Now)
+        {
+            Tangram[0].G.Now-=3;
+        }
+        if (Tangram[0].B.Now)
+        {
+            Tangram[0].B.Now-=3;
+        }
+        else
+        {
+            j++;
+        }
+        break;
+    default:
+        if (Tangram[0].R.Now)
+        {
+            Tangram[0].R.Now-=3;
+        }
+        j = 0;
+        break;
     }
-    else
-    {
-        play_color_in_all_salve_light(0, tastcolor[test_color_num][0], tastcolor[test_color_num][1], tastcolor[test_color_num][2], tastcolor[test_color_num][3]);
-    }
+
+    play_color_in_all_salve_light(255,Tangram[0].R.Now,Tangram[0].G.Now,Tangram[0].B.Now,Tangram[0].W.Now);
+
+    // // Tangram[0].R.Now = tastcolor[test_color_num][0];
+    // // Tangram[0].G.Now = tastcolor[test_color_num][1];
+    // // Tangram[0].B.Now = tastcolor[test_color_num][2];
+    // // Tangram[0].W.Now = tastcolor[test_color_num][3];
+    // if (test_onoff)
+    // {
+    //     // Tangram[0].R.Now = tastcolor[test_color_num][0];
+    //     // Tangram[0].G.Now = tastcolor[test_color_num][1];
+    //     // Tangram[0].B.Now = tastcolor[test_color_num][2];
+    //     // Tangram[0].W.Now = tastcolor[test_color_num][3];
+    //     for ( i = 0; i < slave.num; i++)
+    //     {
+    //         slave.data[i].runnum = 0;
+    //     }
+    //     play.work.brightness.now = test_brightness;
+    //     transmit_slave_play_data();
+    // }
+    // else
+    // {
+    //     play_color_in_all_salve_light(0, tastcolor[test_color_num][0], tastcolor[test_color_num][1], tastcolor[test_color_num][2], tastcolor[test_color_num][3]);
+    // }
+    // // if (test_onoff)
+    // // {
+    // //     play_color_in_all_salve_light(test_brightness, tastcolor[test_color_num][0], tastcolor[test_color_num][1], tastcolor[test_color_num][2], tastcolor[test_color_num][3]);
+    // // }
+    // // else
+    // // {
+    // //     play_color_in_all_salve_light(0, tastcolor[test_color_num][0], tastcolor[test_color_num][1], tastcolor[test_color_num][2], tastcolor[test_color_num][3]);
+    // // }
 }
 /*测试切换颜色*/
 void test_change_color(uint8_t dir)
@@ -410,6 +614,7 @@ void test_click_brightness(uint8_t dir)
         }
         else
         {
+
             test_brightness = 255;
         }
     }
@@ -421,10 +626,58 @@ void test_click_brightness(uint8_t dir)
         }
         else
         {
+
             test_brightness = 1;
         }
     }
 }
+
+/*
+ * @Description: 循环切换亮度
+ * @param:
+ * @return:
+ */
+void test_switch_brightness(void)
+{
+    uint16_t temp;
+
+    temp = test_brightness + 10;
+    if (temp > 100)
+    {
+        test_brightness = 0;
+    }
+    else
+    {
+        test_brightness = temp;
+    }
+    // // if (test_brightness < 230)
+    // // {
+    // //     test_brightness += 30;
+    // // }
+    // // else if (test_brightness == 255)
+    // // {
+    // //     test_brightness = 0;
+    // // }
+    // // else
+    // // {
+    // //     test_brightness = 255;
+    // // }
+}
+
+/*
+ * @Description: 循环切换颜色
+ * @param:
+ * @return:
+*/
+void test_switch_color(void)
+{
+    if (++test_color_num >= (sizeof(tastcolor) / 4))
+    {
+        test_color_num = 0;
+    }
+}
+
+
 /*测试长按加减亮度*/
 void test_long_brightness(uint8_t dir)
 {
@@ -442,4 +695,69 @@ void test_long_brightness(uint8_t dir)
             test_brightness--;
         }
     }
+}
+
+
+/*
+ * @Description: 循环老化测试
+ * @param:
+ * @return:
+*/
+void test_aging_cycle(void)
+{
+    test_switch_color();
+    test_switch_brightness();
+}
+
+/*
+ * @Description: led测试
+ * @param:
+ * @return:
+*/
+void debug_ledplay(void)
+{
+    static uint8_t sta;
+    static uint8_t i;
+    if (++i > 6)
+    {
+        i = 0;
+        switch (sta)
+        {
+        case 0:
+            LED2_ON();
+            LED1_ON();
+            sta++;
+            break;
+        case 1:
+            LED2_OFF();
+            LED1_ON();
+            sta++;
+            break;
+        case 2:
+            LED2_ON();
+            LED1_OFF();
+            sta++;
+            break;
+        default:
+            LED2_OFF();
+            LED1_OFF();
+            sta = 0;
+            break;
+        }
+    }
+}
+
+void debug_play_rgbbr(void)
+{
+    uint8_t buf[10];
+    buf[0] = 0xFF;
+    buf[1] = 0x71;
+    buf[2] = 0x00;
+    buf[3] = 0x01;
+    buf[4] = 0xFF;
+    buf[5] = tastcolor[test_color_num][0];                // r
+    buf[6] = tastcolor[test_color_num][1];                // g
+    buf[7] = tastcolor[test_color_num][2];                // b
+    buf[8] = test_brightness;                             // br
+    transmit_protocol_frame(&buf, 9, &parse.tx_framebuf); // 通过不定长协议发送
 }

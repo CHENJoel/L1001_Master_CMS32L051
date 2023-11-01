@@ -2,7 +2,7 @@
 #define INF_H
 #include "Function_Init.H"
 
-#pragma pack(push, 1) // 结构体按1字节对齐
+#define MAX_BRIGHTNESS 100  // 最大亮度
 
 #define EfColor_SizeNum 32    // 灯效的颜色容量（数量）
 #define EfColor_miniSizeNum 8 // 灯效概述的颜色容量（数量）
@@ -24,6 +24,32 @@
 #define default_ef_Direction DIRECTION_UP
 
 
+typedef enum
+{
+    DISABLE_STA,      // 失能状态
+    ENABLE_STA,       // 使能状态
+} enable_status_enum; // 使能状态
+
+/*********************************************/
+
+typedef enum
+{
+    Illumination,      // 负反馈自动亮度.照明
+    Ambient,           // 正反馈自动亮度.环境
+} autobrightType_enum; // 自动亮度类型
+
+typedef struct
+{
+    enable_status_enum autobright_ensta; // 自动亮度开关
+    autobrightType_enum autobrightType;  // 自动亮度类型
+    enable_status_enum indicator_sta;    // 指示灯开关
+    enable_status_enum microphone_ensta; // 麦克风开关
+    uint8_t brightness_set;              // 全局亮度存储值
+} global_setting_TypeDef;
+
+extern const global_setting_TypeDef global_setting_default;
+
+
 
 typedef struct
 {
@@ -41,14 +67,14 @@ typedef struct
 
 typedef enum /*动态效果*/
 {
-    FLOW_STATIC, // Static 静态
-    FLOW_BREATH, // Breath 呼吸
-    FLOW_STREAM, // Stream 流动
-    FLOW_REVERB, // Reverberate 来回
-    FLOW_HOPSCO, // Hopscotch 跳动
-    FLOW_LIGHTN, // Lightning 闪电
-    FLOW_IGNITE, // Ignite 点燃
-    FLOW_RANDOM, // Random 随机
+    FLOW_STATIC, // Static 静态 0
+    FLOW_BREATH, // Breath 呼吸 1
+    FLOW_STREAM, // Stream 流动 2
+    FLOW_REVERB, // Reverberate 来回 3
+    FLOW_HOPSCO, // Hopscotch 跳动 4
+    FLOW_LIGHTN, // Lightning 闪电 5
+    FLOW_IGNITE, // Ignite 点燃 6
+    FLOW_RANDOM, // Random 随机 7
 } Flow_Enum;     //
 
 typedef enum /*运动方向*/
@@ -76,6 +102,7 @@ typedef enum /*灯效属性*/
 } Attribute_Enum;
 
 /******************************************************************************************************************/
+#pragma pack(push, 1) // 结构体按1字节对齐
 /********************灯效数据********************/
 typedef struct
 {
@@ -93,7 +120,6 @@ typedef struct
     ColorID_TypeDef ColorID[EfColor_miniSizeNum]; // 静态灯效的颜色信息
 } EfColorminiInf_TypeDef;/*灯效概述/简易信息*/
 
-#pragma pack(push, 1)
 typedef struct
 {
     uint8_t namelenght;            /* 名字字符数量 */
@@ -108,7 +134,7 @@ typedef struct
     Flow_Enum Flow;                /* 动态效果 */
     EfColorInf_TypeDef EfColorInf; /* 颜色数据区 */
 } Efdetail_TypeDef; // 灯效详情
-#pragma pack(pop)
+
 
 
 /******************************************************************************************************************/
@@ -163,6 +189,11 @@ typedef struct
 /******************************************************************************************************************/
 /*********************************************************/
 /*定时表*/
+typedef enum
+{
+    FUN_DISABLE, // 功能未启用
+    FUN_ENABLE,  // 功能启用
+} FUN_ENABLE_STA; // 启用状态
 
 typedef enum /*  */
 {
@@ -188,46 +219,25 @@ typedef union
 typedef struct /*  */
 {
     name_TypeDef name;
+    FUN_ENABLE_STA en_sta;   // 启用状态
     action_enum action;      // 动作类型
     uint8_t ef_index;        // 灯效的索引号
     uint8_t ultimatebright;  // 最终亮度
     time_TypeDef actiontime; // 动作时间
     time_TypeDef duration;   // 持续时间
     repeat_TypeDef repeat;   // 星期计划
-} schedule_detail_TypeDef;
+} clock_detail_TypeDef;
 
 /******************************************************************************************************************/
 typedef struct /*  */
 {
     uint8_t num;                      /* 有效数据的数量 */
-    schedule_detail_TypeDef list[SCHEDULE_NUM]; /* 定时信息 */
-} schedule_list_TypeDef;
+    clock_detail_TypeDef list[SCHEDULE_NUM]; /* 定时信息 */
+} clock_list_TypeDef;
 /******************************************************************************************************************/
-/*********************************************/
-typedef struct
-{
-    // union
-    // {
-    //     uint8_t ON_flag;
-    //     struct
-    //     {
-    //         uint8_t Illumination : 1; // 负反馈
-    //         uint8_t Ambient : 1;      // 正反馈
-    //     } day;
-    // } AutoBrightness; // 自动亮度
 
-    union
-    {
-        uint8_t byte;
-        struct
-        {
-            uint8_t Illumination : 1; // 负反馈
-            uint8_t Ambient : 1;      // 正反馈
-            uint8_t StatusLED : 1;    // 指示灯
-            uint8_t MicrophoneEn : 1; // 麦克风开关
-        } bit;
-    } enable; // 自动亮度
-} GeneralSetting_TypeDef;
+
+
 
 // // // // int8_t RESERVED[512 - sizeof(Sector0_data_TypeDef)]; // 空间保留
 

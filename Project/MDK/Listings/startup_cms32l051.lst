@@ -470,11 +470,11 @@ ARM Macro Assembler    Page 8
               00000000 
 Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M0+ --apcs=inter
 work --depend=.\objects\startup_cms32l051.d -o.\objects\startup_cms32l051.o -I.
-\RTE\Device\CMS32L051TS20 -I.\RTE\_CMS32L051 -IF:\APP\Keil\ARM\CMSIS\5.7.0\CMSI
-S\Core\Include -IF:\APP\Keil\Cmsemicon\CMS32L051\1.2.0\Device\Include --predefi
-ne="__UVISION_VERSION SETA 534" --predefine="_RTE_ SETA 1" --predefine="_RTE_ S
-ETA 1" --list=.\listings\startup_cms32l051.lst RTE\Device\CMS32L051TS20\startup
-_CMS32L051.s
+\RTE\Device\CMS32L051TS20 -I.\RTE\_CMS32L051 -IC:\Users\MY\AppData\Local\Arm\Pa
+cks\ARM\CMSIS\5.7.0\CMSIS\Core\Include -IC:\Users\MY\AppData\Local\Arm\Packs\Cm
+semicon\CMS32L051\1.2.0\Device\Include --predefine="__UVISION_VERSION SETA 534"
+ --predefine="_RTE_ SETA 1" --predefine="_RTE_ SETA 1" --list=.\listings\startu
+p_cms32l051.lst RTE\Device\CMS32L051TS20\startup_CMS32L051.s
 
 
 

@@ -7,15 +7,15 @@
 typedef struct
 {
     uint8_t idex;            /* 索引 */
-    Efdetail_TypeDef Efdata;   /* 灯效详情 */
-    uint8_t checksum;             /* 校验和 */
+    Efdetail_TypeDef Efdata; /* 灯效详情 */
+    uint8_t checksum;        /* 校验和 */
 } com_effect_detial_TypeDef; // 灯效详情
 #pragma pack(pop)
 /*********************************************************************/
 #pragma pack(push, 1)
 typedef struct
 {
-    uint8_t index;                          /*索引*/
+    uint8_t index;                         
     uint8_t namelenght;                     /* 名字字符数量 */
     uint8_t Name[15];                       /* 灯效名字 */
     EffectType_Enum EffectType;             /* 灯效类型 */
@@ -78,28 +78,29 @@ typedef struct
 /*********************************************************************/
 typedef enum /*APP下发指令枚举*/
 {
-    ASK_EFSKETCH,                // 请求效果概述
-    ASK_EFDETAIL,                // 请求效果详情
-    DELETE_EF,                   // 删除效果
-    ADD_FAVORITES,               // 加入收藏
-    DELETE_FAVORITES,            // 取消收藏
-    ASK_ALLEFRANKLIST,           // 请求全部灯效的顺序表
-    ASK_ORINGINALRANKLIST,       // 请求自定义灯效的顺序表
-    ASK_FAVORITESRANKLIST,       // 请求收藏灯效的顺序表
-    ASK_PLAYLISTRANKLIST,        // 请求曲目列表的顺序表
-    ASK_EFFECTANKLIST,           // 请求灯效相关的顺序表(全部、自定义、收藏)
-    ASK_PLAY_EFSKETCH,           // 请求效果概述
-    REAERVE_CMD11,               // 保留
-    DELETE_PLAYLISTRANKLISTLIST, // 删除播放列表中某个详情表
-    SWITCH_PLAYLIST,             // 切换播放列表
-    ASK_PLAYDETAIL,              // 请求播放详情
-    ASK_PLAYSTATUS,              // 请求播放状态
-    DELETE_SCHEDULE,             // 删除定时计划
-    ASK_SCHEDULE_DETAIL,         // 请求定时详情
-    ASK_DEVICEDATA,              // 请求灯板信息
-    EXIT_APPCONNTROL,            // 退出app控制
-    ASK_SCHEDULE_SKETCH,         // 请求定时概述表
-    PLAY_TEMP_EFFECT,            // 播放临时灯效
+    ASK_EFSKETCH,                 // 请求效果概述
+    ASK_EFDETAIL,                 // 请求效果详情
+    DELETE_ORIGINAL_EF,           // 删除自定义灯效
+    ADD_FAVORITES_EF,             // 加入收藏
+    DELETE_FAVORITES_EF,          // 取消收藏
+    ASK_ALLEFRANKLIST,            // 请求全部灯效的顺序表
+    ASK_ORINGINAL_RANKLIST,       // 请求自定义灯效的顺序表
+    ASK_FAVORITES_RANKLIST,       // 请求收藏灯效的顺序表
+    ASK_PLAYLIST_RANKLIST,        // 请求曲目列表的顺序表
+    ASK_EFFECT_RANKLIST,          // 请求灯效相关的顺序表(全部、自定义、收藏)
+    ASK_PLAY_EFSKETCH,            // 请求效果概述
+    REAERVE_CMD11,                // 保留
+    DELETE_PLAYLIST_RANKLISTLIST, // 删除播放列表中某个详情表
+    SWITCH_PLAYLIST,              // 切换播放列表
+    ASK_PLAYDETAIL,               // 请求播放详情
+    ASK_PLAYSTATUS,               // 请求播放状态
+    DELETE_SCHEDULE,              // 删除定时计划
+    ASK_SCHEDULE_DETAIL,          // 请求定时详情
+    INTER_APPCONNTROL,            // 进入app控制
+    EXIT_APPCONNTROL,             // 退出app控制
+    ASK_SCHEDULE_SKETCH,          // 请求定时概述表
+    PLAY_TEMP_EFFECT,             // 播放临时灯效
+    RESET_BUILTIN_EF,             // 重置内置灯效
 } issue_cmd;
 #pragma pack(push, 1)
 typedef struct
@@ -165,11 +166,12 @@ typedef struct
 
 #pragma pack(push, 1)
 
-// sketch
+
 
 typedef struct
 {
     uint8_t index;
+    FUN_ENABLE_STA en_sta;   // 启用状态
     action_enum action;      // 动作类型
     time_TypeDef actiontime; // 动作时间
     repeat_TypeDef repeat;   // 星期计划
@@ -186,6 +188,7 @@ typedef struct /*  */
 {
     uint8_t index;
     name_TypeDef name;
+    FUN_ENABLE_STA en_sta;   // 启用状态
     action_enum action;      // 动作类型
     uint8_t ef_index;        // 灯效的索引号
     uint8_t ultimatebright;  // 最终亮度

@@ -94,7 +94,7 @@ volatile uint8_t g_iic21_rx_end;                /* iic21 receive data end */
 ***********************************************************************************************************************/
 void uart0_interrupt_receive(void)
 {
-    volatile uint8_t rx_data;
+    // volatile uint8_t rx_data;
     volatile uint8_t err_type;
 
     INTC_ClearPendingIRQ(SR0_IRQn);
@@ -106,8 +106,9 @@ void uart0_interrupt_receive(void)
         uart0_callback_error(err_type);
     }
 
-    rx_data = SCI0->RXD0;
-    FIFO_Byte_Push(&Uart0_Buffer, &(SCI0->RXD0)); //  数据压入缓存
+    // rx_data = SCI0->RXD0;
+    DMA_Enable(DMA_VECTOR_SR0);
+    // // // FIFO_Byte_Push(&Uart0_Buffer, &(SCI0->RXD0)); //  数据压入缓存
 
     // if (g_uart0_rx_length > g_uart0_rx_count)
     // {

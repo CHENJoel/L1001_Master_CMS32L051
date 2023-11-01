@@ -26,7 +26,7 @@ Size: 0x40000 , 262144 byte , 2097152 bit , 0x200000 bit
 #define SPARE_SIZE   0x10000UL
 #define VERIFY_SIZE  0xFF
 
-#define EF_MEM_VERIFY "effect data 2023/07/15 "
+#define EF_MEM_VERIFY "effect data 2023/10/31 5484696 "
 #define DEFAULE_PLAYLIST_NAME "default list"
 
 typedef struct
@@ -41,8 +41,11 @@ void EffectData_BlockErase_64k(void);
 
 /*校验顺序表内数据是否正确*/
 void verify_ranklist(void );
-/*校验灯效数据是否要恢复出厂设置*/
-void verify_factoryreset_effect_norflash(void);
+//
+void norflash_reset_to_zreo(void);      // 外置flash全片数据清零
+void factoryreset_norflash(void);               // norflash恢复出厂设置
+void verify_factoryreset_effect_norflash(void); // 校验灯效数据是否要恢复出厂设置
+//
 /* 出厂化内置播放表信息*/
 void init_default_playlist(void);
 /*获取灯效校验信息*/
@@ -51,8 +54,10 @@ void get_effect_verify(verify_Typedef *p);
 void save_effect_verify(verify_Typedef *p);
 /*对norflash里的数据进行初始化*/
 void norflash_data_init(void);
-/*内置灯效拷贝至外部norflash内*/
-void copy_built_in_ef_to_norflash(void);
+//
+void reset_built_in_effect(uint8_t efnum); // 重置内置原生灯效
+void copy_built_in_ef_to_norflash(void);   // 内置灯效拷贝至外部norflash内
+//
 /*检索flash中的自定义&收藏灯效顺序表*/
 void search_norflash_ranklist(void);
 /*校验全部灯效顺序表内数据是否正确*/
@@ -85,9 +90,11 @@ void get_playlist_name(name_TypeDef *p, uint8_t playnum);
 /*获取从机设备信息*/
 void get_all_slave_data(device_data_TypeDef* p);
 /* 获取全部定时计划*/
-void get_all_schedule(schedule_list_TypeDef *p);
+void get_all_schedule(clock_list_TypeDef *p);
 /* 获取定时详情*/
-void get_schedule_detail(schedule_detail_TypeDef *p, uint8_t num);
+void get_schedule_detail(clock_detail_TypeDef *p, uint8_t num);
+/* 获取系统全局设置 */
+void get_global_setting(global_setting_TypeDef *p);
 // // // /*获取播放详情列表的顺序表*/
 // // // void get_playdetaillist_ranklist(playdetaillist_ranklist_TypeDef *p);
 /*************************************************************************/
@@ -109,8 +116,13 @@ void save_playlist_ranklist(playlist_ranklist_TypeDef *p);
 /*存储从机设备信息*/
 void save_all_slave_data(device_data_TypeDef* p);
 /* 保存时间计划表*/
-void save_all_schedule(schedule_list_TypeDef *p);
+void save_all_schedule(clock_list_TypeDef *p);
 
+/*  */
+
+void save_global_setting(global_setting_TypeDef *p); // 保存系统全局设置
+void save_global_brightness_set(void);               // 保存全局亮度
+//
 // // // /*存储播放详情列表的顺序表*/
 // // // void save_playdetaillist_ranklist(playdetaillist_ranklist_TypeDef *p);
 /*************************************************************************/
@@ -122,8 +134,10 @@ uint8_t delete_num_from_effect_ranklist(ef_ranklist_TypeDef *p, uint8_t efnum);
 uint8_t add_num_from_effect_ranklist(ef_ranklist_TypeDef *p,uint8_t efnum);
 /*删除自定义灯效*/
 uint8_t delete_original_ef(uint8_t efnum);
-/*新增自定义灯效*/
-uint8_t add_original_ef(Efdetail_TypeDef *p, uint8_t efnum);
+//
+uint8_t add_original_ef(Efdetail_TypeDef *p, uint8_t efnum);        // 新增自定义灯效
+uint8_t update_built_in_effect(Efdetail_TypeDef *p, uint8_t efnum); // 更新内置灯效信息
+//
 /*删除所有自定义灯效*/
 void clear_all_original_ef(void);
 /*收藏灯效*/
@@ -135,18 +149,24 @@ uint8_t delete_playlist(uint8_t listnum);
 /*添加播放信息*/
 uint8_t add_playlist(playdetail_TypeDef *p, uint8_t listnum);
 
+// 
+
+
+
 /*删除列表*/
 void clear_all_ef_ranklist(void);
 /*删除播放列表*/
 void clear_playlist_ranklist(void);
 /*从通信中拷贝定时计划详情*/
-void copy_schedule_detail_from_com(com_schedule_detail_TypeDef *sur, schedule_detail_TypeDef *tar);
+void copy_schedule_detail_from_com(com_schedule_detail_TypeDef *sur, clock_detail_TypeDef *tar);
 /*拷贝定时计划详情至通信中*/
-void copy_schedule_detail_to_com(schedule_detail_TypeDef *sur, com_schedule_detail_TypeDef *tar);
+void copy_schedule_detail_to_com(clock_detail_TypeDef *sur, com_schedule_detail_TypeDef *tar);
 /*添加定时计划*/
-uint8_t add_schedule(schedule_detail_TypeDef *p, uint8_t num);
+uint8_t add_clock_schedule(clock_detail_TypeDef *p, uint8_t num);
 /*删除定时计划*/
 uint8_t delete_schedule(uint8_t num);
+//----------------------------------------------------------------
+void init_default_global_setting(void); // 全局设置初始化成默认数据
 /*--------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 /*
 
@@ -344,9 +364,10 @@ typedef struct
  */
 typedef struct
 {
-    verify_Typedef verify;          // 数据校验区
-    device_data_TypeDef slave;      // 设备信息
-    schedule_list_TypeDef schedule; // 定时任务
+    verify_Typedef verify;                 // 数据校验区
+    device_data_TypeDef slave;             // 设备信息
+    clock_list_TypeDef schedule;        // 定时任务
+    global_setting_TypeDef global_setting; // 全局设置
 } sysdata_Typedef;
 typedef struct
 {

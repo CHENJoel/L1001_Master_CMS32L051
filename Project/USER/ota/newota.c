@@ -2,14 +2,14 @@
  * @Author: joel
  * .chen sandote@163.om
  * @Date: 2023-06-05 09:52:26
- * @LastEditors: joel
+ * @LastEditors: DESKTOP-AKTRQKB\MY sandote@163.com
 .chen sandote@163.om
 .chen sandote@163.om
 .chen sandote@163.om
 .chen sandote@163.om
 .chen sandote@163.om
  * .chen sandote@163.om
- * @LastEditTime: 2023-07-13 16:24:02
+ * @LastEditTime: 2023-10-30 14:15:00
  * @FilePath: \L1001_Master_CMS32L051\Project\USER\ota\newota.c
  * @Description:
  *
@@ -96,3 +96,5 @@ uint8_t check_firmware_update(void)
         return 0;
     }
 }
+
+

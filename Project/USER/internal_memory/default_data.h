@@ -2,10 +2,10 @@
  * @Author: joel
  * .chen sandote@163.om
  * @Date: 2023-05-23 16:56:30
- * @LastEditors: joel
+ * @LastEditors: DESKTOP-AKTRQKB\MY sandote@163.com
 .chen sandote@163.om
  * .chen sandote@163.om
- * @LastEditTime: 2023-07-01 16:05:47
+ * @LastEditTime: 2023-10-28 10:54:04
  * @FilePath: \L1001_Master_CMS32L051\Project\USER\internal_memory\default_data.h
  * @Description:
  *
@@ -66,19 +66,6 @@ extern const uint8_t df_DanceParty[][4];
 
 
 
-// typedef struct
-// {
-//     uint8_t Name[16];              /* 灯效名字 */
-//     uint8_t Speed;                 /* 速度 */
-//     uint8_t Brightness1;           /* 亮度1 初始亮度/律动的最低亮度 */
-//     uint8_t Brightness2;           /* 亮度2 律动最高亮度*/
-//     uint8_t MicSensitivity;        /* 咪头灵敏度*/
-//     EffectType_Enum EffectType;    /* 灯效类型 */
-//     Attribute_Enum Attribute;      /* 灯效属性 */
-//     Direction_Enum Direction;      /* 运动方向 */
-//     Flow_Enum Flow;                /* 动态效果 */
-//     EfColorInf_TypeDef EfColorInf; /* 颜色数据区 */
-// } Efdetail_TypeDef; // 灯效详情
 /*
 */
 #endif

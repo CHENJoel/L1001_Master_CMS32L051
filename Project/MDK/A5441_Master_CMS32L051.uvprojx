@@ -49,7 +49,7 @@
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
           <OutputDirectory>.\Objects\</OutputDirectory>
-          <OutputName>L1001_Master</OutputName>
+          <OutputName>L1001_Master_CMS32L051</OutputName>
           <CreateExecutable>1</CreateExecutable>
           <CreateLib>0</CreateLib>
           <CreateHexFile>1</CreateHexFile>
@@ -83,7 +83,7 @@
             <RunUserProg1>1</RunUserProg1>
             <RunUserProg2>0</RunUserProg2>
             <UserProg1Name>$K\ARM\ARMCC\bin\fromelf.exe --bin --output=@L.bin !L</UserProg1Name>
-            <UserProg2Name></UserProg2Name>
+            <UserProg2Name>fromelf --L1001_Master_CMS32L051 -a -c --output=Objects\L1001_Master_CMS32L051.diis Objects\L1001_Master_CMS32L051.axf</UserProg2Name>
             <UserProg1Dos16Mode>0</UserProg1Dos16Mode>
             <UserProg2Dos16Mode>0</UserProg2Dos16Mode>
             <nStopA1X>0</nStopA1X>
@@ -339,7 +339,7 @@
               <MiscControls></MiscControls>
               <Define></Define>
               <Undefine></Undefine>
-              <IncludePath>..\USER\Include;..\..\Driver\inc;..\USER\mcu_sdk;..\USER\ota;..\USER\internal_memory;..\USER\external_memory;..\USER\debug;..\USER\app;..\USER\flashapp;..\USER\master;..\USER\play;..\USER\slave;..\USER\factory;..\USER\version;..\USER\parse;..\USER\protocolcom;..\USER\flow;..\USER\mic</IncludePath>
+              <IncludePath>..\USER\Include;..\..\Driver\inc;..\USER\mcu_sdk;..\USER\ota;..\USER\internal_memory;..\USER\external_memory;..\USER\debug;..\USER\app;..\USER\flashapp;..\USER\master;..\USER\play;..\USER\slave;..\USER\factory;..\USER\version;..\USER\parse;..\USER\protocolcom;..\USER\flow;..\USER\mic;..\USER\calibration;..\USER\L0</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -867,6 +867,41 @@
               <FileName>mic.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\USER\mic\mic.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>user_calibration</GroupName>
+          <Files>
+            <File>
+              <FileName>calibration.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\USER\calibration\calibration.c</FilePath>
+            </File>
+            <File>
+              <FileName>calibration.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\USER\calibration\calibration.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>user_L0</GroupName>
+          <Files>
+            <File>
+              <FileName>boot.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\USER\L0\boot.c</FilePath>
+            </File>
+            <File>
+              <FileName>L0.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\USER\L0\L0.c</FilePath>
+            </File>
+            <File>
+              <FileName>L0_slave.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\USER\L0\L0_slave.c</FilePath>
             </File>
           </Files>
         </Group>

@@ -1,3 +1,15 @@
+/*
+ * @Author: joel
+ * .chen sandote@163.om
+ * @Date: 2022-10-17 11:28:51
+ * @LastEditors: joel
+ * .chen sandote@163.om
+ * @LastEditTime: 2023-09-19 10:57:30
+ * @FilePath: \L1001_Master_CMS32L051\Project\USER\Include\uart.h
+ * @Description:
+ *
+ * Copyright (c) 2023 by ${git_name_email}, All Rights Reserved.
+ */
 #ifndef _UART_H_
 #define _UART_H_
 
@@ -5,7 +17,7 @@
 
 #define	CTRL_DATA_ST0  1U
 #define	CTRL_DATA_SR0  2U
-#define	BUFF_LEN  256U
+// // #define	BUFF_LEN  256U
 
 typedef enum
 {

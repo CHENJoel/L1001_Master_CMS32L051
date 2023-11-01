@@ -1,12 +1,12 @@
 /*
  * @Author: error: git config user.name && git config user.email & please set dead value or install git
  * @Date: 2022-05-25 20:19:26
- * @LastEditors: joel
+ * @LastEditors: DESKTOP-AKTRQKB\MY sandote@163.com
 .chen sandote@163.om
 .chen sandote@163.om
 .chen sandote@163.om
 .chen sandote@163.om
- * @LastEditTime: 2023-06-25 15:08:57
+ * @LastEditTime: 2023-10-16 10:52:42
  * @FilePath: \L1001_Master_CMS32L051\Project\USER\Source\Com.c
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -150,66 +150,66 @@ void Uart1_Byte_POP(FIFOTypeDef *StructDAT)
 
 void Slave_Handshake(void)
 {
-    unsigned int i, j, k, m;
-    unsigned char temp;
-    unsigned char Temp_Array[Slave_num][Slave_Data_num]; // 临时存储从机设备信息
-    unsigned char Temp_SlaveNum = 0;                     // 临时从机信息序号
-    unsigned char PackageState;                          // 缓存数据状态
-    SlaveDevive_Num = 0;                                 // 最大从机编号复位
-    for (i = 0; i <= 250; i++)                           // 逐一与从机的主ID进行握手
-    {
-        Uart0_Buffer.Read = Uart0_Buffer.Write; // 清空接收缓存中未读数据
-        DataPackage_TX(M_HeadCMD, Public_Addr, M_CMD_Handshake_Chief, i, Random_Generate(), Random_Generate(), Random_Generate());
-        delay_5ms();                                                                   // 等待从机读取缓存
-        PackageState = DataPackage_Extract(&Uart0_Buffer);                              // 读取缓存数据状态
-        if ((PackageState == Package_Right) && (RX_DataPackage[0] == S_ChiefMinor_ID)) // 接收到一组从机信息数据包
-        {                                                                              // 记录握手成功的从机信息
-            Slave_Array[SlaveDevive_Num][0] = RX_DataPackage[1];                       // 从机主ID
-            Slave_Array[SlaveDevive_Num][1] = RX_DataPackage[2];                       // 从机副ID
-            SlaveDevive_Num++;
-        }
-        else if (PackageState != Package_Empty) // 非空数据包,但不符合数据协议，数据包有误，代表有多个从机同时占用总线发报数据，需对副ID进行握手校验
-        {
-            for (k = 0; k < 255; k++) // 最大支持254次修改副ID地址来握手
-            {
-                // 与从机的副ID进行握手
-                Temp_SlaveNum = 0;
-                for (m = 0; m <= 255; m++)
-                {
-                    // LED3_REV();
-                    Uart0_Buffer.Read = Uart0_Buffer.Write; // 清空接收缓存中未读数据
-                    DataPackage_TX(M_HeadCMD, Public_Addr, M_CMD_Handshake_Minor, i, m, Random_Generate(), Random_Generate());
-                    delay_5ms();                                                                   // 等待从机读取缓存
-                    PackageState = DataPackage_Extract(&Uart0_Buffer);                              // 读取缓存数据状态
-                    if ((PackageState == Package_Right) && (RX_DataPackage[0] == S_ChiefMinor_ID)) // 接收到一组从机信息数据包
-                    {                                                                              // 临时记录握手成功的从机信息
-                        Temp_Array[Temp_SlaveNum][0] = RX_DataPackage[1];                          // 从机主ID
-                        Temp_Array[Temp_SlaveNum][1] = RX_DataPackage[2];                          // 从机副ID
-                        Temp_SlaveNum++;
-                    }
-                    else if (PackageState != Package_Empty) // 非空数据包,但不符合数据协议，数据包有误，代表有多个从机同时占用总线发报数据，需对副ID进行握手校验
-                    {
-                        // 通知该主ID下的从机进行副ID强制更新
-                        DataPackage_TX(M_HeadCMD, Public_Addr, M_CMD_MinorID_Refresh, i, Random_Generate(), Random_Generate(), Random_Generate());
-                        delay_5ms(); // 等待从机读取缓存
-                        break;       // 继续下一轮的副ID握手
-                    }
-                    if (m == 255)
-                    {
-                        // 副ID握手一圈后，未接收到错误数据，代表该主ID下的副ID握手正常！
-                        for (temp = 0; temp < Temp_SlaveNum; temp++) // 正式记录握手成功的从机信息
-                        {
-                            Slave_Array[SlaveDevive_Num][0] = Temp_Array[temp][0]; // 从机主ID
-                            Slave_Array[SlaveDevive_Num][1] = Temp_Array[temp][1]; // 从机副ID
-                            SlaveDevive_Num++;
-                        }
-                        k = 255; // 结束副ID握手
-                        break;
-                    }
-                }
-            }
-        }
-    }
+    // // // unsigned int i, j, k, m;
+    // // // unsigned char temp;
+    // // // unsigned char Temp_Array[Slave_num][Slave_Data_num]; // 临时存储从机设备信息
+    // // // unsigned char Temp_SlaveNum = 0;                     // 临时从机信息序号
+    // // // unsigned char PackageState;                          // 缓存数据状态
+    // // // SlaveDevive_Num = 0;                                 // 最大从机编号复位
+    // // // for (i = 0; i <= 250; i++)                           // 逐一与从机的主ID进行握手
+    // // // {
+    // // //     Uart0_Buffer.Read = Uart0_Buffer.Write; // 清空接收缓存中未读数据
+    // // //     DataPackage_TX(M_HeadCMD, Public_Addr, M_CMD_Handshake_Chief, i, Random_Generate(), Random_Generate(), Random_Generate());
+    // // //     delay_5ms();                                                                   // 等待从机读取缓存
+    // // //     PackageState = DataPackage_Extract(&Uart0_Buffer);                              // 读取缓存数据状态
+    // // //     if ((PackageState == Package_Right) && (RX_DataPackage[0] == S_ChiefMinor_ID)) // 接收到一组从机信息数据包
+    // // //     {                                                                              // 记录握手成功的从机信息
+    // // //         Slave_Array[SlaveDevive_Num][0] = RX_DataPackage[1];                       // 从机主ID
+    // // //         Slave_Array[SlaveDevive_Num][1] = RX_DataPackage[2];                       // 从机副ID
+    // // //         SlaveDevive_Num++;
+    // // //     }
+    // // //     else if (PackageState != Package_Empty) // 非空数据包,但不符合数据协议，数据包有误，代表有多个从机同时占用总线发报数据，需对副ID进行握手校验
+    // // //     {
+    // // //         for (k = 0; k < 255; k++) // 最大支持254次修改副ID地址来握手
+    // // //         {
+    // // //             // 与从机的副ID进行握手
+    // // //             Temp_SlaveNum = 0;
+    // // //             for (m = 0; m <= 255; m++)
+    // // //             {
+    // // //                 // LED3_REV();
+    // // //                 Uart0_Buffer.Read = Uart0_Buffer.Write; // 清空接收缓存中未读数据
+    // // //                 DataPackage_TX(M_HeadCMD, Public_Addr, M_CMD_Handshake_Minor, i, m, Random_Generate(), Random_Generate());
+    // // //                 delay_5ms();                                                                   // 等待从机读取缓存
+    // // //                 PackageState = DataPackage_Extract(&Uart0_Buffer);                              // 读取缓存数据状态
+    // // //                 if ((PackageState == Package_Right) && (RX_DataPackage[0] == S_ChiefMinor_ID)) // 接收到一组从机信息数据包
+    // // //                 {                                                                              // 临时记录握手成功的从机信息
+    // // //                     Temp_Array[Temp_SlaveNum][0] = RX_DataPackage[1];                          // 从机主ID
+    // // //                     Temp_Array[Temp_SlaveNum][1] = RX_DataPackage[2];                          // 从机副ID
+    // // //                     Temp_SlaveNum++;
+    // // //                 }
+    // // //                 else if (PackageState != Package_Empty) // 非空数据包,但不符合数据协议，数据包有误，代表有多个从机同时占用总线发报数据，需对副ID进行握手校验
+    // // //                 {
+    // // //                     // 通知该主ID下的从机进行副ID强制更新
+    // // //                     DataPackage_TX(M_HeadCMD, Public_Addr, M_CMD_MinorID_Refresh, i, Random_Generate(), Random_Generate(), Random_Generate());
+    // // //                     delay_5ms(); // 等待从机读取缓存
+    // // //                     break;       // 继续下一轮的副ID握手
+    // // //                 }
+    // // //                 if (m == 255)
+    // // //                 {
+    // // //                     // 副ID握手一圈后，未接收到错误数据，代表该主ID下的副ID握手正常！
+    // // //                     for (temp = 0; temp < Temp_SlaveNum; temp++) // 正式记录握手成功的从机信息
+    // // //                     {
+    // // //                         Slave_Array[SlaveDevive_Num][0] = Temp_Array[temp][0]; // 从机主ID
+    // // //                         Slave_Array[SlaveDevive_Num][1] = Temp_Array[temp][1]; // 从机副ID
+    // // //                         SlaveDevive_Num++;
+    // // //                     }
+    // // //                     k = 255; // 结束副ID握手
+    // // //                     break;
+    // // //                 }
+    // // //             }
+    // // //         }
+    // // //     }
+    // // // }
 }
 
 /**
@@ -219,13 +219,13 @@ void Slave_Handshake(void)
  */
 void Slave_Allocate_ID(void)
 {
-    Poll_Device_ID();                                                 // 轮询获得设备固定ID，序列ID，设备类型
-    Bubble_Sort_2D(&Slave_Array, SlaveDevive_Num, Slave_Data_num, 3); // 根据序列编号进行向下排序
-    Post_Device_Commu_ID();                                           // 发布从机通讯ID
-    Post_Device_Light_ID();                                           // 发布从机灯光ID
-    delay_20ms();                                                     // 等待从机读取缓存
-    Poll_Device_Data();                                               // 轮询获得设备通讯ID,灯光ID
-    Mark_Device_FixedID_Data();                                       // 标记并记录各固定ID的设备数量（通讯ID）
+    // // // Poll_Device_ID();                                                 // 轮询获得设备固定ID，序列ID，设备类型
+    // // // Bubble_Sort_2D(&Slave_Array, SlaveDevive_Num, Slave_Data_num, 3); // 根据序列编号进行向下排序
+    // // // Post_Device_Commu_ID();                                           // 发布从机通讯ID
+    // // // Post_Device_Light_ID();                                           // 发布从机灯光ID
+    // // // delay_20ms();                                                     // 等待从机读取缓存
+    // // // Poll_Device_Data();                                               // 轮询获得设备通讯ID,灯光ID
+    // // // Mark_Device_FixedID_Data();                                       // 标记并记录各固定ID的设备数量（通讯ID）
 }
 
 /*
@@ -233,47 +233,47 @@ void Slave_Allocate_ID(void)
 */
 void Poll_Device_ID(void)
 {
-    uint8_t i;
-    uint8_t PackageState;                 // 缓存数据状态
-    for (i = 0; i < SlaveDevive_Num; i++) // 轮询所有ID信息
-    {
-        Uart0_Buffer.Read = Uart0_Buffer.Write; // 清空接收缓存中未读数据
-        Check_Device_ID(Slave_Array[i][0], Slave_Array[i][1]);
-        delay_10ms();                                                              // 等待从机读取缓存
-        PackageState = DataPackage_Extract(&Uart0_Buffer);                          // 读取缓存数据状态
-        if ((PackageState == Package_Right) && (RX_DataPackage[0] == S_Device_ID)) // 接收到一组从机信息数据包
-        {
-            if (Slave_Array[i][0] == RX_DataPackage[1] && Slave_Array[i][1] == RX_DataPackage[2]) // 主副ID校验
-            {
-                Slave_Array[i][2] = RX_DataPackage[3]; // 固定ID
-                Slave_Array[i][3] = RX_DataPackage[4]; // 序列ID
-                Slave_Array[i][4] = RX_DataPackage[5]; // 设备类型
-            }
-        }
-    }
+    // // // uint8_t i;
+    // // // uint8_t PackageState;                 // 缓存数据状态
+    // // // for (i = 0; i < SlaveDevive_Num; i++) // 轮询所有ID信息
+    // // // {
+    // // //     Uart0_Buffer.Read = Uart0_Buffer.Write; // 清空接收缓存中未读数据
+    // // //     Check_Device_ID(Slave_Array[i][0], Slave_Array[i][1]);
+    // // //     delay_10ms();                                                              // 等待从机读取缓存
+    // // //     PackageState = DataPackage_Extract(&Uart0_Buffer);                          // 读取缓存数据状态
+    // // //     if ((PackageState == Package_Right) && (RX_DataPackage[0] == S_Device_ID)) // 接收到一组从机信息数据包
+    // // //     {
+    // // //         if (Slave_Array[i][0] == RX_DataPackage[1] && Slave_Array[i][1] == RX_DataPackage[2]) // 主副ID校验
+    // // //         {
+    // // //             Slave_Array[i][2] = RX_DataPackage[3]; // 固定ID
+    // // //             Slave_Array[i][3] = RX_DataPackage[4]; // 序列ID
+    // // //             Slave_Array[i][4] = RX_DataPackage[5]; // 设备类型
+    // // //         }
+    // // //     }
+    // // // }
 }
 /*
 轮询获得设备通讯ID,灯光ID
 */
 void Poll_Device_Data(void)
 {
-    uint8_t i;
-    uint8_t PackageState;                 // 缓存数据状态
-    for (i = 0; i < SlaveDevive_Num; i++) // 轮询所有ID信息
-    {
-        Uart0_Buffer.Read = Uart0_Buffer.Write; // 清空接收缓存中未读数据
-        Check_Device_Data(Slave_Array[i][0], Slave_Array[i][1]);
-        delay_10ms();                                                                // 等待从机读取缓存
-        PackageState = DataPackage_Extract(&Uart0_Buffer);                            // 读取缓存数据状态
-        if ((PackageState == Package_Right) && (RX_DataPackage[0] == S_Device_Data)) // 接收到一组从机信息数据包
-        {
-            if (Slave_Array[i][0] == RX_DataPackage[1] && Slave_Array[i][1] == RX_DataPackage[2]) // 主副ID校验
-            {
-                Slave_Array[i][5] = RX_DataPackage[3]; // 通讯ID
-                Slave_Array[i][6] = RX_DataPackage[4]; // 灯光ID
-            }
-        }
-    }
+    // // // uint8_t i;
+    // // // uint8_t PackageState;                 // 缓存数据状态
+    // // // for (i = 0; i < SlaveDevive_Num; i++) // 轮询所有ID信息
+    // // // {
+    // // //     Uart0_Buffer.Read = Uart0_Buffer.Write; // 清空接收缓存中未读数据
+    // // //     Check_Device_Data(Slave_Array[i][0], Slave_Array[i][1]);
+    // // //     delay_10ms();                                                                // 等待从机读取缓存
+    // // //     PackageState = DataPackage_Extract(&Uart0_Buffer);                            // 读取缓存数据状态
+    // // //     if ((PackageState == Package_Right) && (RX_DataPackage[0] == S_Device_Data)) // 接收到一组从机信息数据包
+    // // //     {
+    // // //         if (Slave_Array[i][0] == RX_DataPackage[1] && Slave_Array[i][1] == RX_DataPackage[2]) // 主副ID校验
+    // // //         {
+    // // //             Slave_Array[i][5] = RX_DataPackage[3]; // 通讯ID
+    // // //             Slave_Array[i][6] = RX_DataPackage[4]; // 灯光ID
+    // // //         }
+    // // //     }
+    // // // }
 }
 
 /*
@@ -281,13 +281,13 @@ void Poll_Device_Data(void)
 */
 void Post_Device_Commu_ID(void)
 {
-    uint8_t i;
-    for (i = 0; i < SlaveDevive_Num; i++) // 向下发布从机通讯ID
-    {
-        Set_CommuID(Slave_Array[i][0], Slave_Array[i][1], 0x30 + i);
-        Set_CommuID(Slave_Array[i][0], Slave_Array[i][1], 0x30 + i);
-        delay_10ms(); // 等待从机读取缓存
-    }
+    // // // uint8_t i;
+    // // // for (i = 0; i < SlaveDevive_Num; i++) // 向下发布从机通讯ID
+    // // // {
+    // // //     Set_CommuID(Slave_Array[i][0], Slave_Array[i][1], 0x30 + i);
+    // // //     Set_CommuID(Slave_Array[i][0], Slave_Array[i][1], 0x30 + i);
+    // // //     delay_10ms(); // 等待从机读取缓存
+    // // // }
 }
 
 /*
@@ -295,35 +295,35 @@ void Post_Device_Commu_ID(void)
 */
 void Post_Device_Light_ID(void)
 {
-    uint8_t i, j;
-    uint8_t temp;
-    temp = Slave_Array[0][3];
-    j = 0;
-    for (i = 0; i < SlaveDevive_Num; i++) // 向下发布从机灯光ID
-    {
-        if (Slave_Array[i][3] != temp)
-        {
-            j++;
-        }
-        Set_LightID(Slave_Array[i][0], Slave_Array[i][1], j);
-        Set_LightID(Slave_Array[i][0], Slave_Array[i][1], j);
-        temp = Slave_Array[i][3];
-        delay_10ms(); // 等待从机读取缓存
-    }
-    ModuleLight_Num = j + 1;
+    // // // uint8_t i, j;
+    // // // uint8_t temp;
+    // // // temp = Slave_Array[0][3];
+    // // // j = 0;
+    // // // for (i = 0; i < SlaveDevive_Num; i++) // 向下发布从机灯光ID
+    // // // {
+    // // //     if (Slave_Array[i][3] != temp)
+    // // //     {
+    // // //         j++;
+    // // //     }
+    // // //     Set_LightID(Slave_Array[i][0], Slave_Array[i][1], j);
+    // // //     Set_LightID(Slave_Array[i][0], Slave_Array[i][1], j);
+    // // //     temp = Slave_Array[i][3];
+    // // //     delay_10ms(); // 等待从机读取缓存
+    // // // }
+    // // // ModuleLight_Num = j + 1;
 }
 /*
   发布从机序列ID
 */
 void Post_Device_Series_ID(void)
 {
-    uint8_t i, j;
-    for (i = 0; i < SlaveDevive_Num; i++) // 向下发布从机灯光ID
-    {
-        Set_SeriesNum(Slave_Array[i][0], Slave_Array[i][1], Slave_Array[i][8]);
-        Set_SeriesNum(Slave_Array[i][0], Slave_Array[i][1], Slave_Array[i][8]);
-        delay_10ms(); // 等待从机读取缓存
-    }
+    // // // uint8_t i, j;
+    // // // for (i = 0; i < SlaveDevive_Num; i++) // 向下发布从机灯光ID
+    // // // {
+    // // //     Set_SeriesNum(Slave_Array[i][0], Slave_Array[i][1], Slave_Array[i][8]);
+    // // //     Set_SeriesNum(Slave_Array[i][0], Slave_Array[i][1], Slave_Array[i][8]);
+    // // //     delay_10ms(); // 等待从机读取缓存
+    // // // }
 }
 
 /*
@@ -331,46 +331,46 @@ void Post_Device_Series_ID(void)
 */
 void Mark_Device_FixedID_Data(void)
 {
-    uint8_t i, j, k, m, n;
-    uint8_t temp;
-    /*筛选出同一固定ID的设备数量*/
-    for (i = 0; i < SlaveDevive_Num; i++) // 轮询所有ID信息
-    {
-        temp = Slave_Array[i][2];
-        m = 0;
-        for (j = 0; j < SlaveDevive_Num; j++) // 轮询所有ID信息
-        {
-            if (Slave_Array[j][2] == temp) // 筛选出同一固定ID的设备数量
-            {
-                m++;
-            }
-        }
-        n = 0;
-        for (j = 0; j < SlaveDevive_Num; j++) // 轮询所有ID信息
-        {
-            if (Slave_Array[j][2] == temp)
-            {
-                n++;
-                Slave_Array[j][7] = m << 4; // 高四位标记为该固定ID的总设备数
-                Slave_Array[j][7] |= n;     // 低四位标记为该固定ID的标号
-            }
-        }
-    }
-    /*记录同一固定ID设备的数量、通讯ID*/
-    for (i = 0; i < 8; i++)
-    {
-        FixedID_DeviceData[i][1] = 0; // 数据复位
-        m = 0;
-        for (j = 0; j < SlaveDevive_Num; j++)
-        {
-            if (Slave_Array[j][2] == FixedID_DeviceData[i][0]) // 存在相对应的设备类型
-            {
-                FixedID_DeviceData[i][1] = Slave_Array[j][7] >> 4; // 标记拥有该固定ID的设备数量
-                FixedID_DeviceData[i][2 + m] = Slave_Array[j][5];  // 拥有该固定ID的设备通讯ID
-                m++;
-            }
-        }
-    }
+    // // // // // uint8_t i, j, k, m, n;
+    // // // // // uint8_t temp;
+    // // // // // /*筛选出同一固定ID的设备数量*/
+    // // // // // for (i = 0; i < SlaveDevive_Num; i++) // 轮询所有ID信息
+    // // // // // {
+    // // // // //     temp = Slave_Array[i][2];
+    // // // // //     m = 0;
+    // // // // //     for (j = 0; j < SlaveDevive_Num; j++) // 轮询所有ID信息
+    // // // // //     {
+    // // // // //         if (Slave_Array[j][2] == temp) // 筛选出同一固定ID的设备数量
+    // // // // //         {
+    // // // // //             m++;
+    // // // // //         }
+    // // // // //     }
+    // // // // //     n = 0;
+    // // // // //     for (j = 0; j < SlaveDevive_Num; j++) // 轮询所有ID信息
+    // // // // //     {
+    // // // // //         if (Slave_Array[j][2] == temp)
+    // // // // //         {
+    // // // // //             n++;
+    // // // // //             Slave_Array[j][7] = m << 4; // 高四位标记为该固定ID的总设备数
+    // // // // //             Slave_Array[j][7] |= n;     // 低四位标记为该固定ID的标号
+    // // // // //         }
+    // // // // //     }
+    // // // // // }
+    // // // // // /*记录同一固定ID设备的数量、通讯ID*/
+    // // // // // for (i = 0; i < 8; i++)
+    // // // // // {
+    // // // // //     FixedID_DeviceData[i][1] = 0; // 数据复位
+    // // // // //     m = 0;
+    // // // // //     for (j = 0; j < SlaveDevive_Num; j++)
+    // // // // //     {
+    // // // // //         if (Slave_Array[j][2] == FixedID_DeviceData[i][0]) // 存在相对应的设备类型
+    // // // // //         {
+    // // // // //             FixedID_DeviceData[i][1] = Slave_Array[j][7] >> 4; // 标记拥有该固定ID的设备数量
+    // // // // //             FixedID_DeviceData[i][2 + m] = Slave_Array[j][5];  // 拥有该固定ID的设备通讯ID
+    // // // // //             m++;
+    // // // // //         }
+    // // // // //     }
+    // // // // // }
 }
 
 
@@ -403,41 +403,41 @@ void Mark_Device_FixedID_Data(void)
 
 void Get_Slave_ID(void)
 {
-    uint16_t i, j;
-    uint8_t Temp_Array[16];     // 设备id
-    uint8_t Temp_DeviceNum = 0; // 设备数量
-    uint8_t PackageState;       // 缓存数据状态
-    for (i = 0; i <= 255; i++)  // 最大执行256次冲突处理
-    {
-        Temp_DeviceNum = 0;
-        for (j = 0; j <= 255; j++) // 轮询所有id
-        {
-            Uart0_Buffer.Read = Uart0_Buffer.Write;                                    // 清空接收缓存中未读数据
-            DataTx_Master_Check_ID(j);                                                 // 检测此id
-            delay_5ms();                                                               // 等待从机读取缓存
-            PackageState = DataPackage_Extract(&Uart0_Buffer);                         // 读取缓存数据状态
-            if ((PackageState == Package_Right) && (RX_DataPackage[0] == S_Return_ID) && (RX_DataPackage[1] == j)) // 接收到一组从机信息数据包
-            {
-                Temp_Array[Temp_DeviceNum] = RX_DataPackage[1]; // 标记从机ID
-                Temp_DeviceNum++;                               // 标记从机数量
-            }
-            else if (PackageState != Package_Empty) // 非空数据包,但不符合数据协议，数据包有误，代表有多个从机同时占用总线发报数据，即出现ID冲突
-            {
-                DataTx_Refresh_ID(); // 要求从机更新id
-                delay_5ms();         // 等待从机读取缓存
-                break;               // 重新循环轮询
-            }
-            if (j == 255) // 内循环轮询结束，说明此前未发现ID冲突
-            {
-                TangramDevice.Device_sum = Temp_DeviceNum; // 存储设备数量
-                for (i = 0; i < Temp_DeviceNum; i++)
-                {
-                    TangramDevice.SlaveData[i].ID = Temp_Array[i]; // 存储设备id
-                }
-                i = 256; // 退出外循环
-            }
-        }
-    }
+    // // // uint16_t i, j;
+    // // // uint8_t Temp_Array[16];     // 设备id
+    // // // uint8_t Temp_DeviceNum = 0; // 设备数量
+    // // // uint8_t PackageState;       // 缓存数据状态
+    // // // for (i = 0; i <= 255; i++)  // 最大执行256次冲突处理
+    // // // {
+    // // //     Temp_DeviceNum = 0;
+    // // //     for (j = 0; j <= 255; j++) // 轮询所有id
+    // // //     {
+    // // //         Uart0_Buffer.Read = Uart0_Buffer.Write;                                    // 清空接收缓存中未读数据
+    // // //         DataTx_Master_Check_ID(j);                                                 // 检测此id
+    // // //         delay_5ms();                                                               // 等待从机读取缓存
+    // // //         PackageState = DataPackage_Extract(&Uart0_Buffer);                         // 读取缓存数据状态
+    // // //         if ((PackageState == Package_Right) && (RX_DataPackage[0] == S_Return_ID) && (RX_DataPackage[1] == j)) // 接收到一组从机信息数据包
+    // // //         {
+    // // //             Temp_Array[Temp_DeviceNum] = RX_DataPackage[1]; // 标记从机ID
+    // // //             Temp_DeviceNum++;                               // 标记从机数量
+    // // //         }
+    // // //         else if (PackageState != Package_Empty) // 非空数据包,但不符合数据协议，数据包有误，代表有多个从机同时占用总线发报数据，即出现ID冲突
+    // // //         {
+    // // //             DataTx_Refresh_ID(); // 要求从机更新id
+    // // //             delay_5ms();         // 等待从机读取缓存
+    // // //             break;               // 重新循环轮询
+    // // //         }
+    // // //         if (j == 255) // 内循环轮询结束，说明此前未发现ID冲突
+    // // //         {
+    // // //             TangramDevice.Device_sum = Temp_DeviceNum; // 存储设备数量
+    // // //             for (i = 0; i < Temp_DeviceNum; i++)
+    // // //             {
+    // // //                 TangramDevice.SlaveData[i].ID = Temp_Array[i]; // 存储设备id
+    // // //             }
+    // // //             i = 256; // 退出外循环
+    // // //         }
+    // // //     }
+    // // // }
 }
 
 // // // // // // void Get_Slave_Coord(void)
@@ -476,71 +476,71 @@ void Get_Slave_ID(void)
 /* 获取坐标 */
 void Get_Slave_Coord(void)
 {
-    uint8_t i;
-    uint8_t PackageState; // 缓存数据状态
-    for (i = 0; i < TangramDevice.Device_sum; i++)
-    {
-        Uart0_Buffer.Read = Uart0_Buffer.Write;                   // 清空接收缓存中未读数据
-        DataTx_Master_Check_Coord(TangramDevice.SlaveData[i].ID); // 获取坐标
-        delay_5ms();
-        PackageState = DataPackage_Extract(&Uart0_Buffer);                                                                                       // 读取缓存数据状态
-        if ((PackageState == Package_Right) && (RX_DataPackage[0] == S_RETURN_Coord) && (RX_DataPackage[1] == TangramDevice.SlaveData[i].ID)) // 接收到一组从机信息数据包
-        {
-            TangramDevice.SlaveData[i].Coord.X = RX_DataPackage[2];
-            TangramDevice.SlaveData[i].Coord.Y = RX_DataPackage[3];
-        }
-        else
-        {
-            TangramDevice.SlaveData[i].Coord.X = 0;
-            TangramDevice.SlaveData[i].Coord.Y = 0;
-        }
-    }
+    // // // uint8_t i;
+    // // // uint8_t PackageState; // 缓存数据状态
+    // // // for (i = 0; i < TangramDevice.Device_sum; i++)
+    // // // {
+    // // //     Uart0_Buffer.Read = Uart0_Buffer.Write;                   // 清空接收缓存中未读数据
+    // // //     DataTx_Master_Check_Coord(TangramDevice.SlaveData[i].ID); // 获取坐标
+    // // //     delay_5ms();
+    // // //     PackageState = DataPackage_Extract(&Uart0_Buffer);                                                                                       // 读取缓存数据状态
+    // // //     if ((PackageState == Package_Right) && (RX_DataPackage[0] == S_RETURN_Coord) && (RX_DataPackage[1] == TangramDevice.SlaveData[i].ID)) // 接收到一组从机信息数据包
+    // // //     {
+    // // //         TangramDevice.SlaveData[i].Coord.X = RX_DataPackage[2];
+    // // //         TangramDevice.SlaveData[i].Coord.Y = RX_DataPackage[3];
+    // // //     }
+    // // //     else
+    // // //     {
+    // // //         TangramDevice.SlaveData[i].Coord.X = 0;
+    // // //         TangramDevice.SlaveData[i].Coord.Y = 0;
+    // // //     }
+    // // // }
 }
 
 /* 设置坐标 */
 void Set_Slave_Coord(void)
 {
-    uint8_t i;
-    for (i = 0; i < TangramDevice.Device_sum; i++)
-    {
-        DataTx_Master_Set_Coord(TangramDevice.SlaveData[i].ID, TangramDevice.SlaveData[i].Coord.X, TangramDevice.SlaveData[i].Coord.Y);
-        // // // // // // DataTx_Master_Set_Coord(TangramDevice.SlaveData[i].ID, TangramDevice.SlaveData[i].Coord.X, TangramDevice.SlaveData[i].Coord.Y);
-        // // // // // // DataTx_Master_Set_Coord(TangramDevice.SlaveData[i].ID, TangramDevice.SlaveData[i].Coord.X, TangramDevice.SlaveData[i].Coord.Y);
-        delay_5ms();
-    }
+    // // uint8_t i;
+    // // for (i = 0; i < TangramDevice.Device_sum; i++)
+    // // {
+    // //     DataTx_Master_Set_Coord(TangramDevice.SlaveData[i].ID, TangramDevice.SlaveData[i].Coord.X, TangramDevice.SlaveData[i].Coord.Y);
+    // //     // // // // // // DataTx_Master_Set_Coord(TangramDevice.SlaveData[i].ID, TangramDevice.SlaveData[i].Coord.X, TangramDevice.SlaveData[i].Coord.Y);
+    // //     // // // // // // DataTx_Master_Set_Coord(TangramDevice.SlaveData[i].ID, TangramDevice.SlaveData[i].Coord.X, TangramDevice.SlaveData[i].Coord.Y);
+    // //     delay_5ms();
+    // // }
 }
 
 /* 获取角度 */
 void Get_Slave_Angle(void)
 {
-    uint8_t i;
-    uint8_t PackageState; // 缓存数据状态
-    for (i = 0; i < TangramDevice.Device_sum; i++)
-    {
-        Uart0_Buffer.Read = Uart0_Buffer.Write;                   // 清空接收缓存中未读数据
-        DataTx_Master_Check_Angle(TangramDevice.SlaveData[i].ID); // 获取角度
-        delay_5ms();
-        PackageState = DataPackage_Extract(&Uart0_Buffer);                                                                                       // 读取缓存数据状态
-        if ((PackageState == Package_Right) && (RX_DataPackage[0] == S_RETURN_Angle) && (RX_DataPackage[1] == TangramDevice.SlaveData[i].ID)) // 接收到一组从机信息数据包
-        {
-            TangramDevice.SlaveData[i].Angle = RX_DataPackage[2];
-        }
-        else
-        {
-            TangramDevice.SlaveData[i].Angle = 0;
-        }
-    }
+    // // // uint8_t i;
+    // // // uint8_t PackageState; // 缓存数据状态
+    // // // for (i = 0; i < TangramDevice.Device_sum; i++)
+    // // // {
+    // // //     Uart0_Buffer.Read = Uart0_Buffer.Write;                   // 清空接收缓存中未读数据
+    // // //     DataTx_Master_Check_Angle(TangramDevice.SlaveData[i].ID); // 获取角度
+    // // //     delay_5ms();
+    // // //     PackageState = DataPackage_Extract(&Uart0_Buffer);                                                                                       // 读取缓存数据状态
+    // // //     if ((PackageState == Package_Right) && (RX_DataPackage[0] == S_RETURN_Angle) && (RX_DataPackage[1] == TangramDevice.SlaveData[i].ID)) // 接收到一组从机信息数据包
+    // // //     {
+    // // //         TangramDevice.SlaveData[i].Angle = RX_DataPackage[2];
+    // // //     }
+    // // //     else
+    // // //     {
+    // // //         TangramDevice.SlaveData[i].Angle = 0;
+    // // //     }
+    // // // }
 }
 
 /* 设置角度 */
 void Set_Slave_Angle(void)
 {
-    uint8_t i;
-    for (i = 0; i < TangramDevice.Device_sum; i++)
-    {
-        DataTx_Master_Set_Angle(TangramDevice.SlaveData[i].ID, TangramDevice.SlaveData[i].Angle);
-        delay_5ms();
-    }
+    // // uint8_t i;
+    // // for (i = 0; i < TangramDevice.Device_sum; i++)
+    // // {
+    // //     DataTx_Master_Set_Angle(TangramDevice.SlaveData[i].ID, TangramDevice.SlaveData[i].Angle);
+    // //     delay_5ms();
+    // // }
 }
 
 

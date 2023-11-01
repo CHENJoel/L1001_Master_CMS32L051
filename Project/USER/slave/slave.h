@@ -5,13 +5,24 @@
 
 #define SLAVEDEVICE_NUM 32 // 最大支持的从机设备数量
 
+extern uint8_t connect_id; // 当前握手ID
+
 typedef enum
 {
-    TRIANGLE_L, // 大三
-    TRIANGLE_M, // 中三
-    TRIANGLE_S, // 小三
-    SQUARE,     // 方形
+    ANSWER_EMPTY, // 无应答
+    ANSWER_WRONG, // 错误应答
+    ANSWER_RIGHT, // 正确应答
+} answer_status;  // 应答状态
+
+typedef enum
+{
+    TRIANGLE_L,         // 大三角形
+    TRIANGLE_M,         // 中三角形
+    TRIANGLE_S,         // 小三角形
+    SQUARE,             // 正方形
+    OTHER_SHAPE = 0xFF, // 其他形状
 } device_shape_enum;
+
 
 typedef struct
 {
@@ -98,4 +109,10 @@ void slave_light_in_turn(void);
  * @return:
 */
 void light_up_only_one_slave(uint8_t id);
+
+/********/
+
+void slave_answer_parse(uint8_t *p, uint16_t len);//从机应答解析
+
+
 #endif

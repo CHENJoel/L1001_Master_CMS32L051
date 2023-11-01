@@ -1,5 +1,5 @@
 #include "Function_Init.H"
-#include "printlog.h"
+
 
 /*打印hex*/
 void printhex_my(uint8_t *sur, uint32_t len)
@@ -160,6 +160,7 @@ void print_effect_detial(Efdetail_TypeDef *p, uint8_t efnum)
 {
 #if defined(printlog_enabled)
     uint8_t i = 0;
+    printf("\r---------------------------------------------------\r");
     printf("idex:%d\r", efnum);
     printf("namelenght:%d\r", p->namelenght);
     printf("Name:");
@@ -173,9 +174,10 @@ void print_effect_detial(Efdetail_TypeDef *p, uint8_t efnum)
     print_direction(p->Direction);
     print_flow(p->Flow);
     printf("ColorNum:%d\r", p->EfColorInf.colorNum);
-    for (i = 0; i < EfColor_SizeNum; i++)
+    for (i = 0; i < p->EfColorInf.colorNum; i++)
+    // // for (i = 0; i < EfColor_SizeNum; i++)
     {
-        printf(">%3d|%2x,%2x,%2x,%2x     ", p->EfColorInf.ColorID[i].id, p->EfColorInf.ColorID[i].color.R, p->EfColorInf.ColorID[i].color.G, p->EfColorInf.ColorID[i].color.B, p->EfColorInf.ColorID[i].color.W);
+        printf(">%02x|%3d,%3d,%3d,%3d ; ", p->EfColorInf.ColorID[i].id, p->EfColorInf.ColorID[i].color.R, p->EfColorInf.ColorID[i].color.G, p->EfColorInf.ColorID[i].color.B, p->EfColorInf.ColorID[i].color.W);
         if ((i % 4) == 3)
         {
             printf("\r");
@@ -327,7 +329,7 @@ void print_playdetial(playdetail_TypeDef *p, uint8_t playnum)
 {
 #if defined(printlog_enabled)
     uint8_t i;
-    printf("[ print_playdetial ]\r");
+    printf("\r[ print_playdetial ]\r");
     printf("idex:%d\r", playnum);
     printf("namelenght:%d\r", p->name.length);
     printf("name:");
@@ -335,7 +337,9 @@ void print_playdetial(playdetail_TypeDef *p, uint8_t playnum)
     printf("Min:%d\r", p->DurationTime.Min);
     printf("Sec:%d\r", p->DurationTime.Sec);
     printf("num:%d\r", p->num);
-    for (i = 0; i < PlayList_SizeNum; i++)
+
+    // // for (i = 0; i < PlayList_SizeNum; i++)
+    for (i = 0; i < p->num; i++)
     {
         printf("[%d] ", p->list[i]);
         if ((i % 4) == 9)
@@ -449,11 +453,28 @@ void print_name(name_TypeDef *p)
 #endif // printlog_enabled
 }
 
-/*打印定时表详情*/
-void print_schedule_detial(schedule_detail_TypeDef *p)
+/* 
+ * @Description: 打印定时表详情
+ * @param: 
+ * @return: 
+*/ 
+void print_clock_detial(clock_detail_TypeDef *p)
 {
 #if defined(printlog_enabled)
+    printf("<clock_detial>\r");
     print_name(&(p->name));
+    if (p->en_sta == FUN_ENABLE)
+    {
+        printlog("enable\r");
+    }
+    else if (p->en_sta == FUN_DISABLE)
+    {
+        printlog("disable\r");
+    }
+    else
+    {
+        printlog("en: error\r");
+    }
     if (p->action == TURN_OFF)
     {
         printlog("action: OFF\r");
@@ -468,43 +489,31 @@ void print_schedule_detial(schedule_detail_TypeDef *p)
     }
     printlog("effect: %d\r", p->ef_index);
     printlog("ultimatebright: %d\r", p->ultimatebright);
-    printlog("actiontime: %2d:%2d\r", p->actiontime.Min, p->actiontime.Sec);
-    printlog("duration: %2d:%2d\r", p->duration.Min, p->duration.Sec);
-    printlog("repeat: %02x\r", p->repeat);
+    printlog("actiontime: %02d:%02d\r", p->actiontime.Min, p->actiontime.Sec);
+    printlog("duration: %02d:%02d\r", p->duration.Min, p->duration.Sec);
+    printlog("repeat: %02x\r\n", p->repeat);
 #endif
 }
 
-/*打印全部定时表*/
-void print_all_schedule(void)
+
+/* 
+ * @Description: 打印全部定时表
+ * @param: 
+ * @return: 
+*/ 
+void print_all_clock_detail(void)
 {
 #if defined(printlog_enabled)
-    schedule_list_TypeDef schedule;
+    clock_list_TypeDef schedule;
     uint8_t i;
     get_all_schedule(&schedule);
-    printlog("print_all_schedule\r");
+    printlog("\r---------------------------------------------------------------\r");
+    printlog("<all_clock_detail>\r");
     printlog("size:%d\r", schedule.num);
     for (i = 0; i < schedule.num; i++)
     {
-        printlog("[%d]\r", i);
-        print_schedule_detial(&schedule.list[i]);
-        // print_name(&schedule.list[i].name);
-        // if (schedule.list[i].action == TURN_OFF)
-        // {
-        //     printlog("action: OFF\r");
-        // }
-        // else if (schedule.list[i].action == TURN_ON)
-        // {
-        //     printlog("action: ON\r");
-        // }
-        // else
-        // {
-        //     printlog("action: error\r");
-        // }
-        // printlog("effect: %d\r", schedule.list[i].ef_index);
-        // printlog("ultimatebright: %d\r", schedule.list[i].ultimatebright);
-        // printlog("actiontime: %2d:%2d\r", schedule.list[i].actiontime.Min, schedule.list[i].actiontime.Sec);
-        // printlog("duration: %2d:%2d\r", schedule.list[i].duration.Min, schedule.list[i].duration.Sec);
-        // printlog("repeat: %02x\r", schedule.list[i].repeat);
+        printlog("\rnum:[%d]\r", i);
+        print_clock_detial(&schedule.list[i]);
     }
     printlog("----------------------------------------\r\r");
 #endif // printlog_enabled
@@ -561,5 +570,24 @@ void print_play_effect_detial(void)
 #if defined(printlog_enabled)
     printlog("print_play_effect_detial");
     print_effect_detial(&play.efdetail, play.detail.efnum);
+#endif // printlog_enabled
+}
+
+/* 
+ * @Description: app控制灯板的log
+ * @param: 
+ * @return: 
+*/ 
+void print_device_control(app_device_control_Typedef*x)
+{
+    uint8_t i;
+#if defined(printlog_enabled)
+    printlog("print_device_control");
+    printf("lightnum:%d\r", x->lightnum);
+    for ( i = 0; i < x->lightnum; i++)
+    {
+       printf("id:%02x index:%02d sta:%02x\r",x->lightsta[i].id,x->lightsta[i].index,x->lightsta[i].lightsta);
+    }
+    printf("\r\n");
 #endif // printlog_enabled
 }

@@ -1,51 +1,10 @@
-/*
- * @Author: joel
- * .chen sandote@163.om
- * @Date: 2023-05-17 11:45:10
- * @LastEditors: joel
-.chen sandote@163.om
-.chen sandote@163.om
-.chen sandote@163.om
-.chen sandote@163.om
-.chen sandote@163.om
-.chen sandote@163.om
-.chen sandote@163.om
-.chen sandote@163.om
-.chen sandote@163.om
-.chen sandote@163.om
-.chen sandote@163.om
-.chen sandote@163.om
-.chen sandote@163.om
-.chen sandote@163.om
-.chen sandote@163.om
-.chen sandote@163.om
-.chen sandote@163.om
-.chen sandote@163.om
-.chen sandote@163.om
-.chen sandote@163.om
-.chen sandote@163.om
-.chen sandote@163.om
-.chen sandote@163.om
-.chen sandote@163.om
-.chen sandote@163.om
-.chen sandote@163.om
-.chen sandote@163.om
-.chen sandote@163.om
-.chen sandote@163.om
-.chen sandote@163.om
- * .chen sandote@163.om
- * @LastEditTime: 2023-07-12 15:50:33
- * @FilePath: \L1001_Master_CMS32L051\Project\USER\debug\printlog.h
- * @Description:
- *
- * Copyright (c) 2023 by ${git_name_email}, All Rights Reserved.
- */
+
 #ifndef _PRINTLOG_H_
 #define _PRINTLOG_H_
 #include "Function_Init.H"
 #include "comapp.h"
 
-// #define printlog_enabled     // 使能打印log
+#define printlog_enabled     // 使能打印log
 // #define virtual_device  // 虚拟灯板信息
 
 
@@ -131,14 +90,16 @@ void print_slave_color(void);
 
 /*打印名字*/
 void print_name(name_TypeDef*p);
-/*打印定时表详情*/
-void print_schedule_detial(schedule_detail_TypeDef *p);
-/*打印全部定时表*/
-void print_all_schedule(void);
+//
+void print_clock_detial(clock_detail_TypeDef *p); // 打印定时表详情
+void print_all_clock_detail(void);                // 打印全部定时表详情
+//
 /*打印在线从机信息*/
 void print_online_slave_data(void);
 /*运行灯效详情log*/
 void print_play_effect_detial(void);
 
+/*app控制灯板的log*/
+void print_device_control(app_device_control_Typedef*x);
 
 #endif

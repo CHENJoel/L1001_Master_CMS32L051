@@ -3,6 +3,7 @@
 
 #include "Function_Init.H"
 
+
 typedef union
 {
     unsigned char byte;
@@ -23,7 +24,11 @@ extern FlagTypeDef flag;
 
 #define RTC_CheckFinish flag.bits.bit0
 
-
+typedef struct
+{
+    uint8_t num;    // 随机数
+    uint8_t seed;   // 种子
+} random_Typdef;
 
 typedef struct
 {
@@ -49,12 +54,12 @@ typedef struct
     uint8_t Set;       //设定值
 } LightTypeDef;
 
-typedef struct
-{
-    uint8_t POWER_SW;        // 开关
-    LightTypeDef Brightness; // 亮度
-} SYS_TypeDef;
-extern SYS_TypeDef SYS;
+// // typedef struct
+// // {
+// //     uint8_t POWER_SW;        // 开关
+// //     LightTypeDef Brightness; // 亮度
+// // } SYS_TypeDef;
+// // extern SYS_TypeDef SYS;
 
 enum
 {
@@ -171,7 +176,7 @@ uint8_t MIC_Process(void);
 void Slave_SelfTest(void);
 
 void DataUpdata_TO_APP(uint8_t *data_addr);
-void LED_Display(void);
+
 uint8_t KEY_AD_Test(void);
 uint8_t Light_AD_Test(void);
 
@@ -181,4 +186,16 @@ void RTC_Check(uint8_t time[]);
 void RTC_Task(void);
 
 uint32_t checksum_calculate(uint8_t *sur, uint32_t len); // 计算校验和
+
+/*********/
+
+void uart_app_init(void);        // 串口应用初始化
+void sys_tick_init(void);        // 系统时钟初始化
+void uart_parse(void);           // 串口解析
+void random_init(void);          // 随机数初始化
+uint8_t get_random_seed(void);   // 获取随机数种子
+uint8_t get_random_number(void); // 获取随机数
+void refresh_random(void);       // 刷新随机数
+
+void Lignt_Control(void);
 #endif

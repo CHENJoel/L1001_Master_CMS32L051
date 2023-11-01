@@ -1,17 +1,8 @@
-/*
- * @Author: your name
- * @Date: 2022-04-01 16:53:11
- * @LastEditTime: 2023-07-24 19:20:31
- * @LastEditors: joel
-.chen sandote@163.om
-.chen sandote@163.om
- * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
- * @FilePath: \L1001_Master_CMS32L051\Project\USER\Source\A5441_Master.c
- */
+
 #include "Function_Init.H"
 #include "A5441_Master.h"
 
-
+random_Typdef random;
 FlagTypeDef flag;
 
 PlayingStateTypeDef PlayingState;
@@ -20,7 +11,7 @@ PlayingStateTypeDef PlayingState;
 
 // ModeTypeDef Dynam,Stati,Rhyth;  // 动态、静态、律动
 
-SYS_TypeDef SYS;
+// // // SYS_TypeDef SYS;
 
 DeviceTypeDef TangramDevice;
 // // ModeTypeDef ModeArray[3];
@@ -147,13 +138,13 @@ void GPIO_Init(void)
 {
     PORT_Init(PORT2, PIN0, ANALOG_INPUT);  /* (1)  P20/ANI0         */
     PORT_Init(PORT4, PIN0, INPUT);         /* (2)  P40/SWIO         */
-                                           /* (3)  RESETB           */
+                                        /* (3)  RESETB           */
     PORT_Init(PORT13, PIN7, INPUT);        /* (4)  P137/SWCLK       */
     PORT_Init(PORT12, PIN2, OUTPUT);       /* (5)  P122/X2/EXCLK    */
     PORT_Init(PORT12, PIN1, INPUT);        /* (6)  P121/X1          */
-                                           /* (7)  VSS              */
-                                           /* (8)  NC               */
-                                           /* (9)  VDD              */
+                                        /* (7)  VSS              */
+                                        /* (8)  NC               */
+                                        /* (9)  VDD              */
     PORT_Init(PORT13, PIN6, ANALOG_INPUT); /* (10) P136/INTP0/ANI36 */
     #ifdef IR_Version
         PORT_Init(PORT13, PIN6, INPUT); /* (10) P136/INTP0/ANI36 */
@@ -165,26 +156,48 @@ void GPIO_Init(void)
     PORT_Init(PORT2, PIN3, INPUT);            /* (18) P23/ANI3                        */
     PORT_Init(PORT1, PIN0, OUTPUT);           /* (17) P10/SCLK11/SCL11/ANI9/epwmmo00  */
     PORT_Init(PORT1, PIN1, INPUT);            /* (16) P11/SDI11/SDA11/ANI8/epwmmo01   MISO */
-    PORT_Init(PORT1, PIN2, OPENDRAIN_OUTPUT); /* (15) P12/SDO11/ANI13/epwmmo02        MOSI */
-    PORT_Init(PORT1, PIN3, OPENDRAIN_OUTPUT); /* (14) P13/ANI16/epwmmo03              SCLK */
-    PORT_Init(PORT1, PIN4, OPENDRAIN_OUTPUT); /* (13) P14/SDA20/ANI17/epwmmo04        CS   */
+    // // // PORT_Init(PORT1, PIN2, OPENDRAIN_OUTPUT); /* (15) P12/SDO11/ANI13/epwmmo02        MOSI */
+    // // // PORT_Init(PORT1, PIN3, OPENDRAIN_OUTPUT); /* (14) P13/ANI16/epwmmo03              SCLK */
+    // // // PORT_Init(PORT1, PIN4, OPENDRAIN_OUTPUT); /* (13) P14/SDA20/ANI17/epwmmo04        CS   */
+    PORT_Init(PORT1, PIN2, OUTPUT); /* (15) P12/SDO11/ANI13/epwmmo02        MOSI */
+    PORT_Init(PORT1, PIN3, OUTPUT); /* (14) P13/ANI16/epwmmo03              SCLK */
+    PORT_Init(PORT1, PIN4, OUTPUT); /* (13) P14/SDA20/ANI17/epwmmo04        CS   */
     PORT_Init(PORT12, PIN4, OUTPUT);          /* (12) P124/XT2/EXCLKS                 */
     PORT_Init(PORT12, PIN3, OUTPUT);          /* (11) P123/XT1                        */
+
+    // GPIO_PullUp_Enable(PORT1, PIN1);
+    // GPIO_PullUp_Enable(PORT1, PIN2);
+    // GPIO_PullUp_Enable(PORT1, PIN3);
+    // GPIO_PullUp_Enable(PORT1, PIN4);
 }
 
 
 void SYS_Init(void)
 {
     flag.byte=0;
-
+    sys_rundata_init();
     ID_Init();
     norflash_data_init();
     play_init();
     slave_online_data_init();
-    play_effect_init();
+    play_sys_effect_init();
+    global_setting_init();
     // // generate_virtual_device();
     // schedule_factory_reset
 }
+
+
+
+/* 
+ * @Description: 全局设置数据初始化
+ * @param: 
+ * @return: 
+*/ 
+void global_setting_init(void)
+{
+    get_global_setting(&play.work.global_setting);
+}
+
 
 /**
  * @description: 检测所有按键的动作
@@ -342,11 +355,11 @@ uint16_t User_ADC_Converse(adc_channel_t ch, uint32_t sz, uint16_t *buf)
 
 void Timer40_Interrupt(void)
 {
-#ifdef IR_Version
-    IR_Search(); // 红外检码
-#endif
+// // #ifdef IR_Version
+// //     // IR_Search(); // 红外检码
+// // #endif
 
-    SYS_Clock_Tick();
+// //     SYS_Clock_Tick();
 
 }
 
@@ -733,14 +746,13 @@ void KeyS_Click(void)
     {
         // test_change_color();
 
-        Light_Level_Change(&play.work.brightness.set, &play.work.brightness.dir, bright_table, sizeof(bright_table));
-        mcu_update_bright_val();
+
         debug_K2();
     }
     if (KEY3_Click)
     {
         debug_K3();
-        debug_play_last_effect();
+        // debug_play_last_effect();
 
         // test_click_brightness(1);
 
@@ -748,9 +760,12 @@ void KeyS_Click(void)
     if (KEY4_Click)
     {
         debug_K4();
-        debug_play_next_effect();
+        // debug_play_next_effect();
         // test_click_brightness(0);
-
+     
+        Light_Level_Change(&play.work.global_setting.brightness_set, &play.work.brightness.dir, bright_table, sizeof(bright_table));
+        save_global_brightness_set();
+        mcu_update_bright_val();
     }
     if (KEY5_Click)
     {
@@ -779,6 +794,7 @@ void KeyS_Click(void)
     /**************************/
     if (KEY1_LongOnce)
     {
+        debug_K1_LONG();
         mcu_reset_wifi();
         printf("reset wifi\r\n");
     }
@@ -826,33 +842,27 @@ unsigned int  Rhythm_Cal(unsigned int adc_val)
     return temp;
 }
 
-void Lignt_Control()
+void Lignt_Control(void)
 {
 
-    // if (play.work.sw_status == SW_ON)
-    // {
-    //     if (play.efdetail.EffectType == RHYTHM_TYPE) // 律动模式
-    //     {
-    //         play.work.brightness.now = mic.bri_now;
-    //     }
-    //     else
-    //     {
-            if (play.work.brightness.set == 100)
-            {
-                play.work.brightness.tar = 255;
-            }
-            else
-            {
-                play.work.brightness.tar = play.work.brightness.set * (255 / 100);
-            }
-            Gradual_Change(&play.work.brightness.now, &play.work.brightness.tar, 40);
-    //     }
-    // }
-    // else
-    // {
-    //     play.work.brightness.tar = 0;
-    //     Gradual_Change(&play.work.brightness.now, &play.work.brightness.tar, 40);
-    // }
+    if (play.work.sw_status == SW_ON)
+    {
+        if (play.efdetail.EffectType == RHYTHM_TYPE) // 律动模式
+        {
+            play.work.brightness.now = mic.bri_now;
+        }
+        else
+        {
+            play.work.brightness.tar = play.work.global_setting.brightness_set;
+            Gradual_Change(&play.work.brightness.now, &play.work.brightness.tar, 10);
+        }
+    }
+    else
+    {
+        play.work.brightness.tar = 0;
+        Gradual_Change(&play.work.brightness.now, &play.work.brightness.tar, 10);
+    }
+    // // printlog("now:%3d,tar:%3d\r",play.work.brightness.now,play.work.brightness.tar);
 }
 
 void Light_CMD_Send(unsigned char Cmd, unsigned char add,unsigned char Val1, unsigned char Val2)
@@ -2042,91 +2052,19 @@ uint8_t MIC_Process(void)
 // // //     printf("\nDevice_sum %d\nLight_sum %d\n\n",TangramDevice.Device_sum,TangramDevice.Light_sum);
 // // // }
 
-void DataUpdata_TO_APP(uint8_t *data_addr)
-{
-    if (data_addr == &SYS.POWER_SW)
-    {
-        mcu_dp_bool_update(DPID_SWITCH_LED,SYS.POWER_SW); //BOOL型数据上报;
-    }
-    else if (data_addr == &SYS.Brightness.Set)
-    {
-        mcu_dp_value_update(DPID_BRIGHT_VAL,SYS.Brightness.Set); //VALUE型数据上报;
-    }
-    // 代码待修改
-}
+// // // // void DataUpdata_TO_APP(uint8_t *data_addr)
+// // // // {
+// // // //     if (data_addr == &SYS.POWER_SW)
+// // // //     {
+// // // //         mcu_dp_bool_update(DPID_SWITCH_LED,SYS.POWER_SW); //BOOL型数据上报;
+// // // //     }
+// // // //     else if (data_addr == &SYS.Brightness.Set)
+// // // //     {
+// // // //         mcu_dp_value_update(DPID_BRIGHT_VAL,SYS.Brightness.Set); //VALUE型数据上报;
+// // // //     }
+// // // //     // 代码待修改
+// // // // }
 
-void LED_Display(void)
-{
-    static uint8_t blink_timecnt;
-    uint8_t get_wifi_state;
-    uint8_t blink_frequency;
-    // get_wifi_state = get_wifi_homekit_state();
-    // printf("homekit_STA:%d\n",get_wifi_state);
-    get_wifi_state = mcu_get_wifi_work_state();
-    // printf("tuya_STA:%d\r\n",get_wifi_state);
-/*
- * -          SMART_CONFIG_STATE: smartconfig配置状态
- * -          AP_STATE: AP配置状态
- * -          WIFI_NOT_CONNECTED: WIFI配置成功但未连上路由器
- * -          WIFI_CONNECTED: WIFI配置成功且连上路由器
- * -          WIFI_CONN_CLOUD: WIFI已经连接上云服务器
- * -          WIFI_LOW_POWER: WIFI处于低功耗模式
- * -          SMART_AND_AP_STATE: WIFI smartconfig&AP 模式
-*/
-    switch (get_wifi_state)
-    {
-    case SMART_CONFIG_STATE: // smartconfig配置状态
-        blink_frequency = 2;
-        break;
-    case AP_STATE: // AP配置状态
-        blink_frequency = 2;
-        break;
-    case WIFI_NOT_CONNECTED: // WIFI配置成功但未连上路由器
-        blink_frequency = 15;
-        break;
-    case WIFI_CONNECTED: // WIFI配置成功且连上路由器
-        blink_frequency = 60;
-        break;
-    case WIFI_CONN_CLOUD: // WIFI已经连接上云服务器
-        blink_frequency = 85;
-        break;
-    case WIFI_LOW_POWER: // WIFI处于低功耗模式
-        blink_frequency = 2;
-        break;
-    case SMART_AND_AP_STATE: // WIFI smartconfig&AP 模式
-        blink_frequency = 2;
-        break;
-    // case WIFI_SATE_UNKNOW:
-    //     blink_frequency = 100;
-    //     break;
-    default:
-        blink_frequency = 100;
-        break;
-    }
-
-    if (blink_frequency > 90)
-    {
-        LED1_OFF();
-        blink_timecnt = 0;
-    }
-    else
-    {
-        if (++blink_timecnt > blink_frequency)
-        {
-            blink_timecnt = 0;
-            LED1_REV();
-        }
-    }
-
-    if (play.work.sw_status == SW_ON)
-    {
-        LED2_ON();
-    }
-    else
-    {
-        LED2_OFF();
-    }
-}
 uint8_t KEY_AD_Test(void)
 {
     uint16_t KEY_Val;
@@ -2147,7 +2085,7 @@ uint8_t KEY_AD_Test(void)
     }
     if (KEY_Val > Ref_K5) // 3685
     {
-        return 5;
+        return 5;	
     }
     if (KEY_Val > Ref_K4) // 3173
     {
@@ -2287,4 +2225,126 @@ void watchdog_test(void)
 // // 		PORT->P7 ^= (1<<2); 	// P72 toggle
 // // 		while(1);
 // // 	}
+}
+
+
+
+/* 
+ * @Description: 串口应用初始化
+ * @param: 
+ * @return: 
+*/ 
+void uart_app_init(void)
+{
+    /*
+	UART0_Init(SystemCoreClock, 76800);	// 实际为76800
+	UART1_Init(SystemCoreClock, 76800); // 实际为9600
+	_0050_SCI_CK01_fCLK_5
+
+	UART0_Init(SystemCoreClock, 115200); // 实际为115200
+	UART1_Init(SystemCoreClock, 76800); // 实际为9600
+	_0050_SCI_CK01_fCLK_5
+	其他波特率需重新设置参数
+	*/
+	// // // UART0_Init(SystemCoreClock, 76800); // 实际为76800
+	UART0_Init(SystemCoreClock, 115200); // 实际为115200
+	UART1_Init(SystemCoreClock, 76800); // 实际为9600
+	UART1_Receive(&Uart1_rx_data, 1);
+	printf("\nHello,I am Matser\n");
+	INTC_EnableIRQ(SR0_IRQn); // 开串口接收中断
+
+    DMA_Start(DMA_VECTOR_SR0, CTRL_DATA_SR0, DMA_MODE_REPEAT, DMA_SIZE_BYTE, sizeof(parse.fifo_buffer),  (void*)&SCI0->RXD0, (void*)&parse.fifo_buffer);
+	DMA_Enable(DMA_VECTOR_SR0);
+	NVIC_ClearPendingIRQ(SR0_IRQn); /* clear INTSR1 interrupt flag */
+	INTC_EnableIRQ(SR0_IRQn);       /* enable INTSR1 interrupt */
+}
+
+
+/* 
+ * @Description: 间隔定时器中断服务函数
+ * @param: 
+ * @return: 
+*/ 
+void it_callback_Handle(void)
+{
+    SYS_Clock_Tick();
+}
+
+/* 
+ * @Description: 系统时钟初始化
+ * @param: 
+ * @return: 
+*/ 
+void sys_tick_init(void)
+{
+    IT_Init(RTC_64MHZ, 131);  // 4ms间隔中断一次
+    IT_Start();
+    INTC_EnableIRQ(IT_IRQn);
+}
+
+
+/*
+ * @Description: 串口解析
+ * @param: 无
+ * @return: 无
+*/
+void uart_parse(void)
+{
+    uint16_t pWrite;
+    pWrite = sizeof(parse.fifo_buffer) - DMAVEC->CTRL[CTRL_DATA_SR0].DMACT;
+    fifo_parse(&parse.fifo_buffer, sizeof(parse.fifo_buffer), &parse.read, &pWrite, &parse.rx_processbuf); // 不定长协议解析
+}
+
+
+
+/*
+ * @Description: 随机数初始化
+ * @param:
+ * @return:
+*/
+void random_init(void)
+{
+    random.seed = get_random_seed();
+    refresh_random();
+}
+
+/*
+ * @Description: 获取随机数种子
+ * @param:
+ * @return:
+*/
+uint8_t get_random_seed(void)
+{
+    uint16_t *p;
+    uint8_t i;
+    uint16_t seed;
+    seed = 0;
+    p = (uint16_t *)UID;
+    for (i = 0; i < 8; i++)
+    {
+        seed += *p++;
+    }
+    return (uint8_t)seed;
+}
+
+
+/*
+ * @Description: 获取随机数
+ * @param:
+ * @return:
+*/
+uint8_t get_random_number(void)
+{
+    refresh_random();
+    return random.num;
+}
+
+/*
+ * @Description: 刷新随机数
+ * @param:
+ * @return:
+*/
+void refresh_random(void)
+{
+    random.num += random.seed;
 }

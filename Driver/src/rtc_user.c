@@ -244,6 +244,7 @@ static void it_callback(void)
     g_ItIntTaken++;
     /* End user code. Do not edit comment generated here */
     // LED1_REV();    
+    it_callback_Handle();
 }   
 
 /* Start user code for adding. Do not edit comment generated here */

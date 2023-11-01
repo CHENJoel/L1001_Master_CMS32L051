@@ -2,7 +2,9 @@
  * @Author: joel
  * .chen sandote@163.om
  * @Date: 2023-06-09 15:56:49
- * @LastEditors: joel
+ * @LastEditors: DESKTOP-AKTRQKB\MY sandote@163.com
+.chen sandote@163.om
+.chen sandote@163.om
 .chen sandote@163.om
 .chen sandote@163.om
 .chen sandote@163.om
@@ -23,6 +25,7 @@
 #include "slave.h"
 #include "ProtocolCom.H"
 
+uint8_t connect_id; // 当前握手ID
 
 device_data_TypeDef slave;
 device_color_TypeDef slavecolor;    // 配对临时使用
@@ -50,15 +53,23 @@ void tx_uart_data(uint8_t *data, uint16_t len)
 */
 void connect_slave_device(uint8_t id)
 {
-    comCmd_Typedef com;
-    com.com_head = MCMD_HEADER;
-    com.com_addr = id;
-    com.com_cmdType = CMD_CONTROL;  // 控制指令
-    com.com_cmd = CMD_CONNECT_COID; // 握手通信ID
-    com.com_val1 = Random_Generate();
-    com.com_val2 = Random_Generate();
-    com.com_checksum = (uint8_t)checksum_calculate((uint8_t *)&com, (uint16_t)sizeof(com) - 1);
-    tx_uart_data((uint8_t *)&com, (uint16_t)sizeof(com));
+    L0_cmd_id_data_Typedef x;
+    x.head.dev_adr = id;                 // 握手地址
+    x.head.cmd = CMD_SLAVE_CONNECT_COID; // 握手通信ID
+    x.head.type = MES_ASK;               // 发出请求
+    x.cid = id;
+    transmit_protocol_frame((uint8_t *)&x, &((L0_cmd_id_data_Typedef *)1)->cid, parse.tx_framebuf);
+
+    /************************/
+    // comCmd_Typedef com;
+    // com.com_head = MCMD_HEADER;
+    // com.com_addr = id;
+    // com.com_cmdType = CMD_CONTROL;  // 控制指令
+    // com.com_cmd = CMD_CONNECT_COID; // 握手通信ID
+    // com.com_val1 = Random_Generate();
+    // com.com_val2 = Random_Generate();
+    // com.com_checksum = (uint8_t)checksum_calculate((uint8_t *)&com, (uint16_t)sizeof(com) - 1);
+    // tx_uart_data((uint8_t *)&com, (uint16_t)sizeof(com));
 }
 
 /*
@@ -68,15 +79,21 @@ void connect_slave_device(uint8_t id)
 */
 void refresh_slave_comid(void)
 {
-    comCmd_Typedef com;
-    com.com_head = MCMD_HEADER;
-    com.com_addr = 0xFF;            // 广播
-    com.com_cmdType = CMD_CONTROL;  // 控制指令
-    com.com_cmd = CMD_REFRESH_COID; // 更新通信ID
-    com.com_val1 = Random_Generate();
-    com.com_val2 = Random_Generate();
-    com.com_checksum = (uint8_t)checksum_calculate((uint8_t *)&com, (uint16_t)sizeof(com) - 1);
-    tx_uart_data((uint8_t *)&com, (uint16_t)sizeof(com));
+    L0_cmd_id_data_Typedef x;
+    x.head.dev_adr = ADDR_PUBLIC;        // 握手地址
+    x.head.cmd = CMD_SLAVE_REFRESH_COID; // 更新通信ID
+    x.head.type = MES_ASK;               // 发出请求
+    transmit_protocol_frame((uint8_t *)&x, &((L0_cmd_id_data_Typedef *)1)->head.type, parse.tx_framebuf);
+    /************************/
+    // // // comCmd_Typedef com;
+    // // // com.com_head = MCMD_HEADER;
+    // // // com.com_addr = 0xFF;            // 广播
+    // // // com.com_cmdType = CMD_CONTROL;  // 控制指令
+    // // // com.com_cmd = CMD_REFRESH_COID; // 更新通信ID
+    // // // com.com_val1 = Random_Generate();
+    // // // com.com_val2 = Random_Generate();
+    // // // com.com_checksum = (uint8_t)checksum_calculate((uint8_t *)&com, (uint16_t)sizeof(com) - 1);
+    // // // tx_uart_data((uint8_t *)&com, (uint16_t)sizeof(com));
 }
 
 /*
@@ -86,15 +103,21 @@ void refresh_slave_comid(void)
 */
 void ask_slave_shape(uint8_t id)
 {
-    comRW_Typedef com;
-    com.com_head = MCMD_HEADER;
-    com.com_addr = id;
-    com.com_cmdType = CMD_READREG;
-    com.com_regaddr = REG_DEVICETYPE; // 设备类型
-    com.com_regval = Random_Generate() << 8;
-    com.com_regval += Random_Generate();
-    com.com_checksum = (uint8_t)checksum_calculate((uint8_t *)&com, (uint16_t)sizeof(com) - 1);
-    tx_uart_data((uint8_t *)&com, (uint16_t)sizeof(com));
+    L0_cmd_shape_data_Typedef x;
+    x.head.dev_adr = id;              // 握手地址
+    x.head.cmd = CMD_SLAVE_GET_SHAPE; // 获取设备形状
+    x.head.type = MES_ASK;            // 发出请求
+    transmit_protocol_frame((uint8_t *)&x, &((L0_cmd_id_data_Typedef *)1)->head.type, parse.tx_framebuf);
+    /*****************************/
+    // // // comRW_Typedef com;
+    // // // com.com_head = MCMD_HEADER;
+    // // // com.com_addr = id;
+    // // // com.com_cmdType = CMD_READREG;
+    // // // com.com_regaddr = REG_DEVICETYPE; // 设备类型
+    // // // com.com_regval = Random_Generate() << 8;
+    // // // com.com_regval += Random_Generate();
+    // // // com.com_checksum = (uint8_t)checksum_calculate((uint8_t *)&com, (uint16_t)sizeof(com) - 1);
+    // // // tx_uart_data((uint8_t *)&com, (uint16_t)sizeof(com));
 }
 
 /*
@@ -138,6 +161,64 @@ cmdpack_status get_slave_ack_from_fifo(uint8_t *fifobuf, uint16_t bufsize, uint1
     return PACK_WRONG; //
 }
 
+
+/**----------------------------------------------------*/
+/*
+ * @Description: 解析从机的应答信号
+ * @param: fifo缓存指针
+ * @param: fifo缓存大小
+ * @param: fifo读指针的指针
+ * @param: fifo写指针的指针
+ * @param: 解析后的数据存储缓存指针
+ * @return:无
+ */
+answer_status parse_slave_answer(uint8_t *fifobuf, uint16_t bufsize, uint16_t *pr, uint16_t *pw, uint8_t *processbuf)
+{
+    uint16_t i;
+    uint16_t datalength;       // 数据段长度
+    uint8_t datasum;           // 数据段的累加和
+    for (i = 0; i < 1000; i++) // 限制单次解析次数
+    {
+        if (*pr != *pw) // 未读完缓存
+        {
+            if (FRAME_TAIL == get_byte_from_fifo(fifobuf, bufsize, pr, FRAME_TAIL_OFFSET)) // 帧尾校验
+            {
+                datalength = get_byte_from_fifo(fifobuf, bufsize, pr, DATA_LENGTH_H_OFFSET) << 8; // 数据长度高八位
+                datalength |= get_byte_from_fifo(fifobuf, bufsize, pr, DATA_LENGTH_L_OFFSET);     // 数据长度低八位
+                if (datalength < PROCESS_RXDATA_LMT)                                              // 限制数据段长度
+                {
+                    if (FRAME_HEAD == get_byte_from_fifo(fifobuf, bufsize, pr, datalength + DATA_END_OFFSET)) // 帧头校验
+                    {
+                        get_section_from_fifo(fifobuf, bufsize, pr, DATA_END_OFFSET, processbuf, datalength); // 提取数据段到处理缓存中
+                        datasum = get_data_checksum(processbuf, datalength);                                  // 数据区累加和
+                        datasum += FRAME_HEAD;                                                                // 累加帧头
+                        datasum += (datalength >> 8);                                                         // 累加数据长度高八位
+                        datasum += datalength;                                                                // 累加数据长度低八位
+                        if (datasum == get_byte_from_fifo(fifobuf, bufsize, pr, CHECK_SUM_OFFSET))            // 校验和
+                        {
+                            protocol_rxdata_handle(processbuf, datalength); // 处理解析后的数据
+                            return ANSWER_RIGHT;    // 正确应答
+                        }
+                    }
+                }
+            }
+            if (++*pr >= bufsize) // 指向下一位
+            {
+                *pr = 0;
+            }
+        }
+        else // 缓存无待读数据
+        {
+            if (i == 0)
+            {
+                return ANSWER_EMPTY; // 无应答 缓存读写地址一致，代表缓存中无新内容
+            }
+            return ANSWER_WRONG; // 错误应答 读完缓存的新内容，但未发现符合协议的数据包
+        }
+    }
+    return ANSWER_WRONG; //
+}
+
 /*
  * @Description: 轮询出在线的从机设备
  * @param: 无
@@ -145,6 +226,8 @@ cmdpack_status get_slave_ack_from_fifo(uint8_t *fifobuf, uint16_t bufsize, uint1
 */
 void poll_slave_id(void)
 {
+    uint16_t pWrite; //
+    answer_status answer_sta;
     uint8_t i, j;
     uint8_t id_buff[32];      // 设备id
     uint8_t online_num = 0;   // 在线设备数量
@@ -157,21 +240,42 @@ void poll_slave_id(void)
         online_num = 0;
         for (j = 1; j < 255; j++) // 轮询所有id，0和255（广播）为无效id
          {
-            Uart0_Buffer.Read = Uart0_Buffer.Write; // 清空接收缓存中未读数据
-            connect_slave_device(j);                // 握手连接此id
-            delay_5ms();
-            memset(&packbuff, 0, sizeof(packbuff)); //
-            packstatus = get_slave_ack_from_fifo(&Uart0_Buffer.Buffer, sizeof(Uart0_Buffer.Buffer), &Uart0_Buffer.Read, &Uart0_Buffer.Write, &packbuff); // 读取缓存数据状态
-            if ((packstatus == PACK_RIGHT) && (packbuff.com_addr == j) && (packbuff.com_cmdType == CMD_CTRLACK) && (packbuff.com_cmd == CMD_CONNECT_COID)) // 接收到一组从机信息数据包
+            // Uart0_Buffer.Read = Uart0_Buffer.Write; // 清空接收缓存中未读数据
+            // // memset(&packbuff, 0, sizeof(packbuff)); //
+            // // packstatus = get_slave_ack_from_fifo(&Uart0_Buffer.Buffer, sizeof(Uart0_Buffer.Buffer), &Uart0_Buffer.Read, &Uart0_Buffer.Write, &packbuff); // 读取缓存数据状态
+            // // if ((packstatus == PACK_RIGHT) && (packbuff.com_addr == j) && (packbuff.com_cmdType == CMD_CTRLACK) && (packbuff.com_cmd == CMD_CONNECT_COID)) // 接收到一组从机信息数据包
+            // // {
+            // //     id_buff[online_num] = j;                 // 标记从机ID
+            // //     online_num++;                               // 标记从机数量
+            // // }
+            // // else if (packstatus != PACK_EMPTY) // 非空数据包,但不符合数据协议，数据包有误，代表有多个从机同时占用总线发报数据，即出现ID冲突
+            // // {
+            // //     // refresh_slave_comid(); // 要求全部从机更新id
+            // //     delay_5ms();
+            // //     break;               // 重新循环轮询
+            // // }
+            pWrite = sizeof(parse.fifo_buffer) - DMAVEC->CTRL[CTRL_DATA_SR0].DMACT;
+            parse.read = pWrite; // 清除buff未处理的数据
+            connect_id = 0; // 复位数据
+            connect_slave_device(j); // 握手连接此id
+            delay_10ms();
+            delay_10ms();
+            pWrite = sizeof(parse.fifo_buffer) - DMAVEC->CTRL[CTRL_DATA_SR0].DMACT;
+            answer_sta = parse_slave_answer(&parse.fifo_buffer, sizeof(parse.fifo_buffer), &parse.read, &pWrite, &parse.rx_processbuf); //
+            if (answer_sta == ANSWER_RIGHT)
             {
-                id_buff[online_num] = j;                 // 标记从机ID
-                online_num++;                               // 标记从机数量
+                if (connect_id == j)
+                {
+                    id_buff[online_num] = j; // 标记从机ID
+                    online_num++;            // 标记从机数量
+                }
             }
-            else if (packstatus != PACK_EMPTY) // 非空数据包,但不符合数据协议，数据包有误，代表有多个从机同时占用总线发报数据，即出现ID冲突
+            else if (answer_sta == ANSWER_WRONG) // 应答异常，可能出现id冲突
             {
                 refresh_slave_comid(); // 要求全部从机更新id
-                delay_5ms();
-                break;               // 重新循环轮询
+                // delay_5ms();
+                delay_10ms();
+                break; // 重新循环轮询
             }
             if (j == 254) // 内循环轮询结束，说明此前未发现ID冲突
             {
@@ -194,23 +298,44 @@ void poll_slave_id(void)
 void get_slave_shape(void)
 {
     uint8_t i;
-    uint8_t packstatus; // 指令数据包状态
-    comRW_Typedef packbuff;
+    uint16_t pWrite; //
+    answer_status answer_sta;
+    if (slave.num>32)
+    {
+        return ; 
+    }
     for (i = 0; i < slave.num; i++)
     {
-        Uart0_Buffer.Read = Uart0_Buffer.Write; // 清空接收缓存中未读数据
+        pWrite = sizeof(parse.fifo_buffer) - DMAVEC->CTRL[CTRL_DATA_SR0].DMACT;
+        parse.read = pWrite; // 清除buff未处理的数据
+        slave.data[i].shape = OTHER_SHAPE;
         ask_slave_shape(slave.data[i].id);
-        delay_5ms();
-        packstatus = get_slave_ack_from_fifo(&Uart0_Buffer.Buffer, sizeof(Uart0_Buffer.Buffer), &Uart0_Buffer.Read, &Uart0_Buffer.Write, &packbuff);       // 读取缓存数据状态
-        if ((packstatus == PACK_RIGHT) && (packbuff.com_addr == slave.data[i].id) && (packbuff.com_cmdType == CMD_RETURNREG) && (packbuff.com_regaddr == REG_DEVICETYPE)) // 接收到一组从机信息数据包
-        {
-            slave.data[i].shape = packbuff.com_regval;
-        }
-        else
-        {
-            slave.data[i].shape = OTHER_SHAPE;
-        }
+        delay_10ms();
+        delay_10ms();
+        delay_10ms();
+        pWrite = sizeof(parse.fifo_buffer) - DMAVEC->CTRL[CTRL_DATA_SR0].DMACT;
+        answer_sta = parse_slave_answer(&parse.fifo_buffer, sizeof(parse.fifo_buffer), &parse.read, &pWrite, &parse.rx_processbuf); //
     }
+
+    /***************************************/
+    // // // // uint8_t i;
+    // // // // uint8_t packstatus; // 指令数据包状态
+    // // // // comRW_Typedef packbuff;
+    // // // // for (i = 0; i < slave.num; i++)
+    // // // // {
+    // // // //     Uart0_Buffer.Read = Uart0_Buffer.Write; // 清空接收缓存中未读数据
+    // // // //     ask_slave_shape(slave.data[i].id);
+    // // // //     delay_5ms();
+    // // // //     packstatus = get_slave_ack_from_fifo(&Uart0_Buffer.Buffer, sizeof(Uart0_Buffer.Buffer), &Uart0_Buffer.Read, &Uart0_Buffer.Write, &packbuff);       // 读取缓存数据状态
+    // // // //     if ((packstatus == PACK_RIGHT) && (packbuff.com_addr == slave.data[i].id) && (packbuff.com_cmdType == CMD_RETURNREG) && (packbuff.com_regaddr == REG_DEVICETYPE)) // 接收到一组从机信息数据包
+    // // // //     {
+    // // // //         slave.data[i].shape = packbuff.com_regval;
+    // // // //     }
+    // // // //     else
+    // // // //     {
+    // // // //         slave.data[i].shape = OTHER_SHAPE;
+    // // // //     }
+    // // // // }
 }
 /*更新设备信息*/
 uint8_t refresh_slave_data(device_detail_TypeDef *p)
@@ -382,50 +507,84 @@ uint8_t refresh_device_color(color_TypeDef *p, uint8_t id)
  * @Description: 轮流点亮从机
  * @param:
  * @return:
-*/
+ */
 void slave_light_in_turn(void)
 {
     uint8_t i, j;
-    uint16_t size;
-    uint8_t buffer[DMA_BUFFER_SIZE];
+    L0_cmd_playRGBbr_Typedef xPlay;
     if (slave.num) // 有设备在线的时候才发送数据
     {
-        ((playpack_Typedef *)(&buffer))->head.type = PLAY_DATA;
-        ((playpack_Typedef *)(&buffer))->head.num = slave.num;
-        size = sizeof(packhead_Typedef) + slave.num * sizeof(playdata_Typedef);
-        for (i = 0; i < slave.num + 1; i++)
+        xPlay.head.dev_adr = ADDR_PUBLIC;    // 设备地址
+        xPlay.head.cmd = CMD_SLAVE_PLAY_RGB; // 播放灯光 “RGBbr”格式
+        xPlay.head.type = MES_ASK;           // 发出请求
+        xPlay.playnum = slave.num;
+        for (i = 0; i < xPlay.playnum + 1; i++)
         {
-            for (j = 0; j < slave.num; j++)
+            for (j = 0; j < xPlay.playnum; j++)
             {
-                ((playpack_Typedef *)(&buffer))->play[j].addr = slave.data[j].id;
-                ((playpack_Typedef *)(&buffer))->play[j].bri = 255;
                 if (j == i)
                 {
-                    ((playpack_Typedef *)(&buffer))->play[j].R = 0;
-                    ((playpack_Typedef *)(&buffer))->play[j].G = 255;
-                    ((playpack_Typedef *)(&buffer))->play[j].B = 0;
-                    ((playpack_Typedef *)(&buffer))->play[j].W = 0;
+                    xPlay.dev[j].cid = slave.data[j].id;
+                    xPlay.dev[j].br = 100;
+                    xPlay.dev[j].R = 0;
+                    xPlay.dev[j].G = 255;
+                    xPlay.dev[j].B = 0;
                 }
                 else
                 {
-                    ((playpack_Typedef *)(&buffer))->play[j].R = 0;
-                    ((playpack_Typedef *)(&buffer))->play[j].G = 0;
-                    ((playpack_Typedef *)(&buffer))->play[j].B = 0;
-                    ((playpack_Typedef *)(&buffer))->play[j].W = 0;
+                    xPlay.dev[j].cid = slave.data[j].id;
+                    xPlay.dev[j].br = 0;
+                    xPlay.dev[j].R = 0;
+                    xPlay.dev[j].G = 0;
+                    xPlay.dev[j].B = 0;
                 }
             }
-            transmit_protocol_frame(&buffer, size, &parse.tx_framebuf); // 通过不定长协议发送
-            // delay_500ms();
-            delayMS(50);
+            transmit_protocol_frame((uint8_t *)&xPlay, &((L0_cmd_playRGBbr_Typedef *)0)->dev[slave.num], &parse.tx_framebuf); // 通过不定长协议发送
+        delayMS(100);
         }
     }
+    /**********************************************************************************************/
+    // // // uint8_t i, j;
+    // // // uint16_t size;
+    // // // uint8_t buffer[DMA_BUFFER_SIZE];
+    // // // if (slave.num) // 有设备在线的时候才发送数据
+    // // // {
+    // // //     ((playpack_Typedef *)(&buffer))->head.type = PLAY_DATA;
+    // // //     ((playpack_Typedef *)(&buffer))->head.num = slave.num;
+    // // //     size = sizeof(packhead_Typedef) + slave.num * sizeof(playdata_Typedef);
+    // // //     for (i = 0; i < slave.num + 1; i++)
+    // // //     {
+    // // //         for (j = 0; j < slave.num; j++)
+    // // //         {
+    // // //             ((playpack_Typedef *)(&buffer))->play[j].addr = slave.data[j].id;
+    // // //             ((playpack_Typedef *)(&buffer))->play[j].bri = 255;
+    // // //             if (j == i)
+    // // //             {
+    // // //                 ((playpack_Typedef *)(&buffer))->play[j].R = 0;
+    // // //                 ((playpack_Typedef *)(&buffer))->play[j].G = 255;
+    // // //                 ((playpack_Typedef *)(&buffer))->play[j].B = 0;
+    // // //                 ((playpack_Typedef *)(&buffer))->play[j].W = 0;
+    // // //             }
+    // // //             else
+    // // //             {
+    // // //                 ((playpack_Typedef *)(&buffer))->play[j].R = 0;
+    // // //                 ((playpack_Typedef *)(&buffer))->play[j].G = 0;
+    // // //                 ((playpack_Typedef *)(&buffer))->play[j].B = 0;
+    // // //                 ((playpack_Typedef *)(&buffer))->play[j].W = 0;
+    // // //             }
+    // // //         }
+    // // //         transmit_protocol_frame(&buffer, size, &parse.tx_framebuf); // 通过不定长协议发送
+    // // //         // delay_500ms();
+    // // //         delayMS(50);
+    // // //     }
+    // // // }
 }
 
 /*
  * @Description: 仅点亮其中一个灯
  * @param:
  * @return:
-*/
+ */
 void light_up_only_one_slave(uint8_t id)
 {
     uint8_t j;
@@ -457,4 +616,98 @@ void light_up_only_one_slave(uint8_t id)
         }
         transmit_protocol_frame(&buffer, size, &parse.tx_framebuf); // 通过不定长协议发送
     }
+}
+
+
+/* 
+ * @Description: 处理解析后的数据
+ * @param: 
+ * @param: 
+ * @return: 
+*/ 
+void protocol_rxdata_handle(uint8_t *p, uint16_t len)
+{
+    if ((((large_package_Typedef *)p)->head.dev_adr == ADDR_PUBLIC) || (((large_package_Typedef *)p)->head.dev_adr == ADDR_MASTER)) // 设备地址校验
+    {
+        // // // boot_command_parse(p, len);
+        slave_answer_parse(p, len);
+        // // // general_command_parse(p, len);
+    }
+}
+
+
+/*
+ * @Description: 从机应答解析
+ * @param: 数据包源指针
+ * @param: 数据包长度
+ * @return: 无
+ */
+void slave_answer_parse(uint8_t *p, uint16_t len)
+{
+    switch (((large_package_Typedef *)p)->head.cmd)
+    {
+    case CMD_SLAVE_CONNECT_COID: // 握手通信ID
+        Fun_SLAVE_CONNECT_COID(p, len);
+        break;
+    case CMD_SLAVE_GET_ID: // 获取ID
+        Fun_SLAVE_GET_ID(p, len);
+        break;
+    case CMD_SLAVE_GET_SHAPE: // 获取形状
+        Fun_SLAVE_GET_SHAPE(p, len);
+        break;
+    case CMD_SLAVE_GET_CALIBRATION: // 获取校准数据
+        Fun_SLAVE_GET_CALIBRATION(p, len);
+        break;
+    default:
+        break;
+    }
+}
+
+void Fun_SLAVE_CONNECT_COID(uint8_t *p, uint16_t len) // 握手通信ID
+{
+#define xID ((L0_cmd_id_data_Typedef *)p)
+    if (xID->head.type == MES_ACK) // 应答请求
+    {
+        connect_id = xID->cid;
+    }
+    else
+    {
+        return;
+    }
+#undef xID
+}
+void Fun_SLAVE_GET_ID(uint8_t *p, uint16_t len) // 获取ID
+{
+}
+void Fun_SLAVE_GET_SHAPE(uint8_t *p, uint16_t len) // 获取形状
+{
+    uint8_t i;
+#define xShape ((L0_cmd_shape_data_Typedef *)p)
+    if (xShape->head.type == MES_ACK) // 应答请求
+    {
+        for (i = 0; i < slave.num; i++)
+        {
+            if (xShape->cid == slave.data[i].id)
+            {
+                slave.data[i].shape = xShape->shape;
+                break;
+            }
+        }
+        // get_device_shape();
+        // x.head.dev_adr = ADDR_MASTER;                           // 主机地址
+        // x.head.cmd = CMD_SLAVE_GET_SHAPE;                       // 获取ID
+        // x.head.type = MES_ACK;                                  // 应答请求
+        // get_device_shape();                                     // ad采样
+        // x.shape = userdata.shape;                               // 获取形状
+        // my_memcpy(&x.adval, &dev_shape_adval, sizeof(x.adval)); // ad值
+        // x.random[0] = get_random_number();
+        // x.random[1] = get_random_number();
+        // x.random[2] = get_random_number();
+        // transmit_protocol_frame((uint8_t *)&x, sizeof(x), parse.tx_framebuf);
+    }
+#undef xShape  
+
+}
+void Fun_SLAVE_GET_CALIBRATION(uint8_t *p, uint16_t len) // 获取校准数据
+{
 }

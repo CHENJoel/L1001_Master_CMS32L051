@@ -1,3 +1,11 @@
+/*
+ * @Author: DESKTOP-AKTRQKB\MY sandote@163.com
+ * @Date: 2023-07-02 15:21:58
+ * @LastEditors: DESKTOP-AKTRQKB\MY sandote@163.com
+ * @LastEditTime: 2023-10-16 11:35:04
+ * @FilePath: \L1001_Master_CMS32L051\Project\USER\parse\parse.h
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+ */
 /* File Info
  * Author:      Joel.chen
  * CreateTime:  2023/6/16 10:55:27
@@ -34,17 +42,17 @@
 #define FRAME_HEAD 0xAA // 帧头
 #define FRAME_TAIL 0xBB // 帧尾
 
-#define PROCESS_RXDATA_LMT 300 // 单次接收的最大数据段尺寸（不包括帧结构），最大不超过256字节
+#define PROCESS_RXDATA_LMT 64 // 单次接收的最大数据段尺寸（不包括帧结构），最大不超过256字节
 #define PROCESS_TXDATA_LMT 300 // 单次发送的最大数据段尺寸（不包括帧结构），最大不超过256字节
-#define FIFO_BUFFER_SIZE 4000  // fifo缓存尺寸
+#define FIFO_BUFFER_SIZE 100  // fifo缓存尺寸
 
 typedef struct
 {
-    // // uint16_t ins_read;                                           // 其他协议的读指针
-    // // uint16_t read;                                               // 读指针
-    // // uint16_t write;                                              // 写指针
-    // // uint8_t fifo_buffer[FIFO_BUFFER_SIZE];                       // fifo缓存
-    // // uint8_t rx_data_buf[PROCESS_RXDATA_LMT];                     // 解析后的数据处理缓存，不含帧结构
+    uint16_t ins_read;                                           // 其他协议的读指针
+    uint16_t read;                                               // 读指针
+    // uint16_t write;                                              // 写指针
+    uint8_t fifo_buffer[FIFO_BUFFER_SIZE];                       // fifo缓存
+    uint8_t rx_processbuf[PROCESS_RXDATA_LMT];                   // 解析后的数据处理缓存，不含帧结构
     uint8_t tx_framebuf[FRAME_STRUCT_SIZE + PROCESS_TXDATA_LMT]; // 发送帧缓存
 } parse_TypeDef;
 extern parse_TypeDef parse;

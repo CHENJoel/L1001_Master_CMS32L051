@@ -1,3 +1,11 @@
+/*
+ * @Author: DESKTOP-AKTRQKB\MY sandote@163.com
+ * @Date: 2022-10-17 11:28:51
+ * @LastEditors: DESKTOP-AKTRQKB\MY sandote@163.com
+ * @LastEditTime: 2023-10-31 15:30:15
+ * @FilePath: \L1001_Master_CMS32L051\Project\USER\Source\main.c
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+ */
 /***********************************************************************************************************************
 * Copyright (C) . All rights reserved.
 ***********************************************************************************************************************/
@@ -29,62 +37,22 @@ Includes
 #include "Function_Init.H"
 
 
-
-
-
-
-// uint8_t Uart1_rx_buffer[10];
-
-
-
-// uint8_t temp,temp1,temp2;
-// unsigned char x,y,z;
-
-// unsigned char tempR,tempG,tempB;
-
 unsigned char dir;
-// uint16_t get_value[8];
-// uint16_t avg;
-uint32_t i;
-// // unsigned char pppp;
 
-// unsigned char NOW,TAR;
+uint32_t i;
+
 
 unsigned char RandomNum;
 
-// uint16_t ADC_Buffer[ADC_CNT];	//
-// uint16_t ADC_Buffer[200];	//
 
-// // uint16_t sdghgeydu;
-// uint8_t uart1_buffer[50];
-// uint8_t dbywegyeagfy;
-// // unsigned char ADC_DMA_OK;
-// // unsigned char ADC_DMA_EN;
-// // unsigned char FFT_OK;
-// // unsigned char FFT_Flash;	//
 
 uint16_t RunningTimeCnt;
 
-// int FFT_InjectCount = 0;						//数据注入次数
-// int FFT_InjectFinishFlag = 0;					//数据注入完成标志
-
-// Complex_TypeDef FFT_Date[FFT_N];					//创建一个复数数组，大小1024个，占用RAM有 8*1024 = 8.192KB 内存，单片机RAM建议大于10K ，否则程序运行不起来
-
 uint16_t runtime_cnt;
 
+uint8_t test_str[]="z26x\r\n";
 
 
-#define	CTRL_DATA_ST0  1U
-#define	CTRL_DATA_SR0  2U
-
-#define	BUFF_LEN  256U
-
-
-// uint8_t txbuf[BUFF_LEN];
-// uint8_t rxbuf[BUFF_LEN];
-
-
-// // // uint8_t UART_TEST[]={"ACVFST"};
 
 /***********************************************************************************************************************
 Global variables and functions
@@ -135,31 +103,12 @@ int main()
 	SystemCoreClockUpdate();
 	// // // status = UART0_Init(SystemCoreClock, 9600);
 
-	status = UART0_Init(SystemCoreClock, 76800);
+	uart_app_init();	
 
-
-	if(status == MD_ERROR)
-	{
-		while(1); // The baud rate 0x9800cannot get at the current system clock frequency.
-	}
-	UART1_Init(SystemCoreClock, 76800); // 实际为9600
-	UART1_Receive(&Uart1_rx_data, 1);
-
-	printf("\nHello,I am Matser\n");
-	INTC_EnableIRQ(SR0_IRQn); // 开串口接收中断
-
-	// tempR = 0;
-	// tempG = 0;
-	// tempB = 0;
 	LED1_OFF();
 	LED2_OFF();
-	// LED3_OFF();
 
-	WIFI_SET();
-	// // // IT_Init(RTC_64MHZ, 1);	// 92us
-	IT_Init(RTC_64MHZ, 1 );	// test
-	IT_Start();
-	INTC_DisableIRQ(IT_IRQn); /* disable INTIT interrupt */
+	
 	/* ADC_Init(); */
 	ADC_Set_HardTrigger(1, AD_TRG_IT);
 	ADC_Set_Clock(CLOCK_DIV8, 0x0DU);
@@ -168,132 +117,93 @@ int main()
 	// DMA_Start(DMA_VECTOR_ADC, CTRL_DATA_ADC, DMA_MODE_NORMAL,
 	// 		  DMA_SIZE_HALF, ADC_CNT, (uint16_t *)&ADC->ADCR, ADC_Buffer);
 
-	User_TM40_IntervalTimer(TM4_CHANNEL_0,5);
-	INTC_EnableIRQ(TM00_IRQn);
-	RTC_Init(RTC_64MHZ);
-    RTC_Start();
-	wifi_protocol_init();
-
+	// // User_TM40_IntervalTimer(TM4_CHANNEL_0,5);
+	// // INTC_EnableIRQ(TM00_IRQn);
+	// // RTC_Init(RTC_64MHZ);
+    // // RTC_Start();
+	LED_display_init();
+	sys_tick_init();
+	wifi_module_init();
 	E_Type = 7;
 	E_Color = 0;
-	SYS.POWER_SW = STA_ON;
+	// // SYS.POWER_SW = STA_ON;
 	Light_Owner = Light_Owner_MCU;
-	// Data_Init();
-
-
-	/*虚假数据*/
-
-	// // ModeArray[0].Sum = Dynamic_SUM;
-    // // ModeArray[1].Sum = Static_SUM;
-    // // ModeArray[2].Sum = Rhythm_SUM;
-
-	// // SYS.Brightness.Target = SYS.Brightness.Set = SYS.Brightness.Now = 255;
-
+	// // // // Data_Init();
+	
+	random_init();         // 随机数初始化
 	delayMS(100);
+	turn_off_all_salve_light();
 	SPI_Init();
-
+	adc_dma_init();
 	SYS_Init();
-	play.work.brightness.set=100;
+
 	play.work.sw_status = SW_ON;
 	play.status = RUN;
 	LED1_ON();
 	LED2_OFF();
+	turn_off_all_salve_light();
 	while (1)
 	{
 		if (T_4MS_FLAG_GetBit)
 		{
 			T_4MS_FLAG_ClrBit();
 			WDT_Restart();
+			// // uart_parse();
+			// LED2_REV();
 			wifi_uart_service();
 			// // printf("test\r\n");
 		}
 		if (T_8MS_FLAG_GetBit)
 		{
 			T_8MS_FLAG_ClrBit();
+			// // test_play_color();
 		}
 		if (T_20MS_FLAG_GetBit)
 		{
 			T_20MS_FLAG_ClrBit();
 
-			// Motion_Output();
+			// // Motion_Output();
+
 
 			// MIC_Process();
 			KeyS_On();
 			WDT_Restart();
 			KeyS_Click();
-			// UART0_Send(0x5a);
+
+			LED_Display_20ms();
 
 
-			LED_Display();
-
-
-
-			// // // Light_AD_Test();
-
-			// //  Mode_num=2;
-			// Frame_Working();
-
-			// // // Scene_MOD();
-
-			// Motion_Output();
+			// debug();
+			// // Motion_Output();
 			// MIC_Process();
 		}
 		if (T_28MS_FLAG_GetBit)
 		{
 			T_28MS_FLAG_ClrBit();
-			test_play_color();
 
-			// Lignt_Control();
-			// process_mic_data();
-			// play.work.brightness.now = 250;
-			// effect_play_color_calu();
-			// play_effect_video();
-
+			Lignt_Control();
+			process_mic_data();
+			play_effect_video();
 		}
 		if (T_100MS_FLAG_GetBit)
 		{
 			T_100MS_FLAG_ClrBit();
-			// // printf("%d\r\n",EF_Work.EF_ID);
-			// LED1_REV();
 		}
 		if (T_200MS_FLAG_GetBit)
 		{
 			T_200MS_FLAG_ClrBit();
 			// // norflash_auto_rw_test();
-			// printf("test\r\n");
-			//////			LED2_REV();
-			// LED2_REV();
 		}
 		if (T_500MS_FLAG_GetBit)
 		{
 			T_500MS_FLAG_ClrBit();
-
-			// OTA_ResetFlag();
-
 		}
 		if (T_1000MS_FLAG_GetBit)
 		{
 			T_1000MS_FLAG_ClrBit();
-		// 			LED1_REV();
-		// LED2_REV();
+			debug();
 			RTC_Task();
-
-			// UART0_Send(0xc5);
-			// Debug();
-			// SPI_FlashDebug();
-			// SYS_Record();
-			// LED1_REV();
-			// //  printf("\r\nAPP running %d S\r\n",RunningTimeCnt++);
-			// KeyS_On();
-			// APP_checksum_verify(1);
-			// printf("test\r\n");
-			// APP_update_check();
-			// // // runtime_cnt=0x1234;
-			// printlog("MCU VER 5.3.0 | run:%d\r",runtime_cnt);
-			runtime_cnt++;
-			// printf("%d\r\n",sizeof(UserData_TypeDef));
-			// Memory_AutoUpdate();
-
+		
 		}
 	}
 }
@@ -348,7 +258,9 @@ void hard_fault_handler_c(unsigned int * hardfault_args, unsigned lr_value)
 	printf ("Stacked PSR = %x\r\n", stacked_psr);
 	printf ("Current LR = %x\r\n", lr_value);
 
+
 	while(1); // endless loop
+	__NVIC_SystemReset();
 }
 
 /***********************************************************************************************************************

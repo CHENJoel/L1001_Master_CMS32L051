@@ -1,8 +1,26 @@
 {
     "files.associations": {
-        "*.H": "c",
-        "IR.C": "cpp",
-        "对比A.C": "cpp",
-        "KEY.C": "cpp"
+        "a5441_master.h": "c",
+        "function_init.h": "c",
+        "l0.h": "c",
+        "slave.h": "c",
+        "protocolcom.h": "c",
+        "l0_slave.h": "c",
+        "Function_Init.H": "cpp",
+        "play.h": "c",
+        "boot.h": "c",
+        "calibration.h": "c",
+        "mic.h": "c",
+        "userdefine.h": "c",
+        "fft.h": "c",
+        "default_data.h": "c",
+        "appfunction.h": "c",
+        "printlog.h": "c",
+        "colorbox.h": "c",
+        "color.h": "c",
+        "Color.H": "cpp",
+        "user_memory.h": "c",
+        "comapp.h": "c",
+        "master.h": "c"
     }
 }

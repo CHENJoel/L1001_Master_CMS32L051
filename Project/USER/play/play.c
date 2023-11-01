@@ -1,37 +1,9 @@
-/*
- * @Author: joel
- * .chen sandote@163.om
- * @Date: 2023-06-07 10:12:00
- * @LastEditors: joel
-.chen sandote@163.om
-.chen sandote@163.om
-.chen sandote@163.om
-.chen sandote@163.om
-.chen sandote@163.om
-.chen sandote@163.om
-.chen sandote@163.om
-.chen sandote@163.om
-.chen sandote@163.om
-.chen sandote@163.om
-.chen sandote@163.om
-.chen sandote@163.om
-.chen sandote@163.om
-.chen sandote@163.om
-.chen sandote@163.om
-.chen sandote@163.om
-.chen sandote@163.om
- * .chen sandote@163.om
- * @LastEditTime: 2023-07-20 15:48:01
- * @FilePath: \L1001_Master_CMS32L051\Project\USER\play\play.c
- * @Description:
- *
- * Copyright (c) 2023 by ${git_name_email}, All Rights Reserved.
- */
+
 #include "play.h"
 
 play_TypeDef play;
 // // uint8_t dma_buffer[DMA_BUFFER_SIZE];
-const uint8_t bright_table[5] = {15, 25, 55, 75, 100};
+const uint8_t bright_table[5] = {5, 25, 55, 75, 100};
 // const uint8_t bright_table[5] = {1, 15, 40, 75, 100};
 
 /*播放初始化*/
@@ -85,44 +57,71 @@ void effect_play_pause(void)
  * @param:
  * @return:
 */
-void effect_play_run(void)
+void resume_play_effect(void)
 {
     play.status = RUN;
-    printlog("effect_play_run\r");
+    printlog("resume_play_effect\r");
 }
 
 /*
- * @Description: 进入app控制模式
+ * @Description: 进入灯板配对模式
  * @param:
  * @return:
 */
-void goto_app_control_mode(void)
+void enter_device_pairing_mode(void)
 {
-    if (play.control_mode == MCU_CONTROL)
+    if (play.control_mode != PAIRING_MODE)
     {
         effect_play_pause();
-        turn_off_all_salve_light();
+        // // // turn_off_all_salve_light();
 
         // // play_color_in_all_salve_light();
-        printlog("goto_app_control_mode\r");
+        printlog("enter_device_pairing_mode\r");
     }
-    play.control_mode = APP_CONTROL;
+    play.control_mode = PAIRING_MODE;
 }
 /*
- * @Description: 进入mcu控制模式
+ * @Description: 进入正常播放灯效模式
  * @param:
  * @return:
  */
-void goto_mcu_control_mode(void)
+void enter_playing_effect_mode(void)
 {
-    if (play.control_mode == APP_CONTROL)
+    if (play.control_mode != PLAYING_MODE)
     {
-        printlog("goto_mcu_control_mode\r");
+        printlog("enter_playing_effect_mode\r");
     }
-    play.control_mode = MCU_CONTROL;
-    effect_play_run();
+    play.control_mode = PLAYING_MODE;
+    resume_play_effect();
 }
 
+/* 
+ * @Description: 进入预览灯效模式
+ * @param: 
+ * @return: 
+*/ 
+void enter_preview_effect_mode(Efdetail_TypeDef* efdetail)
+{
+    printlog("enter_preview_effect_mode\r");
+    play.control_mode = PREVIEW_MODE;
+    play_preview_effect(efdetail);
+}
+
+
+/* 
+ * @Description: 退出预览灯效模式
+ * @param: 
+ * @return: 
+*/ 
+void exit_preview_effect_mode(void)
+{
+    if (play.control_mode != PLAYING_MODE)
+    {
+        printlog("exit_preview_effect_mode\r");
+    }
+    play.control_mode = PLAYING_MODE;
+    play_current_effect();
+}
 
 
 /*在表中获取下一个元素*/
@@ -308,17 +307,32 @@ uint8_t switch_playlist(uint8_t listnum)
 /*------------------------------------------------------------------------------------------------------------------------------------*/
 
 /*
- * @Description: 加载播放灯效信息
+ * @Description: 加载本地灯效信息
  * @param:
  * @return:
 */
-void load_play_effect_data(void)
+void load_local_effect_data(void)
 {
     uint8_t i;
     get_effect(&play.efdetail, play.detail.efnum);
     for (i = 0; i < play.efdetail.EfColorInf.colorNum; i++)
     {
         memcpy(&EF_Buffer.color_buffer.color[i],&play.efdetail.EfColorInf.ColorID[i].color, sizeof(RGBWInf_TypeDef));
+    }
+}
+
+/* 
+ * @Description: 加载预览灯效信息
+ * @param: 
+ * @return: 
+*/
+void load_preview_effect_data(Efdetail_TypeDef *efdetail)
+{
+    uint8_t i;
+    memcpy(&play.efdetail, efdetail, sizeof(Efdetail_TypeDef));
+    for (i = 0; i < play.efdetail.EfColorInf.colorNum; i++)
+    {
+        memcpy(&EF_Buffer.color_buffer.color[i], &play.efdetail.EfColorInf.ColorID[i].color, sizeof(RGBWInf_TypeDef));
     }
 }
 
@@ -548,7 +562,8 @@ void generate_play_video_buffer(void)
  */
 void play_effect_video(void)
 {
-    if (play.control_mode == MCU_CONTROL)
+#ifndef printlog_enabled
+    if (play.control_mode == PLAYING_MODE) // 正常播放模式
     {
         if (play.work.sw_status == SW_ON)
         {
@@ -559,39 +574,47 @@ void play_effect_video(void)
             else
             {
             }
-            // // // transmit_slave_play_data();
+
+            transmit_playdata_RGBbr();
         }
         else
         {
-            // // // turn_off_all_salve_light();
+            turn_off_all_salve_light();
         }
-#if !defined(printlog_enabled)
-        transmit_slave_play_data();
-#endif
     }
-    else
+    else if (play.control_mode == PREVIEW_MODE) // 灯效预览模式
     {
-
+        effect_play_color_calu();
+        transmit_playdata_RGBbr();
     }
+    else /*PAIRING_MODE 灯板配对模式 */
+    {
+        // // transmit_playdata_RGBbr();
+    }
+#endif
 }
 
 /*
- * @Description: 播放灯效初始化
+ * @Description: 系统播放灯效初始化
  * @param:
  * @return:
  */
-void play_effect_init(void)
+void play_sys_effect_init(void)
 {
     play.detail.efnum = 17; // df_Snake
-    load_play_effect_data();
-    // // generate_virtual_device();
-    // // play.efdetail.Direction=DIRECTION_CONVERGE;
-    play_frame_reset();
-    EF_Work.FrameInfro.image_adr = (uint8_t *)&EF_Work.Color_buffer; // 色表缓存区
-    figure_slave_run_number();
-    generate_play_video_buffer();
+    play_current_effect();   
 }
 
+/* 
+ * @Description: 从头开始播放当前灯效
+ * @param: 
+ * @return: 
+*/ 
+void play_current_effect(void)
+{
+    load_local_effect_data();
+    preprocess_play_effect();
+}
 
 /*
  * @Description: 播放新灯效
@@ -606,7 +629,15 @@ void play_new_effect(uint8_t efnum)
         return;
     }
     play.detail.efnum = efnum;
-    load_play_effect_data();
+    play_current_effect();
+}
+
+/* 
+ * @Description: 预处理播放数据
+ * @return: 
+*/ 
+void preprocess_play_effect(void)
+{   
     play_frame_reset();
     EF_Work.FrameInfro.image_adr = (uint8_t *)&EF_Work.Color_buffer; // 色表缓存区
     figure_slave_run_number();
@@ -614,53 +645,65 @@ void play_new_effect(uint8_t efnum)
 }
 
 /*
- * @Description: 发送从机播放数据
+ * @Description: 播放预览灯效
  * @param:
  * @return:
 */
-void transmit_slave_play_data(void)
+
+void play_preview_effect(Efdetail_TypeDef* efdetail)
 {
-    uint8_t i;
-    uint16_t size;
-    uint8_t buffer[DMA_BUFFER_SIZE];
-    if (slave.num) // 有设备在线的时候才发送数据
-    {
-        ((playpack_Typedef *)(&buffer))->head.type = PLAY_DATA;
-        ((playpack_Typedef *)(&buffer))->head.num = slave.num;
-        size = sizeof(packhead_Typedef) + slave.num * sizeof(playdata_Typedef);
-        for (i = 0; i < slave.num; i++)
-        {
-            ((playpack_Typedef *)(&buffer))->play[i].addr = slave.data[i].id;
-            ((playpack_Typedef *)(&buffer))->play[i].bri = play.work.brightness.now;
-            ((playpack_Typedef *)(&buffer))->play[i].R = Tangram[slave.data[i].runnum].R.Now;
-            ((playpack_Typedef *)(&buffer))->play[i].G = Tangram[slave.data[i].runnum].G.Now;
-            ((playpack_Typedef *)(&buffer))->play[i].B = Tangram[slave.data[i].runnum].B.Now;
-            ((playpack_Typedef *)(&buffer))->play[i].W = Tangram[slave.data[i].runnum].W.Now;
-        }
-        transmit_protocol_frame(&buffer, size, &parse.tx_framebuf); // 通过不定长协议发送
-    }
-    /**************************/
-    // // // uint8_t i;
-    // // // uint8_t *p;
-    // // // if (slave.num) // 有设备在线的时候才发送数据
-    // // // {
-    // // //     for (i = 0; i < slave.num; i++)
-    // // //     {
-    // // //         p = &dma_buffer[i * sizeof(complay_Typedef)];
-    // // //         ((complay_Typedef *)p)->head = MPLAY_HEADER;
-    // // //         ((complay_Typedef *)p)->addr = slave.data[i].id;
-    // // //         ((complay_Typedef *)p)->bri = 255;
-    // // //         ((complay_Typedef *)p)->R = Tangram[slave.data[i].runnum].R.Now;
-    // // //         ((complay_Typedef *)p)->G = Tangram[slave.data[i].runnum].G.Now;
-    // // //         ((complay_Typedef *)p)->B = Tangram[slave.data[i].runnum].B.Now;
-    // // //         ((complay_Typedef *)p)->W = Tangram[slave.data[i].runnum].W.Now;
-    // // //         ((complay_Typedef *)p)->sum = checksum_calculate(p, sizeof(complay_Typedef) - 1);
-    // // //     }
-    // // //     DMA_Start(DMA_VECTOR_ST0, CTRL_DATA_ST0, DMA_MODE_NORMAL, DMA_SIZE_BYTE, slave.num * sizeof(complay_Typedef), dma_buffer, (void *)&SCI0->TXD0);
-    // // //     DMA_Enable(DMA_VECTOR_ST0);
-    // // //     DMA_Trigger(DMA_VECTOR_ST0);
-    // // // }
+    printlog("play_preview_effect\r");
+    load_preview_effect_data(efdetail);
+    preprocess_play_effect();
 }
+
+// // // // /*
+// // // //  * @Description: 发送从机播放数据
+// // // //  * @param:
+// // // //  * @return:
+// // // // */
+// // // // void transmit_slave_play_data(void)
+// // // // {
+// // // //     uint8_t i;
+// // // //     uint16_t size;
+// // // //     uint8_t buffer[DMA_BUFFER_SIZE];
+// // // //     calibration_TypeDef calib_t;
+// // // //     if (slave.num) // 有设备在线的时候才发送数据
+// // // //     {
+// // // //         ((playpack_Typedef *)(&buffer))->head.type = PLAY_DATA;
+// // // //         ((playpack_Typedef *)(&buffer))->head.num = slave.num;
+// // // //         size = sizeof(packhead_Typedef) + slave.num * sizeof(playdata_Typedef);
+// // // //         for (i = 0; i < slave.num; i++)
+// // // //         {
+// // // //             ((playpack_Typedef *)(&buffer))->play[i].addr = slave.data[i].id;
+
+// // // //             calib_t.shape = slave.data[i].shape;
+// // // //             calib_t.color.brightness = play.work.brightness.now;
+// // // //             calib_t.color.R = Tangram[slave.data[i].runnum].R.Now;
+// // // //             calib_t.color.G = Tangram[slave.data[i].runnum].G.Now;
+// // // //             calib_t.color.B = Tangram[slave.data[i].runnum].B.Now;
+// // // //             calib_t.color.W = Tangram[slave.data[i].runnum].W.Now;
+// // // //             if (calibration_enable)
+// // // //             {
+// // // //                 calibration_color(&calib_t);
+// // // //             }
+
+
+// // // //             ((playpack_Typedef *)(&buffer))->play[i].bri = calib_t.color.brightness;
+// // // //             ((playpack_Typedef *)(&buffer))->play[i].R = calib_t.color.R;
+// // // //             ((playpack_Typedef *)(&buffer))->play[i].G = calib_t.color.G;
+// // // //             ((playpack_Typedef *)(&buffer))->play[i].B = calib_t.color.B;
+// // // //             ((playpack_Typedef *)(&buffer))->play[i].W = calib_t.color.W;
+
+// // // //             // ((playpack_Typedef *)(&buffer))->play[i].bri = play.work.brightness.now;
+// // // //             // ((playpack_Typedef *)(&buffer))->play[i].R = Tangram[slave.data[i].runnum].R.Now;
+// // // //             // ((playpack_Typedef *)(&buffer))->play[i].G = Tangram[slave.data[i].runnum].G.Now;
+// // // //             // ((playpack_Typedef *)(&buffer))->play[i].B = Tangram[slave.data[i].runnum].B.Now;
+// // // //             // ((playpack_Typedef *)(&buffer))->play[i].W = Tangram[slave.data[i].runnum].W.Now;
+// // // //         }
+// // // //         transmit_protocol_frame(&buffer, size, &parse.tx_framebuf); // 通过不定长协议发送
+// // // //     }
+// // // // }
 
 /*
  * @Description: 所有灯点亮同个颜色
@@ -671,7 +714,7 @@ void transmit_slave_play_data(void)
  * @param: 白
  * @return: 无
 */
-void play_color_in_all_salve_light(uint8_t bri, uint8_t r, uint8_t g, uint8_t b, uint8_t w)
+ void play_color_in_all_salve_light(uint8_t bri, uint8_t r, uint8_t g, uint8_t b, uint8_t w)
 {
     uint16_t size;
     uint8_t buffer[sizeof(packhead_Typedef) + sizeof(playdata_Typedef)];
@@ -712,7 +755,14 @@ void set_color_data_of_all_light()
 */
 void turn_off_all_salve_light(void)
 {
-    play_color_in_all_salve_light(0,0,0,0,0);
+    L0_playRGBbr_Typedef x;
+    x.R = 0;
+    x.G = 0;
+    x.B = 0;
+    x.br = 0;
+    transmit_playsame_RGBbr(&x);
+    // // // play_color_in_all_salve_light(0,0,0,0,0);
+
 }
 
 /*
@@ -731,4 +781,140 @@ void transmit_buffer_data(uint8_t *sur, uint16_t len)
     DMA_Start(DMA_VECTOR_ST0, CTRL_DATA_ST0, DMA_MODE_NORMAL, DMA_SIZE_BYTE, len, sur, (void *)&SCI0->TXD0);
     DMA_Enable(DMA_VECTOR_ST0);
     DMA_Trigger(DMA_VECTOR_ST0);
+}
+
+/********************************************************************************************************************/
+
+/*
+ * @Description: 发送“RGBbr”格式的播放数据
+ * @param:
+ * @return:
+*/
+void transmit_playdata_RGBbr(void)
+{
+    uint8_t i;
+    L0_cmd_playRGBbr_Typedef  xPlay;
+    if (slave.num) // 有设备在线的时候才发送数据
+    {
+        xPlay.head.dev_adr = ADDR_PUBLIC;    // 设备地址
+        xPlay.head.cmd = CMD_SLAVE_PLAY_RGB; // 播放灯光 “RGBbr”格式
+        xPlay.head.type = MES_ASK;           // 发出请求
+        xPlay.playnum = slave.num;
+        for (i = 0; i < xPlay.playnum; i++)
+        {
+            xPlay.dev[i].cid = slave.data[i].id;
+            xPlay.dev[i].br = play.work.brightness.now;
+            xPlay.dev[i].R = Tangram[slave.data[i].runnum].R.Now;
+            xPlay.dev[i].G = Tangram[slave.data[i].runnum].G.Now;
+            xPlay.dev[i].B = Tangram[slave.data[i].runnum].B.Now;
+        }
+        transmit_protocol_frame((uint8_t *)&xPlay, &((L0_cmd_playRGBbr_Typedef *)0)->dev[slave.num], &parse.tx_framebuf); // 通过不定长协议发送
+    }
+}
+
+/*
+ * @Description: 发送“COLOR”格式的播放数据
+ * @param:
+ * @return:
+ */
+void transmit_playdata_COLOR(void)
+{
+    uint8_t i;
+    L0_cmd_playCOLOR_Typedef xPlay;
+    if (slave.num) // 有设备在线的时候才发送数据
+    {
+        xPlay.head.dev_adr = ADDR_PUBLIC;    // 设备地址
+        xPlay.head.cmd = CMD_SLAVE_PLAY_COLOR; // 播放灯光 “COLOR”格式
+        xPlay.head.type = MES_ASK;           // 发出请求
+        xPlay.playnum = slave.num;
+        for (i = 0; i < xPlay.playnum; i++)
+        {
+            xPlay.dev[i].cid = slave.data[i].id;
+            xPlay.dev[i].br = play.work.brightness.now;
+            if (xPlay.dev[i].B = Tangram[slave.data[i].runnum].W.Now == RGB_COLOR)
+            {
+                xPlay.dev[i].type = RGB_COLOR;
+                xPlay.dev[i].R = Tangram[slave.data[i].runnum].R.Now;
+                xPlay.dev[i].G = Tangram[slave.data[i].runnum].G.Now;
+                xPlay.dev[i].B = Tangram[slave.data[i].runnum].B.Now;
+            }
+            else // KELVIN_COLOR
+            {
+                xPlay.dev[i].type = KELVIN_COLOR;
+                xPlay.dev[i].R = Tangram[slave.data[i].runnum].R.Now;
+                xPlay.dev[i].G = Tangram[slave.data[i].runnum].G.Now;
+                xPlay.dev[i].B = Tangram[slave.data[i].runnum].B.Now;
+            }
+        }
+        transmit_protocol_frame((uint8_t *)&xPlay, &((L0_cmd_playRGBbr_Typedef*)0)->dev[slave.num], &parse.tx_framebuf); // 通过不定长协议发送
+    }
+}
+
+/*
+ * @Description: 广播发送“RGBbr”格式的播放数据
+ * @param:
+ * @return:
+ */
+void transmit_playsame_RGBbr(L0_playRGBbr_Typedef *x)
+{
+    L0_cmd_playRGBbr_Typedef xPlay;
+    if (slave.num) // 有设备在线的时候才发送数据
+    {
+        xPlay.head.dev_adr = ADDR_PUBLIC;    // 设备地址
+        xPlay.head.cmd = CMD_SLAVE_PLAY_RGB; // 播放灯光 “RGBbr”格式
+        xPlay.head.type = MES_ASK;           // 发出请求
+        xPlay.playnum = slave.num;
+        xPlay.dev[0].cid = ADDR_PUBLIC;
+        xPlay.dev[0].br = x->br;
+        xPlay.dev[0].R = x->R;
+        xPlay.dev[0].G = x->G;
+        xPlay.dev[0].B = x->B;
+        transmit_protocol_frame((uint8_t *)&xPlay, &((L0_cmd_playRGBbr_Typedef *)0)->dev[1], &parse.tx_framebuf); // 通过不定长协议发送
+    }
+}
+
+
+
+/* 
+ * @Description: 灯板显示配对状态
+ * @param: 
+ * @return: 
+*/ 
+void light_device_pairing_play(app_device_control_Typedef *x)
+{
+    uint8_t i;
+    L0_cmd_playRGBbr_Typedef xPlay;
+    xPlay.playnum = x->lightnum;
+    if (xPlay.playnum) // 有设备在线的时候才发送数据
+    {
+        xPlay.head.dev_adr = ADDR_PUBLIC;    // 设备地址
+        xPlay.head.cmd = CMD_SLAVE_PLAY_RGB; // 播放灯光 “RGBbr”格式
+        xPlay.head.type = MES_ASK;           // 发出请求
+        for (i = 0; i < xPlay.playnum; i++)
+        {
+            xPlay.dev[i].cid = slave.data[i].id;
+            if (x->lightsta[i].lightsta == PERSENT) // 当前点亮
+            {
+                xPlay.dev[i].br = 100;
+                xPlay.dev[i].R = 0;
+                xPlay.dev[i].G = 255;
+                xPlay.dev[i].B = 0;
+            }
+            else if (x->lightsta[i].lightsta == LIGHTED) // 已点亮
+            {
+                xPlay.dev[i].br = 0;
+                xPlay.dev[i].R = 0;
+                xPlay.dev[i].G = 0;
+                xPlay.dev[i].B = 0;
+            }
+            else /* UNLIGHT, // 未点亮*/
+            {
+                xPlay.dev[i].br = 0;
+                xPlay.dev[i].R = 0;
+                xPlay.dev[i].G = 0;
+                xPlay.dev[i].B = 0;
+            }
+        }
+        transmit_protocol_frame((uint8_t *)&xPlay, &((L0_cmd_playRGBbr_Typedef *)0)->dev[slave.num], &parse.tx_framebuf); // 通过不定长协议发送
+    }
 }

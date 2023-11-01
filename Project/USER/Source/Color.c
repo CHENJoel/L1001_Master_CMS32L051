@@ -180,7 +180,7 @@ void ModuleColor_Cal(FrameInfro_TypeDef *image_ptr, ModuleTypeDef *module_ptr, u
     FrameInsert_Calculate(*(image_ptr->image_adr + (Currnt_KF * 4) + (Pixel_Num * 4) + 0), *(image_ptr->image_adr + (Next_KF * 4) + (Pixel_Num * 4) + 0), &module_ptr->R.Now, Temp_FrameNum, image_ptr->InsertNum);
     FrameInsert_Calculate(*(image_ptr->image_adr + (Currnt_KF * 4) + (Pixel_Num * 4) + 1), *(image_ptr->image_adr + (Next_KF * 4) + (Pixel_Num * 4) + 1), &module_ptr->G.Now, Temp_FrameNum, image_ptr->InsertNum);
     FrameInsert_Calculate(*(image_ptr->image_adr + (Currnt_KF * 4) + (Pixel_Num * 4) + 2), *(image_ptr->image_adr + (Next_KF * 4) + (Pixel_Num * 4) + 2), &module_ptr->B.Now, Temp_FrameNum, image_ptr->InsertNum);
-    FrameInsert_Calculate(*(image_ptr->image_adr + (Currnt_KF * 4) + (Pixel_Num * 4) + 3), *(image_ptr->image_adr + (Next_KF * 4) + (Pixel_Num * 4) + 3), &module_ptr->W.Now, Temp_FrameNum, image_ptr->InsertNum);
+    // FrameInsert_Calculate(*(image_ptr->image_adr + (Currnt_KF * 4) + (Pixel_Num * 4) + 3), *(image_ptr->image_adr + (Next_KF * 4) + (Pixel_Num * 4) + 3), &module_ptr->W.Now, Temp_FrameNum, image_ptr->InsertNum);
 
     // // // printf("C:%2d N:%2d ,%d\r",Currnt_KF,Next_KF,*(image_ptr->image_adr + (Currnt_KF * 4 * image_ptr->PixelSum) + (Pixel_Num * 4) + 0));
     // // // printf("C:%2d N:%2d K:%2d I:%4d\r", Currnt_KF, Next_KF, image_ptr->KeySum, image_ptr->InsertNum);
@@ -313,10 +313,10 @@ void FrameInsert_Calculate(unsigned char Current_KF_data, unsigned char Next_KF_
  * @return {*}
  */
 // // void Color_Data_Send(unsigned char Address, ColorTypeDef *light)
-void Color_Data_Send(ColorTypeDef *light, unsigned char Address)
-{
-    Data_TX(Address, SYS.Brightness.Now, (*light).R.Now, (*light).G.Now, (*light).B.Now, 0);
-}
+// void Color_Data_Send(ColorTypeDef *light, unsigned char Address)
+// {
+//     Data_TX(Address, SYS.Brightness.Now, (*light).R.Now, (*light).G.Now, (*light).B.Now, 0);
+// }
 
 void Demo_Flowing(ColorTypeDef *light, unsigned int va1, unsigned int va2)
 {

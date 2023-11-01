@@ -1,8 +1,8 @@
 /*
  * @Author: your name
  * @Date: 2022-02-22 13:26:59
- * @LastEditTime: 2022-06-17 17:30:14
- * @LastEditors: error: git config user.name && git config user.email & please set dead value or install git
+ * @LastEditTime: 2023-10-16 10:50:50
+ * @LastEditors: DESKTOP-AKTRQKB\MY sandote@163.com
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \A5441_CMS8S6990_Master\code\FIFO.h
  */
@@ -23,7 +23,7 @@ typedef struct
     unsigned int Read;                      /* 缓存区待读指针 */
 } FIFOTypeDef;
 // // // extern FIFOTypeDef Uart0_Buffer, Uart1_Buffer;
-extern FIFOTypeDef Uart0_Buffer;
+// // extern FIFOTypeDef Uart0_Buffer;
 extern unsigned char RX_DataPackage[6];    // 从机发来的正确数据包
 
 void FIFO_Byte_Push(FIFOTypeDef *StructDAT, unsigned char *Data);               // 将数据压入缓存

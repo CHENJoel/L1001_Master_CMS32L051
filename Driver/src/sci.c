@@ -189,13 +189,27 @@ MD_STATUS UART_BaudRateCal(uint32_t fclk_freq, uint32_t baud, uart_baud_t *pvalu
         {
             baud_cal = fmck_freq / (j + 1) / 2;
             baud_err = 10000 * baud_cal / baud - 10000;  /* n ten thousandths */
-            if (abs(baud_err) < 20)  /* 0.2% */
+            if (baud == 115200)
             {
-                pvalue->prs = i;
-                pvalue->sdr = j;
-                // // // printf("fclk_freq = %10dHz, baud = %6dbps, prs = %2d, sdr = %3d, errors = %3d\n", fclk_freq, baud, pvalue->prs, pvalue->sdr, baud_err);
-                status = MD_OK;
-                return (status);
+                if (abs(baud_err) < 70)  /* 0.7% */
+                {
+                    pvalue->prs = i;
+                    pvalue->sdr = j;
+                    // // // printf("fclk_freq = %10dHz, baud = %6dbps, prs = %2d, sdr = %3d, errors = %3d\n", fclk_freq, baud, pvalue->prs, pvalue->sdr, baud_err);
+                    status = MD_OK;
+                    return (status);
+                }
+            }
+            else
+            {
+                if (abs(baud_err) < 20) /* 0.2% */
+                {
+                    pvalue->prs = i;
+                    pvalue->sdr = j;
+                    // // // printf("fclk_freq = %10dHz, baud = %6dbps, prs = %2d, sdr = %3d, errors = %3d\n", fclk_freq, baud, pvalue->prs, pvalue->sdr, baud_err);
+                    status = MD_OK;
+                    return (status);
+                }
             }
         }
     }
@@ -1409,7 +1423,7 @@ MD_STATUS UART1_BaudRate(uint32_t fclk_freq, uint32_t baud)
     if (status == MD_OK)
     {
         SCI0->ST0 = _0008_SCI_CH3_STOP_TRG_ON | _0004_SCI_CH2_STOP_TRG_ON;
-        SCI0->SPS0 = _0030_SCI_CK01_fCLK_3 | pvalue.prs;
+        SCI0->SPS0 = _0050_SCI_CK01_fCLK_5 | pvalue.prs;
         SCI0->SDR02 = pvalue.sdr << 9;
         SCI0->SDR03 = pvalue.sdr << 9;
         SCI0->SS0 |= _0008_SCI_CH3_START_TRG_ON | _0004_SCI_CH2_START_TRG_ON;

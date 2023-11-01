@@ -1,16 +1,20 @@
 #ifndef _PLAY_H
 #define _PLAY_H
 #include "Function_Init.H"
+
+#include "L0_slave.h"
 #define DMA_BUFFER_SIZE (SLAVEDEVICE_NUM * sizeof(playdata_Typedef) + sizeof(packhead_Typedef))
 #define NULL_EFFECTNUM 0xFF // 无效灯效编号
 
 // // // extern uint8_t dma_buffer[DMA_BUFFER_SIZE];
 extern const uint8_t bright_table[5];
 
+
 typedef enum
 {
-    MCU_CONTROL,
-    APP_CONTROL,
+    PLAYING_MODE,   // 正常播放模式
+    PAIRING_MODE,   // 灯板配对模式
+    PREVIEW_MODE,   // 灯效预览模式
 } control_mode_enum; /*控制模式*/
 
 
@@ -58,14 +62,14 @@ typedef struct
 {
     uint8_t now;    // 当前值
     uint8_t tar;    // 目标值
-    uint8_t set;    // 保存值
     uint8_t dir;    // 方向
 } NTSD_VAL_TypeDef;
 
 typedef struct
 {
-    sw_status_enum sw_status;    // 全局开关
-    NTSD_VAL_TypeDef brightness; // 全局亮度
+    sw_status_enum sw_status;              // 全局开关
+    NTSD_VAL_TypeDef brightness;           // 全局亮度
+    global_setting_TypeDef global_setting; // 全局设置
 } playwork_TypeDef;
 
 typedef struct
@@ -147,25 +151,12 @@ void push_playnum_in_history(uint8_t efnum);
 */
 uint8_t pop_playnum_in_history(void);
 
-/*
- * @Description: 进入app控制模式
- * @param:
- * @return:
-*/
-void goto_app_control_mode(void);
-
-/*
- * @Description: 进入mcu控制模式
- * @param:
- * @return:
-*/
-void goto_mcu_control_mode(void);
-
-
-
-
-
-
+//
+void enter_device_pairing_mode(void); // 进入灯板配对模式
+void enter_playing_effect_mode(void); // 进入正常播放灯效模式
+void enter_preview_effect_mode(Efdetail_TypeDef* efdetail); // 进入预览灯效模式
+void exit_preview_effect_mode(void);  // 退出预览灯效模式
+//
 
 /*在表中获取下一个元素*/
 uint8_t get_list_next_num(uint8_t *list, uint8_t size, uint8_t num);
@@ -181,24 +172,23 @@ void effect_play_pause(void);
  * @Description: 继续播放灯效
  * @param:
  * @return:
-*/
-void effect_play_run(void);
+ */
+void resume_play_effect(void);
 /***************************/
-
-
-
-/*加载播放灯效信息*/
-void load_play_effect_data(void);
+//
+void load_local_effect_data(void);                         // 加载本地灯效信息
+void load_preview_effect_data(Efdetail_TypeDef *efdetail); // 加载预览灯效信息
+//
 /*复位播放帧进度*/
 void play_frame_reset(void);
-/*播放灯效初始化*/
-void play_effect_init(void);
+/*系统播放灯效初始化*/
+void play_sys_effect_init(void);
 /*生成该灯效的动画缓存*/
 void generate_play_video_buffer(void);
 /*计算出从机的运行编号*/
 void figure_slave_run_number(void);
 /*发送从机播放数据*/
-void transmit_slave_play_data(void);
+// // void transmit_slave_play_data(void);
 /*所有灯点亮同个颜色*/
 void play_color_in_all_salve_light(uint8_t bri, uint8_t r, uint8_t g, uint8_t b, uint8_t w);
 /*关闭所有灯板*/
@@ -210,8 +200,17 @@ void turn_off_all_salve_light(void);
 
 /*播放灯效*/
 void play_effect_video(void);
-/*播放新灯效*/
-void play_new_effect(uint8_t efnum);
+//
+void play_current_effect(void);//从头开始播放当前灯效
+void play_new_effect(uint8_t efnum);     // 播放新灯效
+void play_preview_effect(Efdetail_TypeDef* efdetail); // 播放预览灯效
+//
+void preprocess_play_effect(void);// 预处理播放数据
+/***********************************************************************/
 
+void transmit_playdata_RGBbr(void);                    // 发送“RGBbr”格式的播放数据
+void transmit_playdata_COLOR(void); // 发送“COLOR”格式的播放数据
+void transmit_playsame_RGBbr(L0_playRGBbr_Typedef *x); // 广播发送“RGBbr”格式的播放数据
 
+//void light_device_pairing_play(app_device_control_Typedef *x); //灯板显示配对状态
 #endif

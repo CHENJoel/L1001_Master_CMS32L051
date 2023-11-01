@@ -2,9 +2,9 @@
  * @Author: joel
  * .chen sandote@163.om
  * @Date: 2022-10-17 11:28:51
- * @LastEditors: joel
+ * @LastEditors: DESKTOP-AKTRQKB\MY sandote@163.com
  * .chen sandote@163.om
- * @LastEditTime: 2023-06-25 11:09:19
+ * @LastEditTime: 2023-10-16 17:08:05
  * @FilePath: \L1001_Master_CMS32L051\Project\USER\Include\Com.h
  * @Description:
  *
@@ -185,14 +185,14 @@ VCC     GND
 #define TYPE_Square_REF_MAX 614
 #define TYPE_Square_REF_MIN 556
 
-enum
-{
-    Triangle_L,         // 大三角形
-    Triangle_M,         // 中三角形
-    Triangle_S,         // 小三角形
-    Square_Nor,         // 正方形
-    OTHER_SHAPE = 0xFF, // 其他形状
-};
+// // // enum
+// // // {
+// // //     Triangle_L,         // 大三角形
+// // //     Triangle_M,         // 中三角形
+// // //     Triangle_S,         // 小三角形
+// // //     Square_Nor,         // 正方形
+// // //     OTHER_SHAPE = 0xFF, // 其他形状
+// // // };
 
 typedef enum
 {

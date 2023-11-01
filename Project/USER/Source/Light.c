@@ -1,8 +1,8 @@
 /*
  * @Author: your name
  * @Date: 2022-04-22 10:36:55
- * @LastEditTime: 2023-07-15 11:52:08
- * @LastEditors: joel
+ * @LastEditTime: 2023-10-19 17:20:10
+ * @LastEditors: DESKTOP-AKTRQKB\MY sandote@163.com
 .chen sandote@163.om
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \L1001_Master_CMS32L051\Project\USER\Source\Light.c
@@ -27,11 +27,11 @@
 unsigned char Level_Calculation(unsigned char *DataVal, unsigned char *array, unsigned char arrayLength)
 {
     unsigned char i;
-    for (i = 0; i < (arrayLength - 1); i++)
+    for (i = 0; i < arrayLength ; i++)
     {
         if (*DataVal <= array[i])
         {
-            break;
+           break;
         }
     }
     return i;

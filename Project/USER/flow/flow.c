@@ -406,7 +406,7 @@ void Flow_Hopscotch(uint8_t speed) /*Ìø¶¯*/
                 Tangram[i].G.Now = *(EF_Work.FrameInfro.image_adr + Currnt_KF * 4 + 1);
                 Tangram[i].B.Now = *(EF_Work.FrameInfro.image_adr + Currnt_KF * 4 + 2);
                 Tangram[i].W.Now = *(EF_Work.FrameInfro.image_adr + Currnt_KF * 4 + 3);
-            }
+            } 
         }
     }
     else
