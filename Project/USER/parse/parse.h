@@ -2,7 +2,7 @@
  * @Author: DESKTOP-AKTRQKB\MY sandote@163.com
  * @Date: 2023-07-02 15:21:58
  * @LastEditors: DESKTOP-AKTRQKB\MY sandote@163.com
- * @LastEditTime: 2023-10-16 11:35:04
+ * @LastEditTime: 2023-11-14 10:20:34
  * @FilePath: \L1001_Master_CMS32L051\Project\USER\parse\parse.h
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -48,7 +48,7 @@
 
 typedef struct
 {
-    uint16_t ins_read;                                           // 其他协议的读指针
+    // // uint16_t ins_read;                                           // 其他协议的读指针
     uint16_t read;                                               // 读指针
     // uint16_t write;                                              // 写指针
     uint8_t fifo_buffer[FIFO_BUFFER_SIZE];                       // fifo缓存

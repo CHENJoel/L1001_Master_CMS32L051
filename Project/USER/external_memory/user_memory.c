@@ -184,6 +184,7 @@ void factoryreset_norflash(void)
 {
     verify_Typedef verify;
     norflash_reset_to_zreo();
+    clear_device_identify();
     printlog("Erase effect data block...\r");
     schedule_factory_reset();
     clear_all_ef_ranklist();            // 删除灯效列表
@@ -203,9 +204,9 @@ void verify_factoryreset_effect_norflash(void)
     get_effect_verify(&verify);
     if (strcmp(&verify, EF_MEM_VERIFY) != 0) // flash未存有校验信息
     {
-        printlog("verify_factoryreset_effect_norflash not pass \r\r");        
-        factoryreset_norflash(); // norflash恢复出厂设置
-        search_norflash_ranklist();// 检索flash中的自定义&收藏灯效顺序表
+        printlog("verify_factoryreset_effect_norflash not pass \r\r");
+        factoryreset_norflash();    // norflash恢复出厂设置
+        search_norflash_ranklist(); // 检索flash中的自定义&收藏灯效顺序表
     }
     else
     {
@@ -222,8 +223,8 @@ void init_default_playlist(void)
     memset(&playdetail, 0, sizeof(playdetail));
     playdetail.name.length = strlen(DEFAULE_PLAYLIST_NAME);
     memcpy(&playdetail.name.text, DEFAULE_PLAYLIST_NAME, playdetail.name.length);
-    playdetail.DurationTime.Min = 1;
-    playdetail.DurationTime.Sec = 0;
+    playdetail.DurationTime.min_MS = 1;
+    playdetail.DurationTime.sec_MS = 0;
     playdetail.num = sizeof(df_playlist);
     memcpy(&playdetail.list, df_playlist, playdetail.num);
     // printlog("num:%d\r",sizeof(df_playlist));
@@ -272,6 +273,7 @@ void reset_built_in_effect(uint8_t efnum)
         {
             break; // 遇到结束颜色标志,结束拷贝
         }
+        ef.EfColorInf.ColorID[j].id = 0;    
         ef.EfColorInf.ColorID[j].color.R = *(*(arry + j) + 0);
         ef.EfColorInf.ColorID[j].color.G = *(*(arry + j) + 1);
         ef.EfColorInf.ColorID[j].color.B = *(*(arry + j) + 2);
@@ -403,7 +405,7 @@ void search_norflash_ranklist(void)
         if (temp == ORIGIN || temp == FAVORITES)
         {                                                                // 非空灯效，原始/收藏属性
             allranklist.list[allranklist.num] = built_in_ef_basenum + i; // 记录当前灯效索引
-            allranklist.num++;
+            allranklist.num++; 
             if (temp == FAVORITES)
             {                                                                // 收藏灯效
                 favranklist.list[favranklist.num] = built_in_ef_basenum + i; // 记录当前灯效索引
@@ -459,7 +461,7 @@ void search_norflash_ranklist(void)
 /*******************************************************************************************************************************************************/
 
 /*读出灯效*/
-void get_effect(Efdetail_TypeDef *p, uint8_t efnum)
+void get_effect_detail(Efdetail_TypeDef *p, uint8_t efnum)
 {
     FLASHSPI_PageRead((uint8_t *)p, (uint32_t)&NORFLASH->efdata.data.effect.efdata[efnum], sizeof(Efdetail_TypeDef));
 }
@@ -871,10 +873,10 @@ uint8_t update_built_in_effect(Efdetail_TypeDef *p, uint8_t efnum)
         printlog("error:update wrong effect num:%d \r",efnum);
         return 0;
     }
-    get_effect(&ef, efnum);
-    memcpy(&efcolorinf, &ef.EfColorInf, sizeof(efcolorinf)); // 备份原来的颜色数据
+    // // get_effect_detail(&ef, efnum);
+    // // memcpy(&efcolorinf, &ef.EfColorInf, sizeof(efcolorinf)); // 备份原来的颜色数据
     memcpy(&ef, p, sizeof(ef));
-    memcpy(&ef.EfColorInf, &efcolorinf, sizeof(efcolorinf)); // 恢复原来的颜色数据
+    // // // memcpy(&ef.EfColorInf, &efcolorinf, sizeof(efcolorinf)); // 恢复原来的颜色数据
     save_effect(&ef, efnum);
     printlog("update built in effect:%d \r",efnum);
     return 1;
@@ -896,7 +898,7 @@ uint8_t add_favorites_ef(uint8_t efnum)
     ef_ranklist_TypeDef ranklist; // 列表信息
     Efdetail_TypeDef ef;             // 灯效详情
 
-    get_effect(&ef, efnum);
+    get_effect_detail(&ef, efnum);
     ef.Attribute = FAVORITES; // 修改成收藏属性信息
     save_effect(&ef, efnum);
     get_favoritesef_ranklist(&ranklist); // 获取列表信息
@@ -913,7 +915,7 @@ uint8_t delete_favorites_ef(uint8_t efnum)
     ef_ranklist_TypeDef ranklist; // 列表信息
     Efdetail_TypeDef ef;             // 灯效详情
 
-    get_effect(&ef, efnum);
+    get_effect_detail(&ef, efnum);
     ef.Attribute = ORIGIN; // 修改成原始属性信息
     save_effect(&ef, efnum);
 
@@ -928,10 +930,15 @@ uint8_t delete_favorites_ef(uint8_t efnum)
 /*删除播放列表*/
 uint8_t delete_playlist(uint8_t listnum)
 {
-    playlist_ranklist_TypeDef ranklist;                                  // 列表信息
-    get_playlist_ranklist(&ranklist);                                    // 获取列表信息
+    playlist_ranklist_TypeDef ranklist;                    // 列表信息
+    get_playlist_ranklist(&ranklist);                      // 获取列表信息
     delete_num_from_playlist_ranklist(&ranklist, listnum); // 删除索引
     save_playlist_ranklist(&ranklist);
+    if (play.detail.idex_inlist == listnum) // 被删列表正在播放
+    {
+        end_play_list();
+    }
+
     return 1;
 }
 
@@ -974,12 +981,13 @@ void copy_schedule_detail_from_com(com_schedule_detail_TypeDef *sur, clock_detai
     memcpy(&(tar->name), &(sur->name), sizeof(tar->name)); // 拷贝名字
     tar->en_sta = sur->en_sta;                             // 启用状态
     tar->action = sur->action;                             // 动作类型
-    tar->ef_index = sur->ef_index;                         // 灯效的索引号
+    tar->ef_index = sur->ef_index;                         // 灯效索引
     tar->ultimatebright = sur->ultimatebright;             // 最终亮度
-    tar->actiontime.Min = sur->actiontime.Min;             // 动作时间
-    tar->actiontime.Sec = sur->actiontime.Sec;             // 动作时间
-    tar->duration = sur->duration;                         // 持续时间
-    tar->repeat = sur->repeat;                             // 星期计划
+    tar->actiontime.hou_HM = sur->actiontime.hou_HM;       // 动作时间
+    tar->actiontime.min_HM = sur->actiontime.min_HM;       // 动作时间
+    tar->duration.hou_HM = sur->duration.hou_HM;           // 持续时间
+    tar->duration.min_HM = sur->duration.min_HM;           // 持续时间
+    tar->repeat.week = sur->repeat.week;                   // 星期计划
 }
 /*拷贝定时计划详情至通信中*/
 void copy_schedule_detail_to_com(clock_detail_TypeDef *sur, com_schedule_detail_TypeDef *tar)
@@ -987,12 +995,13 @@ void copy_schedule_detail_to_com(clock_detail_TypeDef *sur, com_schedule_detail_
     memcpy(&(tar->name), &(sur->name), sizeof(tar->name)); // 拷贝名字
     tar->en_sta = sur->en_sta;                             // 启用状态
     tar->action = sur->action;                             // 动作类型
-    tar->ef_index = sur->ef_index;                         // 灯效的索引号
+    tar->ef_index = sur->ef_index;                         // 灯效索引
     tar->ultimatebright = sur->ultimatebright;             // 最终亮度
-    tar->actiontime.Min = sur->actiontime.Min;             // 动作时间
-    tar->actiontime.Sec = sur->actiontime.Sec;             // 动作时间
-    tar->duration = sur->duration;                         // 持续时间
-    tar->repeat = sur->repeat;                             // 星期计划
+    tar->actiontime.hou_HM = sur->actiontime.hou_HM;       // 动作时间
+    tar->actiontime.min_HM = sur->actiontime.min_HM;       // 动作时间
+    tar->duration.hou_HM = sur->duration.hou_HM;           // 持续时间
+    tar->duration.min_HM = sur->duration.min_HM;           // 持续时间
+    tar->repeat.week = sur->repeat.week;                   // 星期计划
 }
 
 /*添加定时计划*/
@@ -1000,14 +1009,27 @@ uint8_t add_clock_schedule(clock_detail_TypeDef *p, uint8_t num)
 {
     clock_list_TypeDef schedule;
     printlog("add_clock_schedule %d\r",num);
+    uint8_t i;
     get_all_schedule(&schedule);
     if ((schedule.num != 0) && (num > schedule.num || num >= SCHEDULE_NUM))
     {
-        printlog("[error] add wrong schedule num :%d\r", num);
+        printlog("[error] add wrong schedule num :%d\r", num);  // 新增的定时索引不对
         printAssert();
         return 0;
     }
-    memcpy(&schedule.list[num], p, sizeof(clock_detail_TypeDef));
+
+    for (i = 0; i < schedule.num; i++)
+    {
+        if ((schedule.list[i].actiontime.hou_HM == p->actiontime.hou_HM) && (schedule.list[i].actiontime.min_HM == p->actiontime.min_HM))
+        {
+            // 新增定时信息在本地中发现重复
+            if (i != num)  // 相同定时，仅能更新原有定时，不能新增     
+            {
+                printlog("[error] refuse to save clock: %d\r", num);
+                return 0;   // 拒绝保存
+            }
+        }
+    }
     if (num == schedule.num) // 新增定时
     {
         schedule.num++;
@@ -1023,6 +1045,7 @@ uint8_t add_clock_schedule(clock_detail_TypeDef *p, uint8_t num)
         printAssert();
         return 0;
     }
+    memcpy(&schedule.list[num], p, sizeof(clock_detail_TypeDef));   // 拷贝新闹钟信息
     save_all_schedule(&schedule);
     return 1;
 }
@@ -1064,4 +1087,38 @@ void init_default_global_setting(void)
 {
     memcpy(&play.work.global_setting, &global_setting_default, sizeof(global_setting_TypeDef));
     save_global_setting(&play.work.global_setting);
+}
+
+/* 
+ * @Description: 获取设备配对标识
+ * @param: 
+ * @return: 
+*/ 
+void get_device_identify(device_indentify_TypeDef *p)
+{
+    FLASHSPI_PageRead((uint8_t *)p, (uint32_t)&NORFLASH->sysdata.data.device_indentify, sizeof(device_indentify_TypeDef));
+}
+
+/* 
+ * @Description: 保存设备配对标识
+ * @param: 
+ * @return: 
+*/ 
+void save_device_identify(device_indentify_TypeDef *p)
+{
+    FlashSPI_Insert((uint8_t *)p, (uint32_t)&NORFLASH->sysdata.data.device_indentify, sizeof(device_indentify_TypeDef));
+}
+
+
+/* 
+ * @Description: 清除设备配对标识
+ * @param: 
+ * @return: 
+*/
+void clear_device_identify(void)
+{
+    device_indentify_TypeDef buff;
+    buff.length = 2;    // 默认字节长度
+    memset(&buff.data, 0, sizeof(buff.data));
+    save_device_identify(&buff);
 }

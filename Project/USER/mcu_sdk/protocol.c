@@ -137,6 +137,7 @@ const DOWNLOAD_CMD_S download_cmd[] =
 void uart_transmit_output(unsigned char value)
 {
     // // #error "请将MCU串口发送函数填入该函数,并删除该行"
+    // wifi_fifo_push(value);
     UART1_Send(&value, 1);    
 /*
     //Example:
@@ -176,6 +177,7 @@ void all_data_update(void)
     mcu_update_switch_indicator();
     mcu_update_auto_brightness_switch();
     mcu_update_auto_brightness_mode();
+    mcu_update_brightness_auto();
     // // #error "请在此处理可下发可上报数据及只上报数据示例,处理完成后删除该行"
     /*
     //此代码为平台自动生成，请按照实际数据修改每个可下发可上报函数和只上报函数
@@ -402,7 +404,7 @@ static unsigned char dp_download_play_control_handle(const unsigned char value[]
     //RAW type data processing
     
     */
-    mcu_download_play_control_detial(value,length);
+    mcu_download_play_control_detial((uint8_t *)value,length);
     //There should be a report after processing the DP
     ret = mcu_dp_raw_update(DPID_PLAY_CONTROL,value,length);
     if(ret == SUCCESS)
@@ -450,7 +452,7 @@ static unsigned char dp_download_effect_detial_handle(const unsigned char value[
     //RAW type data processing
     
     */
-    mcu_download_effect_detail_handle(value, length);
+    mcu_download_effect_detail_handle((uint8_t *)value, length);
     //There should be a report after processing the DP
     ret = mcu_dp_raw_update(DPID_EFFECT_DETIAL,value,length);
     if(ret == SUCCESS)
@@ -651,8 +653,9 @@ static unsigned char dp_download_brightness_auto_handle(const unsigned char valu
     //VALUE type data processing
     
     */
-    printlog("<dp_download_brightness_auto_handle>\r");
-    printhex_my(value,length);   
+
+    mcu_download_brightness_auto(brightness_auto);
+
     //There should be a report after processing the DP
     ret = mcu_dp_value_update(DPID_BRIGHTNESS_AUTO,brightness_auto);
     if(ret == SUCCESS)
@@ -754,7 +757,7 @@ static unsigned char dp_download_play_detial_handle(const unsigned char value[],
     //RAW type data processing
     
     */
-    mcu_download_play_detial(value, length);
+    mcu_download_play_detial((uint8_t *)value, length);
     //There should be a report after processing the DP
     ret = mcu_dp_raw_update(DPID_PLAY_DETIAL,value,length);
     if(ret == SUCCESS)
@@ -826,7 +829,7 @@ static unsigned char dp_download_issue_cmd_handle(const unsigned char value[], u
     //RAW type data processing
     
     */
-    mcu_download_issue_cmd_handle(value, length);
+    mcu_download_issue_cmd_handle((uint8_t *)value, length);
     //There should be a report after processing the DP
     ret = mcu_dp_raw_update(DPID_ISSUE_CMD,value,length);
     if(ret == SUCCESS)
@@ -850,7 +853,7 @@ static unsigned char dp_download_effect_preview_handle(const unsigned char value
     //RAW type data processing
     
     */
-     mcu_download_effect_preview(value, length);
+     mcu_download_effect_preview((uint8_t *)value, length);
     //There should be a report after processing the DP
     ret = mcu_dp_raw_update(DPID_EFFECT_PREVIEW,value,length);
     if(ret == SUCCESS)
@@ -1019,7 +1022,7 @@ static unsigned char dp_download_clock_list_handle(const unsigned char value[], 
     
     */
     
-    mcu_download_clock_list(value, length);;
+    mcu_download_clock_list((uint8_t *)value, length);;
     //There should be a report after processing the DP
     ret = mcu_dp_raw_update(DPID_CLOCK_LIST,value,length);
     if(ret == SUCCESS)
@@ -1043,7 +1046,7 @@ static unsigned char dp_download_clock_detial_handle(const unsigned char value[]
     //RAW type data processing
     
     */
-    mcu_download_clock_detial(value, length);
+    mcu_download_clock_detial((uint8_t *)value, length);
     //There should be a report after processing the DP
     ret = mcu_dp_raw_update(DPID_CLOCK_DETIAL,value,length);
     if(ret == SUCCESS)
@@ -1067,7 +1070,7 @@ static unsigned char dp_download_device_detail_handle(const unsigned char value[
     //RAW type data processing
     
     */
-    mcu_download_device_detail(value, length);
+    mcu_download_device_detail((uint8_t *)value, length);
     //There should be a report after processing the DP
     ret = mcu_dp_raw_update(DPID_DEVICE_DETAIL,value,length);
     if(ret == SUCCESS)
@@ -1091,7 +1094,7 @@ static unsigned char dp_download_device_control_handle(const unsigned char value
     //RAW type data processing
     
     */
-    mcu_download_device_control(value, length);
+    mcu_download_device_control((uint8_t *)value, length);
     //There should be a report after processing the DP
     ret = mcu_dp_raw_update(DPID_DEVICE_CONTROL,value,length);
     if(ret == SUCCESS)
@@ -1181,7 +1184,7 @@ static unsigned char dp_download_reserved3_handle(const unsigned char value[], u
     //RAW type data processing
     
     */
-    printlog("<dp_download_reserved3_handle>\r");
+   mcu_download_reserved3((uint8_t *)value,length);
     //There should be a report after processing the DP
     ret = mcu_dp_raw_update(DPID_RESERVED3,value,length);
     if(ret == SUCCESS)
@@ -1618,7 +1621,7 @@ unsigned char mcu_firm_update_handle(const unsigned char value[],unsigned long p
     // //     //固件数据处理
       
     // // }
-    mcu_firmware_download(value, position, length);    
+    mcu_firmware_download((uint8_t *)value, position, length);    
     return SUCCESS;
 }
 #endif
@@ -1632,7 +1635,7 @@ unsigned char mcu_firm_update_handle(const unsigned char value[],unsigned long p
  */
 void mcu_get_greentime(unsigned char time[])
 {
-    #error "请自行完成相关代码,并删除该行"
+    // #error "请自行完成相关代码,并删除该行"
     /*
     time[0] 为是否获取时间成功标志，为 0 表示失败，为 1表示成功
     time[1] 为年份，0x00 表示 2000 年
@@ -1644,9 +1647,11 @@ void mcu_get_greentime(unsigned char time[])
     */
     if(time[0] == 1) {
         //正确接收到wifi模块返回的格林数据
+        printlog("get greentime successful\r");
         
     }else {
         //获取格林时间出错,有可能是当前wifi模块未联网
+         printlog("get greentime wrong\r");
     }
 }
 #endif
@@ -1660,7 +1665,7 @@ void mcu_get_greentime(unsigned char time[])
  */
 void mcu_write_rtctime(unsigned char time[])
 {
-    #error "请自行完成RTC时钟写入代码,并删除该行"
+    // #error "请自行完成RTC时钟写入代码,并删除该行"
     /*
     Time[0] 为是否获取时间成功标志，为 0 表示失败，为 1表示成功
     Time[1] 为年份，0x00 表示 2000 年
@@ -1671,12 +1676,14 @@ void mcu_write_rtctime(unsigned char time[])
     Time[6] 为秒钟，从 0 开始到59 结束
     Time[7] 为星期，从 1 开始到 7 结束，1代表星期一
    */
-    if(time[0] == 1) {
-        //正确接收到wifi模块返回的本地时钟数据
-     
-    }else {
-        //获取本地时钟数据出错,有可能是当前wifi模块未联网
-    }
+  write_local_rtc_time(time);
+    // // if(time[0] == 1) {
+    // //     //正确接收到wifi模块返回的本地时钟数据
+    // //     printlog("get local time successfully\r");     
+    // // }else {
+    // //     //获取本地时钟数据出错,有可能是当前wifi模块未联网
+    // //     printlog("get local time wrong \r");     
+    // // }
 }
 #endif
 
@@ -2100,7 +2107,7 @@ void open_module_time_serve_result(const unsigned char value[], unsigned short l
 {
     // // #error "请自行实现模块时间服务通知结果代码,完成后请删除该行"
     unsigned char sub_cmd = value[0];
-    printlog("open_module_time_serve_result\n");   
+    printlog("\ropen_module_time_serve_result\n");   
     switch(sub_cmd) {
         case 0x01: { //子命令  打开模块时间服务通知
             if(0x02 != length) {
@@ -2192,7 +2199,7 @@ void open_module_time_serve_result(const unsigned char value[], unsigned short l
                 // APP恢复出厂重置
                 printlog("APP恢复出厂重置\n");
                 factoryreset_norflash();
-                 mcu_restart();   
+                mcu_restart();
                 break;
             default:
                 break;

@@ -177,7 +177,7 @@ void print_effect_detial(Efdetail_TypeDef *p, uint8_t efnum)
     for (i = 0; i < p->EfColorInf.colorNum; i++)
     // // for (i = 0; i < EfColor_SizeNum; i++)
     {
-        printf(">%02x|%3d,%3d,%3d,%3d ; ", p->EfColorInf.ColorID[i].id, p->EfColorInf.ColorID[i].color.R, p->EfColorInf.ColorID[i].color.G, p->EfColorInf.ColorID[i].color.B, p->EfColorInf.ColorID[i].color.W);
+        printf("|%02x|%3d,%3d,%3d,%3d ", p->EfColorInf.ColorID[i].id, p->EfColorInf.ColorID[i].color.R, p->EfColorInf.ColorID[i].color.G, p->EfColorInf.ColorID[i].color.B, p->EfColorInf.ColorID[i].color.W);
         if ((i % 4) == 3)
         {
             printf("\r");
@@ -216,8 +216,8 @@ void print_get_ef_detial(uint8_t efnum)
 {
 #if defined(printlog_enabled)
     Efdetail_TypeDef ef;
-    printlog("log:read flash effect detial\r");
-    get_effect(&ef, efnum);
+    printlog("read flash effect detial\r");
+    get_effect_detail(&ef, efnum);
     print_effect_detial(&ef, efnum);
 #endif // printlog_enabled
 }
@@ -317,7 +317,7 @@ void print_com_playlist_ranklist(com_playlist_TypeDef *p)
     printf("com_playlist_TypeDef num:%d\r", p->sum);
     for (i = 0; i < p->sum; i++)
     {
-        printf("[%3d] ", p->list[i].index);
+        printf("[%d] ", p->list[i].index);
         printstr_my(&(p->list[i].name.text), p->list[i].name.length);
     }
     printf("\r\n");
@@ -334,11 +334,11 @@ void print_playdetial(playdetail_TypeDef *p, uint8_t playnum)
     printf("namelenght:%d\r", p->name.length);
     printf("name:");
     printstr_my(&p->name.text, p->name.length);
-    printf("Min:%d\r", p->DurationTime.Min);
-    printf("Sec:%d\r", p->DurationTime.Sec);
+    printf("Min:%d\r", p->DurationTime.min_MS);
+    printf("Sec:%d\r", p->DurationTime.sec_MS);
     printf("num:%d\r", p->num);
 
-    // // for (i = 0; i < PlayList_SizeNum; i++)
+    // // for (i = 0; i < PlayList_efMaxNum; i++)
     for (i = 0; i < p->num; i++)
     {
         printf("[%d] ", p->list[i]);
@@ -347,7 +347,8 @@ void print_playdetial(playdetail_TypeDef *p, uint8_t playnum)
             printf("\r");
         }
     }
-    printf("\r");
+    printf("----------------------------------------------\r\r");
+    
 #endif // printlog_enabled
 }
 
@@ -365,12 +366,13 @@ void print_play_history(void)
 {
 #if defined(printlog_enabled)
     uint8_t i;
+    printf("----------------------------------------------\r");
     printf("[ print_play_history ]\r");
     for (i = 0; i < sizeof(play.detail.history); i++)
     {
-        printf("[%3d] ", play.detail.history[i]);
+        printf("%3d ", play.detail.history[i]);
     }
-    printf("\r\n");
+    printf("\r----------------------------------------------\r");
 #endif // printlog_enabled
 }
 
@@ -379,7 +381,8 @@ void print_playstatus(void)
 {
 #if defined(printlog_enabled)
     uint8_t i;
-    printf("[ print_playstatus ]\r");
+    printf("\r----------------------------------------------\r");
+    printf(">print_playstatus\r");
     if (play.status == PAUSE)
     {
         printlog("PAUSE\r");
@@ -388,29 +391,37 @@ void print_playstatus(void)
     {
         printlog("RUN\r");
     }
-    if (play.mode == LOOP_MODE)
+    if (play.playmode == PLAY_IN_SEQUENCE)
     {
-        printlog("LOOP MODE\r");
+        printlog("PLAY_IN_SEQUENCE\r");
     }
-    else if (play.mode == RANDOM_MODE)
+    else if (play.playmode == PLAY_IN_RANDOM)
     {
-        printlog("RANDOM MODE\r");
+        printlog("PLAY_IN_RANDOM\r");
     }
-    printlog("list   num:%d\r", play.detail.listnum);
-    printlog("effect num:%d\r", play.detail.efnum);
-    printlog("min:%d sec:%d\r", play.detail.duration.Min, play.detail.duration.Sec);
+    if (play.cyclemode == CYCLE_IN_LOOP)
+    {
+        printlog("CYCLE_IN_LOOP\r");
+    }
+    else if (play.cyclemode == CYCLE_IN_ONCE)
+    {
+        printlog("CYCLE_IN_ONCE\r");
+    }
+    printlog("list   num:%d\r", play.detail.listindex);
+    printlog("effect num:%d\r", play.detail.efindex);
+    printlog("min:%d sec:%d\r", play.detail.duration.min_MS, play.detail.duration.sec_MS);
     /*-----*/
-    printlog("list(%2d ):\r", play.detail.num);
-    for (i = 0; i < play.detail.num; i++)
+    printlog("list(%2d ):\r", play.detail.listefsum);
+    for (i = 0; i < play.detail.listefsum; i++)
     {
-        printf("[%d] ",play.detail.list[i]);
+        printf("%d ",play.detail.list[i]);
         if ((i % 4) == 9)
         {
             printf("\r");
         }
     }
-    printf("\r");
-    print_play_history();
+    printf("\r\r");
+    // print_play_history();
 #endif // printlog_enabled
 }
 /*打印从机设备信息*/
@@ -489,9 +500,9 @@ void print_clock_detial(clock_detail_TypeDef *p)
     }
     printlog("effect: %d\r", p->ef_index);
     printlog("ultimatebright: %d\r", p->ultimatebright);
-    printlog("actiontime: %02d:%02d\r", p->actiontime.Min, p->actiontime.Sec);
-    printlog("duration: %02d:%02d\r", p->duration.Min, p->duration.Sec);
-    printlog("repeat: %02x\r\n", p->repeat);
+    printlog("actiontime: %02d:%02d\r", p->actiontime.hou_HM, p->actiontime.min_HM);
+    printlog("duration: %02d:%02d\r", p->duration.hou_HM, p->duration.min_HM);
+    printlog("repeat: %02x\r\n", p->repeat.week);
 #endif
 }
 
@@ -528,6 +539,7 @@ void print_online_slave_data(void)
 {
 #if defined(printlog_enabled)
     uint8_t i;
+    printlog("\r\r\r\r\r\r\r\r\r\r\r\r\n");
     printlog("\rprint_slave_data\r");
     printlog("slave num:%d\r", slave.num);
     for (i = 0; i < slave.num; i++)
@@ -569,7 +581,7 @@ void print_play_effect_detial(void)
 {
 #if defined(printlog_enabled)
     printlog("print_play_effect_detial");
-    print_effect_detial(&play.efdetail, play.detail.efnum);
+    print_effect_detial(&play.efdetail, play.detail.efindex);
 #endif // printlog_enabled
 }
 
@@ -589,5 +601,21 @@ void print_device_control(app_device_control_Typedef*x)
        printf("id:%02x index:%02d sta:%02x\r",x->lightsta[i].id,x->lightsta[i].index,x->lightsta[i].lightsta);
     }
     printf("\r\n");
+#endif // printlog_enabled
+}
+
+/* 
+ * @Description: 打印本地rtc时钟
+ * @param: 
+ * @return: 
+*/ 
+void print_local_rtc_time(void)
+{
+#if defined(printlog_enabled)
+    rtc_counter_value_t rtc;
+    RTC_Get_CounterValue(&rtc);
+    RTC_BCD_To_HEX(&rtc);
+    // // printf("\r>> local rtc\r");
+    printf("20%d/%d/%d %d %d:%d:%d\r\n", rtc.year, rtc.month, rtc.day, rtc.week, rtc.hour, rtc.min, rtc.sec);
 #endif // printlog_enabled
 }

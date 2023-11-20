@@ -125,7 +125,7 @@ void debug_save_effect_detial(void)
     save_effect(&eff,0);
 
     // memset(&eff,0,sizeof(eff));
-    get_effect(&eff,0);
+    get_effect_detail(&eff,0);
     // printf("sum:%d\n",checksum_calculate(&eff,sizeof(eff)));
     print_effect_detial(&eff,0);
     // printf("\read\r\r");
@@ -137,11 +137,11 @@ void debug_add_original_ef(void)
 {
     static uint8_t i=128;
     Efdetail_TypeDef ef;
-    // // i = Random_Generate() % original_ef_num;
+    // // i = get_random_number() % original_ef_num;
     // // i += 128;
     i++;
     printf("add original ranklist %d\r", i);
-    get_effect(&ef,0);  // 拷贝第0个灯效
+    get_effect_detail(&ef,0);  // 拷贝第0个灯效
     add_original_ef(&ef, i);
     print_get_original_ef_ranklist();
 }
@@ -213,22 +213,26 @@ void norflash_auto_rw_test(void)
 {
     // #define TESTSIZE FIRMWARE_SIZE //(256*256)
     #define TESTSIZE (256*1)
+    #define TEST_BASEADDR 0x20000
+    // // #define TEST_BASEADDR 0x500
     static uint8_t num;
     uint32_t i;
     uint32_t chechsum = 0;
     uint32_t norsum = 0;
     uint8_t arry[256];
+    
     num++;
 
     memset(arry, num, sizeof(arry));
     // erase_firmware_block64K_norflash(); // 擦除固件区
 
-    FLASH_BlockErase(0);
+    // FLASH_BlockErase(0+TEST_BASEADDR);q
     for (i = 0; i < TESTSIZE;)
     {
         // // FLASHSPI_PageErase(0);
-        FLASH_PageWrite(arry, i, sizeof(arry));
-        // // FlashSPI_Insert(arry, i, sizeof(arry));
+        
+        // // FLASHSPI_PageWrite(arry, i+TEST_BASEADDR, sizeof(arry));
+        FlashSPI_Insert(arry, i+TEST_BASEADDR, sizeof(arry));
         chechsum += checksum_calculate(arry, sizeof(arry));
         i += sizeof(arry);
     }
@@ -236,7 +240,7 @@ void norflash_auto_rw_test(void)
 
     for (i = 0; i < TESTSIZE;)
     {
-        FLASHSPI_PageRead(arry, i, sizeof(arry));
+        FLASHSPI_PageRead(arry, i+TEST_BASEADDR, sizeof(arry));
         norsum += checksum_calculate(arry, sizeof(arry));
         i += sizeof(arry);
     }
@@ -296,10 +300,10 @@ void debug_add_clock_schedule(void)
     detail.action = TURN_ON;
     detail.ef_index = 8;
     detail.ultimatebright = 89;
-    detail.actiontime.Min = 13;
-    detail.actiontime.Sec = 24;
-    detail.duration.Min = 16;
-    detail.duration.Sec = 53;
+    detail.actiontime.hou_HM = 13;
+    detail.actiontime.min_HM = 24;
+    detail.duration.hou_HM = 16;
+    detail.duration.min_HM = 53;
     detail.repeat.week = 0x66;
     get_all_schedule(&schedule);
     add_clock_schedule(&detail, schedule.num);
@@ -316,7 +320,7 @@ void debug_delete_schedule(void)
 void debug_play_next_effect(void)
 {
     uint8_t num;
-    num = play.detail.efnum + 1;
+    num = play.detail.efindex + 1;
     if (num > 29)
     {
         num = 0;
@@ -328,7 +332,7 @@ void debug_play_next_effect(void)
 void debug_play_last_effect(void)
 {
     uint8_t num;
-    num = play.detail.efnum - 1;
+    num = play.detail.efindex - 1;
     if (num > 29)
     {
         num = 29;
@@ -338,6 +342,9 @@ void debug_play_last_effect(void)
 
 void debug(void)
 {
+    static uint8_t ppp;
+    ppp++;
+    UART1_Send(&ppp, 1);  
     // static uint8_t i;
     // if (i)
     // {
@@ -409,7 +416,7 @@ void debug_K2(void)
     // printf("\rK2\r");
     // slave_light_in_turn();
     // test_change_color(1);
-    print_get_all_ef_ranklist();
+    // print_get_all_ef_ranklist();
 }
 /*按键3服务调试函数*/
 void debug_K3(void)
@@ -418,12 +425,28 @@ void debug_K3(void)
     // test_change_color(0);
     //   print_get_favorites_ef_ranklist();  
     // print_all_clock_detail();
-    search_norflash_ranklist();
+    // search_norflash_ranklist();
 }
 /*按键4服务调试函数*/
 void debug_K4(void)
 {
-    ef_ranklist_TypeDef ranklist; // 列表信息
+    // // init_default_playlist();            // 出厂化内置播放表信息
+    // uint8_t version[OTA_updateFLAG_SIZE];
+
+    // get_norflash_firmware_version(&version, sizeof(version));
+    // printhex_my(&version, sizeof(version));
+    // printlog("\r");
+    // printstr_my(&version, sizeof(version));
+    // printlog("get_norflash_firmware_version:%s\r", &version);
+
+    // L0_playCOLOR_Typedef x;
+    // x.br = 100;
+    // x.type = 1;
+    // x.R = 70;
+    // x.G = 0;
+    // x.B = 0;
+    // transmit_playsame_COLOR(&x);
+    // ef_ranklist_TypeDef ranklist; // 列表信息
     // debug_add_clock_schedule();
     // print_all_clock_detail();
     // printf("\rK4\r");
@@ -441,12 +464,46 @@ void debug_K4(void)
     // // get_favoritesef_ranklist(&ranklist); // 获取全部灯效顺序表
     // // print_ef_ranklist(&ranklist);        // 打印顺序列表信息
     // // printlog("-------------------------------------------------------------------------------\n");
-    factoryreset_norflash();
+    // factoryreset_norflash();
+    // // set_firmware_download_finish_flag();
 }
 
 /*按键5服务调试函数*/
 void debug_K5(void)
 {
+    // // print_get_playlist_ranklist();
+    // print_get_all_ef_ranklist();
+    // // set_firmware_downloading_flag();
+//  static uint8_t aaaaaa;
+//     wifi_fifo_push(aaaaaa++);
+
+// // norflash_auto_rw_test();
+// debug_add_original_ef();
+
+    // uint8_t i;
+    // uint8_t list[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9,10};
+
+    // invert_list(list, sizeof(list));
+    // // permute_list_in_random(list, sizeof(list));
+    // printlog("list\r");
+    // for (i = 0; i < sizeof(list); i++)
+    // {
+    //     printlog("%d ", list[i]);
+    // }
+    // printlog("\r");
+    // // // // // // // move_data_to_first_in_list(0, list, sizeof(list));
+    // // // // // // // for (i = 0; i < sizeof(list); i++)
+    // // // // // // // {
+    // // // // // // //     printlog("%d ", list[i]);
+    // // // // // // // }
+    // // // // // // // printlog("\r\n");
+    // L0_playCOLOR_Typedef x;
+    // x.br = 100;
+    // x.type = 1;
+    // x.R = 30;
+    // x.G = 0;
+    // x.B = 0;
+    // transmit_playsame_COLOR(&x);
     // // // uint16_t i;
     // // // uint32_t chechsum;
     // // // uint8_t num;
@@ -466,11 +523,11 @@ void debug_K5(void)
     // // // transmit_playdata_RGBbr();
     // // // slave.num = num;
     // // norflash_reset_to_zreo();
-        printlog("-------------------------------------------------------------------------------\n");
-    print_get_original_ef_ranklist();
-    print_get_all_ef_ranklist();
-    print_get_favorites_ef_ranklist();
-        printlog("-------------------------------------------------------------------------------\n");
+    // // //     printlog("-------------------------------------------------------------------------------\n");
+    // // // print_get_original_ef_ranklist();
+    // // // print_get_all_ef_ranklist();
+    // // // print_get_favorites_ef_ranklist();
+    // // //     printlog("-------------------------------------------------------------------------------\n");
 }
 
 /*

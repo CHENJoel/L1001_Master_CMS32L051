@@ -17,7 +17,7 @@ void mcu_update_efdetail(uint8_t efnum)
 {
     com_effect_detial_TypeDef comef;
     comef.idex = efnum;
-    get_effect(&comef.Efdata, efnum);
+    get_effect_detail(&comef.Efdata, efnum);
     comef.checksum = (uint8_t)checksum_calculate((uint8_t *)&comef, sizeof(comef) - 1);
     mcu_dp_raw_update(DPID_EFFECT_DETIAL, &comef, sizeof(comef));
     print_effect_detial(&comef.Efdata, efnum);
@@ -42,7 +42,7 @@ void mcu_update_efsketch(com_issue_cmd_TypeDef *p)
     for (i = 0; i < sketch.num; i++)
     {
         sketch.Efdata[i].index = p->data[i + 1]; // 索引
-        get_effect(&efdata, sketch.Efdata[i].index);
+        get_effect_detail(&efdata, sketch.Efdata[i].index);
         sketch.Efdata[i].namelenght = efdata.namelenght;
         memcpy(&sketch.Efdata[i].Name, &efdata.Name, sizeof(sketch.Efdata[i].Name));                             // 名字
         sketch.Efdata[i].Attribute = efdata.Attribute;                                                           // 属性
@@ -67,7 +67,7 @@ void mcu_update_one_efsketch(uint8_t efnum)
     memset(&sketch, 0, sizeof(sketch)); // 清零
     sketch.num = 1;
     sketch.Efdata[0].index = efnum; // 索引
-    get_effect(&efdata, sketch.Efdata[0].index);
+    get_effect_detail(&efdata, sketch.Efdata[0].index);
     sketch.Efdata[0].namelenght = efdata.namelenght;
     memcpy(&sketch.Efdata[0].Name, &efdata.Name, sizeof(sketch.Efdata[0].Name));                             // 名字
     sketch.Efdata[0].Attribute = efdata.Attribute;                                                           // 属性
@@ -93,7 +93,7 @@ void mcu_update_playlist_efsketch(com_issue_cmd_TypeDef *p)
     for (i = 0; i < sketch.num; i++)
     {
         sketch.Efdata[i].index = p->data[i + 1]; // 索引
-        get_effect(&efdata, sketch.Efdata[i].index);
+        get_effect_detail(&efdata, sketch.Efdata[i].index);
         sketch.Efdata[i].namelenght = efdata.namelenght;
         memcpy(&sketch.Efdata[i].Name, &efdata.Name, sizeof(sketch.Efdata[i].Name));                             // 名字
         sketch.Efdata[i].Attribute = efdata.Attribute;                                                           // 属性
@@ -107,8 +107,8 @@ void mcu_update_playlist_efsketch(com_issue_cmd_TypeDef *p)
 void mcu_update_allef_ranklist(void)
 {
     com_ranklist_TypeDef com_ranklist;
-    printlog("mcu_update_allef_ranklist\r");
     get_allef_ranklist((ef_ranklist_TypeDef *)&com_ranklist.ranklist);
+    printlog(">mcu_update_allef_ranklist:%d\r",com_ranklist.ranklist.num);
     com_ranklist.checksum = (uint8_t)checksum_calculate((uint8_t *)&com_ranklist, (uint16_t)sizeof(com_ranklist) - 1);
     mcu_dp_raw_update(DPID_ALL_EFFECT_RANKLIST, &com_ranklist, sizeof(com_ranklist));
     // printhex_my(&com_ranklist, sizeof(com_ranklist));
@@ -118,9 +118,10 @@ void mcu_update_allef_ranklist(void)
 void mcu_update_originalef_ranklist(void)
 {
     com_ranklist_TypeDef com_ranklist;
-    printlog("<mcu_update_originalef_ranklist>\r");
+    
     get_originalef_ranklist((ef_ranklist_TypeDef *)&com_ranklist.ranklist);
     com_ranklist.checksum = (uint8_t)checksum_calculate((uint8_t *)&com_ranklist, (uint16_t)sizeof(com_ranklist) - 1);
+    printlog(">mcu_update_originalef_ranklist:%d\r",com_ranklist.ranklist.num);
     mcu_dp_raw_update(DPID_ORIGINAL_EFFECT_RANKLIST, &com_ranklist, sizeof(com_ranklist));
     print_ef_ranklist(&com_ranklist.ranklist);
     // // // printhex_my(&com_ranklist,sizeof(com_ranklist.ranklist));
@@ -129,7 +130,7 @@ void mcu_update_originalef_ranklist(void)
 void mcu_update_favoritesef_ranklist(void)
 {
     com_ranklist_TypeDef com_ranklist;
-    printlog("mcu_update_favoritesef_ranklist\r");
+    printlog(">mcu_update_favoritesef_ranklist:%d\r",com_ranklist.ranklist.num);
     get_favoritesef_ranklist((ef_ranklist_TypeDef *)&com_ranklist.ranklist);
     com_ranklist.checksum = (uint8_t)checksum_calculate((uint8_t *)&com_ranklist, (uint16_t)sizeof(com_ranklist) - 1);
     mcu_dp_raw_update(DPID_FAVORITES_EFFECT_RANKLIST, &com_ranklist, sizeof(com_ranklist));
@@ -162,44 +163,45 @@ void mcu_update_playlist_ranklist(void)
 void mcu_update_playdetail(uint8_t playnum)
 {
     com_play_detial_TypeDef com;
-    printlog("mcu_update_playdetail\r");
+    printlog("mcu_update_playdetail:%d\r",playnum);
     get_playdetail(&com.pldata, playnum);
     com.idex = playnum;
     com.checksum = (uint8_t)checksum_calculate((uint8_t *)&com, (uint16_t)sizeof(com) - 1);
     mcu_dp_raw_update(DPID_PLAY_DETIAL, &com, sizeof(com));
-    print_playdetial(&com.pldata, com.idex);
+    // print_playdetial(&com.pldata, com.idex);
 }
 /*mcu上报当前播放详情*/
 void mcu_update_current_playdetail(void)
 {
     com_play_detial_TypeDef com;
-    printlog("mcu_update_current_playdetail\r");
-    get_playdetail(&com.pldata, play.detail.listnum);
-    com.idex = play.detail.listnum;
+    printlog("mcu_update_current_playdetail:%d\r",play.detail.listindex);
+    get_playdetail(&com.pldata, play.detail.listindex);
+    com.idex = play.detail.listindex;
     com.checksum = (uint8_t)checksum_calculate((uint8_t *)&com, (uint16_t)sizeof(com) - 1);
     mcu_dp_raw_update(DPID_PLAY_CONTROL_DETIAL, &com, sizeof(com));
     // // // // printhex_my(&com, sizeof(com));
-    print_playdetial(&com.pldata, com.idex);
+    // print_playdetial(&com.pldata, com.idex);
 }
 
 /*mcu上报播放状态*/
 void mcu_update_playstatus(void)
 {
     com_play_control_TypeDef com;
+    printlog("mcu_update_playstatus\r");
     com.type = PLAY_STATUS;// 播放/暂停
     com.value = play.status;
     com.checksum = (uint8_t)checksum_calculate((uint8_t *)&com, (uint16_t)sizeof(com) - 1);
     mcu_dp_raw_update(DPID_PLAY_CONTROL, &com, sizeof(com));
     com.type = PLAYLIST_INDEX;// 播放列表索引
-    com.value = play.detail.listnum;
+    com.value = play.detail.listindex;
     com.checksum = (uint8_t)checksum_calculate((uint8_t *)&com, (uint16_t)sizeof(com) - 1);
     mcu_dp_raw_update(DPID_PLAY_CONTROL, &com, sizeof(com));
     com.type = EFFECT_INDEX;// 效果索引
-    com.value = play.detail.efnum;
+    com.value = play.detail.efindex;
     com.checksum = (uint8_t)checksum_calculate((uint8_t *)&com, (uint16_t)sizeof(com) - 1);
     mcu_dp_raw_update(DPID_PLAY_CONTROL, &com, sizeof(com));
-    com.type = PLAY_MODE;// 播放循环模式
-    com.value = play.mode;
+    com.type = PLAY_RANDOM_EN;// 随机播放使能
+    com.value = play.playmode;
     com.checksum = (uint8_t)checksum_calculate((uint8_t *)&com, (uint16_t)sizeof(com) - 1);
     mcu_dp_raw_update(DPID_PLAY_CONTROL, &com, sizeof(com));
 }
@@ -287,7 +289,7 @@ uint8_t mcu_download_effect_detail_handle(uint8_t *sur, uint16_t length)
 uint8_t mcu_download_issue_cmd_handle(uint8_t *sur, uint16_t length)
 {
     com_issue_cmd_TypeDef *p;
-    // printlog("\r>mcu_download_issue_cmd_handle<\r");
+    // // printlog(">mcu_download_issue_cmd_handle<\r");
     if (com_dataverify(sur, length) == 0)
     {
         return 0;
@@ -296,13 +298,11 @@ uint8_t mcu_download_issue_cmd_handle(uint8_t *sur, uint16_t length)
     switch (p->cmd)
     {
     case ASK_EFSKETCH: /*效果概述*/
-        // printlog("ASK_EFSKETCH\r");
+        printlog(" >> ASK_EFSKETCH\r");
         mcu_update_efsketch(p);
-        // printlog("mcu update efsketch:%d [%3d] [%3d] [%3d] [%3d]\r",p->data[0],p->data[1],p->data[2],p->data[3],p->data[4]);
-        // printlog("mcu_update_efsketch\r");
         break;
     case ASK_EFDETAIL: /*效果详情*/
-        printlog("mcu_update_efdetail\r");
+        printlog(" >> ASK_EFDETAIL\r");
         mcu_update_efdetail(p->data[0]); // mcu上报灯效详情
         break;
     case DELETE_ORIGINAL_EF: /*删除自定义灯效*/
@@ -314,7 +314,7 @@ uint8_t mcu_download_issue_cmd_handle(uint8_t *sur, uint16_t length)
         // // // // // // // mcu_update_originalef_ranklist();
         break;
     case ADD_FAVORITES_EF: /*加入收藏*/
-        printlog("ADD_FAVORITES_EF\r");
+        printlog(" >> ADD_FAVORITES_EF\r");
         add_favorites_ef(p->data[0]);
         // // mcu_update_allef_ranklist();
         // // mcu_update_originalef_ranklist();
@@ -322,7 +322,7 @@ uint8_t mcu_download_issue_cmd_handle(uint8_t *sur, uint16_t length)
         mcu_update_one_efsketch(p->data[0]);
         break;
     case DELETE_FAVORITES_EF: /*取消收藏*/
-        printlog("DELETE_FAVORITES_EF\r");
+        printlog(" >> DELETE_FAVORITES_EF\r");
         delete_favorites_ef(p->data[0]);
         // // mcu_update_allef_ranklist();
         // // mcu_update_originalef_ranklist();
@@ -330,86 +330,104 @@ uint8_t mcu_download_issue_cmd_handle(uint8_t *sur, uint16_t length)
         mcu_update_one_efsketch(p->data[0]);
         break;
     case ASK_ALLEFRANKLIST: /*请求全部灯效的顺序表*/
-        printlog("ASK_ALLEFRANKLIST\r");
+        printlog(" >> ASK_ALLEFRANKLIST\r");
         mcu_update_allef_ranklist();
         break;
     case ASK_ORINGINAL_RANKLIST: /*请求自定义灯效的顺序表*/
-        printlog("ASK_ORINGINAL_RANKLIST\r");
+        printlog(" >> ASK_ORINGINAL_RANKLIST\r");
         mcu_update_originalef_ranklist();
         break;
     case ASK_FAVORITES_RANKLIST: /*请求收藏灯效的顺序表*/
-        printlog("ASK_FAVORITES_RANKLIST\r");
+        printlog(" >> ASK_FAVORITES_RANKLIST\r");
         mcu_update_favoritesef_ranklist();
         break;
     case ASK_PLAYLIST_RANKLIST: /*请求播放列表的顺序表*/
-        printlog("ASK_PLAYLIST_RANKLIST\r");
+        printlog(" >> ASK_PLAYLIST_RANKLIST\r");
         mcu_update_playlist_ranklist();
         break;
     case ASK_EFFECT_RANKLIST: /*请求灯效相关的顺序表*/
-        printlog("ASK_EFFECT_RANKLIST\r");
+        printlog(" >> ASK_EFFECT_RANKLIST\r");
         mcu_update_allef_ranklist();
         mcu_update_originalef_ranklist();
         mcu_update_favoritesef_ranklist();
         break;
     case ASK_PLAY_EFSKETCH: /*请求效果概述*/
-        printlog("ASK_PLAY_EFSKETCH\r");
+        printlog(" >> ASK_PLAY_EFSKETCH\r");
         mcu_update_playlist_efsketch(p);
         break;
     case REAERVE_CMD11: /*保留*/
         break;
-    case DELETE_PLAYLIST_RANKLISTLIST: /*删除播放列表中某个详情表*/
-        printlog("DELETE_PLAYLIST_RANKLISTLIST\r");
-        delete_playlist(p->data[0]);
+    case DELETE_PLAYLIST_RANKLISTLIST: /*删除播放列表中某个详情表*/ 
+        /* 与23（DELETE_PLAYLIST）重复*/
+        // // // printlog(" >> DELETE_PLAYLIST_RANKLISTLIST\r");
+        // // // delete_playlist(p->data[0]);
+        // // // mcu_update_playlist_ranklist();
         break;
     case SWITCH_PLAYLIST: /*切换播放列表*/
-        printlog("SWITCH_PLAYLIST\r");
+        printlog(" >> SWITCH_PLAYLIST\r");
         switch_playlist(p->data[0]);
         mcu_update_current_playdetail(); // 自动上报当前播放详情
         mcu_update_playstatus();         // 自动上报播放状态
         break;
     case ASK_PLAYDETAIL: /*请求播放详情*/
-        printlog("ASK_PLAYDETAIL\r");
+        printlog(" >> ASK_PLAYDETAIL\r");
         mcu_update_playdetail(p->data[0]);
         break;
     case ASK_PLAYSTATUS: /*请求播放状态*/
-        printlog("ASK_PLAYSTATUS\r");
+        printlog(" >> ASK_PLAYSTATUS\r");
+        mcu_update_playstatus(); // 自动上报播放状态
         break;
     case DELETE_SCHEDULE: /*删除定时计划*/
-        printlog("DELETE_SCHEDULE\r");
+        printlog(" >> DELETE_SCHEDULE\r");
         delete_schedule(p->data[0]);
+        mcu_update_clock_list();
         break;
     case ASK_SCHEDULE_DETAIL: /*请求定时详情*/
-        printlog("ASK_SCHEDULE_DETAIL\r");
+        printlog(" >> ASK_SCHEDULE_DETAIL\r");
         mcu_update_clock_detial(p->data[0]);
         break;
     case INTER_APPCONNTROL: /*进入app控制*/
-        printlog("INTER_APPCONNTROL\r");
-        enter_device_pairing_mode();    // 进入灯板配对模式
-        turn_off_all_salve_light(); // 关闭所有灯光
-        mcu_update_device_detail();
-        print_slave_data();
+        printlog(" >> INTER_APPCONNTROL\r");
+        enter_device_pairing_mode(); // 进入灯板配对模式
+        turn_off_all_salve_light();  // 关闭所有灯光
+        // mcu_update_device_detail();
+        // print_slave_data();
         break;
     case EXIT_APPCONNTROL: /*退出app控制*/
-        printlog("EXIT_APPCONNTROL\r");
+        printlog(" >> EXIT_APPCONNTROL\r");
         enter_playing_effect_mode(); // 进入正常播放灯效模式
         break;
     case ASK_SCHEDULE_SKETCH: /*请求定时计划表*/
-        printlog("ASK_SCHEDULE_SKETCH\r");
+        printlog(" >> ASK_SCHEDULE_SKETCH\r");
         mcu_update_clock_list();
         break;
     case PLAY_TEMP_EFFECT: /*播放临时灯效*/
-        printlog("PLAY_TEMP_EFFECT\r");
-        play_new_effect(p->data[0]);
+        printlog(" >> PLAY_TEMP_EFFECT\r");
+        play_free_effect(p->data[0]);
         mcu_update_current_playdetail(); // 自动上报当前播放详情
         mcu_update_playstatus();         // 自动上报播放状态
         break;
-    case RESET_BUILTIN_EF:  /* 重置内置灯效 */
-        printlog("RESET_BUILTIN_EF\r");
+    case RESET_BUILTIN_EF: /* 重置内置灯效 */
+        printlog(" >> RESET_BUILTIN_EF\r");
         reset_built_in_effect(p->data[0]);
         mcu_update_one_efsketch(p->data[0]);
         break;
+
+    case DELETE_PLAYLIST: // 删除播放列表
+        printlog(" >> DELETE_PLAYLIST\r");
+        delete_playlist(p->data[0]);
+        reload_current_play_list();
+        mcu_update_playlist_ranklist();
+        break;
+    case ASK_DEVICE_DETAILS: // 请求灯板信息
+        mcu_update_device_detail();
+        print_slave_data();
+        break;
+    case ASK_DEVICE_IDENTIFY: // 请求配对标识
+        mcu_update_device_indentify();
+        break;
     default:
-        printlog("[error] wrong command num:%d\r", p->cmd);
+        printlog(" >> [error] wrong command num:%d\r", p->cmd);
         printAssert();
         break;
     }
@@ -446,12 +464,24 @@ uint8_t mcu_download_play_detial(uint8_t *sur, uint16_t length)
     {
         return 0;
     }
-    add_playlist((playdetail_TypeDef *)(&((com_play_detial_TypeDef *)  sur)->pldata), (uint8_t)(((com_play_detial_TypeDef *)  sur)->idex));
+    add_playlist((playdetail_TypeDef *)(&((com_play_detial_TypeDef *)sur)->pldata), (uint8_t)(((com_play_detial_TypeDef *)sur)->idex));
     print_com_playdetial(sur);
+    if ((uint8_t)(((com_play_detial_TypeDef *)sur)->idex) == play.detail.listindex)
+    {
+        reload_current_play_list(); // 当前播放列表有变动，则重新加载
+    }
     mcu_update_playlist_ranklist();
     return 1;
 }
-/*针对DPID_PLAY_CONTROL_DETIAL的处理函数*/
+/*--------------------------------------------------------------------------------------------------------------------------
+*/
+
+/* 
+ * @Description: 下载播放控制详情
+ * @param: 
+ * @param: 
+ * @return: 
+*/ 
 uint8_t mcu_download_play_control_detial(uint8_t *sur, uint16_t length)
 {
     printlog("<mcu_download_play_control_detial>\r");
@@ -462,19 +492,29 @@ uint8_t mcu_download_play_control_detial(uint8_t *sur, uint16_t length)
     switch (((com_play_control_TypeDef *)sur)->type)
     {
     case PLAY_STATUS: // 播放/暂停
+        printlog(">PLAY_STATUS\r");
         play.status = (playstatus_enum)(((com_play_control_TypeDef *)sur)->value);
-        break;
-    case PLAY_SWITCH: // 上下曲切换
-        switch_ln_effect((switchplay_enum)(((com_play_control_TypeDef *)sur)->value));
-        break;
-    case EFFECT_INDEX: // 效果索引
 
         break;
-    case PLAY_MODE: // 播放循环模式
-        play.mode = (playmode_enum)(((com_play_control_TypeDef *)sur)->value);
+    case PLAY_SWITCH: // 上下曲切换
+        printlog(">PLAY_SWITCH\r");
+        switch_lastnext_effect((switchplay_enum)(((com_play_control_TypeDef *)sur)->value));
+        break;
+    case EFFECT_INDEX: // 效果索引
+        printlog(">EFFECT_INDEX\r");
+        break;
+    case PLAY_RANDOM_EN: //  随机播放使能
+        printlog(">PLAY_RANDOM_EN\r");
+        switch_playmode((PlayMode_enum)(((com_play_control_TypeDef *)sur)->value));   
+        break;
+     case PLAY_LOOP_EN:     // 循环播放使能
+        printlog(">PLAY_LOOP_EN\r");
+        switch_cyclemode((PlayMode_enum)(((com_play_control_TypeDef *)sur)->value));
         break;
     case PLAYLIST_INDEX: // 播放列表索引
+        printlog(">PLAYLIST_INDEX\r");
         switch_playlist((((com_play_control_TypeDef *)sur)->value));
+
         break;
     default:
         printlog("[error] wrong play type num:%d\r", ((com_play_control_TypeDef *)sur)->type);
@@ -484,6 +524,45 @@ uint8_t mcu_download_play_control_detial(uint8_t *sur, uint16_t length)
     print_playstatus();
     return 1;
 }
+
+/* 
+ * @Description: 上传播放控制详情
+ * @param: 
+ * @param: 
+ * @return: 
+*/ 
+void mcu_update_play_control_detial(playcontrol_type_enum type, uint8_t value)
+{
+    com_play_control_TypeDef com;
+    com.type = type;
+    com.value = value;
+    com.checksum = (uint8_t)checksum_calculate((uint8_t *)&com, (uint16_t)sizeof(com) - 1);
+    mcu_dp_raw_update(DPID_PLAY_CONTROL, value, sizeof(com));
+}
+
+/* 
+ * @Description: 上传当前播放的灯效索引
+ * @param: 
+ * @return: 
+*/ 
+void mcu_update_current_play_ef_index(void)
+{
+    mcu_update_play_control_detial(EFFECT_INDEX,play.detail.efindex);
+}
+
+// // /* 
+// //  * @Description: 上传当前播放状态
+// //  * @param: 
+// //  * @return: 
+// // */ 
+// // void mcu_update_current_play_status(void)
+// // {
+// //     mcu_update_play_control_detial(PLAY_STATUS,play.status);
+// // }
+
+
+/*--------------------------------------------------------------------------------------------------------------------------
+*/
 
 /*针对DPID_DEVICE_DETAIL的处理函数*/
 void mcu_download_device_detail(uint8_t *sur, uint16_t length)
@@ -561,7 +640,8 @@ void mcu_firmware_download(uint8_t *sur, uint16_t position, uint16_t length)
         printlog("package sum is 0x%04x,norflash firmware chechsum:0x%04x\r", packsum, chechsum);
         if (packsum == chechsum) // 校验存储数据是否与升级包一致
         {
-            set_firmware_update_flag(packsum); // 设标志
+            set_firmware_update_flag(packsum);   // 设标志,通知bootload升级固件
+            set_firmware_download_finish_flag(); // 设置固件下载完成标志
             /* 重启*/
             printlog("\rsystem restart..\r\n");
             __NVIC_SystemReset();
@@ -589,6 +669,7 @@ void mcu_firmware_download(uint8_t *sur, uint16_t position, uint16_t length)
             packsum = 0;
             clear_firmware_update_flag();       // 清标志
             erase_firmware_block64K_norflash(); // 擦除固件区
+            set_firmware_downloading_flag();       // 设置固件下载中标志
         }
         download_firmware_to_norflash(sur, position); // 下载固件包
         packsum += checksum_calculate(sur, 256);      // 累计校验和
@@ -695,6 +776,7 @@ void mcu_update_switch_mic(void)
 void mcu_download_bright_val(uint8_t bri)
 {
     printlog("mcu_download_bright_val:%d\r", bri);
+    play.work.global_setting.autobright_ensta = DISABLE_STA; // 关闭自动调光
     play.work.global_setting.brightness_set = bri;
     save_global_setting(&play.work.global_setting);
 }
@@ -706,7 +788,7 @@ void mcu_download_bright_val(uint8_t bri)
  */
 void mcu_update_bright_val(void)
 {
-    printlog("mcu_download_bright_val:%d\r", play.work.global_setting.brightness_set);
+    printlog("mcu_update_bright_val:%d\r", play.work.global_setting.brightness_set);
     mcu_dp_value_update(DPID_BRIGHT_VAL, play.work.global_setting.brightness_set); // VALUE型数据上报;
 }
 
@@ -750,14 +832,14 @@ void mcu_update_auto_brightness_switch(void)
 */ 
 void mcu_download_auto_brightness_mode(uint8_t num)
 {
-    printlog("mcu_download_auto_brightness_switch:%d\r", num);
+    printlog("mcu_download_auto_brightness_mode:%d\r", num);
     if (num == Illumination)
     {
-       play.work.global_setting.autobright_ensta  = Illumination; // 负反馈自动亮度.照明
+       play.work.global_setting.autobrightType  = Illumination; // 负反馈自动亮度.照明
     }
     else
     {
-        play.work.global_setting.autobright_ensta  = Ambient; // 正反馈自动亮度.环境
+        play.work.global_setting.autobrightType  = Ambient; // 正反馈自动亮度.环境
     }
     save_global_setting(&play.work.global_setting);
 }
@@ -773,6 +855,35 @@ void mcu_update_auto_brightness_mode(void)
     mcu_dp_enum_update(DPID_AUTO_BRIGHTNESS_MODE, play.work.global_setting.autobright_ensta);
 }
 
+
+/* 
+ * @Description: 下载自动亮度界面内的亮度值
+ * @param: 
+ * @param: 
+ * @return: 
+*/ 
+void mcu_download_brightness_auto(uint8_t bright)
+{
+    printlog("mcu_download_brightness_auto:%d\r",bright);
+    play.work.global_setting.brightness_set = bright;
+    save_global_setting(&play.work.global_setting);
+}
+
+/* 
+ * @Description: 上传自动亮度界面内的亮度值
+ * @param: 
+ * @param: 
+ * @return: 
+*/ 
+void mcu_update_brightness_auto(void)
+{
+   printlog("mcu_update_brightness_auto:%d\r",play.work.global_setting.brightness_set);
+   mcu_dp_value_update(DPID_BRIGHTNESS_AUTO, play.work.global_setting.brightness_set); // VALUE型数据上报;
+}
+
+
+
+
 /*---------------------------------------------------------------------------------*/
 /* 
  * @Description: 下载闹钟计划概述表
@@ -782,13 +893,33 @@ void mcu_update_auto_brightness_mode(void)
 */ 
 void mcu_download_clock_list(uint8_t *sur, uint16_t length)
 {
-    printlog("<mcu_download_clock_list>\r");
-    if (com_dataverify(sur, length) == 0)
-    {
+   // com_schedule_sketchlist_TypeDef  com;
+   clock_list_TypeDef schedule;
+   uint8_t i;
+   printlog("<mcu_download_clock_list>\r");
+   if (com_dataverify(sur, length) == 0)
+   {
         return 0;
-    }
-    printlog("com_dataverify pass\r");
-    printhex_my(sur, length);
+   }
+   get_all_schedule(&schedule);
+   if (((com_schedule_sketchlist_TypeDef *)sur)->num == schedule.num)
+   {
+        for (i = 0; i < schedule.num; i++)
+        {
+            schedule.list[i].en_sta = ((com_schedule_sketchlist_TypeDef *)sur)->list[i].en_sta; // 更新启用状态
+            /*
+            schedule.list[i].en_sta = ((com_schedule_sketchlist_TypeDef *)sur)->list[i].en_sta;                       // 启用状态
+            schedule.list[i].action = ((com_schedule_sketchlist_TypeDef *)sur)->list[i].action;                       // 动作类型
+            schedule.list[i].actiontime.hou_HM = ((com_schedule_sketchlist_TypeDef *)sur)->list[i].actiontime.hou_HM; // 动作时间
+            schedule.list[i].actiontime.min_HM = ((com_schedule_sketchlist_TypeDef *)sur)->list[i].actiontime.min_HM; // 动作时间
+            schedule.list[i].repeat.week = ((com_schedule_sketchlist_TypeDef *)sur)->list[i].repeat.week;             // 星期计划
+            */
+        }
+   }
+   save_all_schedule(&schedule);
+// //    mcu_update_clock_list();
+   // printlog("com_dataverify pass\r");
+   // printhex_my(sur, length);
 }
 
 /* 
@@ -806,15 +937,15 @@ void mcu_update_clock_list(void)
     memset(&com, 0, sizeof(com));
     if (schedule.num < SCHEDULE_NUM)
     {
-        com.num=schedule.num;
+        com.num = schedule.num;
         for (i = 0; i < schedule.num; i++)
         {
             com.list[i].index = i;
-            com.list[i].en_sta = schedule.list[i].en_sta;                 // 启用状态
-            com.list[i].action = schedule.list[i].action;                 // 动作类型
-            com.list[i].actiontime.Min = schedule.list[i].actiontime.Min; // 动作时间
-            com.list[i].actiontime.Sec = schedule.list[i].actiontime.Sec; // 动作时间
-            com.list[i].repeat = schedule.list[i].repeat;                 // 星期计划
+            com.list[i].en_sta = schedule.list[i].en_sta;                       // 启用状态
+            com.list[i].action = schedule.list[i].action;                       // 动作类型
+            com.list[i].actiontime.hou_HM = schedule.list[i].actiontime.hou_HM; // 动作时间
+            com.list[i].actiontime.min_HM = schedule.list[i].actiontime.min_HM; // 动作时间
+            com.list[i].repeat.week = schedule.list[i].repeat.week;             // 星期计划
         }
     }
     else
@@ -857,7 +988,7 @@ uint8_t mcu_download_clock_detial(uint8_t *sur, uint16_t length)
 {
     clock_detail_TypeDef schedule_detail;
     printlog("<mcu_download_clock_detial>\r");
-    printhex_my(sur, length);
+    // // // printhex_my(sur, length);
     copy_schedule_detail_from_com((com_schedule_detail_TypeDef *)sur, &schedule_detail);
     print_clock_detial(&schedule_detail);
     add_clock_schedule(&schedule_detail, ((com_schedule_detail_TypeDef *)sur)->index);
@@ -867,3 +998,44 @@ uint8_t mcu_download_clock_detial(uint8_t *sur, uint16_t length)
 
 
 /*---------------------------------------------------------------------------------*/
+
+
+
+
+/*
+ * @Description: 上传设备配对标识
+ * @param:
+ * @return:
+ */
+void mcu_update_device_indentify(void)
+{
+    device_indentify_TypeDef buff;
+    get_device_identify(&buff);
+    mcu_dp_raw_update(DPID_RESERVED3, &buff.data, buff.length);
+}
+
+/*
+ * @Description: 下载设备配对标识
+ * @param:
+ * @return:
+ */
+void mcu_download_device_indentify(uint8_t *sur, uint16_t length)
+{
+    device_indentify_TypeDef buff;
+    buff.length = length;
+    memcpy(&buff.data, sur, length);
+    save_device_identify(&buff);
+}
+
+/* 
+ * @Description: 下载DP数据（保留3）
+ * @param: 
+ * @param: 
+ * @return: 
+*/ 
+void mcu_download_reserved3(uint8_t *sur, uint16_t length)
+{
+    printlog("mcu_download_device_indentify:%d\r",length);
+    mcu_download_device_indentify(sur, length);
+}
+/*-------------------------------------------------------------------------*/

@@ -66,8 +66,8 @@ void connect_slave_device(uint8_t id)
     // com.com_addr = id;
     // com.com_cmdType = CMD_CONTROL;  // 控制指令
     // com.com_cmd = CMD_CONNECT_COID; // 握手通信ID
-    // com.com_val1 = Random_Generate();
-    // com.com_val2 = Random_Generate();
+    // com.com_val1 = get_random_number();
+    // com.com_val2 = get_random_number();
     // com.com_checksum = (uint8_t)checksum_calculate((uint8_t *)&com, (uint16_t)sizeof(com) - 1);
     // tx_uart_data((uint8_t *)&com, (uint16_t)sizeof(com));
 }
@@ -90,8 +90,8 @@ void refresh_slave_comid(void)
     // // // com.com_addr = 0xFF;            // 广播
     // // // com.com_cmdType = CMD_CONTROL;  // 控制指令
     // // // com.com_cmd = CMD_REFRESH_COID; // 更新通信ID
-    // // // com.com_val1 = Random_Generate();
-    // // // com.com_val2 = Random_Generate();
+    // // // com.com_val1 = get_random_number();
+    // // // com.com_val2 = get_random_number();
     // // // com.com_checksum = (uint8_t)checksum_calculate((uint8_t *)&com, (uint16_t)sizeof(com) - 1);
     // // // tx_uart_data((uint8_t *)&com, (uint16_t)sizeof(com));
 }
@@ -114,8 +114,8 @@ void ask_slave_shape(uint8_t id)
     // // // com.com_addr = id;
     // // // com.com_cmdType = CMD_READREG;
     // // // com.com_regaddr = REG_DEVICETYPE; // 设备类型
-    // // // com.com_regval = Random_Generate() << 8;
-    // // // com.com_regval += Random_Generate();
+    // // // com.com_regval = get_random_number() << 8;
+    // // // com.com_regval += get_random_number();
     // // // com.com_checksum = (uint8_t)checksum_calculate((uint8_t *)&com, (uint16_t)sizeof(com) - 1);
     // // // tx_uart_data((uint8_t *)&com, (uint16_t)sizeof(com));
 }
@@ -370,7 +370,7 @@ void get_slave_place(void)
     get_all_slave_data(&device);
     if (device.num > SLAVEDEVICE_NUM)
     {
-        printlog("[error] wrong device number:%d",device.num);
+        printlog("\r[error] wrong device number:%d\r",device.num);
         return;
     }
     for (i = 0; i < slave.num; i++)
@@ -391,88 +391,93 @@ void get_slave_place(void)
  * @Description: 初始化在线的从机信息
  * @param: 无
  * @return: 无
-*/
+ */
 void slave_online_data_init(void)
 {
 
-#ifdef virtual_device
+    // // #ifdef virtual_device
+    // //     generate_virtual_device(); // 生成虚拟灯板信息
+    // // #else
+    turn_off_all_salve_light();
+    poll_slave_id();           // 轮询ID信息
+    get_slave_shape();         // 获取灯板形状
     generate_virtual_device(); // 生成虚拟灯板信息
-#else
-    poll_slave_id();    // 轮询ID信息
-    get_slave_shape();  // 获取灯板形状
-#endif
+                               // #endif
 
     get_slave_place();
     slave_light_in_turn();
+    turn_off_all_salve_light();
     print_online_slave_data();
 }
-
-
-
-
-
 
 /*生成虚拟灯板信息*/
 void generate_virtual_device(void)
 {
-    uint8_t temp[32];
-    uint8_t i;
-    // // memset(&slave, 0, sizeof(slave));
-    // // slave.num=8;
-    for ( i = 0; i < 32; i++)
+    // // uint8_t temp[32];
+    // // uint8_t i;
+    // // // // memset(&slave, 0, sizeof(slave));
+    // // // // slave.num=8;
+    // // for ( i = 0; i < 32; i++)
+    // // {
+    // //     temp[i] = (i + 1) * 10 + i + 1;
+    // //     // while (temp[i]==0||temp[i]==255)
+    // //     // {
+    // //     //     // temp[i] = get_random_number();
+    // //     //     temp[i] = (i+1)*10+i+1;
+    // //     //     // printlog("%d get_random_number %d\r",i,temp[i]);
+    // //     // }
+    // // }
+    if (slave.num)  // 没有连接灯板的时候，就生成8组虚拟灯板信息
     {
-        temp[i] = (i + 1) * 10 + i + 1;
-        // while (temp[i]==0||temp[i]==255)
-        // {
-        //     // temp[i] = Random_Generate();
-        //     temp[i] = (i+1)*10+i+1;
-        //     // printlog("%d Random_Generate %d\r",i,temp[i]);
-        // }
-    }
+        return;
+    }   
+    printf("\r----------------------------------------------------------------\r");
+    printf("generate_virtual_device \r");
+    printf("\r----------------------------------------------------------------\r");
     slave.num = 8;
-    slave.data[0].id = temp[0];
+    slave.data[0].id = 0x11;
     slave.data[0].shape = TRIANGLE_L;
     slave.data[0].angle = 0;
     slave.data[0].cooed_x = 1;
     slave.data[0].cooed_y = 1;
     /**************************/
-    slave.data[1].id = temp[1];
+    slave.data[1].id = 0x22;
     slave.data[1].shape = TRIANGLE_L;
     slave.data[1].angle = 0;
     slave.data[1].cooed_x = 2;
     slave.data[1].cooed_y = 2;
     /**************************/
-    slave.data[2].id = temp[2];
+    slave.data[2].id = 0x33;
     slave.data[2].shape = TRIANGLE_M;
     slave.data[2].angle = 0;
     slave.data[2].cooed_x = 3;
     slave.data[2].cooed_y = 3;
     /**************************/
-    slave.data[3].id = temp[3];
+    slave.data[3].id =0x44;
     slave.data[3].shape = TRIANGLE_S;
     slave.data[3].angle = 0;
     slave.data[3].cooed_x = 4;
     slave.data[3].cooed_y = 4;
     /**************************/
-    slave.data[4].id = temp[4];
+    slave.data[4].id = 0x55;
     slave.data[4].shape = SQUARE;
     slave.data[4].angle = 0;
     slave.data[4].cooed_x = 5;
     slave.data[4].cooed_y = 5;
     /**************************/
-    slave.data[5].id = temp[5];
+    slave.data[5].id = 0x66;
     slave.data[5].shape = TRIANGLE_S;
     slave.data[5].angle = 0;
     slave.data[5].cooed_x = 6;
     slave.data[5].cooed_y = 6;
     /**************************/
-    slave.data[6].id = temp[6];
+    slave.data[6].id =0x77;
     slave.data[6].shape = TRIANGLE_S;
     slave.data[6].angle = 0;
     slave.data[6].cooed_x = 7;
     slave.data[6].cooed_y = 7;
     /**************************/
-    slave.data[7].id = temp[7];
+    slave.data[7].id =0x88;
     slave.data[7].shape = TRIANGLE_S;
     slave.data[7].angle = 0;
     slave.data[7].cooed_x = 8;

@@ -8,3 +8,4 @@
 .\objects\flash.o: C:\Users\MY\AppData\Local\Arm\Packs\Cmsemicon\CMS32L051\1.2.0\Device\Include\system_CMS32L051.h
 .\objects\flash.o: ..\..\Driver\inc\flash.h
 .\objects\flash.o: .\RTE\Device\CMS32L051TS20\userdefine.h
+.\objects\flash.o: ..\..\Driver\inc\wdt.h

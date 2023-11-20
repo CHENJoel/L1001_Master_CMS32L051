@@ -1,8 +1,8 @@
 /*
  * @Author: your name
  * @Date: 2021-12-31 11:54:33
- * @LastEditTime: 2023-06-26 19:59:49
- * @LastEditors: joel
+ * @LastEditTime: 2023-11-03 14:46:14
+ * @LastEditors: DESKTOP-AKTRQKB\MY sandote@163.com
 .chen sandote@163.om
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \L1001_Master_CMS32L051\Project\USER\Include\Color.H
@@ -62,7 +62,7 @@ typedef struct
     DataTypeDef G;
     DataTypeDef B;
     DataTypeDef W;
-    uint8_t addr;
+    // // // // // uint8_t addr;
     ModelTypeDef Model;
     uint16_t Frame_Now; // 当前帧
 } ModuleTypeDef;

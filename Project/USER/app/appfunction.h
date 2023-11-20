@@ -4,7 +4,7 @@
  * @Date: 2023-05-19 11:16:26
  * @LastEditors: DESKTOP-AKTRQKB\MY sandote@163.com
  * .chen sandote@163.om
- * @LastEditTime: 2023-10-28 14:04:55
+ * @LastEditTime: 2023-11-18 11:27:36
  * @FilePath: \L1001_Master_CMS32L051\Project\USER\app\appfunction.h
  * @Description:
  *
@@ -67,7 +67,6 @@ void mcu_update_current_playdetail(void);
 /*mcu上报播放状态*/
 void mcu_update_playstatus(void);
 
-
 /*
 
 
@@ -89,12 +88,20 @@ uint8_t mcu_download_issue_cmd_handle(uint8_t *sur, uint16_t length);
 void mcu_download_effect_preview(uint8_t *sur, uint16_t length);
 /*针对DPID_PLAY_DETIAL的处理函数*/
 uint8_t mcu_download_play_detial(uint8_t *sur, uint16_t length);
-/*针对DPID_PLAY_CONTROL_DETIAL的处理函数*/
-uint8_t mcu_download_play_control_detial(uint8_t *sur, uint16_t length);
+//
+
+uint8_t mcu_download_play_control_detial(uint8_t *sur, uint16_t length);        // 下载播放控制详情
+void mcu_update_play_control_detial(playcontrol_type_enum type, uint8_t value); // 上传播放控制详情
+void mcu_update_current_play_ef_index();                                        // 上传当前播放的灯效索引
+
+//
 /*针对DPID_DEVICE_DETAIL的处理函数*/
 void mcu_download_device_detail(uint8_t *sur, uint16_t length);
 /*针对DPID_DEVICE_CONTROL的处理函数*/
 uint8_t mcu_download_device_control(uint8_t *sur, uint16_t length);
+/*在线下载固件*/
+void mcu_firmware_download(uint8_t *sur, uint16_t position, uint16_t length);
+//
 /*针对DPID_BRIGHT_VAL的处理函数*/
 void mcu_download_bright_val(uint8_t bri);
 /*上传亮度*/
@@ -118,14 +125,17 @@ void mcu_update_auto_brightness_switch(void);           // 上传自动亮度的开关
 void mcu_download_auto_brightness_mode(uint8_t num); // 下载自动亮度的模式
 void mcu_update_auto_brightness_mode(void);          // 上传自动亮度的模式
 //
+void mcu_download_brightness_auto(uint8_t bright); // 下载自动亮度界面内的亮度值
+void mcu_update_brightness_auto(void);             // 上传自动亮度界面内的亮度值
+//
 void mcu_download_clock_list(uint8_t *sur, uint16_t length); // 下载闹钟计划概述表
 void mcu_update_clock_list(void);                            // 上传闹钟计划概述表
 //
-/**/
 uint8_t mcu_download_clock_detial(uint8_t *sur, uint16_t length); // 下载闹钟详情
 void mcu_update_clock_detial(uint8_t num);                        // 上传闹钟详情
 //
-
-/*在线下载固件*/
-void mcu_firmware_download(uint8_t *sur, uint16_t position, uint16_t length);
+void mcu_update_device_indentify(void);                            // 上传设备配对标识
+void mcu_download_device_indentify(uint8_t *sur, uint16_t length); // 下载设备配对标识
+void mcu_download_reserved3(uint8_t *sur, uint16_t length);        // 下载DP数据（保留3）
+//
 #endif

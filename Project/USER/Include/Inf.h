@@ -7,8 +7,9 @@
 #define EfColor_SizeNum 32    // 灯效的颜色容量（数量）
 #define EfColor_miniSizeNum 8 // 灯效概述的颜色容量（数量）
 #define Ef_SizeNum 256        // 灯效容量（数量），预留256
-#define PlayList_SizeNum 60   // 播放列表的索引数量
+#define PlayList_efMaxNum 60   // 播放列表的索引数量
 #define SCHEDULE_NUM 30       // 定时计划表数量
+#define LIST_MAXNUM 13  // 列表最大个数
 
 #define original_ef_basenum 128                      // 自定义灯效的基编号
 #define original_ef_num 30                           // 自定义灯效数量
@@ -45,17 +46,22 @@ typedef struct
     enable_status_enum indicator_sta;    // 指示灯开关
     enable_status_enum microphone_ensta; // 麦克风开关
     uint8_t brightness_set;              // 全局亮度存储值
+    
 } global_setting_TypeDef;
 
 extern const global_setting_TypeDef global_setting_default;
 
-
+typedef struct
+{
+    uint8_t hou_HM; // 小时
+    uint8_t min_HM;  // 分钟
+} time_HM_TypeDef;
 
 typedef struct
 {
-    uint8_t Min; // 分钟
-    uint8_t Sec; // 秒
-} time_TypeDef;
+    uint8_t min_MS; // 分钟
+    uint8_t sec_MS; // 秒
+} time_MS_TypeDef;
 
 typedef struct
 {
@@ -153,10 +159,10 @@ typedef struct
 
 typedef struct /*  */
 {
-    name_TypeDef name;              /* 名字*/
-    time_TypeDef DurationTime;      /* 持续时间 */
-    uint8_t num;                    /* 灯效列表中有效数据的数量 */
-    uint8_t list[PlayList_SizeNum]; /* 灯效列表 */
+    name_TypeDef name;               /* 名字*/
+    time_MS_TypeDef DurationTime;    /* 持续时间 */
+    uint8_t num;                     /* 灯效列表中有效数据的数量 */
+    uint8_t list[PlayList_efMaxNum]; /* 灯效列表 */
 } playdetail_TypeDef; /*播放列表详情*/
 
 typedef struct
@@ -206,26 +212,26 @@ typedef union
     uint8_t week;
     struct
     {
+        uint8_t Sun : 1; // 周日
         uint8_t Mon : 1; // 周一
         uint8_t Tue : 1; // 周二
         uint8_t Wed : 1; // 周三
         uint8_t Thu : 1; // 周四
         uint8_t Fri : 1; // 周五
         uint8_t Sat : 1; // 周六
-        uint8_t Sun : 1; // 周日
     } day;
 } repeat_TypeDef; // 重复时间
 
 typedef struct /*  */
 {
     name_TypeDef name;
-    FUN_ENABLE_STA en_sta;   // 启用状态
-    action_enum action;      // 动作类型
-    uint8_t ef_index;        // 灯效的索引号
-    uint8_t ultimatebright;  // 最终亮度
-    time_TypeDef actiontime; // 动作时间
-    time_TypeDef duration;   // 持续时间
-    repeat_TypeDef repeat;   // 星期计划
+    FUN_ENABLE_STA en_sta;      // 启用状态
+    action_enum action;         // 动作类型
+    uint8_t ef_index;           // 灯效索引
+    uint8_t ultimatebright;     // 最终亮度
+    time_HM_TypeDef actiontime; // 动作时间
+    time_HM_TypeDef duration;   // 持续时间
+    repeat_TypeDef repeat;      // 星期计划
 } clock_detail_TypeDef;
 
 /******************************************************************************************************************/
@@ -236,6 +242,18 @@ typedef struct /*  */
 } clock_list_TypeDef;
 /******************************************************************************************************************/
 
+typedef struct /*  */
+{
+    uint8_t length;    // 数据长度
+    uint8_t data[256]; // 仅供APP使用，嵌入式不使用
+    /*
+    【Type】：形状类型  长度1
+    【角度】：正/负（1:正 0:负，长度1）+数字（长度1）   总长度2
+    【x值】：  数字   总长度2
+    【y值】：  数字   总长度2
+    【id】：    长度1
+*/
+} device_indentify_TypeDef;
 
 
 

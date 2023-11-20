@@ -111,7 +111,7 @@ void Motion_Static_Init(void)
     {
         for (i = 0; i < EF_Work.Module_WorkNum; i++)
         {
-            randomVal = Random_Generate() % EF_Work.FrameInfro.KeySum;
+            randomVal = get_random_number() % EF_Work.FrameInfro.KeySum;
             Tangram[i].R.Now = *(EF_Work.FrameInfro.image_adr + randomVal * 4 + 0);
             Tangram[i].G.Now = *(EF_Work.FrameInfro.image_adr + randomVal * 4 + 1);
             Tangram[i].B.Now = *(EF_Work.FrameInfro.image_adr + randomVal * 4 + 2);
@@ -820,11 +820,11 @@ void Motion_Random(uint8_t speed) /*随机*/
     Currnt_KF = Tangram[0].Frame_Now / (EF_Work.FrameInfro.InsertNum + 1); // 计算当前帧 已经过的 最近/当前 关键帧
     if (Currnt_KF != last_KF)
     {
-        random1 = Random_Generate() % EF_Work.Module_WorkNum; // 随机出亮灯的数量
+        random1 = get_random_number() % EF_Work.Module_WorkNum; // 随机出亮灯的数量
         for (i = 0; i <= random1; i++)
         {
-            random2 = Random_Generate() % EF_Work.Module_WorkNum;    // 随机出亮灯组
-            random3 = Random_Generate() % EF_Work.FrameInfro.KeySum; // 随机出颜色
+            random2 = get_random_number() % EF_Work.Module_WorkNum;    // 随机出亮灯组
+            random3 = get_random_number() % EF_Work.FrameInfro.KeySum; // 随机出颜色
             Tangram[random2].R.Now = *(EF_Work.FrameInfro.image_adr + random3 * 4 + 0);
             Tangram[random2].G.Now = *(EF_Work.FrameInfro.image_adr + random3 * 4 + 1);
             Tangram[random2].B.Now = *(EF_Work.FrameInfro.image_adr + random3 * 4 + 2);

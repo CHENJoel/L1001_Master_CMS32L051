@@ -10,9 +10,10 @@ const uint8_t bright_table[5] = {5, 25, 55, 75, 100};
 void play_init(void)
 {
     switch_playlist(0); // 切换至默认播放列表
-    play.mode = LOOP_MODE;
+    play.source = SOURCE_LIST;
+    play.playmode = PLAY_IN_SEQUENCE;
     memset(&play.detail.history, NULL_EFFECTNUM, sizeof(play.detail.history));
-    print_play_history();
+    // print_play_history();
 }
 /*新增历史播放灯效*/
 void push_playnum_in_history(uint8_t efnum)
@@ -22,7 +23,7 @@ void push_playnum_in_history(uint8_t efnum)
     buffer[0] = efnum; // 从头部添加新号码
     memcpy(&play.detail.history[0], &buffer[0], sizeof(play.detail.history));
     printlog("push_playnum_in_history:%d\r",efnum);
-    print_play_history();
+    // print_play_history();
 }
 /*
  * @Description: 取出历史播放灯效
@@ -37,7 +38,7 @@ uint8_t pop_playnum_in_history(void)
     memcpy(&buffer[0], &play.detail.history[1], (sizeof(buffer) - 1));
     buffer[sizeof(play.detail.history) - 1] = 0xFF; // 从尾部添加无效灯效
     memcpy(&play.detail.history[0], &buffer[0], sizeof(play.detail.history));
-    print_play_history();
+    // print_play_history();
     return histoy;
 }
 
@@ -157,7 +158,7 @@ uint8_t switch_effect(uint8_t efnum)
     printlog("switch effect num:%d\r",efnum);
     if (efnum==255)
     {
-        printlog("[error] switch wrong effect num :%d", efnum);
+        printlog("[error] switch wrong effect num :%d\r", efnum);
         return 0;
     }
     // // get_allef_ranklist(&eflist);
@@ -170,36 +171,38 @@ uint8_t switch_effect(uint8_t efnum)
     // //     }
     // // }
 
-    for (i = 0; i < play.detail.num; i++)
+    for (i = 0; i < play.detail.listefsum; i++)
     {
         if (play.detail.list[i] == efnum) // 顺序表内存在被切换的灯效
         {
             play_new_effect(efnum);
-            push_playnum_in_history(efnum);
-            print_playstatus();
+            // push_playnum_in_history(efnum);
+            // print_playstatus();
             return 1;
         }
     }
-    printlog("[error] switch wrong effect num :%d", efnum);
+    printlog("[error] switch wrong effect num :%d\r", efnum);
     return 0;
 }
 /*切换上下灯效*/
-uint8_t switch_ln_effect(switchplay_enum num)
+uint8_t switch_lastnext_effect(switchplay_enum num)
 {
-   playdetail_TypeDef playdetail;
-   switch (num)
-   {
-   case LAST_EFFECT: // 上一个灯效
-        switch_last_ef_in_playlist();
+    playdetail_TypeDef playdetail;
+    switch (num)
+    {
+    case LAST_EFFECT: // 上一个灯效
+        printlog("play last effect\r");
+        switch_last_ef_in_list();
         break;
-   case NEXT_EFFECT: // 下一个灯效
-        switch_next_ef_in_playlist();
+    case NEXT_EFFECT: // 下一个灯效
+        printlog("play next effect\r");
+        switch_next_ef_in_list();
         break;
-   default:
+    default:
         printlog("[error] wrong switch effect command %d\r", num);
         printAssert();
         break;
-   }
+    }
 }
 
 /*
@@ -207,68 +210,107 @@ uint8_t switch_ln_effect(switchplay_enum num)
  * @param:
  * @return:
 */
-void switch_next_ef_in_playlist(void)
+void switch_next_ef_in_list(void)
 {
-   uint8_t num, i, flag;
-   if (play.mode == RANDOM_MODE)
-   {
-       while (1)
-       {
-            num = Random_Generate();
-            flag = 0;
-            if (num != play.detail.efnum)
+    // // // uint8_t cur_efindex;// 当前灯效
+    // // // cur_efindex = play.detail.idex_inlist;
+    if (play.source == SOURCE_LIST)
+    {
+
+        if (++play.detail.idex_inlist >= play.detail.listefsum) // 已经到最后一个灯效
+        {
+            if (play.cyclemode == CYCLE_IN_LOOP) // 循环播放
             {
-                for (i = 0; i < play.detail.num; i++)
-                {
-                    if (num != play.detail.list[i])
-                    {
-                        flag = 1;
-                    }
-                }
+                play.detail.idex_inlist = 0;
+                start_play_list(play.detail.listindex); // 重新播放该列表
             }
-            if (flag)
+            else /* CYCLE_IN_ONCE 单次列表 */
             {
-                break;
+                play.detail.idex_inlist = play.detail.listefsum - 1; // 停在最后一个灯效
             }
-       }
-       switch_effect(num);
-   }
-   else /*LOOP_MODE*/
-   {
-       for (i = 0; i < play.detail.num; i++)
-       {
-            if (play.detail.list[i] == play.detail.efnum)
-            {
-                break;
-            }
-       }
-       if (++i >= play.detail.num)
-       {
-            i = 0;
-       }
-       switch_effect(play.detail.list[i]);
-   }
+        }
+        else
+        {
+            play.detail.efindex = play.detail.list[play.detail.idex_inlist]; // 取出灯效索引
+            switch_effect(play.detail.efindex);                              // 切换灯效
+        }
+    }
+    else
+    {
+        printlog("switch effect failed,not in SOURCE_LIST\r");
+    }
+    // // //    uint8_t num, i, flag;
+    // // //    if (play.playmode == PLAY_IN_RANDOM)
+    // // //    {
+    // // //        while (1)
+    // // //        {
+    // // //             num =get_random_number();
+    // // //             flag = 0;
+    // // //             if (num != play.detail.efindex)
+    // // //             {
+    // // //                 for (i = 0; i < play.detail.listefsum; i++)
+    // // //                 {
+    // // //                     if (num != play.detail.list[i])
+    // // //                     {
+    // // //                         flag = 1;
+    // // //                     }
+    // // //                 }
+    // // //             }
+    // // //             if (flag)
+    // // //             {
+    // // //                 break;
+    // // //             }
+    // // //        }
+    // // //        switch_effect(num);
+    // // //    }
+    // // //    else /*PLAY_IN_SEQUENCE*/
+    // // //    {
+    // // //        for (i = 0; i < play.detail.listefsum; i++)
+    // // //        {
+    // // //             if (play.detail.list[i] == play.detail.efindex)
+    // // //             {
+    // // //                 break;
+    // // //             }
+    // // //        }
+    // // //        if (++i >= play.detail.listefsum)
+    // // //        {
+    // // //             i = 0;
+    // // //        }
+    // // //        switch_effect(play.detail.list[i]);
+    // // //    }
 }
 
 /*
  * @Description: 在列表中播放上一灯效
  * @param:
  * @return:
-*/
-void switch_last_ef_in_playlist(void)
+ */
+void switch_last_ef_in_list(void)
 {
-   switch_effect(pop_playnum_in_history());
+    // // //    switch_effect(pop_playnum_in_history());
+    if (play.source == SOURCE_LIST)
+    {
+        if (play.detail.idex_inlist > 0)
+        {
+            play.detail.idex_inlist--;
+        }
+        play.detail.efindex = play.detail.list[play.detail.idex_inlist]; // 取出灯效索引
+        switch_effect(play.detail.efindex);                              // 切换灯效
+    }
+    else
+    {
+        printlog("switch effect failed,not in SOURCE_LIST\r");
+    }
 }
 
 /* 切换播放列表 */
 uint8_t switch_playlist(uint8_t listnum)
 {
     playlist_ranklist_TypeDef playlist;
-    playdetail_TypeDef playdetail;
     uint8_t i;
-    uint8_t j = 0;
+    // // uint8_t j = 0;
     printlog("switch playlist num:%d\r",listnum);
-    // if (listnum == play.detail.listnum) // 与当前播放表一致
+    // if (listnum == play.detail.listindex) // 与当前播放表一致
     // {
     //     printlog("[warning]switch same playlist num :%d\r", listnum);
     //     return 0;
@@ -276,35 +318,70 @@ uint8_t switch_playlist(uint8_t listnum)
     get_playlist_ranklist(&playlist);
     for (i = 0; i < playlist.num; i++)
     {
-        if (playlist.list[i] == listnum) // 顺序表内存在被切换的列表号
-        {
-            j = 1;
-            break;
-        }
-    }
-    if (j)
-    {
-        play.status = RUN;
-        play.detail.listnum = listnum;
-        get_playdetail(&playdetail, play.detail.listnum);
-        memcpy(&play.detail.list, &playdetail.list, sizeof(play.detail.list));
-        play.detail.efnum = play.detail.list[0]; // 列表中第一个灯效
-        play.detail.duration.Min = playdetail.DurationTime.Min;
-        play.detail.duration.Sec = playdetail.DurationTime.Sec;
-        play.detail.num = playdetail.num;
-        switch_effect(play.detail.efnum); // 切换灯效
+       if (playlist.list[i] == listnum) // 顺序表内存在被切换的列表号
+       {
+            start_play_list(listnum);
+            return 1;
 
-        return 1;
+       }
     }
-    else
-    {
-        printlog("[error] switch wrong playlist num :%d\r", listnum);
-        return 0;
-    }
+    printlog("[error] switch wrong playlist num :%d\r", listnum);
+    return 0;
+
 
 }
 
 /*------------------------------------------------------------------------------------------------------------------------------------*/
+/*
+ * @Description: 切换播放模式
+ * @param:
+ * @return:
+ */
+void switch_playmode(PlayMode_enum mod)
+{
+    /*
+        PLAY_IN_RANDOM,   // 随机播放
+        PLAY_IN_SEQUENCE, // 顺序播放
+        */
+    playdetail_TypeDef playdetail;
+    if (mod == PLAY_IN_RANDOM)
+    {
+       play.playmode = PLAY_IN_RANDOM;
+    }
+    else
+    {
+       play.playmode = PLAY_IN_SEQUENCE;
+    }
+    get_playdetail(&playdetail, play.detail.listindex);
+    memcpy(&play.detail.list, &playdetail.list, sizeof(play.detail.list));
+    if (play.playmode == PLAY_IN_RANDOM)
+    {
+       permute_list_in_random(&play.detail.list, play.detail.listefsum); // 生成随机播放
+    }
+    adjust_play_list();
+    // // print_playstatus();
+}
+
+/*
+ * @Description: 切换循环模式
+ * @param:
+ * @return:
+ */
+void switch_cyclemode(CycleMode_enum mod)
+{
+    /*
+      CYCLE_IN_LOOP, // 循环播放
+      CYCLE_IN_ONCE, // 单次列表
+    */
+    if (mod == CYCLE_IN_LOOP)
+    {
+       play.cyclemode = CYCLE_IN_LOOP;
+    }
+    else
+    {
+       play.cyclemode = CYCLE_IN_ONCE;
+    }
+}
 
 /*
  * @Description: 加载本地灯效信息
@@ -314,7 +391,7 @@ uint8_t switch_playlist(uint8_t listnum)
 void load_local_effect_data(void)
 {
     uint8_t i;
-    get_effect(&play.efdetail, play.detail.efnum);
+    get_effect_detail(&play.efdetail, play.detail.efindex);
     for (i = 0; i < play.efdetail.EfColorInf.colorNum; i++)
     {
         memcpy(&EF_Buffer.color_buffer.color[i],&play.efdetail.EfColorInf.ColorID[i].color, sizeof(RGBWInf_TypeDef));
@@ -515,7 +592,7 @@ void figure_slave_run_number(void)
             }
         }
     }
-    printlog("Module_WorkNum:%d\r", EF_Work.Module_WorkNum);
+    // printlog("Module_WorkNum:%d\r", EF_Work.Module_WorkNum);
 }
 
 /*
@@ -525,6 +602,11 @@ void figure_slave_run_number(void)
  */
 void generate_play_video_buffer(void)
 {
+    if (play.efdetail.EffectType == STATIC_TYPE)
+    {
+        play.efdetail.Flow = FLOW_STATIC; // 静态灯效，对应静态效果
+    }
+
     switch (play.efdetail.Flow) // 根据灯效类型自动填充数据，生成新的色表缓存
     {
     case FLOW_STATIC: /*静态*/
@@ -575,7 +657,9 @@ void play_effect_video(void)
             {
             }
 
-            transmit_playdata_RGBbr();
+            // // transmit_playdata_RGBbr();
+            transmit_playdata_COLOR();
+            // transmit_playdata_RGBbr();
         }
         else
         {
@@ -585,7 +669,9 @@ void play_effect_video(void)
     else if (play.control_mode == PREVIEW_MODE) // 灯效预览模式
     {
         effect_play_color_calu();
-        transmit_playdata_RGBbr();
+        // transmit_playdata_RGBbr();
+        transmit_playdata_COLOR();
+        // transmit_playdata_RGBbr();
     }
     else /*PAIRING_MODE 灯板配对模式 */
     {
@@ -601,8 +687,9 @@ void play_effect_video(void)
  */
 void play_sys_effect_init(void)
 {
-    play.detail.efnum = 17; // df_Snake
-    play_current_effect();   
+    // // play.detail.efindex = 17; // df_Snake
+    // // play_current_effect();   
+    switch_effect(23);   // "Colorful"
 }
 
 /* 
@@ -616,6 +703,18 @@ void play_current_effect(void)
     preprocess_play_effect();
 }
 
+
+/* 
+ * @Description: 播放自由灯效
+ * @param: 
+ * @return: 
+*/ 
+void play_free_effect(uint8_t efnum)
+{
+    play.source = SOURCE_FREE;
+    play_new_effect(efnum);
+}
+
 /*
  * @Description: 播放新灯效
  * @param:
@@ -624,12 +723,15 @@ void play_current_effect(void)
 void play_new_effect(uint8_t efnum)
 {
     printlog("play_new_effect:%d\r",efnum);
-    if (play.detail.efnum == efnum)
-    {
-        return;
-    }
-    play.detail.efnum = efnum;
+    // if (play.detail.efindex == efnum)
+    // {
+    //     return;
+    // }
+    play.detail.efindex = efnum;
+    play.work.playtime_cnt = 0;
     play_current_effect();
+    // mcu_update_current_play_ef_index();  
+    mcu_update_playstatus();
 }
 
 /* 
@@ -638,6 +740,7 @@ void play_new_effect(uint8_t efnum)
 */ 
 void preprocess_play_effect(void)
 {   
+    play.work.global_setting.brightness_set=play.efdetail.Brightness1;
     play_frame_reset();
     EF_Work.FrameInfro.image_adr = (uint8_t *)&EF_Work.Color_buffer; // 色表缓存区
     figure_slave_run_number();
@@ -789,11 +892,11 @@ void transmit_buffer_data(uint8_t *sur, uint16_t len)
  * @Description: 发送“RGBbr”格式的播放数据
  * @param:
  * @return:
-*/
+ */
 void transmit_playdata_RGBbr(void)
 {
     uint8_t i;
-    L0_cmd_playRGBbr_Typedef  xPlay;
+    L0_cmd_playRGBbr_Typedef xPlay;
     if (slave.num) // 有设备在线的时候才发送数据
     {
         xPlay.head.dev_adr = ADDR_PUBLIC;    // 设备地址
@@ -804,9 +907,18 @@ void transmit_playdata_RGBbr(void)
         {
             xPlay.dev[i].cid = slave.data[i].id;
             xPlay.dev[i].br = play.work.brightness.now;
-            xPlay.dev[i].R = Tangram[slave.data[i].runnum].R.Now;
-            xPlay.dev[i].G = Tangram[slave.data[i].runnum].G.Now;
-            xPlay.dev[i].B = Tangram[slave.data[i].runnum].B.Now;
+            // if (Tangram[slave.data[i].runnum].W.Now == RGB_COLOR)
+            // {
+                xPlay.dev[i].R = Tangram[slave.data[i].runnum].R.Now;
+                xPlay.dev[i].G = Tangram[slave.data[i].runnum].G.Now;
+                xPlay.dev[i].B = Tangram[slave.data[i].runnum].B.Now;
+            // }
+            // else // KELVIN_COLOR
+            // {
+            //     xPlay.dev[i].R = 0;
+            //     xPlay.dev[i].G = 0;
+            //     xPlay.dev[i].B = 0;
+            // }
         }
         transmit_protocol_frame((uint8_t *)&xPlay, &((L0_cmd_playRGBbr_Typedef *)0)->dev[slave.num], &parse.tx_framebuf); // 通过不定长协议发送
     }
@@ -821,17 +933,18 @@ void transmit_playdata_COLOR(void)
 {
     uint8_t i;
     L0_cmd_playCOLOR_Typedef xPlay;
+    uint16_t kel;
     if (slave.num) // 有设备在线的时候才发送数据
     {
-        xPlay.head.dev_adr = ADDR_PUBLIC;    // 设备地址
+        xPlay.head.dev_adr = ADDR_PUBLIC;      // 设备地址
         xPlay.head.cmd = CMD_SLAVE_PLAY_COLOR; // 播放灯光 “COLOR”格式
-        xPlay.head.type = MES_ASK;           // 发出请求
+        xPlay.head.type = MES_ASK;             // 发出请求
         xPlay.playnum = slave.num;
         for (i = 0; i < xPlay.playnum; i++)
         {
             xPlay.dev[i].cid = slave.data[i].id;
             xPlay.dev[i].br = play.work.brightness.now;
-            if (xPlay.dev[i].B = Tangram[slave.data[i].runnum].W.Now == RGB_COLOR)
+            if (Tangram[slave.data[i].runnum].W.Now == RGB_COLOR)
             {
                 xPlay.dev[i].type = RGB_COLOR;
                 xPlay.dev[i].R = Tangram[slave.data[i].runnum].R.Now;
@@ -841,12 +954,38 @@ void transmit_playdata_COLOR(void)
             else // KELVIN_COLOR
             {
                 xPlay.dev[i].type = KELVIN_COLOR;
-                xPlay.dev[i].R = Tangram[slave.data[i].runnum].R.Now;
-                xPlay.dev[i].G = Tangram[slave.data[i].runnum].G.Now;
-                xPlay.dev[i].B = Tangram[slave.data[i].runnum].B.Now;
+                kel = Tangram[slave.data[i].runnum].R.Now << 8;
+                kel |= Tangram[slave.data[i].runnum].G.Now;
+                xPlay.dev[i].R = kel / 100;
+                xPlay.dev[i].G = 0;
+                xPlay.dev[i].B = 0;
             }
         }
-        transmit_protocol_frame((uint8_t *)&xPlay, &((L0_cmd_playRGBbr_Typedef*)0)->dev[slave.num], &parse.tx_framebuf); // 通过不定长协议发送
+        transmit_protocol_frame((uint8_t *)&xPlay, &((L0_cmd_playCOLOR_Typedef*)0)->dev[slave.num], &parse.tx_framebuf); // 通过不定长协议发送
+    }
+}
+
+/*
+ * @Description: 广播发送“RGBbr”格式的播放数据
+ * @param:
+ * @return:
+ */
+void transmit_playsame_COLOR(L0_playCOLOR_Typedef *x)
+{
+    L0_cmd_playCOLOR_Typedef xPlay;
+    if (slave.num) // 有设备在线的时候才发送数据
+    {
+        xPlay.head.dev_adr = ADDR_PUBLIC;    // 设备地址
+        xPlay.head.cmd = CMD_SLAVE_PLAY_COLOR; // 播放灯光 “RGBbr”格式
+        xPlay.head.type = MES_ASK;           // 发出请求
+        xPlay.playnum = slave.num;
+        xPlay.dev[0].cid = ADDR_PUBLIC;
+        xPlay.dev[0].br = x->br;
+        xPlay.dev[0].type = x->type;
+        xPlay.dev[0].R = x->R;
+        xPlay.dev[0].G = x->G;
+        xPlay.dev[0].B = x->B;
+        transmit_protocol_frame((uint8_t *)&xPlay, &((L0_cmd_playCOLOR_Typedef *)0)->dev[1], &parse.tx_framebuf); // 通过不定长协议发送
     }
 }
 
@@ -896,15 +1035,15 @@ void light_device_pairing_play(app_device_control_Typedef *x)
             if (x->lightsta[i].lightsta == PERSENT) // 当前点亮
             {
                 xPlay.dev[i].br = 100;
-                xPlay.dev[i].R = 0;
+                xPlay.dev[i].R = 255;
                 xPlay.dev[i].G = 255;
                 xPlay.dev[i].B = 0;
             }
             else if (x->lightsta[i].lightsta == LIGHTED) // 已点亮
             {
-                xPlay.dev[i].br = 0;
-                xPlay.dev[i].R = 0;
-                xPlay.dev[i].G = 0;
+                xPlay.dev[i].br = 20;
+                xPlay.dev[i].R = 255;
+                xPlay.dev[i].G = 255;
                 xPlay.dev[i].B = 0;
             }
             else /* UNLIGHT, // 未点亮*/
@@ -918,3 +1057,181 @@ void light_device_pairing_play(app_device_control_Typedef *x)
         transmit_protocol_frame((uint8_t *)&xPlay, &((L0_cmd_playRGBbr_Typedef *)0)->dev[slave.num], &parse.tx_framebuf); // 通过不定长协议发送
     }
 }
+
+/*
+ * @Description: 重新随机排列列表内的数据
+ * @param:
+ * @param:
+ * @return:
+ */
+void permute_list_in_random(uint8_t *list, uint8_t size)
+{
+    uint8_t data;
+    uint8_t i, j;
+    uint8_t random;
+    for (j = 0; j < size; j++)
+    {
+        for (i = 0; i < size; i++)
+        {
+            random = get_random_number() % size; // 随机交换两个数
+            data = list[random];
+            list[random] = list[i];
+            list[i] = data;
+        }
+    }
+}
+
+/* 
+ * @Description: 将某数从列表中挪至第一项
+ * @param: 
+ * @param: 
+ * @param: 
+ * @return: 
+*/ 
+uint8_t move_data_to_first_in_list(uint8_t data,uint8_t *list, uint8_t listsize)
+{
+    uint8_t i, j;
+    uint8_t templist[PlayList_efMaxNum];
+    for (i = 0; i < listsize; i++)
+    {
+        if (list[i] == data)
+        {
+            memcpy(&templist[0], &list[i], listsize - i); // 拷贝后面
+            memcpy(&templist[listsize - i], &list[0], i); // 拷贝前面
+            memcpy(list, &templist[0], listsize);         // 覆盖原表
+            return 1;
+        }
+    }
+    return 0;
+}
+
+/*
+ * @Description: 将原数组倒序排列
+ * @param:
+ * @param:
+ * @return:
+ */
+void invert_list(uint8_t *list, uint8_t size)
+{
+    uint8_t i;
+    uint8_t temp;
+    if (size < 2)
+    {
+        return;
+    }
+    for (i = 0; i < (size / 2); i++)
+    {
+        temp = list[i];
+        list[i] = list[size - i - 1];
+        list[size - i - 1] = temp;
+    }
+}
+
+/* 
+ * @Description: 调整播放顺序
+ * @param: 
+ * @return: 
+*/ 
+void adjust_play_list(void)
+{
+    move_data_to_first_in_list(play.detail.efindex, &play.detail.list, play.detail.listefsum); // 调整列表
+    play.detail.idex_inlist = 0;                                                              // 当前灯效调整为列表第一个灯效
+}
+
+/*
+ * @Description: 开始播放一个列表
+ * @param:
+ * @return:
+ */
+void start_play_list(uint8_t listindex)
+{
+    playdetail_TypeDef playdetail;
+    printlog("start_play_list:%d\r",listindex);
+    play.source = SOURCE_LIST;
+    play.status = RUN;
+    play.detail.listindex = listindex;
+    get_playdetail(&playdetail, play.detail.listindex);
+    memcpy(&play.detail.list, &playdetail.list, sizeof(play.detail.list));
+    play.detail.duration.min_MS = playdetail.DurationTime.min_MS;
+    play.detail.duration.sec_MS = playdetail.DurationTime.sec_MS;
+    play.detail.listefsum = playdetail.num;
+    if (play.playmode == PLAY_IN_RANDOM)
+    {
+        permute_list_in_random(&play.detail.list, play.detail.listefsum); // 生成随机播放
+    }
+    play.detail.idex_inlist = 0;                                     // 列表中第一个灯效
+    play.detail.efindex = play.detail.list[play.detail.idex_inlist]; // 取出灯效索引
+    switch_effect(play.detail.efindex);                              // 切换灯效
+}
+
+/* 
+ * @Description: 结束列表播放
+ * @param: 
+ * @return: 
+*/
+void end_play_list(void)
+{
+    playdetail_TypeDef playdetail;
+    printlog("end_play_list:%d\r", play.detail.listindex);
+    play.source = SOURCE_FREE; // 结束列表播放，转为自由播放
+    
+    /*
+    play.status = RUN;         // 保持当前灯效
+    */
+}
+
+
+/* 
+ * @Description: 重新加载当前播放列表
+ * @param: 
+ * @return: 
+*/ 
+void reload_current_play_list(void)
+{
+    playlist_ranklist_TypeDef ranklist; // 列表信息
+    playdetail_TypeDef playdetail;
+    uint8_t list_index;
+    uint8_t ef_index;
+    printlog("reload_current_play_list\r");
+    if (play.source != SOURCE_LIST) 
+    {
+        return; // 当前不是列表播放模式，则不需要更新信息
+    }
+    get_playlist_ranklist(&ranklist);
+    if (ranklist.num)
+    {
+        list_index = search_dataindex_in_list(play.detail.listindex, ranklist.list, ranklist.num);
+        if (list_index != 0xFF) // 当前正在播放的列表存在
+        {
+            get_playdetail(&playdetail, play.detail.listindex); //
+            //
+            memcpy(&play.detail.list, &playdetail.list, sizeof(play.detail.list));
+            play.detail.duration.min_MS = playdetail.DurationTime.min_MS;
+            play.detail.duration.sec_MS = playdetail.DurationTime.sec_MS;
+            play.detail.listefsum = playdetail.num;
+            //
+            ef_index = search_dataindex_in_list(play.detail.efindex, playdetail.list, playdetail.num);
+            if (ef_index != 0xFF) // 当前正在播放的灯效在列表存在
+            {
+                play.detail.idex_inlist = ef_index;                              // 更新当前灯效在列表中的序号（指针）
+                play.detail.efindex = play.detail.list[play.detail.idex_inlist]; // 取出灯效索引
+            }
+            else // 当前播放灯效已从列表中删除
+            {
+                play.detail.idex_inlist = 0;                                     // 从头播放
+                play.detail.efindex = play.detail.list[play.detail.idex_inlist]; // 取出灯效索引
+                switch_effect(play.detail.efindex);                              // 切到新灯效
+            }
+        }
+        else // 当前正在播放的列表已经被删除
+        {
+            end_play_list();    // 结束列表播放
+        }
+    }
+    else
+    {
+        end_play_list();    // 结束列表播放
+    }
+}
+
+

@@ -4,31 +4,9 @@
 #include "Function_Init.H"
 
 
-typedef union
-{
-    unsigned char byte;
-    struct
-    {
-        unsigned bit0 : 1;
-        unsigned bit1 : 1;
-        unsigned bit2 : 1;
-        unsigned bit3 : 1;
-        unsigned bit4 : 1;
-        unsigned bit5 : 1;
-        unsigned bit6 : 1;
-        unsigned bit7 : 1;
-    } bits;
-}FlagTypeDef;
 
-extern FlagTypeDef flag;
 
-#define RTC_CheckFinish flag.bits.bit0
 
-typedef struct
-{
-    uint8_t num;    // 随机数
-    uint8_t seed;   // 种子
-} random_Typdef;
 
 typedef struct
 {
@@ -180,22 +158,11 @@ void DataUpdata_TO_APP(uint8_t *data_addr);
 uint8_t KEY_AD_Test(void);
 uint8_t Light_AD_Test(void);
 
-uint8_t DATA_To_BCD(uint8_t data); // 数据转BCD码
-uint8_t BCD_To_DATA(uint8_t bcd);  // BCD码转换为数据
-void RTC_Check(uint8_t time[]);
-void RTC_Task(void);
 
 uint32_t checksum_calculate(uint8_t *sur, uint32_t len); // 计算校验和
 
 /*********/
 
-void uart_app_init(void);        // 串口应用初始化
-void sys_tick_init(void);        // 系统时钟初始化
-void uart_parse(void);           // 串口解析
-void random_init(void);          // 随机数初始化
-uint8_t get_random_seed(void);   // 获取随机数种子
-uint8_t get_random_number(void); // 获取随机数
-void refresh_random(void);       // 刷新随机数
 
-void Lignt_Control(void);
+
 #endif

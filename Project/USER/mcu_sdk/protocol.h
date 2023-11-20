@@ -33,8 +33,10 @@
 ******************************************************************************/
 #define PRODUCT_KEY "lhrbvicwsqvfuz0g"    //开发平台创建产品后生成的16位字符产品唯一标识
 
-#define MCU_VER "1.0.05"         //用户的软件版本,用于MCU固件升级,MCU升级版本需修改
-
+#define MCU_VER "1.0.19"         //用户的软件版本,用于MCU固件升级,MCU升级版本需修改
+// // #define MCU_VER "1.0.10"    
+// // #define MCU_VER "0.0.02"  // 测试ota
+// // #define MCU_VER "1.0.99"  // 测试ota
 /*  模块工作方式选择,只能三选一,推荐使用防误触模式  */
 //#define CONFIG_MODE     CONFIG_MODE_DEFAULT             //默认工作模式
 //#define CONFIG_MODE     CONFIG_MODE_LOWPOWER            //安全模式 (低功耗配网方式)
@@ -113,7 +115,7 @@ MCU自处理:
 mcu_write_rtctime内部有#err提示,完成函数后请删除该#err
 mcu在wifi模块正确联网后可调用mcu_get_system_time()函数发起校时功能
 ******************************************************************************/
-//#define         SUPPORT_MCU_RTC_CHECK                //开启校时功能
+#define         SUPPORT_MCU_RTC_CHECK                //开启校时功能
 
 /******************************************************************************
                       6:MCU是否需要支持wifi功能测试
@@ -184,7 +186,7 @@ mcu_get_mac内部有#err提示,完成函数后请删除该#err
 mcu_get_greentime内部有#err提示,完成函数后请删除该#err
 mcu在wifi模块正确联网后可调用mcu_get_green_time()函数发起校时功能
 ******************************************************************************/
-//#define         SUPPORT_GREEN_TIME                //开启格林时间功能
+#define         SUPPORT_GREEN_TIME                //开启格林时间功能
 
 /******************************************************************************
                       14:MCU是否需要开启同步状态上报功能

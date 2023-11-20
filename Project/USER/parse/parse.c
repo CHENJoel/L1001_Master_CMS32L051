@@ -245,10 +245,10 @@ void debug_fifo(void)
     // uint8_t size;
     // printf("\rdebug_fifo\r");
     // printf("source data:\r");
-    // size = Random_Generate() % sizeof(buf);
+    // size = get_random_number() % sizeof(buf);
     // for (i = 0; i < size; i++)
     // {
-    //     buf[i] = Random_Generate();
+    //     buf[i] = get_random_number();
     //     printf("%x ", buf[i]);
     // }
     // transmit_protocol_frame(buf, size, parse.tx_framebuf);

@@ -2,8 +2,7 @@
 #include "Function_Init.H"
 #include "A5441_Master.h"
 
-random_Typdef random;
-FlagTypeDef flag;
+
 
 PlayingStateTypeDef PlayingState;
 
@@ -182,7 +181,7 @@ void SYS_Init(void)
     slave_online_data_init();
     play_sys_effect_init();
     global_setting_init();
-    // // generate_virtual_device();
+
     // schedule_factory_reset
 }
 
@@ -208,18 +207,30 @@ void KeyS_On(void)
 {
     uint8_t keyVal;
     keyVal = KEY_AD_Test();
-    Key_On(&K1, keyVal, 1, 2, 50, 1, 0);
+    //  DMA_Stop(DMA_VECTOR_ADC);
+    // // keyVal = ADC_Converse(ADC_CHANNEL_2, 1, &keyVal);
+
+    Key_On(&K1, keyVal, 1, 2, 250, 1, 0);
     Key_On(&K2, keyVal, 2, 2, 50, 1, 0);
     Key_On(&K3, keyVal, 3, 2, 50, 1, 0);
     Key_On(&K4, keyVal, 4, 2, 50, 1, 0);
     Key_On(&K5, keyVal, 5, 2, 50, 1, 0);
 
-    // // // if (keyVal)
-    // // // {
-    // // //     printf("K:%d\r",keyVal);
-    // // // }
 
+    // // // // if (keyVal)
+    // // // // {
+    // // // //     printlog("Key:%d\r", keyVal);
+    // // // // }
+    
+  
 }
+
+
+
+
+
+
+
 
 void delay(unsigned int ms)
 {
@@ -353,15 +364,7 @@ uint16_t User_ADC_Converse(adc_channel_t ch, uint32_t sz, uint16_t *buf)
     return (total / sz); // return average value
 }
 
-void Timer40_Interrupt(void)
-{
-// // #ifdef IR_Version
-// //     // IR_Search(); // 红外检码
-// // #endif
 
-// //     SYS_Clock_Tick();
-
-}
 
 void PWM()
 {
@@ -716,115 +719,6 @@ void All_Color_Send(void)
     // }
 }
 
-void KeyS_Click(void)
-{
-    static unsigned char temp;
-
-    unsigned char *str;
-    uint8_t Level_Num_Temp;
-
-    uint16_t i, j;
-    uint8_t *p;
-    // uint8_t test_buf[] = {0xA5, 0x0F, 0x21, 0xE0, 0x01, 0x01, 0xE1, 0x02, 0x02, 0xE2, 0x03, 0x03, 0xE3, 0x04, 0x04, 0x6F};
-
-
-    if (KEY1_Click)
-    {
-        if (play.work.sw_status == SW_ON)
-        {
-            play.work.sw_status = SW_OFF;
-        }
-        else
-        {
-            play.work.sw_status = SW_ON;
-        }
-        mcu_update_switch_led();
-
-        debug_K1();
-    }
-    if (KEY2_Click)
-    {
-        // test_change_color();
-
-
-        debug_K2();
-    }
-    if (KEY3_Click)
-    {
-        debug_K3();
-        // debug_play_last_effect();
-
-        // test_click_brightness(1);
-
-    }
-    if (KEY4_Click)
-    {
-        debug_K4();
-        // debug_play_next_effect();
-        // test_click_brightness(0);
-     
-        Light_Level_Change(&play.work.global_setting.brightness_set, &play.work.brightness.dir, bright_table, sizeof(bright_table));
-        save_global_brightness_set();
-        mcu_update_bright_val();
-    }
-    if (KEY5_Click)
-    {
-        debug_K5();
-
-    }
-    /*************************************/
-
-    if (KEY1_Long)
-    {
-    }
-    if (KEY2_Long)
-    {
-    }
-    if (KEY3_Long)
-    {
-        // test_long_brightness(1);
-    }
-    if (KEY4_Long)
-    {
-        // test_long_brightness(0);
-    }
-    if (KEY5_Long)
-    {
-    }
-    /**************************/
-    if (KEY1_LongOnce)
-    {
-        debug_K1_LONG();
-        mcu_reset_wifi();
-        printf("reset wifi\r\n");
-    }
-    if (KEY2_LongOnce)
-    {
-    }
-    if (KEY3_LongOnce)
-    {
-    }
-    if (KEY4_LongOnce)
-    {
-    }
-    if (KEY5_LongOnce)
-    {
-    }
-
-    KEY1_AllClick_Reset;
-    KEY2_AllClick_Reset;
-    KEY3_AllClick_Reset;
-    KEY4_AllClick_Reset;
-    KEY5_AllClick_Reset;
-
-    KEY1_AllLong_Reset;
-    KEY2_AllLong_Reset;
-    KEY3_AllLong_Reset;
-    KEY4_AllLong_Reset;
-    KEY5_AllLong_Reset;
-
-
-}
 
 unsigned int  Rhythm_Cal(unsigned int adc_val)
 {
@@ -842,28 +736,6 @@ unsigned int  Rhythm_Cal(unsigned int adc_val)
     return temp;
 }
 
-void Lignt_Control(void)
-{
-
-    if (play.work.sw_status == SW_ON)
-    {
-        if (play.efdetail.EffectType == RHYTHM_TYPE) // 律动模式
-        {
-            play.work.brightness.now = mic.bri_now;
-        }
-        else
-        {
-            play.work.brightness.tar = play.work.global_setting.brightness_set;
-            Gradual_Change(&play.work.brightness.now, &play.work.brightness.tar, 10);
-        }
-    }
-    else
-    {
-        play.work.brightness.tar = 0;
-        Gradual_Change(&play.work.brightness.now, &play.work.brightness.tar, 10);
-    }
-    // // printlog("now:%3d,tar:%3d\r",play.work.brightness.now,play.work.brightness.tar);
-}
 
 void Light_CMD_Send(unsigned char Cmd, unsigned char add,unsigned char Val1, unsigned char Val2)
 {
@@ -990,12 +862,6 @@ void Data_Init(void)
 
 }
 
-unsigned char Random_Generate(void)
-{
-    Random_sys += Random_base; // 随机数叠加生成
-    Random_sys += rand();      // 随机数叠加生成
-    return Random_sys;
-}
 
 // // // // /**
 // // // //  * @description:
@@ -2068,16 +1934,21 @@ uint8_t MIC_Process(void)
 uint8_t KEY_AD_Test(void)
 {
     uint16_t KEY_Val;
-    DMA_Stop(DMA_VECTOR_ADC);
+    
+    // // DMA_Stop(DMA_VECTOR_ADC);
 
-    ADC_Start(ADC_CHANNEL_2);
-    DMA_Start(DMA_VECTOR_ADC, CTRL_DATA_ADC, DMA_MODE_NORMAL,
-              DMA_SIZE_HALF, 1, (uint16_t *)&ADC->ADCR, &KEY_Val);
-    while (DMAVEC->CTRL[CTRL_DATA_ADC].DMACT != 0)
-    {
-        ;
-    }
+    // // ADC_Start(ADC_CHANNEL_2);
+    // // DMA_Start(DMA_VECTOR_ADC, CTRL_DATA_ADC, DMA_MODE_NORMAL,
+    // //           DMA_SIZE_HALF, 1, (uint16_t *)&ADC->ADCR, &KEY_Val);
+    // // LED_Blue_off();
+    // //         //    ADC->ADM0 |= ADCS;
+    // // while (DMAVEC->CTRL[CTRL_DATA_ADC].DMACT != 0)
+    // // {
+    // //     ;
+    // // }
+    // // LED_Blue_on();
     // // // // KEY_Val = ADC_Converse(ADC_CHANNEL_2, 1, &KEY_Val);
+    KEY_Val=xadc.keybuf;
     // // printf("k:%d\r", KEY_Val);
     if (KEY_Val > Ref_ON) // 3756
     {
@@ -2104,85 +1975,86 @@ uint8_t KEY_AD_Test(void)
         return 1;
     }
     return 0;
-    DMA_Stop(DMA_VECTOR_ADC);
+
 }
 uint8_t Light_AD_Test(void)
 {
-    uint16_t light_Val;
-    light_Val = ADC_Converse(ADC_CHANNEL_36, 1, &light_Val);
-    // printf("%d\r\n",light_Val);
-}
+    // // uint16_t light_Val[200];
+    // // // LED_Blue_off();
+    // // // light_Val[0] = ADC_Converse(ADC_CHANNEL_36, 1, &light_Val);
+    // // // printf("%d\r\n",light_Val);
+    // // // LED_Blue_on();
 
-// 数据转BCD码
-uint8_t DATA_To_BCD(uint8_t data)
-{
-    uint8_t HSB, LSB; // 高四位 低四位
-    HSB = data / 10;
-    LSB = data % 10;
-    LSB = LSB + HSB * 16;
-    return LSB;
-}
-// BCD码转换为数据
-uint8_t BCD_To_DATA(uint8_t bcd)
-{
-    uint8_t HSB, LSB; // 高四位 低四位
-    HSB = bcd / 16;
-    LSB = bcd % 16;
-    LSB = LSB + HSB * 10;
-    return LSB;
+    
+    // // // DMA_Stop(DMA_VECTOR_ADC);
+
+    // // ADC_Start(ADC_CHANNEL_36);
+    // // DMA_Start(DMA_VECTOR_ADC, CTRL_DATA_ADC, DMA_MODE_NORMAL,
+    // //           DMA_SIZE_HALF, 1, (uint16_t *)&ADC->ADCR, &light_Val);
+    // // while (DMAVEC->CTRL[CTRL_DATA_ADC].DMACT != 0)
+    // // {
+    // //     // ;
+    // //     printlog("dma:%x\r", DMAVEC->CTRL[CTRL_DATA_ADC].DMACT);
+    // //     // // DMAVEC->CTRL[CTRL_DATA_SR0].DMACT;
+    // // }
+    // // //  printf("%d\r\n",light_Val[0]);
+    // //  LED_Blue_on();
 }
 
 
-void RTC_Check(uint8_t time[])
-{
-    rtc_counter_value_t counter_val;
-    if (time[1] > 30) // 最大年份2030年，溢出代表未获取正确网络时间
-    {
-        // printf("time error\r");
-    }
-    else
-    {
-        if (RTC_CheckFinish == 0)
-        {
-            // printf("set time\r\r");
-            // printf("WIFI 20%d/%d/%d  %d %d:%d:%d\n", time[1], time[2], time[3], time[7], time[4], time[5], time[6]);
-            counter_val.year = DATA_To_BCD(time[1]);
-            counter_val.month = DATA_To_BCD(time[2]);
-            counter_val.day = DATA_To_BCD(time[3]);
-            counter_val.hour = DATA_To_BCD(time[4]);
-            counter_val.min = DATA_To_BCD(time[5]);
-            counter_val.sec = DATA_To_BCD(time[6]);
-            counter_val.week = DATA_To_BCD(time[7]);
-            RTC_Set_CounterValue(&counter_val);
-            RTC_CheckFinish = 1;
-        }
-    }
 
-    /*
-    Time[0] 为是否获取时间成功标志，为 0 表示失败，为 1表示成功
-    Time[1] 为年份，0x00 表示 2000 年
-    Time[2] 为月份，从 1 开始到12 结束
-    Time[3] 为日期，从 1 开始到31 结束
-    Time[4] 为时钟，从 0 开始到23 结束
-    Time[5] 为分钟，从 0 开始到59 结束
-    Time[6] 为秒钟，从 0 开始到59 结束
-    Time[7] 为星期，从 1 开始到 7 结束，1代表星期一
-   */
-}
 
-void RTC_Task(void)
-{
-    // rtc_counter_value_t counter_val;
-    // if (RTC_CheckFinish == 0)
-    // {
-    //     mcu_get_system_time();  // 从网络获取时间
-    // }
-    // else
-    // {
-    //     RTC_Get_CounterValue(&counter_val);
-    //     // // // printf("     20%d/%d/%d  %d %d:%d:%d\r\n",BCD_To_DATA(counter_val.year),BCD_To_DATA(counter_val.month),BCD_To_DATA(counter_val.day),BCD_To_DATA(counter_val.week),BCD_To_DATA(counter_val.hour),BCD_To_DATA(counter_val.min),BCD_To_DATA(counter_val.sec));
-    // }
-}
+
+// // // void RTC_Check(uint8_t time[])
+// // // {
+// // //     rtc_counter_value_t counter_val;
+// // //     if (time[1] > 30) // 最大年份2030年，溢出代表未获取正确网络时间
+// // //     {
+// // //         // printf("time error\r");
+// // //     }
+// // //     else
+// // //     {
+// // //         if (RTC_CheckFinish == 0)
+// // //         {
+// // //             // printf("set time\r\r");
+// // //             // printf("WIFI 20%d/%d/%d  %d %d:%d:%d\n", time[1], time[2], time[3], time[7], time[4], time[5], time[6]);
+// // //             counter_val.year = HEX_To_BCD(time[1]);
+// // //             counter_val.month = HEX_To_BCD(time[2]);
+// // //             counter_val.day = HEX_To_BCD(time[3]);
+// // //             counter_val.hour = HEX_To_BCD(time[4]);
+// // //             counter_val.min = HEX_To_BCD(time[5]);
+// // //             counter_val.sec = HEX_To_BCD(time[6]);
+// // //             counter_val.week = HEX_To_BCD(time[7]);
+// // //             RTC_Set_CounterValue(&counter_val);
+// // //             RTC_CheckFinish = 1;
+// // //         }
+// // //     }
+
+// // //     /*
+// // //     Time[0] 为是否获取时间成功标志，为 0 表示失败，为 1表示成功
+// // //     Time[1] 为年份，0x00 表示 2000 年
+// // //     Time[2] 为月份，从 1 开始到12 结束
+// // //     Time[3] 为日期，从 1 开始到31 结束
+// // //     Time[4] 为时钟，从 0 开始到23 结束
+// // //     Time[5] 为分钟，从 0 开始到59 结束
+// // //     Time[6] 为秒钟，从 0 开始到59 结束
+// // //     Time[7] 为星期，从 1 开始到 7 结束，1代表星期一
+// // //    */
+// // // }
+
+// // // void RTC_Task(void)
+// // // {
+// // //     // rtc_counter_value_t counter_val;
+// // //     // if (RTC_CheckFinish == 0)
+// // //     // {
+// // //         mcu_get_system_time();  // 从网络获取时间
+// // //     // }
+// // //     // else
+// // //     // {
+// // //     //     RTC_Get_CounterValue(&counter_val);
+// // //     //     // printf("     20%d/%d/%d  %d %d:%d:%d\r\n",BCD_To_HEX(counter_val.year),BCD_To_HEX(counter_val.month),BCD_To_HEX(counter_val.day),BCD_To_HEX(counter_val.week),BCD_To_HEX(counter_val.hour),BCD_To_HEX(counter_val.min),BCD_To_HEX(counter_val.sec));
+// // //     // }
+// // // }
 
 
 /*计算校验和*/
@@ -2229,36 +2101,6 @@ void watchdog_test(void)
 
 
 
-/* 
- * @Description: 串口应用初始化
- * @param: 
- * @return: 
-*/ 
-void uart_app_init(void)
-{
-    /*
-	UART0_Init(SystemCoreClock, 76800);	// 实际为76800
-	UART1_Init(SystemCoreClock, 76800); // 实际为9600
-	_0050_SCI_CK01_fCLK_5
-
-	UART0_Init(SystemCoreClock, 115200); // 实际为115200
-	UART1_Init(SystemCoreClock, 76800); // 实际为9600
-	_0050_SCI_CK01_fCLK_5
-	其他波特率需重新设置参数
-	*/
-	// // // UART0_Init(SystemCoreClock, 76800); // 实际为76800
-	UART0_Init(SystemCoreClock, 115200); // 实际为115200
-	UART1_Init(SystemCoreClock, 76800); // 实际为9600
-	UART1_Receive(&Uart1_rx_data, 1);
-	printf("\nHello,I am Matser\n");
-	INTC_EnableIRQ(SR0_IRQn); // 开串口接收中断
-
-    DMA_Start(DMA_VECTOR_SR0, CTRL_DATA_SR0, DMA_MODE_REPEAT, DMA_SIZE_BYTE, sizeof(parse.fifo_buffer),  (void*)&SCI0->RXD0, (void*)&parse.fifo_buffer);
-	DMA_Enable(DMA_VECTOR_SR0);
-	NVIC_ClearPendingIRQ(SR0_IRQn); /* clear INTSR1 interrupt flag */
-	INTC_EnableIRQ(SR0_IRQn);       /* enable INTSR1 interrupt */
-}
-
 
 /* 
  * @Description: 间隔定时器中断服务函数
@@ -2267,84 +2109,10 @@ void uart_app_init(void)
 */ 
 void it_callback_Handle(void)
 {
-    SYS_Clock_Tick();
-}
-
-/* 
- * @Description: 系统时钟初始化
- * @param: 
- * @return: 
-*/ 
-void sys_tick_init(void)
-{
-    IT_Init(RTC_64MHZ, 131);  // 4ms间隔中断一次
-    IT_Start();
-    INTC_EnableIRQ(IT_IRQn);
-}
+    
 
 
-/*
- * @Description: 串口解析
- * @param: 无
- * @return: 无
-*/
-void uart_parse(void)
-{
-    uint16_t pWrite;
-    pWrite = sizeof(parse.fifo_buffer) - DMAVEC->CTRL[CTRL_DATA_SR0].DMACT;
-    fifo_parse(&parse.fifo_buffer, sizeof(parse.fifo_buffer), &parse.read, &pWrite, &parse.rx_processbuf); // 不定长协议解析
 }
 
 
 
-/*
- * @Description: 随机数初始化
- * @param:
- * @return:
-*/
-void random_init(void)
-{
-    random.seed = get_random_seed();
-    refresh_random();
-}
-
-/*
- * @Description: 获取随机数种子
- * @param:
- * @return:
-*/
-uint8_t get_random_seed(void)
-{
-    uint16_t *p;
-    uint8_t i;
-    uint16_t seed;
-    seed = 0;
-    p = (uint16_t *)UID;
-    for (i = 0; i < 8; i++)
-    {
-        seed += *p++;
-    }
-    return (uint8_t)seed;
-}
-
-
-/*
- * @Description: 获取随机数
- * @param:
- * @return:
-*/
-uint8_t get_random_number(void)
-{
-    refresh_random();
-    return random.num;
-}
-
-/*
- * @Description: 刷新随机数
- * @param:
- * @return:
-*/
-void refresh_random(void)
-{
-    random.num += random.seed;
-}

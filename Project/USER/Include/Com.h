@@ -146,11 +146,11 @@ typedef enum
     Square = 0xB0, // 圭侘3
 } DeciceType;
 
-#define Check_Device_Data(ChfID, MirID) DataPackage_TX(M_HeadCMD, Public_Addr, M_CMD_Check_Device_Data, ChfID, MirID, Random_Generate(), Random_Generate())
-#define Check_Device_ID(ChfID, MirID) DataPackage_TX(M_HeadCMD, Public_Addr, M_CMD_Check_Device_ID, ChfID, MirID, Random_Generate(), Random_Generate())
-#define Set_CommuID(ChfID, MirID, CommuID) DataPackage_TX(M_HeadCMD, Public_Addr, M_CMD_Set_CommuID, ChfID, MirID, CommuID, Random_Generate());
-#define Set_SeriesNum(ChfID, MirID, SeriesNum) DataPackage_TX(M_HeadCMD, Public_Addr, M_CMD_Set_SeriesNum, ChfID, MirID, SeriesNum, Random_Generate())
-#define Set_LightID(ChfID, MirID, LightID) DataPackage_TX(M_HeadCMD, Public_Addr, M_CMD_Set_LightID, ChfID, MirID, LightID, Random_Generate())
+#define Check_Device_Data(ChfID, MirID) DataPackage_TX(M_HeadCMD, Public_Addr, M_CMD_Check_Device_Data, ChfID, MirID, get_random_number(), get_random_number())
+#define Check_Device_ID(ChfID, MirID) DataPackage_TX(M_HeadCMD, Public_Addr, M_CMD_Check_Device_ID, ChfID, MirID, get_random_number(), get_random_number())
+#define Set_CommuID(ChfID, MirID, CommuID) DataPackage_TX(M_HeadCMD, Public_Addr, M_CMD_Set_CommuID, ChfID, MirID, CommuID, get_random_number());
+#define Set_SeriesNum(ChfID, MirID, SeriesNum) DataPackage_TX(M_HeadCMD, Public_Addr, M_CMD_Set_SeriesNum, ChfID, MirID, SeriesNum, get_random_number())
+#define Set_LightID(ChfID, MirID, LightID) DataPackage_TX(M_HeadCMD, Public_Addr, M_CMD_Set_LightID, ChfID, MirID, LightID, get_random_number())
 
 
 
@@ -219,43 +219,43 @@ typedef enum
 
 /*！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！*/
 /* 麼字峺綜.臥儂緩ID */
-#define DataTx_Master_Check_ID(id) DataPackage_TX(M_HeadCMD, Public_Addr, M_CMD_Check_ID, id, Random_Generate(), Random_Generate(), Random_Generate())
+#define DataTx_Master_Check_ID(id) DataPackage_TX(M_HeadCMD, Public_Addr, M_CMD_Check_ID, id, get_random_number(), get_random_number(), get_random_number())
 /* 麼字峺綜.勣箔貫字厚仟ID */
-#define DataTx_Refresh_ID() DataPackage_TX(M_HeadCMD, Public_Addr, M_CMD_Refresh_ID, Random_Generate(), Random_Generate(), Random_Generate(), Random_Generate())
+#define DataTx_Refresh_ID() DataPackage_TX(M_HeadCMD, Public_Addr, M_CMD_Refresh_ID, get_random_number(), get_random_number(), get_random_number(), get_random_number())
 
 /* 麼字峺綜.臥儂緩字恫炎 */
-#define DataTx_Master_Check_Coord(id) DataPackage_TX(M_HeadCMD, Public_Addr, M_CMD_Check_Coord, id, Random_Generate(), Random_Generate(), Random_Generate())
+#define DataTx_Master_Check_Coord(id) DataPackage_TX(M_HeadCMD, Public_Addr, M_CMD_Check_Coord, id, get_random_number(), get_random_number(), get_random_number())
 /* 麼字峺綜.譜崔緩字恫炎 */
-#define DataTx_Master_Set_Coord(id, x, y) DataPackage_TX(M_HeadCMD, Public_Addr, M_CMD_Set_Coord, id, x, y, Random_Generate())
+#define DataTx_Master_Set_Coord(id, x, y) DataPackage_TX(M_HeadCMD, Public_Addr, M_CMD_Set_Coord, id, x, y, get_random_number())
 
 /* 麼字峺綜.臥儂緩字叔業 */
-#define DataTx_Master_Check_Angle(id) DataPackage_TX(M_HeadCMD, Public_Addr, M_CMD_Check_Angle, id, Random_Generate(), Random_Generate(), Random_Generate())
+#define DataTx_Master_Check_Angle(id) DataPackage_TX(M_HeadCMD, Public_Addr, M_CMD_Check_Angle, id, get_random_number(), get_random_number(), get_random_number())
 /* 麼字峺綜.譜崔緩字叔業 */
-#define DataTx_Master_Set_Angle(id, angle) DataPackage_TX(M_HeadCMD, Public_Addr, M_CMD_Set_Angle, id, angle, Random_Generate(), Random_Generate())
+#define DataTx_Master_Set_Angle(id, angle) DataPackage_TX(M_HeadCMD, Public_Addr, M_CMD_Set_Angle, id, angle, get_random_number(), get_random_number())
 
 /* 麼字峺綜.蝕貫字贋刈亟隠擦 */
-#define DataTx_Master_Protect_ON(id) DataPackage_TX(M_HeadCMD, id, M_CMD_ROM_PROTECT_ON, Random_Generate(), Random_Generate(), Random_Generate(), Random_Generate())
+#define DataTx_Master_Protect_ON(id) DataPackage_TX(M_HeadCMD, id, M_CMD_ROM_PROTECT_ON, get_random_number(), get_random_number(), get_random_number(), get_random_number())
 /* 麼字峺綜.購貫字贋刈亟隠擦 */
-#define DataTx_Master_Protect_OFF(id) DataPackage_TX(M_HeadCMD, id, M_CMD_ROM_PROTECT_OFF, Random_Generate(), Random_Generate(), Random_Generate(), Random_Generate())
+#define DataTx_Master_Protect_OFF(id) DataPackage_TX(M_HeadCMD, id, M_CMD_ROM_PROTECT_OFF, get_random_number(), get_random_number(), get_random_number(), get_random_number())
 
 /* 麼字峺綜.亟貫字贋刈曝 */
-#define DataTx_Master_Write_ROM(id, addr_H, addr_L, data) DataPackage_TX(M_HeadCMD, id, M_CMD_WRITE_ROM, addr_H, addr_L, data, Random_Generate())
+#define DataTx_Master_Write_ROM(id, addr_H, addr_L, data) DataPackage_TX(M_HeadCMD, id, M_CMD_WRITE_ROM, addr_H, addr_L, data, get_random_number())
 /* 麼字峺綜.響貫字贋刈曝 */
-#define DataTx_Master_Read_ROM(id, addr_H, addr_L) DataPackage_TX(M_HeadCMD, id, M_CMD_READ_ROM, addr_H, addr_L, Random_Generate(), Random_Generate())
+#define DataTx_Master_Read_ROM(id, addr_H, addr_L) DataPackage_TX(M_HeadCMD, id, M_CMD_READ_ROM, addr_H, addr_L, get_random_number(), get_random_number())
 
 /* 麼字峺綜.志鹸竃皆譜崔 */
-#define DataTx_Master_ResetData(id) DataPackage_TX(M_HeadCMD, id, M_CMD_DATA_RESET, Random_Generate(), Random_Generate(), Random_Generate(), Random_Generate())
+#define DataTx_Master_ResetData(id) DataPackage_TX(M_HeadCMD, id, M_CMD_DATA_RESET, get_random_number(), get_random_number(), get_random_number(), get_random_number())
 
 /*！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！*/
 
 /* 貫字郡澄.卦指云字ID */
-#define DataTx_Slave_ID(id) DataPackage_TX(S_HeadCOM, S_Return_ID, id, Random_Generate(), Random_Generate(), Random_Generate(), Random_Generate())
+#define DataTx_Slave_ID(id) DataPackage_TX(S_HeadCOM, S_Return_ID, id, get_random_number(), get_random_number(), get_random_number(), get_random_number())
 /* 貫字郡澄.卦指云字恫炎 */
-#define DataTx_Slave_Coord(id, x, y) DataPackage_TX(S_HeadCOM, S_RETURN_Coord, id, x, y, Random_Generate(), Random_Generate())
+#define DataTx_Slave_Coord(id, x, y) DataPackage_TX(S_HeadCOM, S_RETURN_Coord, id, x, y, get_random_number(), get_random_number())
 /* 貫字郡澄.卦指云字叔業 */
-#define DataTx_Slave_Angle(id, angle) DataPackage_TX(S_HeadCOM, S_RETURN_Angle, id, angle, Random_Generate(), Random_Generate(), Random_Generate())
+#define DataTx_Slave_Angle(id, angle) DataPackage_TX(S_HeadCOM, S_RETURN_Angle, id, angle, get_random_number(), get_random_number(), get_random_number())
 /* 貫字郡澄.卦指贋刈曝方象 */
-#define DataTx_Slave_ROM_Data(id, addr_H, addr_L, data) DataPackage_TX(S_HeadCOM, S_RETURN_ROM_DATA, id, addr_H, addr_L, data, Random_Generate())
+#define DataTx_Slave_ROM_Data(id, addr_H, addr_L, data) DataPackage_TX(S_HeadCOM, S_RETURN_ROM_DATA, id, addr_H, addr_L, data, get_random_number())
 
 void Uart1_Byte_POP(FIFOTypeDef *StructDAT);
 

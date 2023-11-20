@@ -69,19 +69,19 @@ const uint8_t df_testcolor5[][4] = {
 };
 
 const uint8_t df_White_4000K[][4] = {
-    {0, 21, 9, 194},
+    {0x0F, 0xA0, 0, 1},
     {endingcolor},
 };
 const uint8_t df_White_3500K[][4] = {
-    {0, 14, 6, 214},
+    {0x0D, 0xAC, 0, 1},
     {endingcolor},
 };
 const uint8_t df_White_3000K[][4] = {
-    {0, 6, 2, 240},
+    {0x0B, 0xB8, 0, 1},
     {endingcolor},
 };
 const uint8_t df_White_2700K[][4] = {
-    {11, 7, 0, 221},
+    {0x0A, 0x8C, 0, 1},
     {endingcolor},
 };
 const uint8_t df_Vitality[][4] = {

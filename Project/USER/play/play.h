@@ -10,6 +10,8 @@
 extern const uint8_t bright_table[5];
 
 
+
+
 typedef enum
 {
     PLAYING_MODE,   // 正常播放模式
@@ -21,19 +23,25 @@ typedef enum
 typedef enum
 {
     SOURCE_LIST,   // 列表播放
-    SOURCE_TEMP,   // 临时播放
+    SOURCE_FREE,   // 自由播放
 } playsource_enum; /*播放源*/
 
 typedef enum
 {
-    RANDOM_MODE, // 随机播放
-    LOOP_MODE,   // 循环播放
-} playmode_enum; /*播放循环模式*/
+    PLAY_IN_SEQUENCE, // 顺序播放
+    PLAY_IN_RANDOM,   // 随机播放
+} PlayMode_enum;      /*播放模式*/
 
 typedef enum
 {
-    RUN,   // 运行
+    CYCLE_IN_ONCE, // 单次列表
+    CYCLE_IN_LOOP, // 循环播放
+} CycleMode_enum;  /*循环模式*/
+
+typedef enum
+{
     PAUSE, // 暂停
+    RUN,   // 运行
 } playstatus_enum;
 
 typedef enum
@@ -44,13 +52,15 @@ typedef enum
 
 typedef struct /*  */
 {
-    uint8_t listnum;                // 当前播放列表索引号
-    uint8_t efnum;                  // 当前播放灯效索引
-    time_TypeDef duration;          // 持续时间
-    uint8_t num;                    /* 灯效列表中有效数据的数量 */
-    uint8_t list[PlayList_SizeNum]; /* 灯效列表 */
-    uint8_t history[32];            // 保存最近播放的灯效记录
-} play_minidetail_TypeDef;          /*播放列表详情*/
+    uint8_t listindex;               // 当前播放列表索引号
+    uint8_t efindex;                 // 当前播放灯效索引
+    time_MS_TypeDef duration;        // 持续时循环的模式间
+    uint8_t listefsum;               /* 灯效列表中有效数据的数量 */
+    uint8_t idex_inlist;             // 当前灯效在列表中的序号（指针）
+    uint8_t list[PlayList_efMaxNum]; /* 灯效列表 */
+    uint8_t history[32];             // 保存最近播放的灯效记录 可删掉
+
+} play_minidetail_TypeDef; /*播放列表详情*/
 
 typedef enum
 {
@@ -65,25 +75,64 @@ typedef struct
     uint8_t dir;    // 方向
 } NTSD_VAL_TypeDef;
 
+typedef enum
+{
+    RHYTHM_OFF,
+    RHYTHM_ON,
+}rhythm_enum;
+
+
 typedef struct
 {
     sw_status_enum sw_status;              // 全局开关
     NTSD_VAL_TypeDef brightness;           // 全局亮度
-    global_setting_TypeDef global_setting; // 全局设置
-} playwork_TypeDef;
+    global_setting_TypeDef global_setting; // 全局设置 断电存储
+    uint32_t playtime_cnt;                 // 当前已播放时间
+    rhythm_enum rhythm_sta;                // 律动开关
+} playwork_TypeDef;                        //
+
+typedef struct
+{
+    uint8_t playindex; // 当前播放在表中的序号
+    uint8_t listsize;
+    uint8_t list[PlayList_efMaxNum];
+}playorder_TypeDef;
+
+
+typedef enum
+{
+    NO_CLOCK,   // 当前无执行闹钟
+    CLOCK_ON,   // 当前有执行闹钟
+}clock_status_enum;
+
+typedef struct
+{
+    clock_status_enum status;   // 闹钟状态
+    uint8_t ef_index;           // 灯效索引
+    uint8_t bright;             // 当前亮度
+    action_enum action;         // 动作类型
+    uint8_t ultimatebright;     // 最终亮度
+    time_HM_TypeDef actiontime; // 动作时间
+    time_HM_TypeDef duration;   // 持续时间
+    repeat_TypeDef repeat;      // 星期计划
+    uint8_t action_day;         // 执行日期
+} clock_task_TypeDef;
 
 typedef struct
 {
     control_mode_enum control_mode; // 控制模式
     playsource_enum source;         // 播放源
     playwork_TypeDef work;
-    playmode_enum mode;             // 播放模式
+    PlayMode_enum playmode;         // 播放模式
+    CycleMode_enum cyclemode;       // 循环模式
     playstatus_enum status;         // 播放状态
     play_minidetail_TypeDef detail; // 播放详情信息
     Efdetail_TypeDef efdetail;      // 当前灯效信息
+    clock_task_TypeDef clock;
 } play_TypeDef;
 
 extern play_TypeDef play;
+
 
 /*-----------------------------------------------------------*/
 // typedef struct
@@ -129,15 +178,18 @@ extern Efdetail_TypeDef playbuf;
 /*切换灯效*/
 uint8_t switch_effect(uint8_t efnum);
 /*切换上下灯效*/
-uint8_t switch_ln_effect(switchplay_enum num);
+uint8_t switch_lastnext_effect(switchplay_enum num);
 
 /*在列表中播放下一灯效*/
-void switch_next_ef_in_playlist(void);
+void switch_next_ef_in_list(void);
 /*在列表中播放上一灯效*/
-void switch_last_ef_in_playlist(void);
+void switch_last_ef_in_list(void);
 /* 切换播放列表 */
 uint8_t switch_playlist(uint8_t listnum);
-
+//
+void switch_playmode(PlayMode_enum mod);   // 切换播放模式
+void switch_cyclemode(CycleMode_enum mod); // 切换循环模式
+//
 
 /*播放初始化*/
 void play_init(void);
@@ -152,10 +204,10 @@ void push_playnum_in_history(uint8_t efnum);
 uint8_t pop_playnum_in_history(void);
 
 //
-void enter_device_pairing_mode(void); // 进入灯板配对模式
-void enter_playing_effect_mode(void); // 进入正常播放灯效模式
-void enter_preview_effect_mode(Efdetail_TypeDef* efdetail); // 进入预览灯效模式
-void exit_preview_effect_mode(void);  // 退出预览灯效模式
+void enter_device_pairing_mode(void);                       // 进入灯板配对模式
+void enter_playing_effect_mode(void);                       // 进入正常播放灯效模式
+void enter_preview_effect_mode(Efdetail_TypeDef *efdetail); // 进入预览灯效模式
+void exit_preview_effect_mode(void);                        // 退出预览灯效模式
 //
 
 /*在表中获取下一个元素*/
@@ -194,18 +246,15 @@ void play_color_in_all_salve_light(uint8_t bri, uint8_t r, uint8_t g, uint8_t b,
 /*关闭所有灯板*/
 void turn_off_all_salve_light(void);
 
-
-
-
-
 /*播放灯效*/
 void play_effect_video(void);
 //
-void play_current_effect(void);//从头开始播放当前灯效
-void play_new_effect(uint8_t efnum);     // 播放新灯效
-void play_preview_effect(Efdetail_TypeDef* efdetail); // 播放预览灯效
+void play_current_effect(void);                       // 从头开始播放当前灯效
+void play_free_effect(uint8_t efnum);                 // 播放自由灯效
+void play_new_effect(uint8_t efnum);                  // 播放新灯效
+void play_preview_effect(Efdetail_TypeDef *efdetail); // 播放预览灯效
 //
-void preprocess_play_effect(void);// 预处理播放数据
+void preprocess_play_effect(void); // 预处理播放数据
 /***********************************************************************/
 
 void transmit_playdata_RGBbr(void);                    // 发送“RGBbr”格式的播放数据
@@ -213,4 +262,14 @@ void transmit_playdata_COLOR(void); // 发送“COLOR”格式的播放数据
 void transmit_playsame_RGBbr(L0_playRGBbr_Typedef *x); // 广播发送“RGBbr”格式的播放数据
 
 //void light_device_pairing_play(app_device_control_Typedef *x); //灯板显示配对状态
+
+//
+void permute_list_in_random(uint8_t *list, uint8_t size);                          // 重新随机排列列表内的数据
+uint8_t move_data_to_first_in_list(uint8_t data, uint8_t *list, uint8_t listsize); // 将某数从列表中挪至第一项
+void adjust_play_list(void);                                                       // 调整播放顺序
+void invert_list(uint8_t *list, uint8_t size);                                     // 将原数组倒序排列
+void start_play_list(uint8_t listindex);                                           // 开始播放一个列表
+void end_play_list(void);                                                          // 结束列表播放
+void reload_current_play_list(void);                                               // 重新加载当前播放列表
+//
 #endif

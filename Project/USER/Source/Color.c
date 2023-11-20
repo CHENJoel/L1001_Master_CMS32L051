@@ -430,12 +430,12 @@ void Random_ColorTrigger(uint8_t modele_maxnum)
     // }
     // Bubble_Sort_2D(&temp_array, modele_maxnum, 2, 1);
 
-    // j = Random_Generate() % modele_maxnum;
+    // j = get_random_number() % modele_maxnum;
     // j = j / 2;
 
     // i = temp_array[j][0];
 
-    // j = Random_Generate() % (sizeof(Random_ColorTable) / 4);
+    // j = get_random_number() % (sizeof(Random_ColorTable) / 4);
 
     // Module_ColorInsert(&Tangram[i], &Random_ColorTable[j][0]);
     // j = i;
@@ -550,10 +550,10 @@ void ColorTrigger(uint8_t modele_maxnum)
     }
     else
     {
-        i = Random_Generate() % modele_maxnum; // 若全部优先级一致，则随机选一个
+        i = get_random_number() % modele_maxnum; // 若全部优先级一致，则随机选一个
     }
 
-    j = Random_Generate() % (sizeof(Random_ColorTable) / 4); // 取色
+    j = get_random_number() % (sizeof(Random_ColorTable) / 4); // 取色
     // printf("i=%d,j=%d\r\n",i,j);
     Tangram[i].Model.Blink.R = Random_ColorTable[j][0]; // 赋色
     Tangram[i].Model.Blink.G = Random_ColorTable[j][1]; // 赋色

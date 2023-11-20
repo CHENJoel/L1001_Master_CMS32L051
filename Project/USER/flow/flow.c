@@ -43,82 +43,7 @@ void effect_play_color_calu(void)
 
 void Flow_Static_Init(void)
 {
-    uint8_t i, j;
-    uint8_t flag;
-    EF_Work.Module_WorkNum = slave.num;
-    for (i = 0; i < slave.num; i++)
-    {
-        slave.data[i].runnum = i;
-        flag = 0;
-        for (j = 0; j < play.efdetail.EfColorInf.colorNum; j++)
-        {
-            if (slave.data[i].id == play.efdetail.EfColorInf.ColorID[j].id) // 对已定义的id上色
-            {
-                Tangram[i].R.Now = play.efdetail.EfColorInf.ColorID[j].color.R;
-                Tangram[i].G.Now = play.efdetail.EfColorInf.ColorID[j].color.G;
-                Tangram[i].B.Now = play.efdetail.EfColorInf.ColorID[j].color.B;
-                Tangram[i].W.Now = play.efdetail.EfColorInf.ColorID[j].color.W;
-                flag = 1;
-            }
-        }
-        if (flag == 0)
-        {
-            flag = Random_Generate() % play.efdetail.EfColorInf.colorNum; // 未定义的id上随机色
-            Tangram[i].R.Now = play.efdetail.EfColorInf.ColorID[flag].color.R;
-            Tangram[i].G.Now = play.efdetail.EfColorInf.ColorID[flag].color.G;
-            Tangram[i].B.Now = play.efdetail.EfColorInf.ColorID[flag].color.B;
-            Tangram[i].W.Now = play.efdetail.EfColorInf.ColorID[flag].color.W;
-        }
-    }
-    /**************************/
-    // // // uint8_t *sur;
-    // // // uint8_t *tar;
-    // // // uint8_t randomVal;
-
-    // // // EF_Work.FrameInfro.KeySum = play.efdetail.EfColorInf.colorNum; // 关键帧数
-    // // // EF_Work.FrameInfro.InsertNum = Motion_Static_framepara;    // 插帧数
-    // // // EF_Work.FrameInfro.IntervalTime = 1;                       // 帧间隔时间
-    // // // EF_Work.FrameInfro.FrameAmount = 1;                        // 总帧数
-    // // // EF_Work.FrameInfro.Speed = 1;
-    // // // tar = EF_Work.FrameInfro.image_adr; // 色表缓存指针
-    // // // sur = &EF_Buffer.color_buffer;      // 源色表指针
-    // // // for (i = 0; i < EF_Work.FrameInfro.KeySum; i++)
-    // // // {
-    // // //     for (j = 0; j < 4; j++) // 复制源数据
-    // // //     {
-    // // //         *tar = *sur;
-    // // //         tar++;
-    // // //         sur++;
-    // // //     }
-    // // // }
-
-    // // // for (i = 0; i < TangramDevice.Device_sum; i++)
-    // // // {
-    // // //     TangramDevice.SlaveData[i].Runingnum = i;
-    // // // }
-    // // // EF_Work.Module_WorkNum = TangramDevice.Device_sum;
-
-    // // // if (EF_Work.FrameInfro.KeySum == 1)
-    // // // {
-    // // //     for (i = 0; i < EF_Work.Module_WorkNum; i++)
-    // // //     {
-    // // //         Tangram[i].R.Now = *(EF_Work.FrameInfro.image_adr + 0);
-    // // //         Tangram[i].G.Now = *(EF_Work.FrameInfro.image_adr + 1);
-    // // //         Tangram[i].B.Now = *(EF_Work.FrameInfro.image_adr + 2);
-    // // //         Tangram[i].W.Now = *(EF_Work.FrameInfro.image_adr + 3);
-    // // //     }
-    // // // }
-    // // // else
-    // // // {
-    // // //     for (i = 0; i < EF_Work.Module_WorkNum; i++)
-    // // //     {
-    // // //         randomVal = Random_Generate() % EF_Work.FrameInfro.KeySum;
-    // // //         Tangram[i].R.Now = *(EF_Work.FrameInfro.image_adr + randomVal * 4 + 0);
-    // // //         Tangram[i].G.Now = *(EF_Work.FrameInfro.image_adr + randomVal * 4 + 1);
-    // // //         Tangram[i].B.Now = *(EF_Work.FrameInfro.image_adr + randomVal * 4 + 2);
-    // // //         Tangram[i].W.Now = *(EF_Work.FrameInfro.image_adr + randomVal * 4 + 3);
-    // // //     }
-    // // // }
+    Flow_Static();
 }
 void Flow_Breath_Init(void)
 {
@@ -276,6 +201,7 @@ void Flow_Ignite_Init(void)
     {
         for (j = 0; j < 4; j++) // 复制源数据
         {
+					
             *tar = *sur;
             tar++;
             sur++;
@@ -290,7 +216,7 @@ void Flow_Random_Init(void)
     for (i = 0; i < slave.num; i++)
     {
         slave.data[i].runnum = i;
-        num = Random_Generate() % play.efdetail.EfColorInf.colorNum;
+        num = get_random_number() % play.efdetail.EfColorInf.colorNum;
         Tangram[i].R.Now = play.efdetail.EfColorInf.ColorID[num].color.R;
         Tangram[i].G.Now = play.efdetail.EfColorInf.ColorID[num].color.G;
         Tangram[i].B.Now = play.efdetail.EfColorInf.ColorID[num].color.B;
@@ -328,9 +254,57 @@ void Flow_Random_Init(void)
 }
 
 /*********************************************************************************************************/
-void Flow_Static(void) /*呼吸*/
+void Flow_Static(void) /*静态*/
 {
-    // 保持初始化数据
+    uint8_t i, j;
+    uint8_t flag;
+    EF_Work.Module_WorkNum = slave.num;
+
+    if (play.efdetail.EfColorInf.colorNum == 1 && (play.efdetail.EfColorInf.ColorID[0].id == 0x00 || play.efdetail.EfColorInf.ColorID[0].id == 0xFF))
+    {
+        /* 全部播放同个颜色 */
+        for (i = 0; i < slave.num; i++)
+        {
+            slave.data[i].runnum = i;
+            Tangram[i].R.Now = play.efdetail.EfColorInf.ColorID[0].color.R;
+            Tangram[i].G.Now = play.efdetail.EfColorInf.ColorID[0].color.G;
+            Tangram[i].B.Now = play.efdetail.EfColorInf.ColorID[0].color.B;
+            Tangram[i].W.Now = play.efdetail.EfColorInf.ColorID[0].color.W;
+        }
+    }
+    else
+    {
+        /* 根据id播放对应的颜色 */
+        for (i = 0; i < slave.num; i++)
+        {
+            slave.data[i].runnum = i; // 每个灯板对应一个运行号
+            flag = 0;
+            for (j = 0; j < play.efdetail.EfColorInf.colorNum; j++)
+            {
+                if (slave.data[i].id == play.efdetail.EfColorInf.ColorID[j].id) // 对已定义的id上色
+                {
+                    Tangram[i].R.Now = play.efdetail.EfColorInf.ColorID[j].color.R;
+                    Tangram[i].G.Now = play.efdetail.EfColorInf.ColorID[j].color.G;
+                    Tangram[i].B.Now = play.efdetail.EfColorInf.ColorID[j].color.B;
+                    Tangram[i].W.Now = play.efdetail.EfColorInf.ColorID[j].color.W;
+                    flag = 1;
+                    break;
+                }
+            }
+            if (flag == 0)
+            {
+                Tangram[i].R.Now = 0;
+                Tangram[i].G.Now = 0;
+                Tangram[i].B.Now = 0;
+                Tangram[i].W.Now = 0;
+                // // flag = get_random_number() % play.efdetail.EfColorInf.colorNum; // 未定义的id上随机色
+                // // Tangram[i].R.Now = play.efdetail.EfColorInf.ColorID[flag].color.R;
+                // // Tangram[i].G.Now = play.efdetail.EfColorInf.ColorID[flag].color.G;
+                // // Tangram[i].B.Now = play.efdetail.EfColorInf.ColorID[flag].color.B;
+                // // Tangram[i].W.Now = play.efdetail.EfColorInf.ColorID[flag].color.W;
+            }
+        }
+    }
 }
 void Flow_Breath(uint8_t speed) /*呼吸*/
 {
@@ -503,7 +477,7 @@ void Flow_Random(uint8_t speed) /*随机*/
         for (i = 0; i < slave.num; i++)
         {
             slave.data[i].runnum = i;
-            num = Random_Generate() % play.efdetail.EfColorInf.colorNum;
+            num = get_random_number() % play.efdetail.EfColorInf.colorNum;
             Tangram[i].R.Now = play.efdetail.EfColorInf.ColorID[num].color.R;
             Tangram[i].G.Now = play.efdetail.EfColorInf.ColorID[num].color.G;
             Tangram[i].B.Now = play.efdetail.EfColorInf.ColorID[num].color.B;
@@ -521,11 +495,11 @@ void Flow_Random(uint8_t speed) /*随机*/
     // // // Currnt_KF = Tangram[0].Frame_Now / (EF_Work.FrameInfro.InsertNum + 1); // 计算当前帧 已经过的 最近/当前 关键帧
     // // // if (Currnt_KF != last_KF)
     // // // {
-    // // //     random1 = Random_Generate() % EF_Work.Module_WorkNum; // 随机出亮灯的数量
+    // // //     random1 = get_random_number() % EF_Work.Module_WorkNum; // 随机出亮灯的数量
     // // //     for (i = 0; i <= random1; i++)
     // // //     {
-    // // //         random2 = Random_Generate() % EF_Work.Module_WorkNum;    // 随机出亮灯组
-    // // //         random3 = Random_Generate() % EF_Work.FrameInfro.KeySum; // 随机出颜色
+    // // //         random2 = get_random_number() % EF_Work.Module_WorkNum;    // 随机出亮灯组
+    // // //         random3 = get_random_number() % EF_Work.FrameInfro.KeySum; // 随机出颜色
     // // //         Tangram[random2].R.Now = *(EF_Work.FrameInfro.image_adr + random3 * 4 + 0);
     // // //         Tangram[random2].G.Now = *(EF_Work.FrameInfro.image_adr + random3 * 4 + 1);
     // // //         Tangram[random2].B.Now = *(EF_Work.FrameInfro.image_adr + random3 * 4 + 2);

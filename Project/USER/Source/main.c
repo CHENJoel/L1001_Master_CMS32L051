@@ -2,9 +2,9 @@
  * @Author: DESKTOP-AKTRQKB\MY sandote@163.com
  * @Date: 2022-10-17 11:28:51
  * @LastEditors: DESKTOP-AKTRQKB\MY sandote@163.com
- * @LastEditTime: 2023-10-31 15:30:15
+ * @LastEditTime: 2023-11-17 19:08:25
  * @FilePath: \L1001_Master_CMS32L051\Project\USER\Source\main.c
- * @Description: ÕâÊÇÄ¬ÈÏÉèÖÃ,ÇëÉèÖÃ`customMade`, ´ò¿ªkoroFileHeader²é¿´ÅäÖÃ ½øÐÐÉèÖÃ: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+ * @Description: ï¿½ï¿½ï¿½ï¿½Ä¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½`customMade`, ï¿½ï¿½koroFileHeaderï¿½é¿´ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
 /***********************************************************************************************************************
 * Copyright (C) . All rights reserved.
@@ -35,6 +35,8 @@ Includes
 #include <math.h>
 #include "Light.H"
 #include "Function_Init.H"
+
+
 
 
 unsigned char dir;
@@ -95,6 +97,7 @@ int main()
 	SystemCoreClockUpdate();
 	msCnt = SystemCoreClock / 1000;
 	SysTick_Config(1*msCnt);
+
 	// delayMS(200); 	// delay 200ms
 
 //-----------------------------------------------------------------------
@@ -107,92 +110,84 @@ int main()
 
 	LED1_OFF();
 	LED2_OFF();
-
+	
 	
 	/* ADC_Init(); */
 	ADC_Set_HardTrigger(1, AD_TRG_IT);
-	ADC_Set_Clock(CLOCK_DIV8, 0x0DU);
-	start_mic_sample();
-	// ADC_Start(ADC_CHANNEL_0);
-	// DMA_Start(DMA_VECTOR_ADC, CTRL_DATA_ADC, DMA_MODE_NORMAL,
-	// 		  DMA_SIZE_HALF, ADC_CNT, (uint16_t *)&ADC->ADCR, ADC_Buffer);
+	ADC_Set_Clock(CLOCK_DIV16, 0x0DU);
+	// start_mic_sample();
+	// // ADC_Start(ADC_CHANNEL_0);
+	// // DMA_Start(DMA_VECTOR_ADC, CTRL_DATA_ADC, DMA_MODE_NORMAL,
+	// // 		  DMA_SIZE_HALF, ADC_CNT, (uint16_t *)&ADC->ADCR, ADC_Buffer);
 
-	// // User_TM40_IntervalTimer(TM4_CHANNEL_0,5);
-	// // INTC_EnableIRQ(TM00_IRQn);
-	// // RTC_Init(RTC_64MHZ);
-    // // RTC_Start();
+
+	RTC_Init(RTC_64MHZ);
+    RTC_Start();
 	LED_display_init();
 	sys_tick_init();
 	wifi_module_init();
 	E_Type = 7;
 	E_Color = 0;
-	// // SYS.POWER_SW = STA_ON;
 	Light_Owner = Light_Owner_MCU;
 	// // // // Data_Init();
 	
-	random_init();         // Ëæ»úÊý³õÊ¼»¯
+	random_init();        
 	delayMS(100);
-	turn_off_all_salve_light();
+
 	SPI_Init();
-	adc_dma_init();
+
 	SYS_Init();
 
 	play.work.sw_status = SW_ON;
 	play.status = RUN;
 	LED1_ON();
 	LED2_OFF();
-	turn_off_all_salve_light();
+	
+	// adc_dma_start();
 	while (1)
 	{
+		wifi_fifo_send_ISR(); 
 		if (T_4MS_FLAG_GetBit)
 		{
 			T_4MS_FLAG_ClrBit();
 			WDT_Restart();
-			// // uart_parse();
-			// LED2_REV();
-			wifi_uart_service();
-			// // printf("test\r\n");
+			
+			wifi_service();
 		}
 		if (T_8MS_FLAG_GetBit)
 		{
 			T_8MS_FLAG_ClrBit();
-			// // test_play_color();
 		}
 		if (T_20MS_FLAG_GetBit)
 		{
 			T_20MS_FLAG_ClrBit();
-
-			// // Motion_Output();
-
-
-			// MIC_Process();
-			KeyS_On();
-			WDT_Restart();
+			KeyS_On();						
 			KeyS_Click();
-
 			LED_Display_20ms();
-
-
+			WDT_Restart();
 			// debug();
-			// // Motion_Output();
-			// MIC_Process();
+		
 		}
 		if (T_28MS_FLAG_GetBit)
 		{
 			T_28MS_FLAG_ClrBit();
+			
 
-			Lignt_Control();
 			process_mic_data();
+			Lignt_Control();
 			play_effect_video();
+			adc_dma_start();	
 		}
 		if (T_100MS_FLAG_GetBit)
 		{
 			T_100MS_FLAG_ClrBit();
+			// // // LED_Red_flash();
+			// // // LED_Blue_flash();
 		}
 		if (T_200MS_FLAG_GetBit)
 		{
 			T_200MS_FLAG_ClrBit();
-			// // norflash_auto_rw_test();
+
 		}
 		if (T_500MS_FLAG_GetBit)
 		{
@@ -201,9 +196,11 @@ int main()
 		if (T_1000MS_FLAG_GetBit)
 		{
 			T_1000MS_FLAG_ClrBit();
-			debug();
-			RTC_Task();
-		
+			
+			// debug();
+			autoswitch_effects_in_list();
+			clock_server();
+
 		}
 	}
 }
@@ -258,9 +255,9 @@ void hard_fault_handler_c(unsigned int * hardfault_args, unsigned lr_value)
 	printf ("Stacked PSR = %x\r\n", stacked_psr);
 	printf ("Current LR = %x\r\n", lr_value);
 
-
-	while(1); // endless loop
 	__NVIC_SystemReset();
+	while(1); // endless loop
+	
 }
 
 /***********************************************************************************************************************

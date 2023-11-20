@@ -101,6 +101,10 @@ typedef enum /*APP下发指令枚举*/
     ASK_SCHEDULE_SKETCH,          // 请求定时概述表
     PLAY_TEMP_EFFECT,             // 播放临时灯效
     RESET_BUILTIN_EF,             // 重置内置灯效
+    DELETE_PLAYLIST,              // 删除播放列表
+    ASK_DEVICE_DETAILS,           // 请求灯板信息
+    ASK_DEVICE_IDENTIFY,          // 请求配对标识
+
 } issue_cmd;
 #pragma pack(push, 1)
 typedef struct
@@ -116,16 +120,17 @@ typedef enum
     PLAY_STATUS,          // 播放/暂停
     PLAY_SWITCH,          // 上下曲切换
     EFFECT_INDEX,         // 效果索引
-    PLAY_MODE,            // 播放循环模式
+    PLAY_RANDOM_EN,       // 随机播放使能
+    PLAY_LOOP_EN,         // 循环播放使能
     PLAYLIST_INDEX = 100, // 播放列表索引
 } playcontrol_type_enum;  // 操作类型
 
 #pragma pack(push, 1)
 typedef struct
 {
-    playcontrol_type_enum type;           // 操作类型
-    uint8_t value;          // 操作值
-    uint8_t checksum;       // 校验和
+    playcontrol_type_enum type; // 操作类型
+    uint8_t value;              // 操作值
+    uint8_t checksum;           // 校验和
 } com_play_control_TypeDef;
 #pragma pack(pop)
 
@@ -173,7 +178,7 @@ typedef struct
     uint8_t index;
     FUN_ENABLE_STA en_sta;   // 启用状态
     action_enum action;      // 动作类型
-    time_TypeDef actiontime; // 动作时间
+    time_HM_TypeDef actiontime; // 动作时间
     repeat_TypeDef repeat;   // 星期计划
 } com_schedule_sketch_TypeDef;
 
@@ -188,16 +193,19 @@ typedef struct /*  */
 {
     uint8_t index;
     name_TypeDef name;
-    FUN_ENABLE_STA en_sta;   // 启用状态
-    action_enum action;      // 动作类型
-    uint8_t ef_index;        // 灯效的索引号
-    uint8_t ultimatebright;  // 最终亮度
-    time_TypeDef actiontime; // 动作时间
-    time_TypeDef duration;   // 持续时间
-    repeat_TypeDef repeat;   // 星期计划
-    uint8_t checksum;        // 校验和
+    FUN_ENABLE_STA en_sta;      // 启用状态
+    action_enum action;         // 动作类型
+    uint8_t ef_index;           // 灯效索引
+    uint8_t ultimatebright;     // 最终亮度
+    time_HM_TypeDef actiontime; // 动作时间
+    time_HM_TypeDef duration;   // 持续时间
+    repeat_TypeDef repeat;      // 星期计划
+    uint8_t checksum;           // 校验和
 } com_schedule_detail_TypeDef;
 
 #pragma pack(pop)
+
+
+
 
 #endif

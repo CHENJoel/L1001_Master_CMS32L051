@@ -14,6 +14,7 @@ Includes
 ***********************************************************************************************************************/
 #include "CMS32L051.h"
 #include "flash.h"
+#include "wdt.h"
 
 #if defined (__CC_ARM)
 #pragma arm section code = "ram_fetch_code"   // Arm Compiler 5

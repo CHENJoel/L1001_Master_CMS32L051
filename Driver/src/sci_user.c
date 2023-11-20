@@ -819,7 +819,8 @@ static void uart1_callback_sendend(void)
     /* Start user code. Do not edit comment generated here */
     // LED2_REV();
     // LED2_OFF();
-    uart1_sendend_flag=0;
+    uart1_sendend_flag = 0;
+    uart1_send_end();
     /* End user code. Do not edit comment generated here */
 }
 /***********************************************************************************************************************

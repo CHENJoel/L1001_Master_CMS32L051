@@ -100,6 +100,9 @@ void print_online_slave_data(void);
 void print_play_effect_detial(void);
 
 /*app控制灯板的log*/
-void print_device_control(app_device_control_Typedef*x);
+void print_device_control(app_device_control_Typedef *x);
+//
 
+void print_local_rtc_time(void); // 打印本地rtc时钟
+//
 #endif

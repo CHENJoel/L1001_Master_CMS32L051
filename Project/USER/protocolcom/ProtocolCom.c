@@ -64,13 +64,13 @@
 // // // // // // // 			__NVIC_SystemReset();
 // // // // // // // 			break;
 // // // // // // // 		case CMD_CONNECT_COID: /*握手通信ID*/
-// // // // // // // 			ACK_comCmd(CMD_CTRLACK, CMD_CONNECT_COID, Random_Generate(), Random_Generate());
+// // // // // // // 			ACK_comCmd(CMD_CTRLACK, CMD_CONNECT_COID, get_random_number(), get_random_number());
 // // // // // // // 			break;
 // // // // // // // 		case CMD_REFRESH_COID: /*更新通信ID*/
 // // // // // // // 			temp = 0x00;
 // // // // // // // 			while (temp == 0x00 || temp == 0xFF)
 // // // // // // // 			{
-// // // // // // // 				temp = Random_Generate(); // 获取随机数
+// // // // // // // 				temp = get_random_number(); // 获取随机数
 // // // // // // // 			}
 // // // // // // // 			Userdata.Appdata.communID = temp; // 通讯ID更新为随机数
 // // // // // // // 			break;

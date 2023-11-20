@@ -10,7 +10,7 @@
 .chen sandote@163.om
 .chen sandote@163.om
 .chen sandote@163.om
- * @LastEditTime: 2023-10-31 10:56:16
+ * @LastEditTime: 2023-11-14 13:51:03
  * @FilePath: \L1001_Master_CMS32L051\Project\USER\Include\Function_Init.H
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -87,96 +87,54 @@
 #include "calibration.H"
 // // #include "L0.H"
 // // #include "L0_slave.h"
-#include "appfunction.h"
+#include "appfunction.h"    
 #include "printlog.h"
 #define IR_Version 0
 
+#define MAXNUM_32_BIT 0xFFFFFFFF
 
 
-/*
+// #define OLD_VERSION 1
+
+#ifdef OLD_VERSION
+
+#define LED_R_PORT PORT12
+#define LED_B_PORT PORT12
+
+#define LED_R_PIN PIN3 
+#define LED_B_PIN PIN4 
+
+#define LED_Blue_flash() PORT_ToggleBit(LED_B_PORT, LED_B_PIN) // 闪烁
+#define LED_Blue_on() PORT_SetBit(LED_B_PORT, LED_B_PIN)       // 亮
+#define LED_Blue_off() PORT_ClrBit(LED_B_PORT, LED_B_PIN)      // 灭
+
+#define LED_Red_flash() PORT_ToggleBit(LED_R_PORT, LED_R_PIN) // 闪烁
+#define LED_Red_on() PORT_SetBit(LED_R_PORT, LED_R_PIN)       // 亮
+#define LED_Red_off() PORT_ClrBit(LED_R_PORT, LED_R_PIN)      // 灭
 
 
-               2B D4 FD 02
-4B B4 FD 02  | 0B F4 FD 02  |   8B 74 FD 02
-               CB 34 FD 02
-
-    ---------------
-    3A  BA  82  02
-    1A  9A  A2  22
-
-    2A  AA  92  12
-    0A  8A  B2  32
-    38  B8  78  F8
-    18  98  58  D8
-
-    28  A8  68  E8
-    08  88  48  C8
-    30  B0  70  F0
-    10  90  50  D0
-
-    20  A0  60  E0
-    ---------------
-
-
-*/
-
-// struct
-// {
-//     unsigned char PowerON : 1;     // 1开机/0关机
-//     unsigned char LightON : 1;     // 1开灯/0关灯
-//     unsigned char FlowMod : 1;     // 1流光/0单色
-//     unsigned char LockSta : 1;     // 1童锁/0无锁
-//     unsigned char timing : 1;      // 1童锁/0无锁
-//     unsigned char Battery_Low : 1; // 低电量标志
-// } sys;
-
-typedef union
-{
-	uint8_t byte;
-	struct
-	{
-		uint8_t bit0 : 1;
-		uint8_t bit1 : 1;
-		uint8_t bit2 : 1;
-		uint8_t bit3 : 1;
-		uint8_t bit4 : 1;
-		uint8_t bit5 : 1;
-		uint8_t bit6 : 1;
-		uint8_t bit7 : 1;
-	} bits;
-}Flag;
-
-#define ADC_CNT 200
-
-// extern uint16_t ADC_Buffer[ADC_CNT];	//
-// extern uint16_t ADC_Buffer[200];	//
-
-
-
-
-
-// typedef uint unsigned int
-// typedef uchar unsigned char
-
-extern unsigned char temp;
-extern uint16_t avg;
-
-
-extern unsigned int Fre_Val[65];
-
-// extern unsigned char ADC_DMA_OK;
-// extern unsigned char ADC_DMA_EN;
-// extern unsigned char FFT_OK;
-// extern unsigned char FFT_Flash;	//
-
-// // #define WIFI_SET()    PORT_SetBit(PORT12, PIN1)
-// // #define WIFI_RST()    PORT_ClrBit(PORT12, PIN1)
+#else
 
 #define LED_R_PORT PORT12
 #define LED_B_PORT PORT12
 
 #define LED_R_PIN PIN4  // 新板
 #define LED_B_PIN PIN3  // 新板
+
+#define LED_Blue_flash() PORT_ToggleBit(LED_B_PORT, LED_B_PIN) // 闪烁
+#define LED_Blue_on() PORT_ClrBit(LED_B_PORT, LED_B_PIN)       // 亮
+#define LED_Blue_off() PORT_SetBit(LED_B_PORT, LED_B_PIN)      // 灭
+
+#define LED_Red_flash() PORT_ToggleBit(LED_R_PORT, LED_R_PIN) // 闪烁
+#define LED_Red_on() PORT_ClrBit(LED_R_PORT, LED_R_PIN)       // 亮
+#define LED_Red_off() PORT_SetBit(LED_R_PORT, LED_R_PIN)      // 灭
+
+
+
+#endif
+
+
+
 
 // // // #define LED_R_PIN PIN3  // 旧板
 // // // #define LED_B_PIN PIN4  // 旧板
@@ -193,14 +151,6 @@ extern unsigned int Fre_Val[65];
 
 
 
-#define LED_Blue_flash() PORT_ToggleBit(LED_B_PORT, LED_B_PIN) // 闪烁
-#define LED_Blue_on() PORT_ClrBit(LED_B_PORT, LED_B_PIN)       // 亮
-#define LED_Blue_off() PORT_SetBit(LED_B_PORT, LED_B_PIN)      // 灭
-
-#define LED_Red_flash() PORT_ToggleBit(LED_R_PORT, LED_R_PIN) // 闪烁
-#define LED_Red_on() PORT_ClrBit(LED_R_PORT, LED_R_PIN)       // 亮
-#define LED_Red_off() PORT_SetBit(LED_R_PORT, LED_R_PIN)      // 灭
-
 #define LED_FLASH_INTURN()                  \
     LED_Blue_flash();                       \
     if (PORT_GetBit(LED_B_PORT, LED_B_PIN)) \
@@ -211,6 +161,10 @@ extern unsigned int Fre_Val[65];
     {                                       \
         PORT_SetBit(LED_R_PORT, LED_R_PIN); \
     }
+
+
+extern unsigned char temp;
+extern uint16_t avg;
 
 // #define LED3_REV()                 \
 //     if (PORT_GetBit(PORT12, PIN2)) \

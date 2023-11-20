@@ -21,6 +21,18 @@
         "Color.H": "cpp",
         "user_memory.h": "c",
         "comapp.h": "c",
-        "master.h": "c"
+        "master.h": "c",
+        "parse.h": "c",
+        "debug.h": "c",
+        "light.h": "c",
+        "cms32l051.h": "c",
+        "tim4.h": "c",
+        "driver_spi.h": "c",
+        "internal_memory.h": "c",
+        "KEY.C": "cpp",
+        "inf.h": "c",
+        "flash.h": "c",
+        "newota.h": "c",
+        "factory.h": "c"
     }
 }

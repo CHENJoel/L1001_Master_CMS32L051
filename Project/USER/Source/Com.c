@@ -159,7 +159,7 @@ void Slave_Handshake(void)
     // // // for (i = 0; i <= 250; i++)                           // 逐一与从机的主ID进行握手
     // // // {
     // // //     Uart0_Buffer.Read = Uart0_Buffer.Write; // 清空接收缓存中未读数据
-    // // //     DataPackage_TX(M_HeadCMD, Public_Addr, M_CMD_Handshake_Chief, i, Random_Generate(), Random_Generate(), Random_Generate());
+    // // //     DataPackage_TX(M_HeadCMD, Public_Addr, M_CMD_Handshake_Chief, i, get_random_number(), get_random_number(), get_random_number());
     // // //     delay_5ms();                                                                   // 等待从机读取缓存
     // // //     PackageState = DataPackage_Extract(&Uart0_Buffer);                              // 读取缓存数据状态
     // // //     if ((PackageState == Package_Right) && (RX_DataPackage[0] == S_ChiefMinor_ID)) // 接收到一组从机信息数据包
@@ -178,7 +178,7 @@ void Slave_Handshake(void)
     // // //             {
     // // //                 // LED3_REV();
     // // //                 Uart0_Buffer.Read = Uart0_Buffer.Write; // 清空接收缓存中未读数据
-    // // //                 DataPackage_TX(M_HeadCMD, Public_Addr, M_CMD_Handshake_Minor, i, m, Random_Generate(), Random_Generate());
+    // // //                 DataPackage_TX(M_HeadCMD, Public_Addr, M_CMD_Handshake_Minor, i, m, get_random_number(), get_random_number());
     // // //                 delay_5ms();                                                                   // 等待从机读取缓存
     // // //                 PackageState = DataPackage_Extract(&Uart0_Buffer);                              // 读取缓存数据状态
     // // //                 if ((PackageState == Package_Right) && (RX_DataPackage[0] == S_ChiefMinor_ID)) // 接收到一组从机信息数据包
@@ -190,7 +190,7 @@ void Slave_Handshake(void)
     // // //                 else if (PackageState != Package_Empty) // 非空数据包,但不符合数据协议，数据包有误，代表有多个从机同时占用总线发报数据，需对副ID进行握手校验
     // // //                 {
     // // //                     // 通知该主ID下的从机进行副ID强制更新
-    // // //                     DataPackage_TX(M_HeadCMD, Public_Addr, M_CMD_MinorID_Refresh, i, Random_Generate(), Random_Generate(), Random_Generate());
+    // // //                     DataPackage_TX(M_HeadCMD, Public_Addr, M_CMD_MinorID_Refresh, i, get_random_number(), get_random_number(), get_random_number());
     // // //                     delay_5ms(); // 等待从机读取缓存
     // // //                     break;       // 继续下一轮的副ID握手
     // // //                 }
@@ -616,9 +616,9 @@ void Slave_DataInit(void)
     // // // // // // // TangramDevice.Device_sum = 10;
     // // // // // // // for (i = 0; i < TangramDevice.Device_sum; i++)
     // // // // // // // {
-    // // // // // // //     TangramDevice.SlaveData[i].ID = Random_Generate();
-    // // // // // // //     TangramDevice.SlaveData[i].Coord.X = Random_Generate() / 16;
-    // // // // // // //     TangramDevice.SlaveData[i].Coord.Y = Random_Generate() / 16;
+    // // // // // // //     TangramDevice.SlaveData[i].ID = get_random_number();
+    // // // // // // //     TangramDevice.SlaveData[i].Coord.X = get_random_number() / 16;
+    // // // // // // //     TangramDevice.SlaveData[i].Coord.Y = get_random_number() / 16;
     // // // // // // // }
 
     printf("\r\n\r\n\r\n\r\n\r\n\r\n");
@@ -702,9 +702,9 @@ void slave_data_debug(void) // 生成虚假模组数据
     // // // // // // // TangramDevice.Device_sum = 10;
     // // // // // // // for (i = 0; i < TangramDevice.Device_sum; i++)
     // // // // // // // {
-    // // // // // // //     TangramDevice.SlaveData[i].ID = Random_Generate();
-    // // // // // // //     TangramDevice.SlaveData[i].Coord.X = Random_Generate() / 16;
-    // // // // // // //     TangramDevice.SlaveData[i].Coord.Y = Random_Generate() / 16;
+    // // // // // // //     TangramDevice.SlaveData[i].ID = get_random_number();
+    // // // // // // //     TangramDevice.SlaveData[i].Coord.X = get_random_number() / 16;
+    // // // // // // //     TangramDevice.SlaveData[i].Coord.Y = get_random_number() / 16;
     // // // // // // // }
 
     printf("\r\n\r\n\r\n\r\n\r\n\r\n");

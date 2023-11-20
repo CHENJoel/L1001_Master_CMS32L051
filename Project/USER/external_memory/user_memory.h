@@ -26,7 +26,7 @@ Size: 0x40000 , 262144 byte , 2097152 bit , 0x200000 bit
 #define SPARE_SIZE   0x10000UL
 #define VERIFY_SIZE  0xFF
 
-#define EF_MEM_VERIFY "effect data 2023/10/31 5484696 "
+#define EF_MEM_VERIFY "effect data 2023/11/16 qwerdqwe "
 #define DEFAULE_PLAYLIST_NAME "default list"
 
 typedef struct
@@ -72,7 +72,7 @@ uint8_t verify_playlist_ranklist(void);
 
 /*************************************************************************/
 /*读出灯效*/
-void get_effect(Efdetail_TypeDef *p, uint8_t efnum);
+void get_effect_detail(Efdetail_TypeDef *p, uint8_t efnum);
 /*读出自定义灯效*/
 uint8_t get_original_effect(Efdetail_TypeDef *p, uint8_t efnum);
 /*读出播放详情*/
@@ -167,6 +167,11 @@ uint8_t add_clock_schedule(clock_detail_TypeDef *p, uint8_t num);
 uint8_t delete_schedule(uint8_t num);
 //----------------------------------------------------------------
 void init_default_global_setting(void); // 全局设置初始化成默认数据
+//
+void get_device_identify(device_indentify_TypeDef *p);  // 获取设备配对标识
+void save_device_identify(device_indentify_TypeDef *p); // 保存设备配对标识
+void clear_device_identify(void);                       // 清除设备配对标识
+//
 /*--------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 /*
 
@@ -364,11 +369,13 @@ typedef struct
  */
 typedef struct
 {
-    verify_Typedef verify;                 // 数据校验区
-    device_data_TypeDef slave;             // 设备信息
-    clock_list_TypeDef schedule;        // 定时任务
-    global_setting_TypeDef global_setting; // 全局设置
+        verify_Typedef verify;                     // 数据校验区
+        device_data_TypeDef slave;                 // 设备信息
+        clock_list_TypeDef schedule;               // 定时任务
+        global_setting_TypeDef global_setting;     // 全局设置
+        device_indentify_TypeDef device_indentify; // 设备配对标识（app）
 } sysdata_Typedef;
+
 typedef struct
 {
     volatile sysdata_Typedef data;

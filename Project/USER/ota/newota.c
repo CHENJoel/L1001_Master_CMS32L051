@@ -9,7 +9,7 @@
 .chen sandote@163.om
 .chen sandote@163.om
  * .chen sandote@163.om
- * @LastEditTime: 2023-10-30 14:15:00
+ * @LastEditTime: 2023-11-04 16:57:49
  * @FilePath: \L1001_Master_CMS32L051\Project\USER\ota\newota.c
  * @Description:
  *
@@ -58,7 +58,12 @@ uint32_t get_firmware_chechsum_norflash(void)
     }
     return checksum;
 }
-/*设置固件升级标志*/
+
+/* 
+ * @Description: 设置固件升级标志
+ * @param: 
+ * @return: 
+*/ 
 void set_firmware_update_flag(uint32_t checksum)
 {
     update_Typedef update;
@@ -67,7 +72,12 @@ void set_firmware_update_flag(uint32_t checksum)
     update.package_checksum = checksum;
     FlashROM_Insert(&update, &(OCFLASH->update.data), sizeof(update));
 }
-/*清除固件升级标志*/
+
+/* 
+ * @Description: 清除固件升级标志
+ * @param: 
+ * @return: 
+*/ 
 void clear_firmware_update_flag(void)
 {
     update_Typedef update;
@@ -75,7 +85,12 @@ void clear_firmware_update_flag(void)
     memset(&update, 0, sizeof(update));
     FlashROM_Insert(&update, &(OCFLASH->update.data), sizeof(update));
 }
-/*检查是否需要升级*/
+
+/* 
+ * @Description: 检查是否需要升级
+ * @param: 
+ * @return: 
+*/ 
 uint8_t check_firmware_update(void)
 {
     printlog("check_firmware_update\r");
@@ -96,5 +111,4 @@ uint8_t check_firmware_update(void)
         return 0;
     }
 }
-
 
