@@ -2,13 +2,18 @@
 #define _FLOW_H
 #include "Function_Init.H"
 
+#define Motion_Static_framepara 0        /*静态帧参数*/
+#define Motion_Breath_framepara 400      /*呼吸帧参数*/
+#define Motion_Stream_framepara 400    /*流动帧参数*/
+#define Motion_Reverberate_framepara 400 /*来回帧参数*/
+#define Motion_Hopscotch_framepara 100   /*跳动帧参数*/
+#define Motion_Lightning_framepara 300   /*闪电帧参数*/
+#define Motion_Ignite_framepara 250      /*点燃帧参数*/
+#define Motion_Random_framepara 255      /*随机帧参数*/
 
-/*
- * @Description: 计算灯效播放数据
- * @param:
- * @return:
-*/
-void effect_play_color_calu(void);
+
+void effect_flow(void); // 灯效流动
+void effect_play_color_calu(void);  // 计算灯效播放数据
 
 void Flow_Static_Init(void);
 void Flow_Breath_Init(void);

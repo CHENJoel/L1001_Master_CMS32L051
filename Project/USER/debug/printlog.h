@@ -3,9 +3,9 @@
 #define _PRINTLOG_H_
 #include "Function_Init.H"
 #include "comapp.h"
-
-#define printlog_enabled     // 使能打印log
-// #define virtual_device  // 虚拟灯板信息
+#include "L0_slave.h"
+// #define printlog_enabled     // 使能打印log
+#define virtual_device  // 虚拟灯板信息
 
 
 
@@ -105,4 +105,9 @@ void print_device_control(app_device_control_Typedef *x);
 
 void print_local_rtc_time(void); // 打印本地rtc时钟
 //
+
+void print_mini_device_data(mini_device_data_TypeDef *dev); // 打印设备迷你信息
+//
+void print_xPlay_color(L0_cmd_playCOLOR_Typedef *xPlay,uint8_t num);    // 打印颜色输出
+
 #endif

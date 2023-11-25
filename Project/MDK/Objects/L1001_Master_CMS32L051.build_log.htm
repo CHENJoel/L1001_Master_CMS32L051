@@ -22,32 +22,37 @@ Dialog DLL:      TARMCM1.DLL V1.14.3.0
  
 <h2>Project:</h2>
 D:\SynologyDrive\L1001\Software\L1001_Master\L1001_Master_CMS32L051\Project\MDK\A5441_Master_CMS32L051.uvprojx
-Project File Date:  10/31/2023
+Project File Date:  11/23/2023
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 7 (build 960)', folder: 'E:\APP\Keil_v5\ARM\ARMCC\Bin'
 Build target 'CMS32L051'
-compiling mic.c...
-..\USER\app\appfunction.h(95): warning:  #1295-D: Deprecated declaration mcu_update_current_play_ef_index - give arg types
+compiling flow.c...
+..\USER\app\appfunction.h(100): warning:  #1295-D: Deprecated declaration mcu_update_current_play_ef_index - give arg types
   void mcu_update_current_play_ef_index();                                        // 上传当前播放的灯效索引
-..\USER\mic\mic.c(85): warning:  #167-D: argument of type "uint16_t (*)[100]" is incompatible with parameter of type "uint16_t *"
-      mic.avg = get_average(&xadc.micbuf, (sizeof(xadc.micbuf) / sizeof(uint16_t)));
-..\USER\mic\mic.c(86): warning:  #167-D: argument of type "uint16_t (*)[100]" is incompatible with parameter of type "uint16_t *"
-      mic.sum = get_summation(&xadc.micbuf, (sizeof(xadc.micbuf) / sizeof(uint16_t)));
-..\USER\mic\mic.c(80): warning:  #177-D: variable "i"  was declared but never referenced
-      uint8_t i;
-..\USER\mic\mic.c(82): warning:  #177-D: variable "sound"  was declared but never referenced
-      uint32_t sound;    
-..\USER\mic\mic.c(274): warning:  #177-D: variable "i"  was declared but never referenced
-      uint8_t i;
-..\USER\mic\mic.c(275): warning:  #177-D: variable "level"  was declared but never referenced
-      uint16_t gra, level;
-..\USER\mic\mic.c: 7 warnings, 0 errors
+..\USER\flow\flow.c(98): warning:  #513-D: a value of type "color_group_TypeDef *" cannot be assigned to an entity of type "uint8_t *"
+      sur = &EF_Buffer.color_buffer;      // 源色表指针
+..\USER\flow\flow.c(125): warning:  #513-D: a value of type "color_group_TypeDef *" cannot be assigned to an entity of type "uint8_t *"
+      sur = &EF_Buffer.color_buffer;      // 源色表指针
+..\USER\flow\flow.c(150): warning:  #513-D: a value of type "color_group_TypeDef *" cannot be assigned to an entity of type "uint8_t *"
+      sur = &EF_Buffer.color_buffer;      // 源色表指针
+..\USER\flow\flow.c(162): warning:  #513-D: a value of type "color_group_TypeDef *" cannot be assigned to an entity of type "uint8_t *"
+          sur = &EF_Buffer.color_buffer;
+..\USER\flow\flow.c(189): warning:  #513-D: a value of type "color_group_TypeDef *" cannot be assigned to an entity of type "uint8_t *"
+      sur = &EF_Buffer.color_buffer;      // 源色表指针
+..\USER\flow\flow.c(213): warning:  #513-D: a value of type "color_group_TypeDef *" cannot be assigned to an entity of type "uint8_t *"
+      sur = &EF_Buffer.color_buffer;      // 源色表指针
+..\USER\flow\flow.c(237): warning:  #513-D: a value of type "color_group_TypeDef *" cannot be assigned to an entity of type "uint8_t *"
+      sur = &EF_Buffer.color_buffer;      // 源色表指针
+..\USER\flow\flow.c: 8 warnings, 0 errors
 linking...
-Program Size: Code=45768 RO-data=2076 RW-data=544 ZI-data=6568  
+Program Size: Code=35116 RO-data=2008 RW-data=548 ZI-data=6564  
 FromELF: creating hex file...
 After Build - User command #1: E:\APP\Keil_v5\\ARM\ARMCC\bin\fromelf.exe --bin --output=L1001_Master_CMS32L051.bin .\Objects\L1001_Master_CMS32L051.axf
-".\Objects\L1001_Master_CMS32L051.axf" - 0 Error(s), 7 Warning(s).
+After Build - User command #2: fromelf --L1001_Master_CMS32L051 -a -c --output=Objects\L1001_Master_CMS32L051.diis Objects\L1001_Master_CMS32L051.axf
+Fatal error: Q3900U: Unrecognized option '--L1001_Master_CMS32L051'.
+Finished: 0 information, 0 warning, 0 error and 1 fatal error messages.
+".\Objects\L1001_Master_CMS32L051.axf" - 0 Error(s), 8 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -74,10 +79,10 @@ Package Vendor: Cmsemicon
    * Component: ARM::CMSIS:CORE:5.4.0
 
    * Component: Cmsemicon::Device:Startup:1.0.0
-      Source file:   Device\Source\system_CMS32L051.c
       Include file:  Device\Source\userdefine.h
       Source file:   Device\Source\ARM\startup_CMS32L051.s
-Build Time Elapsed:  00:00:02
+      Source file:   Device\Source\system_CMS32L051.c
+Build Time Elapsed:  00:00:03
 </pre>
 </body>
 </html>

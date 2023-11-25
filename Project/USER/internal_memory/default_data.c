@@ -30,11 +30,11 @@ const df_data_TypeDef dfdata[built_in_ef_num] =
     {"Colorful",    (p_arry)df_Colorful,     DYNAMIC_TYPE,FLOW_RANDOM },/*23*/
     {"Kaleidoscope",(p_arry)df_Kaleidoscope, DYNAMIC_TYPE,FLOW_RANDOM },/*24*/
 
-    {"Rhythm",      (p_arry)df_Rhythm,       RHYTHM_TYPE,FLOW_RANDOM },/*25*/
+    {"Rhythm"   ,   (p_arry)df_Rhythm,       RHYTHM_TYPE,FLOW_RANDOM },/*25*/
     {"Meditation",  (p_arry)df_Meditation,   RHYTHM_TYPE,FLOW_BREATH },/*26*/
     {"GamingTime",  (p_arry)df_GamingTime,   RHYTHM_TYPE,FLOW_LIGHTN },/*27*/
     {"Disco",       (p_arry)df_Disco,        RHYTHM_TYPE,FLOW_REVERB },/*28*/
-    {"Dance Party",  (p_arry)df_DanceParty,  RHYTHM_TYPE,FLOW_RANDOM },/*29*/
+    {"Dance Party", (p_arry)df_DanceParty,   RHYTHM_TYPE,FLOW_RANDOM },/*29*/
 };
 // const uint8_t df_playlist[15] = {10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24};
 const uint8_t df_playlist[30] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29};

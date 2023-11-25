@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-12-31 11:54:33
- * @LastEditTime: 2023-11-03 14:46:14
+ * @LastEditTime: 2023-11-24 17:13:40
  * @LastEditors: DESKTOP-AKTRQKB\MY sandote@163.com
 .chen sandote@163.om
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
@@ -85,7 +85,7 @@ void Float_Calculation(unsigned char Data1, unsigned char Data2, unsigned char *
 void Color_Calculate(ColorTypeDef *light,unsigned char *Frame_addr,unsigned char *Frame_data);
 // // void Color_Calculate(unsigned char *ColorArray[][3],ColorTypeDef *light);
 // // // void FrameInsert_Calculate(unsigned char Data1, unsigned char Data2, unsigned char *ColorVal, unsigned char Beat,unsigned char BeatSum);
-void FrameInsert_Calculate(unsigned char Current_KF_data, unsigned char Next_KF_data, unsigned char *Target, unsigned char Insert_Num, unsigned char Insert_Sum);
+void FrameInsert_Calculate(unsigned char Current_KF_data, unsigned char Next_KF_data, unsigned char *Target, uint16_t Insert_Num, uint16_t Insert_Sum);
 // // // // void Color_RGBW_Flowing();
 void Color_Flowing(ColorTypeDef *light,unsigned char Speed);
 void Color_Skewing(ColorTypeDef *light,ColorTypeDef *lightBase,unsigned int Skewing);

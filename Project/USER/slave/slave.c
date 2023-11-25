@@ -395,16 +395,15 @@ void get_slave_place(void)
 void slave_online_data_init(void)
 {
 
-    // // #ifdef virtual_device
-    // //     generate_virtual_device(); // 生成虚拟灯板信息
-    // // #else
+    #ifdef virtual_device
+    generate_virtual_device(); // 生成虚拟灯板信息
+    #else
     turn_off_all_salve_light();
     poll_slave_id();           // 轮询ID信息
     get_slave_shape();         // 获取灯板形状
     generate_virtual_device(); // 生成虚拟灯板信息
-                               // #endif
-
     get_slave_place();
+    #endif  
     slave_light_in_turn();
     turn_off_all_salve_light();
     print_online_slave_data();
@@ -413,20 +412,6 @@ void slave_online_data_init(void)
 /*生成虚拟灯板信息*/
 void generate_virtual_device(void)
 {
-    // // uint8_t temp[32];
-    // // uint8_t i;
-    // // // // memset(&slave, 0, sizeof(slave));
-    // // // // slave.num=8;
-    // // for ( i = 0; i < 32; i++)
-    // // {
-    // //     temp[i] = (i + 1) * 10 + i + 1;
-    // //     // while (temp[i]==0||temp[i]==255)
-    // //     // {
-    // //     //     // temp[i] = get_random_number();
-    // //     //     temp[i] = (i+1)*10+i+1;
-    // //     //     // printlog("%d get_random_number %d\r",i,temp[i]);
-    // //     // }
-    // // }
     if (slave.num)  // 没有连接灯板的时候，就生成8组虚拟灯板信息
     {
         return;
@@ -434,54 +419,60 @@ void generate_virtual_device(void)
     printf("\r----------------------------------------------------------------\r");
     printf("generate_virtual_device \r");
     printf("\r----------------------------------------------------------------\r");
-    slave.num = 8;
-    slave.data[0].id = 0x11;
-    slave.data[0].shape = TRIANGLE_L;
+    slave.num = 9;
+    slave.data[0].id = 0x6C;
+    slave.data[0].shape = TRIANGLE_S;
     slave.data[0].angle = 0;
-    slave.data[0].cooed_x = 1;
-    slave.data[0].cooed_y = 1;
+    slave.data[0].cooed_x = 1000;
+    slave.data[0].cooed_y = 1000;
     /**************************/
-    slave.data[1].id = 0x22;
-    slave.data[1].shape = TRIANGLE_L;
+    slave.data[1].id = 0x10;
+    slave.data[1].shape = TRIANGLE_S;
     slave.data[1].angle = 0;
-    slave.data[1].cooed_x = 2;
-    slave.data[1].cooed_y = 2;
+    slave.data[1].cooed_x = 2000;
+    slave.data[1].cooed_y = 2000;
     /**************************/
-    slave.data[2].id = 0x33;
-    slave.data[2].shape = TRIANGLE_M;
+    slave.data[2].id = 0x5E;
+    slave.data[2].shape = TRIANGLE_S;
     slave.data[2].angle = 0;
-    slave.data[2].cooed_x = 3;
-    slave.data[2].cooed_y = 3;
+    slave.data[2].cooed_x = 3000;
+    slave.data[2].cooed_y = 3000;
     /**************************/
-    slave.data[3].id =0x44;
+    slave.data[3].id =0xCC;
     slave.data[3].shape = TRIANGLE_S;
     slave.data[3].angle = 0;
-    slave.data[3].cooed_x = 4;
-    slave.data[3].cooed_y = 4;
+    slave.data[3].cooed_x = 4000;
+    slave.data[3].cooed_y = 4000;
     /**************************/
-    slave.data[4].id = 0x55;
-    slave.data[4].shape = SQUARE;
+    slave.data[4].id = 0xEE;
+    slave.data[4].shape = TRIANGLE_M;
     slave.data[4].angle = 0;
-    slave.data[4].cooed_x = 5;
-    slave.data[4].cooed_y = 5;
+    slave.data[4].cooed_x = 5000;
+    slave.data[4].cooed_y = 5000;
     /**************************/
-    slave.data[5].id = 0x66;
-    slave.data[5].shape = TRIANGLE_S;
+    slave.data[5].id = 0x44;
+    slave.data[5].shape = TRIANGLE_L;
     slave.data[5].angle = 0;
-    slave.data[5].cooed_x = 6;
-    slave.data[5].cooed_y = 6;
+    slave.data[5].cooed_x = 6000;
+    slave.data[5].cooed_y = 6000;
     /**************************/
-    slave.data[6].id =0x77;
-    slave.data[6].shape = TRIANGLE_S;
+    slave.data[6].id =0x8C;
+    slave.data[6].shape = TRIANGLE_L;
     slave.data[6].angle = 0;
-    slave.data[6].cooed_x = 7;
-    slave.data[6].cooed_y = 7;
+    slave.data[6].cooed_x = 7000;
+    slave.data[6].cooed_y = 7000;
     /**************************/
-    slave.data[7].id =0x88;
+    slave.data[7].id =0xFC;
     slave.data[7].shape = TRIANGLE_S;
     slave.data[7].angle = 0;
-    slave.data[7].cooed_x = 8;
-    slave.data[7].cooed_y = 8;
+    slave.data[7].cooed_x = 8000;
+    slave.data[7].cooed_y = 8000;
+    /**************************/
+    slave.data[8].id =0x70;
+    slave.data[8].shape = SQUARE;
+    slave.data[8].angle = 0;
+    slave.data[8].cooed_x = 9000;
+    slave.data[8].cooed_y = 9000;
     /**************************/
 }
 
@@ -548,41 +539,51 @@ void slave_light_in_turn(void)
         delayMS(100);
         }
     }
-    /**********************************************************************************************/
-    // // // uint8_t i, j;
-    // // // uint16_t size;
-    // // // uint8_t buffer[DMA_BUFFER_SIZE];
-    // // // if (slave.num) // 有设备在线的时候才发送数据
-    // // // {
-    // // //     ((playpack_Typedef *)(&buffer))->head.type = PLAY_DATA;
-    // // //     ((playpack_Typedef *)(&buffer))->head.num = slave.num;
-    // // //     size = sizeof(packhead_Typedef) + slave.num * sizeof(playdata_Typedef);
-    // // //     for (i = 0; i < slave.num + 1; i++)
-    // // //     {
-    // // //         for (j = 0; j < slave.num; j++)
-    // // //         {
-    // // //             ((playpack_Typedef *)(&buffer))->play[j].addr = slave.data[j].id;
-    // // //             ((playpack_Typedef *)(&buffer))->play[j].bri = 255;
-    // // //             if (j == i)
-    // // //             {
-    // // //                 ((playpack_Typedef *)(&buffer))->play[j].R = 0;
-    // // //                 ((playpack_Typedef *)(&buffer))->play[j].G = 255;
-    // // //                 ((playpack_Typedef *)(&buffer))->play[j].B = 0;
-    // // //                 ((playpack_Typedef *)(&buffer))->play[j].W = 0;
-    // // //             }
-    // // //             else
-    // // //             {
-    // // //                 ((playpack_Typedef *)(&buffer))->play[j].R = 0;
-    // // //                 ((playpack_Typedef *)(&buffer))->play[j].G = 0;
-    // // //                 ((playpack_Typedef *)(&buffer))->play[j].B = 0;
-    // // //                 ((playpack_Typedef *)(&buffer))->play[j].W = 0;
-    // // //             }
-    // // //         }
-    // // //         transmit_protocol_frame(&buffer, size, &parse.tx_framebuf); // 通过不定长协议发送
-    // // //         // delay_500ms();
-    // // //         delayMS(50);
-    // // //     }
-    // // // }
+}
+
+/* 
+ * @Description: 根据方向点亮灯板
+ * @param: 
+ * @return: 
+*/ 
+void light_in_direction(Direction_Enum dir)
+{
+    uint8_t i, j;
+    L0_cmd_playCOLOR_Typedef xPlay;
+    if (slave.num) // 有设备在线的时候才发送数据
+    {
+        figure_slave_run_number_in_direction(dir);
+        xPlay.head.dev_adr = ADDR_PUBLIC;      // 设备地址
+        xPlay.head.cmd = CMD_SLAVE_PLAY_COLOR; // 播放灯光 “COLOR”格式
+        xPlay.head.type = MES_ASK;             // 发出请求
+        xPlay.playnum = slave.num;
+        for (i = 0; i <= EF_Work.Module_WorkNum + 1; i++)
+        {
+            for (j = 0; j < slave.num; j++)
+            {
+                xPlay.dev[j].cid = slave.data[j].id;
+                xPlay.dev[j].type = RGB_COLOR;
+
+                if (slave.data[j].runnum == i)
+                {
+                    xPlay.dev[j].br = 100;
+                    xPlay.dev[j].R = 0;
+                    xPlay.dev[j].G = 255;
+                    xPlay.dev[j].B = 0;
+                }
+                else
+                {
+                    xPlay.dev[j].br = 10;
+                    xPlay.dev[j].R = 255;
+                    xPlay.dev[j].G = 0;
+                    xPlay.dev[j].B = 0;
+                }
+            }
+            // // // print_xPlay_color(&xPlay, slave.num);
+            transmit_protocol_frame((uint8_t *)&xPlay, &((L0_cmd_playCOLOR_Typedef *)0)->dev[slave.num], &parse.tx_framebuf); // 通过不定长协议发送
+            delayMS(100);
+        }
+    }
 }
 
 /*

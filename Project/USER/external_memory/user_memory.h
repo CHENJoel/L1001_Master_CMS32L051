@@ -26,7 +26,7 @@ Size: 0x40000 , 262144 byte , 2097152 bit , 0x200000 bit
 #define SPARE_SIZE   0x10000UL
 #define VERIFY_SIZE  0xFF
 
-#define EF_MEM_VERIFY "effect data 2023/11/16 qwerdqwe "
+#define EF_MEM_VERIFY "effect data 2023/11/22 49964 "
 #define DEFAULE_PLAYLIST_NAME "default list"
 
 typedef struct

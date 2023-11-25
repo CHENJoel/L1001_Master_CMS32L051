@@ -20,7 +20,7 @@ void mcu_update_efdetail(uint8_t efnum)
     get_effect_detail(&comef.Efdata, efnum);
     comef.checksum = (uint8_t)checksum_calculate((uint8_t *)&comef, sizeof(comef) - 1);
     mcu_dp_raw_update(DPID_EFFECT_DETIAL, &comef, sizeof(comef));
-    print_effect_detial(&comef.Efdata, efnum);
+    print_effect_detial(&comef.Efdata, comef.idex);
 }
 
 /* 
@@ -183,7 +183,12 @@ void mcu_update_current_playdetail(void)
     // print_playdetial(&com.pldata, com.idex);
 }
 
-/*mcu上报播放状态*/
+
+/* 
+ * @Description: mcu上报播放状态
+ * @param: 
+ * @return: 
+*/ 
 void mcu_update_playstatus(void)
 {
     com_play_control_TypeDef com;
@@ -205,7 +210,63 @@ void mcu_update_playstatus(void)
     com.checksum = (uint8_t)checksum_calculate((uint8_t *)&com, (uint16_t)sizeof(com) - 1);
     mcu_dp_raw_update(DPID_PLAY_CONTROL, &com, sizeof(com));
 }
-/*mcu上报设备信息*/
+/*-------------------------------------------------------------*/
+
+/* 
+ * @Description: 设备形状信息按照app格式进行转换
+ * @param: 
+ * @return: 
+*/ 
+app_shape_enum convert_device_shape_data(device_shape_enum shape)
+{
+    switch (shape)
+    {
+    case TRIANGLE_L:
+        return APP_BTRIANGLE;
+    case TRIANGLE_M:
+        return APP_MTRIANGLE;
+    case TRIANGLE_S:
+        return APP_STRIANGLE;
+    case SQUARE:
+        return APP_SQUARE;
+    default:
+        return 0;
+    }
+}
+
+/*
+ * @Description: 下载设备信息
+ * @param:
+ * @param:
+ * @return:
+ */
+void mcu_download_device_detail(uint8_t *sur, uint16_t length)
+{
+    uint8_t i, j;
+    com_device_detail_TypeDef com;
+    device_detail_TypeDef device;
+    printlog("<mcu_download_device_detail>\r");
+    j = length / sizeof(com_device_detail_TypeDef); // 算出设备数量
+    for (i = 0; i < j; i++)
+    {
+        memset(&device, 0, sizeof(device));
+        memcpy(&com, sur + (sizeof(com) * i), sizeof(com));
+        device.id = com.id;
+        device.angle = com.angle;   
+        device.cooed_x = com.cooed_x;
+        device.cooed_y = com.cooed_y;
+        refresh_slave_data(&device);
+    }
+    save_all_slave_data(&slave);
+    print_slave_data();
+    // // // // enter_playing_effect_mode();    // 进入正常播放灯效模式
+}
+
+/* 
+ * @Description:  上报设备信息
+ * @param: 
+ * @return: 
+*/ 
 void mcu_update_device_detail(void)
 {
     uint8_t i, j;
@@ -215,7 +276,7 @@ void mcu_update_device_detail(void)
     for (i = 0; i < slave.num; i++)
     {
         com.data[i].id = slave.data[i].id;
-        com.data[i].shape = slave.data[i].shape;
+        com.data[i].shape = convert_device_shape_data(slave.data[i].shape);
         com.data[i].angle = slave.data[i].angle;
         com.data[i].cooed_x = slave.data[i].cooed_x;
         com.data[i].cooed_y = slave.data[i].cooed_y;
@@ -225,7 +286,7 @@ void mcu_update_device_detail(void)
     mcu_dp_raw_update(DPID_DEVICE_DETAIL, &com, (slave.num * sizeof(com_device_detail_TypeDef))); // RAW型数据上报;
 }
 
-
+/*-------------------------------------------------------------*/
 
 /******************************************************************************************************************************************************/
 /*
@@ -564,28 +625,7 @@ void mcu_update_current_play_ef_index(void)
 /*--------------------------------------------------------------------------------------------------------------------------
 */
 
-/*针对DPID_DEVICE_DETAIL的处理函数*/
-void mcu_download_device_detail(uint8_t *sur, uint16_t length)
-{
-    uint8_t i, j;
-    com_device_detail_TypeDef com;
-    device_detail_TypeDef device;
-    printlog("<mcu_download_device_detail>\r");
-    j = length / sizeof(com_device_detail_TypeDef); // 算出设备数量
-    for (i = 0; i < j; i++)
-    {
-        memset(&device, 0, sizeof(device));
-        memcpy(&com, sur + (sizeof(com) * i), sizeof(com));
-        device.id = com.id;
-        device.angle = com.angle;
-        device.cooed_x = com.cooed_x;
-        device.cooed_y = com.cooed_y;
-        refresh_slave_data(&device);
-    }
-    save_all_slave_data(&slave);
-    print_slave_data();
-    enter_playing_effect_mode();    // 进入正常播放灯效模式
-}
+
 /*针对DPID_DEVICE_CONTROL的处理函数*/
 uint8_t mcu_download_device_control(uint8_t *sur, uint16_t length)
 {
@@ -1038,4 +1078,36 @@ void mcu_download_reserved3(uint8_t *sur, uint16_t length)
     printlog("mcu_download_device_indentify:%d\r",length);
     mcu_download_device_indentify(sur, length);
 }
+/*-------------------------------------------------------------------------*/
+
+/*
+ * @Description: 上报当前播放的灯效信息
+ * @param:
+ * @return:
+ */
+void mcu_update_current_play_efdetail(void)
+{
+    com_effect_detial_TypeDef comef;
+    /*
+        comef.idex = efnum;
+        get_effect_detail(&comef.Efdata, efnum);
+        */
+    printlog("mcu_update_current_play_efdetail\r");
+    comef.idex = play.detail.efindex;
+    memcpy(&comef.Efdata, &play.efdetail, sizeof(comef.Efdata));
+    comef.checksum = (uint8_t)checksum_calculate((uint8_t *)&comef, sizeof(comef) - 1);
+    mcu_dp_raw_update(DPID_RESERVED4, &comef, sizeof(comef));
+    print_effect_detial(&comef.Efdata, comef.idex);
+}
+
+/* 
+ * @Description: 上传dp信息（保留4）
+ * @param: 
+ * @return: 
+*/ 
+void mcu_update_reserved4(void) 
+{
+    mcu_update_current_play_efdetail();
+}
+
 /*-------------------------------------------------------------------------*/

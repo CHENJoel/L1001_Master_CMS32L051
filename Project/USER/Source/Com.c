@@ -6,7 +6,7 @@
 .chen sandote@163.om
 .chen sandote@163.om
 .chen sandote@163.om
- * @LastEditTime: 2023-10-16 10:52:42
+ * @LastEditTime: 2023-11-25 13:28:01
  * @FilePath: \L1001_Master_CMS32L051\Project\USER\Source\Com.c
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -733,30 +733,30 @@ uint8_t CRC_Calculate(uint8_t *sur, uint8_t len) // 返回CRC校验
 /**************************************************************************************************/
 void Upload_LightMessage(void)  // 上传灯组信息
 {
-    uint8_t protocol_buffer[69];
-    uint8_t *p_buffer;
-    uint8_t protocol_length;
-    uint8_t i;
-    protocol_length = 4 + TangramDevice.Device_sum * 4;
-    p_buffer = protocol_buffer;
-    *p_buffer = APP_PROTOCOL_HEADER;        // 帧头
-    *++p_buffer = protocol_length;          // 数据长度
-    *++p_buffer = REPORT_LIGHT_MESSAGE;     // 指令类型
-    *++p_buffer = TangramDevice.Device_sum; // 灯组设备数量
+    // uint8_t protocol_buffer[69];
+    // uint8_t *p_buffer;
+    // uint8_t protocol_length;
+    // uint8_t i;
+    // protocol_length = 4 + TangramDevice.Device_sum * 4;
+    // p_buffer = protocol_buffer;
+    // *p_buffer = APP_PROTOCOL_HEADER;        // 帧头
+    // *++p_buffer = protocol_length;          // 数据长度
+    // *++p_buffer = REPORT_LIGHT_MESSAGE;     // 指令类型
+    // *++p_buffer = TangramDevice.Device_sum; // 灯组设备数量
 
-    if (TangramDevice.Device_sum)
-    {
-        for (i = 0; i < TangramDevice.Device_sum; i++)
-        {
-            *++p_buffer = TangramDevice.SlaveData[i].ID;         // 灯组设备ID
-            *++p_buffer = TangramDevice.SlaveData[i].DeviceType; // 灯组设备类型
-            *++p_buffer = TangramDevice.SlaveData[i].Coord.X;    // X坐标
-            *++p_buffer = TangramDevice.SlaveData[i].Coord.Y;    // Y坐标
-        }
-    }
-    *++p_buffer = CRC_Calculate(protocol_buffer, protocol_length);               // 校验和
-    mcu_dp_raw_update(DPID_USER_PROTOCOL, protocol_buffer, protocol_length + 1); // RAW型数据上报;
-    Uart0_Send_String(protocol_buffer, protocol_length + 1);
+    // if (TangramDevice.Device_sum)
+    // {
+    //     for (i = 0; i < TangramDevice.Device_sum; i++)
+    //     {
+    //         *++p_buffer = TangramDevice.SlaveData[i].ID;         // 灯组设备ID
+    //         *++p_buffer = TangramDevice.SlaveData[i].DeviceType; // 灯组设备类型
+    //         *++p_buffer = TangramDevice.SlaveData[i].Coord.X;    // X坐标
+    //         *++p_buffer = TangramDevice.SlaveData[i].Coord.Y;    // Y坐标
+    //     }
+    // }
+    // *++p_buffer = CRC_Calculate(protocol_buffer, protocol_length);               // 校验和
+    // mcu_dp_raw_update(DPID_USER_PROTOCOL, protocol_buffer, protocol_length + 1); // RAW型数据上报;
+    // Uart0_Send_String(protocol_buffer, protocol_length + 1);
 }
 
 void Download_LightCoord(uint8_t *sur, uint16_t len) // 下载灯组坐标信息
@@ -1143,57 +1143,57 @@ void Protocol_RGBW_Output(uint8_t *sur, uint16_t len) // 解析出灯组输出颜色
 
 void RAW_processing(uint8_t *sur, uint16_t len) // 透传上报
 {
-    uint8_t crc;
-    // LED2_REV();
-    // Uart0_Send_String(sur, len);
-    crc = CRC_Calculate(sur, len - 1);
-    if (crc == *(sur + len - 1) && *sur == APP_PROTOCOL_HEADER) // 校验
-    {
-        // LED2_REV();
-        switch (*(sur + 2))
-        {
-        case CHECK_LIGHT_MESSAGE:
-            Upload_LightMessage(); // 查询灯组信息
-            break;
-        case SET_LIGHT_COORDINATE:
-            Download_LightCoord(sur, len); // 下载灯组坐标信息
-            printf("Download_LightCoord\r");
-            break;
-        case CHECK_EFFECT_MESSAGE:
-            Upload_EffectMessage(*(sur + 3)); // 上传灯效信息
-        case SET_EFFECT_MESSAGE:
-            Download_EffectMessage(sur, len); // 下载灯效信息
-            printf("Download_EffectMessage\r");
-        case SET_LIGHT_RIGHT_OWNER:           // 设置控灯权限拥有者
-            if (*(sur + 3) < 2)
-            {
-                Light_Owner = *(sur + 3);
-                Upload_StateMessage(REPORT_LIGHT_RIGHT_OWNER, Light_Owner);
-            }
-            break;
-        case SET_LIGHT_OUTPUT:
-            Protocol_RGBW_Output(sur + 3, len - 3);
-            break;
-        case CHECK_PLAYLIST:
-            Upload_PlayList(*(sur + 3));
-            break;
-        case SET_PLAYLIST:
-            Download_PlayList(sur, len);
-            break;
-        case CHECK_SCHEDULE:
-            Upload_Schedule(*(sur + 3));
-            break;
-        case SET_SCHEDULE:
-            Download_Schedule(sur, len);
-            break;
-        case CHECK_PLAYSTATE:
-            Upload_PlayingState();
-            break;
-        case SET_PLAYSTATE:
-            Download_PlayingState(sur, len);
-            break;
-        default:
-            break;
-        }
-    }
+    // uint8_t crc;
+    // // LED2_REV();
+    // // Uart0_Send_String(sur, len);
+    // crc = CRC_Calculate(sur, len - 1);
+    // if (crc == *(sur + len - 1) && *sur == APP_PROTOCOL_HEADER) // 校验
+    // {
+    //     // LED2_REV();
+    //     switch (*(sur + 2))
+    //     {
+    //     case CHECK_LIGHT_MESSAGE:
+    //         Upload_LightMessage(); // 查询灯组信息
+    //         break;
+    //     case SET_LIGHT_COORDINATE:
+    //         Download_LightCoord(sur, len); // 下载灯组坐标信息
+    //         printf("Download_LightCoord\r");
+    //         break;
+    //     case CHECK_EFFECT_MESSAGE:
+    //         Upload_EffectMessage(*(sur + 3)); // 上传灯效信息
+    //     case SET_EFFECT_MESSAGE:
+    //         Download_EffectMessage(sur, len); // 下载灯效信息
+    //         printf("Download_EffectMessage\r");
+    //     case SET_LIGHT_RIGHT_OWNER:           // 设置控灯权限拥有者
+    //         if (*(sur + 3) < 2)
+    //         {
+    //             Light_Owner = *(sur + 3);
+    //             Upload_StateMessage(REPORT_LIGHT_RIGHT_OWNER, Light_Owner);
+    //         }
+    //         break;
+    //     case SET_LIGHT_OUTPUT:
+    //         Protocol_RGBW_Output(sur + 3, len - 3);
+    //         break;
+    //     case CHECK_PLAYLIST:
+    //         Upload_PlayList(*(sur + 3));
+    //         break;
+    //     case SET_PLAYLIST:
+    //         Download_PlayList(sur, len);
+    //         break;
+    //     case CHECK_SCHEDULE:
+    //         Upload_Schedule(*(sur + 3));
+    //         break;
+    //     case SET_SCHEDULE:
+    //         Download_Schedule(sur, len);
+    //         break;
+    //     case CHECK_PLAYSTATE:
+    //         Upload_PlayingState();
+    //         break;
+    //     case SET_PLAYSTATE:
+    //         Download_PlayingState(sur, len);
+    //         break;
+    //     default:
+    //         break;
+    //     }
+    // }
 }

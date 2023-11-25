@@ -312,339 +312,339 @@ void Motion_Random_Init(void)
 
 void Effect_Init(void)
 {
-    uint16_t i, j, k;
-    uint8_t *sur;
-    uint8_t *tar;
-    uint8_t temp1, temp2, temp3, temp4;
-    uint8_t X_max, X_min, Y_max, Y_min, X_center, Y_center;
-    uint8_t X_num, Y_num;
-    printf("\r\n");
-    Fetch_EF_DATA(); // 提取当前灯效的相关数据
-    Frame_Reset();
-    // for (i = 0; i < 30; i++)    // 提取默认配置信息
-    // {
-    // EF_Work.EF_ID = i = 11;
-    i = EF_Work.EF_ID;
-    printf("EF:%2d\r", EF_Work.EF_ID);
+    // // // uint16_t i, j, k;
+    // // // uint8_t *sur;
+    // // // uint8_t *tar;
+    // // // uint8_t temp1, temp2, temp3, temp4;
+    // // // uint8_t X_max, X_min, Y_max, Y_min, X_center, Y_center;
+    // // // uint8_t X_num, Y_num;
+    // // // printf("\r\n");
+    // // // Fetch_EF_DATA(); // 提取当前灯效的相关数据
+    // // // Frame_Reset();
+    // // // // for (i = 0; i < 30; i++)    // 提取默认配置信息
+    // // // // {
+    // // // // EF_Work.EF_ID = i = 11;
+    // // // i = EF_Work.EF_ID;
+    // // // printf("EF:%2d\r", EF_Work.EF_ID);
 
-    // EF_Buffer
-    // EF_Buffer.para_data
+    // // // // EF_Buffer
+    // // // // EF_Buffer.para_data
 
-    // // // EF_WorkData.color_array = EF_DefaultData[i].color_array;    // 源色表指针 替换成 &EF_Buffer.color_buffer
-    // // // EF_WorkData.color_sum = EF_DefaultData[i].color_sum;    // 色表颜色数量 替换成 EF_Buffer.para_data.color_sum
-    // // // EF_WorkData.Speed = EF_DefaultData[i].Speed;
-    // // // EF_Work.FrameInfro.Speed = EF_WorkData.Speed;   // 速度 EF_Work.FrameInfro.Speed=EF_Buffer.para_data.speed
+    // // // // // // EF_WorkData.color_array = EF_DefaultData[i].color_array;    // 源色表指针 替换成 &EF_Buffer.color_buffer
+    // // // // // // EF_WorkData.color_sum = EF_DefaultData[i].color_sum;    // 色表颜色数量 替换成 EF_Buffer.para_data.color_sum
+    // // // // // // EF_WorkData.Speed = EF_DefaultData[i].Speed;
+    // // // // // // EF_Work.FrameInfro.Speed = EF_WorkData.Speed;   // 速度 EF_Work.FrameInfro.Speed=EF_Buffer.para_data.speed
 
-    EF_Work.FrameInfro.Speed = EF_Buffer.para_data.speed; /*保留 EF_Work.FrameInfro.Speed */
+    // // // EF_Work.FrameInfro.Speed = EF_Buffer.para_data.speed; /*保留 EF_Work.FrameInfro.Speed */
 
-    // // // // EF_WorkData.motion_flag = EF_DefaultData[i].motion_flag;    //动效编号  EF_WorkData.motion_flag=EF_Buffer.para_data.motion；
-    // // // // EF_Work.MotionType = EF_WorkData.motion_flag; // 灯效类型
+    // // // // // // // EF_WorkData.motion_flag = EF_DefaultData[i].motion_flag;    //动效编号  EF_WorkData.motion_flag=EF_Buffer.para_data.motion；
+    // // // // // // // EF_Work.MotionType = EF_WorkData.motion_flag; // 灯效类型
 
-    // // // EF_WorkData.Mode = EF_DefaultData[i].Mode;
-    // // // EF_Work.FrameInfro.Mode = EF_WorkData.Mode; // 普通/律动    EF_Work.FrameInfro.Mode 替换成 EF_Buffer.para_data.Mode
+    // // // // // // EF_WorkData.Mode = EF_DefaultData[i].Mode;
+    // // // // // // EF_Work.FrameInfro.Mode = EF_WorkData.Mode; // 普通/律动    EF_Work.FrameInfro.Mode 替换成 EF_Buffer.para_data.Mode
 
-    ////    EF_WorkData.addr_table = EF_DefaultData[i].addr_table;
+    // // // ////    EF_WorkData.addr_table = EF_DefaultData[i].addr_table;
 
-    // // // // EF_Work.MoveType = EF_WorkData.move_flag;     // 运动方向   替换成 EF_Buffer.para_data.move
+    // // // // // // // EF_Work.MoveType = EF_WorkData.move_flag;     // 运动方向   替换成 EF_Buffer.para_data.move
 
-    EF_Work.FrameInfro.image_adr = (uint8_t *)&EF_Work.Color_buffer; // 色表缓存区
+    // // // EF_Work.FrameInfro.image_adr = (uint8_t *)&EF_Work.Color_buffer; // 色表缓存区
 
-    /* test */
+    // // // /* test */
 
-    X_max = 0;
-    X_min = 255;
-    Y_max = 0;
-    Y_min = 255;
+    // // // X_max = 0;
+    // // // X_min = 255;
+    // // // Y_max = 0;
+    // // // Y_min = 255;
 
-    temp1 = temp2 = 0xFF;
-    X_num = Y_num = 0;
-    for (i = 0; i < TangramDevice.Device_sum; i++)
-    {
-        // // // printf("temp1:%d [%d]:%d\r",temp1,i,TangramDevice.SlaveData[i].Coord.X);
-        if (temp1 != TangramDevice.SlaveData[i].Coord.X)
-        {
-            X_num++; // 累计X坐标上的设备数量
-        }
-        if (temp2 != TangramDevice.SlaveData[i].Coord.Y)
-        {
-            Y_num++; // 累计Y坐标上的设备数量
-        }
-        if (TangramDevice.SlaveData[i].Coord.X > X_max)
-        {
-            X_max = TangramDevice.SlaveData[i].Coord.X; // 求最大X坐标
-        }
-        if (TangramDevice.SlaveData[i].Coord.Y > Y_max)
-        {
-            Y_max = TangramDevice.SlaveData[i].Coord.Y; // 求最大Y坐标
-        }
-        if (TangramDevice.SlaveData[i].Coord.X < X_min)
-        {
-            X_min = TangramDevice.SlaveData[i].Coord.X; // 求最小X坐标
-        }
-        if (TangramDevice.SlaveData[i].Coord.Y < Y_min)
-        {
-            Y_min = TangramDevice.SlaveData[i].Coord.Y; // 求最小Y坐标
-        }
-        temp1 = TangramDevice.SlaveData[i].Coord.X;
-        temp2 = TangramDevice.SlaveData[i].Coord.Y;
-    }
-    // // // printf("X:%d Y:%d\r",X_num,Y_num);
-    if (EF_Buffer.para_data.move == MOVE_UP || EF_Buffer.para_data.move == MOVE_DOWN)
-    {
-        EF_Work.Module_WorkNum = Y_num;
-        temp1 = 0;
-        temp2 = 0;
-        for (j = 0; j < 16; j++)
-        {
-            for (i = 0; i < TangramDevice.Device_sum; i++)
-            {
-                if (TangramDevice.SlaveData[i].Coord.Y == j)
-                {
-                    temp2 = 1; // 当前坐标有设备
-                    if (EF_Buffer.para_data.move == MOVE_UP)
-                    {
-                        TangramDevice.SlaveData[i].Runingnum = temp1; // 正序
-                    }
-                    else
-                    {
-                        TangramDevice.SlaveData[i].Runingnum = Y_num - temp1 - 1; // 倒序;
-                    }
-                }
-            }
-            if (temp2)
-            {
-                temp1++;
-                temp2 = 0;
-            }
-        }
-    }
-    else if (EF_Buffer.para_data.move == MOVE_LEFT || EF_Buffer.para_data.move == MOVE_RIGHT)
-    {
-        EF_Work.Module_WorkNum = X_num;
-        temp1 = 0;
-        temp2 = 0;
-        for (j = 0; j < 16; j++)
-        {
-            for (i = 0; i < TangramDevice.Device_sum; i++)
-            {
-                if (TangramDevice.SlaveData[i].Coord.X == j)
-                {
-                    temp2 = 1; // 当前坐标有设备
-                    if (EF_Buffer.para_data.move == MOVE_LEFT)
-                    {
-                        TangramDevice.SlaveData[i].Runingnum = temp1; // 正序
-                    }
-                    else
-                    {
-                        TangramDevice.SlaveData[i].Runingnum = X_num - temp1 - 1; // 倒序;
-                    }
-                }
-            }
-            if (temp2)
-            {
-                temp1++;
-                temp2 = 0;
-            }
-        }
-    }
-    else if (EF_Buffer.para_data.move == MOVE_SEPARATE || EF_Buffer.para_data.move == MOVE_CONVERGE)
-    {
+    // // // temp1 = temp2 = 0xFF;
+    // // // X_num = Y_num = 0;
+    // // // for (i = 0; i < TangramDevice.Device_sum; i++)
+    // // // {
+    // // //     // // // printf("temp1:%d [%d]:%d\r",temp1,i,TangramDevice.SlaveData[i].Coord.X);
+    // // //     if (temp1 != TangramDevice.SlaveData[i].Coord.X)
+    // // //     {
+    // // //         X_num++; // 累计X坐标上的设备数量
+    // // //     }
+    // // //     if (temp2 != TangramDevice.SlaveData[i].Coord.Y)
+    // // //     {
+    // // //         Y_num++; // 累计Y坐标上的设备数量
+    // // //     }
+    // // //     if (TangramDevice.SlaveData[i].Coord.X > X_max)
+    // // //     {
+    // // //         X_max = TangramDevice.SlaveData[i].Coord.X; // 求最大X坐标
+    // // //     }
+    // // //     if (TangramDevice.SlaveData[i].Coord.Y > Y_max)
+    // // //     {
+    // // //         Y_max = TangramDevice.SlaveData[i].Coord.Y; // 求最大Y坐标
+    // // //     }
+    // // //     if (TangramDevice.SlaveData[i].Coord.X < X_min)
+    // // //     {
+    // // //         X_min = TangramDevice.SlaveData[i].Coord.X; // 求最小X坐标
+    // // //     }
+    // // //     if (TangramDevice.SlaveData[i].Coord.Y < Y_min)
+    // // //     {
+    // // //         Y_min = TangramDevice.SlaveData[i].Coord.Y; // 求最小Y坐标
+    // // //     }
+    // // //     temp1 = TangramDevice.SlaveData[i].Coord.X;
+    // // //     temp2 = TangramDevice.SlaveData[i].Coord.Y;
+    // // // }
+    // // // // // // printf("X:%d Y:%d\r",X_num,Y_num);
+    // // // if (EF_Buffer.para_data.move == MOVE_UP || EF_Buffer.para_data.move == MOVE_DOWN)
+    // // // {
+    // // //     EF_Work.Module_WorkNum = Y_num;
+    // // //     temp1 = 0;
+    // // //     temp2 = 0;
+    // // //     for (j = 0; j < 16; j++)
+    // // //     {
+    // // //         for (i = 0; i < TangramDevice.Device_sum; i++)
+    // // //         {
+    // // //             if (TangramDevice.SlaveData[i].Coord.Y == j)
+    // // //             {
+    // // //                 temp2 = 1; // 当前坐标有设备
+    // // //                 if (EF_Buffer.para_data.move == MOVE_UP)
+    // // //                 {
+    // // //                     TangramDevice.SlaveData[i].Runingnum = temp1; // 正序
+    // // //                 }
+    // // //                 else
+    // // //                 {
+    // // //                     TangramDevice.SlaveData[i].Runingnum = Y_num - temp1 - 1; // 倒序;
+    // // //                 }
+    // // //             }
+    // // //         }
+    // // //         if (temp2)
+    // // //         {
+    // // //             temp1++;
+    // // //             temp2 = 0;
+    // // //         }
+    // // //     }
+    // // // }
+    // // // else if (EF_Buffer.para_data.move == MOVE_LEFT || EF_Buffer.para_data.move == MOVE_RIGHT)
+    // // // {
+    // // //     EF_Work.Module_WorkNum = X_num;
+    // // //     temp1 = 0;
+    // // //     temp2 = 0;
+    // // //     for (j = 0; j < 16; j++)
+    // // //     {
+    // // //         for (i = 0; i < TangramDevice.Device_sum; i++)
+    // // //         {
+    // // //             if (TangramDevice.SlaveData[i].Coord.X == j)
+    // // //             {
+    // // //                 temp2 = 1; // 当前坐标有设备
+    // // //                 if (EF_Buffer.para_data.move == MOVE_LEFT)
+    // // //                 {
+    // // //                     TangramDevice.SlaveData[i].Runingnum = temp1; // 正序
+    // // //                 }
+    // // //                 else
+    // // //                 {
+    // // //                     TangramDevice.SlaveData[i].Runingnum = X_num - temp1 - 1; // 倒序;
+    // // //                 }
+    // // //             }
+    // // //         }
+    // // //         if (temp2)
+    // // //         {
+    // // //             temp1++;
+    // // //             temp2 = 0;
+    // // //         }
+    // // //     }
+    // // // }
+    // // // else if (EF_Buffer.para_data.move == MOVE_SEPARATE || EF_Buffer.para_data.move == MOVE_CONVERGE)
+    // // // {
 
-        X_center = (X_max + X_min) / 2;
-        Y_center = (Y_max + Y_min) / 2;
-        temp4 = 0;
-        for (j = 0; j < 16; j++)
-        {
-            temp3 = 0;
-            for (i = 0; i < TangramDevice.Device_sum; i++)
-            {
-                temp1 = diff_cal(X_center, TangramDevice.SlaveData[i].Coord.X);
-                temp2 = diff_cal(Y_center, TangramDevice.SlaveData[i].Coord.Y);
-                if (temp1 > temp2)
-                {
-                    if (temp1 == j)
-                    {
-                        temp3 = 1;
-                        TangramDevice.SlaveData[i].Runingnum = temp4; // 正序
-                    }
-                }
-                else
-                {
-                    if (temp2 == j)
-                    {
-                        temp3 = 1;
-                        TangramDevice.SlaveData[i].Runingnum = temp4; // 正序
-                    }
-                }
-            }
-            if (temp3)
-            {
-                temp4++;
-            }
-        }
-        temp4 = 0;
-        if (EF_Buffer.para_data.move == MOVE_CONVERGE)
-        {
-            for (i = 0; i < TangramDevice.Device_sum; i++)
-            {
-                if (TangramDevice.SlaveData[i].Runingnum > temp4)
-                {
-                    temp4 = TangramDevice.SlaveData[i].Runingnum; // 轮询出最大编号
-                }
-            }
-            for (i = 0; i < TangramDevice.Device_sum; i++)
-            {
-                temp1 = TangramDevice.SlaveData[i].Runingnum;
-                TangramDevice.SlaveData[i].Runingnum = temp4 - temp1; // 生成倒序编号
-            }
-        }
-    }
+    // // //     X_center = (X_max + X_min) / 2;
+    // // //     Y_center = (Y_max + Y_min) / 2;
+    // // //     temp4 = 0;
+    // // //     for (j = 0; j < 16; j++)
+    // // //     {
+    // // //         temp3 = 0;
+    // // //         for (i = 0; i < TangramDevice.Device_sum; i++)
+    // // //         {
+    // // //             temp1 = diff_cal(X_center, TangramDevice.SlaveData[i].Coord.X);
+    // // //             temp2 = diff_cal(Y_center, TangramDevice.SlaveData[i].Coord.Y);
+    // // //             if (temp1 > temp2)
+    // // //             {
+    // // //                 if (temp1 == j)
+    // // //                 {
+    // // //                     temp3 = 1;
+    // // //                     TangramDevice.SlaveData[i].Runingnum = temp4; // 正序
+    // // //                 }
+    // // //             }
+    // // //             else
+    // // //             {
+    // // //                 if (temp2 == j)
+    // // //                 {
+    // // //                     temp3 = 1;
+    // // //                     TangramDevice.SlaveData[i].Runingnum = temp4; // 正序
+    // // //                 }
+    // // //             }
+    // // //         }
+    // // //         if (temp3)
+    // // //         {
+    // // //             temp4++;
+    // // //         }
+    // // //     }
+    // // //     temp4 = 0;
+    // // //     if (EF_Buffer.para_data.move == MOVE_CONVERGE)
+    // // //     {
+    // // //         for (i = 0; i < TangramDevice.Device_sum; i++)
+    // // //         {
+    // // //             if (TangramDevice.SlaveData[i].Runingnum > temp4)
+    // // //             {
+    // // //                 temp4 = TangramDevice.SlaveData[i].Runingnum; // 轮询出最大编号
+    // // //             }
+    // // //         }
+    // // //         for (i = 0; i < TangramDevice.Device_sum; i++)
+    // // //         {
+    // // //             temp1 = TangramDevice.SlaveData[i].Runingnum;
+    // // //             TangramDevice.SlaveData[i].Runingnum = temp4 - temp1; // 生成倒序编号
+    // // //         }
+    // // //     }
+    // // // }
 
-    switch (EF_Buffer.para_data.motion) // 根据灯效类型自动填充数据，生成新的色表缓存
-    {
-    case MOTION_STATIC: /*静态*/
-        Motion_Static_Init();
-        break;
-    case MOTION_BREATH: /*呼吸*/
-        Motion_Breath_Init();
-        break;
-    case MOTION_STREAM: /*流动*/
-        Motion_Stream_Init();
-        break;
-    case MOTION_REVERB: /*来回*/
-        Motion_Reverberate_Init();
-        break;
-    case MOTION_HOPSCO: /*跳动*/
-        Motion_Hopscotch_Init();
-        break;
-    case MOTION_LIGHTN: /*闪电*/
-        Motion_Lightning_Init();
-        break;
-    case MOTION_IGNITE: /*点燃*/
-        Motion_Ignite_Init();
-        break;
-    case MOTION_RANDOM: /*随机*/
-        Motion_Random_Init();
-        break;
-    default:
-        break;
-    }
+    // // // switch (EF_Buffer.para_data.motion) // 根据灯效类型自动填充数据，生成新的色表缓存
+    // // // {
+    // // // case MOTION_STATIC: /*静态*/
+    // // //     Motion_Static_Init();
+    // // //     break;
+    // // // case MOTION_BREATH: /*呼吸*/
+    // // //     Motion_Breath_Init();
+    // // //     break;
+    // // // case MOTION_STREAM: /*流动*/
+    // // //     Motion_Stream_Init();
+    // // //     break;
+    // // // case MOTION_REVERB: /*来回*/
+    // // //     Motion_Reverberate_Init();
+    // // //     break;
+    // // // case MOTION_HOPSCO: /*跳动*/
+    // // //     Motion_Hopscotch_Init();
+    // // //     break;
+    // // // case MOTION_LIGHTN: /*闪电*/
+    // // //     Motion_Lightning_Init();
+    // // //     break;
+    // // // case MOTION_IGNITE: /*点燃*/
+    // // //     Motion_Ignite_Init();
+    // // //     break;
+    // // // case MOTION_RANDOM: /*随机*/
+    // // //     Motion_Random_Init();
+    // // //     break;
+    // // // default:
+    // // //     break;
+    // // // }
 
-    printf("k:%d Is:%d It:%d Am:%d\r\n", EF_Work.FrameInfro.KeySum, EF_Work.FrameInfro.InsertNum, EF_Work.FrameInfro.IntervalTime, EF_Work.FrameInfro.FrameAmount);
+    // // // printf("k:%d Is:%d It:%d Am:%d\r\n", EF_Work.FrameInfro.KeySum, EF_Work.FrameInfro.InsertNum, EF_Work.FrameInfro.IntervalTime, EF_Work.FrameInfro.FrameAmount);
 
-    // switch (EF_Buffer.para_data.move)
-    // {
-    // case MOVE_UP:
-    //     printf("\r'MOVE_UP'\r\n");
-    //     break;
-    // case MOVE_DOWN:
-    //     printf("\r'MOVE_DOWN'\r\n");
-    //     break;
-    // case MOVE_LEFT:
-    //     printf("\r'MOVE_LEFT'\r\n");
-    //     break;
-    // case MOVE_RIGHT:
-    //     printf("\r'MOVE_RIGHT'\r\n");
-    //     break;
-    // case MOVE_SEPARATE:
-    //     printf("\r'MOVE_SEPARATE'\r\n");
-    //     break;
-    // case MOVE_CONVERGE:
-    //     printf("\r'MOVE_CONVERGE'\r\n");
-    //     break;
-    // default:
-    //     break;
-    // }
-    printf("Device_sum:%d\r", TangramDevice.Device_sum);
-    printf("Module_WorkNum:%d\r", EF_Work.Module_WorkNum);
-    for (i = 0; i < TangramDevice.Device_sum; i++)
-    {
-        printf("ID:[0x%2x] [%d][%d]num: %d \r", TangramDevice.SlaveData[i].ID, TangramDevice.SlaveData[i].Coord.X, TangramDevice.SlaveData[i].Coord.Y, TangramDevice.SlaveData[i].Runingnum);
-    }
+    // // // // switch (EF_Buffer.para_data.move)
+    // // // // {
+    // // // // case MOVE_UP:
+    // // // //     printf("\r'MOVE_UP'\r\n");
+    // // // //     break;
+    // // // // case MOVE_DOWN:
+    // // // //     printf("\r'MOVE_DOWN'\r\n");
+    // // // //     break;
+    // // // // case MOVE_LEFT:
+    // // // //     printf("\r'MOVE_LEFT'\r\n");
+    // // // //     break;
+    // // // // case MOVE_RIGHT:
+    // // // //     printf("\r'MOVE_RIGHT'\r\n");
+    // // // //     break;
+    // // // // case MOVE_SEPARATE:
+    // // // //     printf("\r'MOVE_SEPARATE'\r\n");
+    // // // //     break;
+    // // // // case MOVE_CONVERGE:
+    // // // //     printf("\r'MOVE_CONVERGE'\r\n");
+    // // // //     break;
+    // // // // default:
+    // // // //     break;
+    // // // // }
+    // // // printf("Device_sum:%d\r", TangramDevice.Device_sum);
+    // // // printf("Module_WorkNum:%d\r", EF_Work.Module_WorkNum);
+    // // // for (i = 0; i < TangramDevice.Device_sum; i++)
+    // // // {
+    // // //     printf("ID:[0x%2x] [%d][%d]num: %d \r", TangramDevice.SlaveData[i].ID, TangramDevice.SlaveData[i].Coord.X, TangramDevice.SlaveData[i].Coord.Y, TangramDevice.SlaveData[i].Runingnum);
+    // // // }
 
-    // for (i = 0; i < 16; i++)
-    // {
-    //     Tangram[i].Frame_Now = 0;
-    //     printf("[%d] %d\r",i,Tangram[i].Frame_Now);
-    // }
+    // // // // for (i = 0; i < 16; i++)
+    // // // // {
+    // // // //     Tangram[i].Frame_Now = 0;
+    // // // //     printf("[%d] %d\r",i,Tangram[i].Frame_Now);
+    // // // // }
 }
 
-void Motion_Output(void)
-{
-    static uint8_t speed_Val;
-    static uint8_t Last_Light_Owner;
-    uint8_t i;
-    if (Light_Owner == Light_Owner_APP) // APP控灯
-    {
-        if (Last_Light_Owner != Light_Owner_APP)
-        {
-            for (i = 0; i < TangramDevice.Device_sum; i++)
-            {
-                TangramDevice.SlaveData[i].Color.R = 0;
-                TangramDevice.SlaveData[i].Color.G = 0;
-                TangramDevice.SlaveData[i].Color.B = 0;
-                TangramDevice.SlaveData[i].Color.W = 0;
-            }
-        }
-    }
-    else // MCU控灯
-    {
-        if (EF_Buffer.para_data.Mode == MODE_RHYTHM)
-        {
-            // if (MIC_Process())
-            // {
-            //     speed_Val = 50;
-            // }
-            // else
-            // {
-            //     if (speed_Val > 2)
-            //     {
-            //         speed_Val--;
-            //     }
-            // }
-        }
-        else // MODE_NORMAL
-        {
-            speed_Val = EF_Work.FrameInfro.Speed;
-        }
-        // printf("%d\r",EF_Buffer.para_data.motion);
+// // void Motion_Output(void)
+// // {
+// //     static uint8_t speed_Val;
+// //     static uint8_t Last_Light_Owner;
+// //     uint8_t i;
+// //     if (Light_Owner == Light_Owner_APP) // APP控灯
+// //     {
+// //         if (Last_Light_Owner != Light_Owner_APP)
+// //         {
+// //             for (i = 0; i < TangramDevice.Device_sum; i++)
+// //             {
+// //                 TangramDevice.SlaveData[i].Color.R = 0;
+// //                 TangramDevice.SlaveData[i].Color.G = 0;
+// //                 TangramDevice.SlaveData[i].Color.B = 0;
+// //                 TangramDevice.SlaveData[i].Color.W = 0;
+// //             }
+// //         }
+// //     }
+// //     else // MCU控灯
+// //     {
+// //         if (EF_Buffer.para_data.Mode == MODE_RHYTHM)
+// //         {
+// //             // if (MIC_Process())
+// //             // {
+// //             //     speed_Val = 50;
+// //             // }
+// //             // else
+// //             // {
+// //             //     if (speed_Val > 2)
+// //             //     {
+// //             //         speed_Val--;
+// //             //     }
+// //             // }
+// //         }
+// //         else // MODE_NORMAL
+// //         {
+// //             speed_Val = EF_Work.FrameInfro.Speed;
+// //         }
+// //         // printf("%d\r",EF_Buffer.para_data.motion);
 
-        switch (EF_Buffer.para_data.motion)
-        {
-        case MOTION_STATIC: // 静态
-            Motion_Static();
-            break;
-        case MOTION_BREATH: // 呼吸
-            Motion_Breath(speed_Val);
-            break;
-        case MOTION_STREAM: // 流动
-            Motion_Stream(speed_Val);
-            break;
-        case MOTION_REVERB: // 来回
-            Motion_Reverberate(speed_Val);
-            break;
-        case MOTION_HOPSCO: // 跳动
-            Motion_Hopscotch(speed_Val);
-            break;
-        case MOTION_LIGHTN: // 闪电
-            Motion_Lightning(speed_Val);
-            break;
-        case MOTION_IGNITE: // 点燃
-            Motion_Ignite(speed_Val);
-            break;
-        case MOTION_RANDOM: // 随机
-            Motion_Random(speed_Val);
-            break;
-        default:
-            break;
-        }
-        Slave_ColorData_Allot();
-        // printf("%d,%d,%d,%d\r\n",Tangram[0].R.Now,Tangram[0].G.Now,Tangram[0].B.Now,Tangram[0].W.Now);
-    }
+// //         switch (EF_Buffer.para_data.motion)
+// //         {
+// //         case MOTION_STATIC: // 静态
+// //             Motion_Static();
+// //             break;
+// //         case MOTION_BREATH: // 呼吸
+// //             Motion_Breath(speed_Val);
+// //             break;
+// //         case MOTION_STREAM: // 流动
+// //             Motion_Stream(speed_Val);
+// //             break;
+// //         case MOTION_REVERB: // 来回
+// //             Motion_Reverberate(speed_Val);
+// //             break;
+// //         case MOTION_HOPSCO: // 跳动
+// //             Motion_Hopscotch(speed_Val);
+// //             break;
+// //         case MOTION_LIGHTN: // 闪电
+// //             Motion_Lightning(speed_Val);
+// //             break;
+// //         case MOTION_IGNITE: // 点燃
+// //             Motion_Ignite(speed_Val);
+// //             break;
+// //         case MOTION_RANDOM: // 随机
+// //             Motion_Random(speed_Val);
+// //             break;
+// //         default:
+// //             break;
+// //         }
+// //         Slave_ColorData_Allot();
+// //         // printf("%d,%d,%d,%d\r\n",Tangram[0].R.Now,Tangram[0].G.Now,Tangram[0].B.Now,Tangram[0].W.Now);
+// //     }
 
-    // Slave_ColorData_DMA();
-    Last_Light_Owner = Light_Owner;
-}
+// //     // Slave_ColorData_DMA();
+// //     Last_Light_Owner = Light_Owner;
+// // }
 void Motion_Static(void) /*呼吸*/
 {
     // 保持初始化数据

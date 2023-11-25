@@ -73,7 +73,7 @@ void print_flow(Flow_Enum num)
 void print_direction(Direction_Enum num)
 {
 #if defined(printlog_enabled)
-    printf("Direction:");
+    printf("\rDirection:");
     switch (num)
     {
     case DIRECTION_UP:
@@ -617,5 +617,45 @@ void print_local_rtc_time(void)
     RTC_BCD_To_HEX(&rtc);
     // // printf("\r>> local rtc\r");
     printf("20%d/%d/%d %d %d:%d:%d\r\n", rtc.year, rtc.month, rtc.day, rtc.week, rtc.hour, rtc.min, rtc.sec);
+#endif // printlog_enabled
+}
+
+
+
+/* 
+ * @Description: 打印设备迷你信息
+ * @param: 
+ * @return: 
+*/ 
+void print_mini_device_data(mini_device_data_TypeDef *dev)
+{
+#if defined(printlog_enabled)
+    uint8_t i;
+    printlog("\r------------------------------------------------\r");
+    printlog("mini device data\r");
+    for (i = 0; i < dev->num; i++)
+    {
+        printlog("%2d. id:[%02x] x:%5d, y:%5d num:%2d\r", i, dev->data[i].id, dev->data[i].cooed_x, dev->data[i].cooed_y, dev->data[i].runnum);
+    }
+    printlog("------------------------------------------------\r\r");
+#endif // printlog_enabled
+}
+
+/* 
+ * @Description: 打印颜色输出
+ * @param: 
+ * @param: 
+ * @return: 
+*/ 
+void print_xPlay_color(L0_cmd_playCOLOR_Typedef *xPlay,uint8_t num)
+{
+    #if defined(printlog_enabled)
+    uint8_t i;
+    printlog("\r------------------------------------------------\r");
+    for (i = 0; i < num; i++)
+    {
+        printlog("id:[%02x] br:%3d R:%3d, G:%3d B:%3d\r", xPlay->dev[i].cid, xPlay->dev[i].br, xPlay->dev[i].R, xPlay->dev[i].G, xPlay->dev[i].B);
+    }
+    printlog("------------------------------------------------\r");
 #endif // printlog_enabled
 }

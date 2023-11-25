@@ -33,6 +33,9 @@
         "inf.h": "c",
         "flash.h": "c",
         "newota.h": "c",
-        "factory.h": "c"
+        "factory.h": "c",
+        "driver_w25qxx.h": "c",
+        "flashapp.h": "c",
+        "version.h": "c"
     }
 }

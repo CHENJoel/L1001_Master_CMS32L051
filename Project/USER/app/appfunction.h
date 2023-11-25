@@ -67,6 +67,11 @@ void mcu_update_current_playdetail(void);
 /*mcuÉÏ±¨²¥·Å×´Ì¬*/
 void mcu_update_playstatus(void);
 
+//
+app_shape_enum convert_device_shape_data(device_shape_enum shape); // Éè±¸ĞÎ×´ĞÅÏ¢°´ÕÕapp¸ñÊ½½øĞĞ×ª»»
+void mcu_download_device_detail(uint8_t *sur, uint16_t length);    // ÏÂÔØÉè±¸ĞÅÏ¢
+void mcu_update_device_detail(void);                               // ÉÏ±¨Éè±¸ĞÅÏ¢
+//
 /*
 
 
@@ -95,8 +100,7 @@ void mcu_update_play_control_detial(playcontrol_type_enum type, uint8_t value); 
 void mcu_update_current_play_ef_index();                                        // ÉÏ´«µ±Ç°²¥·ÅµÄµÆĞ§Ë÷Òı
 
 //
-/*Õë¶ÔDPID_DEVICE_DETAILµÄ´¦Àíº¯Êı*/
-void mcu_download_device_detail(uint8_t *sur, uint16_t length);
+
 /*Õë¶ÔDPID_DEVICE_CONTROLµÄ´¦Àíº¯Êı*/
 uint8_t mcu_download_device_control(uint8_t *sur, uint16_t length);
 /*ÔÚÏßÏÂÔØ¹Ì¼ş*/
@@ -137,5 +141,8 @@ void mcu_update_clock_detial(uint8_t num);                        // ÉÏ´«ÄÖÖÓÏêÇ
 void mcu_update_device_indentify(void);                            // ÉÏ´«Éè±¸Åä¶Ô±êÊ¶
 void mcu_download_device_indentify(uint8_t *sur, uint16_t length); // ÏÂÔØÉè±¸Åä¶Ô±êÊ¶
 void mcu_download_reserved3(uint8_t *sur, uint16_t length);        // ÏÂÔØDPÊı¾İ£¨±£Áô3£©
+//
+void mcu_update_current_play_efdetail(void); // ÉÏ±¨µ±Ç°²¥·ÅµÄµÆĞ§ĞÅÏ¢
+void mcu_update_reserved4(void);             // ÉÏ´«dpĞÅÏ¢£¨±£Áô4£©
 //
 #endif

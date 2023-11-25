@@ -2,7 +2,7 @@
  * @Author: DESKTOP-AKTRQKB\MY sandote@163.com
  * @Date: 2022-10-17 11:28:51
  * @LastEditors: DESKTOP-AKTRQKB\MY sandote@163.com
- * @LastEditTime: 2023-11-17 19:08:25
+ * @LastEditTime: 2023-11-24 16:57:42
  * @FilePath: \L1001_Master_CMS32L051\Project\USER\Source\main.c
  * @Description: ����Ĭ������,������`customMade`, ��koroFileHeader�鿴���� ��������: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -166,13 +166,10 @@ int main()
 			LED_Display_20ms();
 			WDT_Restart();
 			// debug();
-		
 		}
 		if (T_28MS_FLAG_GetBit)
 		{
 			T_28MS_FLAG_ClrBit();
-			
-
 			process_mic_data();
 			Lignt_Control();
 			play_effect_video();
@@ -199,8 +196,7 @@ int main()
 			
 			// debug();
 			autoswitch_effects_in_list();
-			clock_server();
-
+			clock_server();	
 		}
 	}
 }

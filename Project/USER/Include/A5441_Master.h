@@ -75,6 +75,7 @@ typedef struct
     uint8_t X;
     uint8_t Y;
 } Coord_TypeDef;
+
 typedef struct
 {
     uint8_t data1;

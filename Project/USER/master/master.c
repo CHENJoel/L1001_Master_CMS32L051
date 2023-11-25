@@ -3,7 +3,7 @@
  * @Author: DESKTOP-AKTRQKB\MY sandote@163.com
  * @Date: 2023-06-07 10:04:26
  * @LastEditors: DESKTOP-AKTRQKB\MY sandote@163.com
- * @LastEditTime: 2023-11-18 16:04:51
+ * @LastEditTime: 2023-11-25 14:34:45
  * @FilePath: \L1001_Master_CMS32L051\Project\USER\master\master.c
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -558,6 +558,7 @@ uint8_t get_random_number(void)
 */
 void refresh_random(void)
 {
+    random.num++;
     random.num += random.seed;
 }
 
@@ -1096,8 +1097,8 @@ void KeyS_Click(void)
         // delay_500ms();
         // delay_500ms();
         mcu_reset_wifi();
-        // factoryreset_norflash();
-        // SYS_Init();
+        factoryreset_norflash();
+        SYS_Init();
         // mcu_restart();
     }
     if (KEY2_LongOnce)

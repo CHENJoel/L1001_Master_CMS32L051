@@ -23,6 +23,13 @@ typedef enum
     OTHER_SHAPE = 0xFF, // 其他形状
 } device_shape_enum;
 
+typedef enum
+{
+    APP_SQUARE = 1,
+    APP_BTRIANGLE = 2,
+    APP_MTRIANGLE = 3,
+    APP_STRIANGLE = 4,
+} app_shape_enum;
 
 typedef struct
 {
@@ -39,9 +46,29 @@ typedef struct
     uint8_t num;                    // 设备数量
     device_detail_TypeDef data[SLAVEDEVICE_NUM]; // 设备详情
 } device_data_TypeDef;              // 设备信息
-
 extern device_data_TypeDef slave;
 
+typedef enum
+{
+    ABSCISSA, // 横坐标
+    ORDINATE, // 纵坐标
+    XandY,    // 横纵坐标
+} Coord_ENUM;
+
+typedef struct
+{
+    uint8_t id;       // 灯板id
+    uint16_t cooed_x; // x坐标
+    uint16_t cooed_y; // y坐标
+    uint8_t runnum;
+} mini_device_detail_TypeDef;
+
+typedef struct
+{
+    uint8_t num;                                        // 设备数量
+    mini_device_detail_TypeDef data[SLAVEDEVICE_NUM]; // 设备详情
+} mini_device_data_TypeDef;
+/*----------------------------------*/
 typedef struct
 {
     uint8_t brightness; // 亮度
@@ -62,6 +89,9 @@ typedef struct
     uint8_t control; //
 } device_control_TypeDef; //
 extern device_control_TypeDef slave_control;
+
+
+
 
 /*生成虚拟灯板信息*/
 void generate_virtual_device(void);
@@ -99,15 +129,15 @@ void get_slave_place(void);
 /*初始化在线的从机信息*/
 void slave_online_data_init(void);
 
-
-
-/*轮流点亮从机*/
-void slave_light_in_turn(void);
+//
+void slave_light_in_turn(void);              // 轮流点亮从机
+void light_in_direction(Direction_Enum dir); // 根据方向点亮灯板
+//
 /*
  * @Description: 仅点亮其中一个灯
  * @param:
  * @return:
-*/
+ */
 void light_up_only_one_slave(uint8_t id);
 
 /********/

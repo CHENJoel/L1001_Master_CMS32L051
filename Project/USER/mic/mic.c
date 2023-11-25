@@ -12,10 +12,54 @@ uint8_t analyse_pulse(uint32_t in)
 
 
 
+/*
+ * @Description: 获取声音强度
+* @param: 数据0~4095
+ * @param: 灵敏度0~100
+ * @return: 等级0~100
+ */
+uint8_t get_sound_intensity(uint32_t data, uint16_t sens)
+{
+    uint32_t grade;
+    uint16_t max;
+    if (sens > 100)
+    {
+        return 100;
+    }
+    max = 4 * (100 - sens) + 4;
+    data *= 100;
+    grade = data / max;
+    if (grade > 100)
+    {
+        grade = 100;
+    }
+    return grade;
+}
 
-
-
-
+/* 
+ * @Description: 输出亮度转换成区间值
+ * @param: 原始亮度 0~100
+ * @param: 边界1 0~100
+ * @param: 边界2 0~100
+ * @return: 输出亮度 0~100
+*/ 
+uint8_t convert_bright_in_range(uint8_t val, uint8_t ra1, uint8_t ra2)
+{
+    uint8_t diff; // 量程
+    uint8_t out;
+    if (ra1 > ra2)
+    {
+        diff = ra1 - ra2;
+        out = diff * val / 100;
+        return ra2 + out;
+    }
+    else
+    {
+        diff = ra2 - ra1;
+        out = diff * val / 100;
+        return ra1 + out;
+    }
+}
 
 /*
  * @Description: 处理咪头数据
@@ -30,12 +74,13 @@ void process_mic_data(void)
     uint32_t sound;    
     uint16_t diff;
     uint16_t threshold;
+    /*
     mic.avg = get_average(&xadc.micbuf, (sizeof(xadc.micbuf) / sizeof(uint16_t)));
     // mic.sum = get_summation(&xadc.micbuf, (sizeof(xadc.micbuf) / sizeof(uint16_t)));
     // // play.efdetail.MicSensitivity = 90;
     // // play.efdetail.Brightness2 = 100;
     // // play.efdetail.Brightness1 = 10;
-    // mic.avg=800;    
+    // mic.avg=800;
     // sound = mic.avg * play.efdetail.MicSensitivity;
     // // sound = mic.avg * 100;
 
@@ -43,14 +88,14 @@ void process_mic_data(void)
     // {
     //     sound = 0xFFF;
     // }
-    // mic.grade = get_sound_grade(sound, 0xFFF);
+    // mic.grade = get_sound_intensity(sound, 0xFFF);
     threshold = 40 * (101 - play.efdetail.MicSensitivity);
     // // if (threshold==0)
     // // {
     // //    threshold=40;
     // // }
-    
-    mic.grade = get_sound_grade(mic.avg, threshold);
+
+    mic.grade = get_sound_intensity(mic.avg, threshold);
     diff = play.efdetail.Brightness2 - play.efdetail.Brightness1;
 
     temp = diff / 5;
@@ -62,18 +107,24 @@ void process_mic_data(void)
         mic.bri_tar = play.efdetail.Brightness2;
     }
 
-    // mic.grade = get_sound_grade(mic.avg, 400);
+    // mic.grade = get_sound_intensity(mic.avg, 400);
     // mic.bri_tar = mic.grade * (100 / MIC_SOUND_GRADE);
-    
+    */
+    // // play.efdetail.MicSensitivity = 95;
+    // // play.efdetail.Brightness1 = 100;
+    // // play.efdetail.Brightness2 = 10;
+    mic.avg = get_average(&xadc.micbuf, (sizeof(xadc.micbuf) / sizeof(uint16_t)));                          // 获取声音均值
+    mic.sound = get_sound_intensity(mic.avg, play.efdetail.MicSensitivity);                                 // 获取声音强度
+    mic.bri_tar = convert_bright_in_range(mic.sound, play.efdetail.Brightness1, play.efdetail.Brightness2); // 输出亮度转换成区间值
     if (mic.bri_tar > mic.bri_now)
     {
         Gradual_Change(&mic.bri_now, &mic.bri_tar, 60);
     }
     else
     {
-        Gradual_Change(&mic.bri_now, &mic.bri_tar, 4);
+        Gradual_Change(&mic.bri_now, &mic.bri_tar, 10);
     }
-    PRINT(mic, "%d,%d", mic.avg,mic.sum);
+    // // PRINT(mic, "%d,%d", mic.avg,mic.sum);
     // // PRINT(mic, "%d", mic.avg);
     //  PRINT(sum, "%d", mic.sum);
     // mic.bri_now=mic.avg/41;
@@ -83,7 +134,7 @@ void process_mic_data(void)
     // // // // {
     // // //     // convert_to_real_mic_val(&mic.buffer, MIC_BUF_SIZE);
     // // //     // mic.avg = get_average(&mic.buffer, MIC_BUF_SIZE);
-    // // //     // mic.grade = get_sound_grade(mic.avg, 4000);
+    // // //     // mic.grade = get_sound_intensity(mic.avg, 4000);
     // // //     // if (mic.grade < 3)
     // // //     // {
     // // //     //     mic.grade = 2;
@@ -211,54 +262,7 @@ void convert_to_real_mic_val(uint16_t *sur, uint8_t len)
     }
 }
 
-/*
- * @Description: 获取音量等级
- * @param: 数据
- * @param: 阈值
- * @return: 等级
-*/
-uint8_t get_sound_grade(uint16_t data, uint16_t max)
-{
-    uint8_t i;
-    uint16_t gra, level;
-    // gra = threshold / MIC_SOUND_GRADE;
-    gra = threshold >> 4;   //除16
-    if (data>(gra*14))
-    {
-        return 5;
-    }
-    if (data > (gra * 11))
-    {
-        return 4;
-    }
-    if (data > (gra * 8))
-    {
-        return 3;
-    }
-    if (data > (gra * 5))
-    {
-        return 2;
-    }
-    return 1;
-    // // // if (data > (gra * 14))
-    // // // {
-    // // //     return 1;
-    // // // }
-    // // // if (data > (gra * 14))
-    // // // {
-    // // //     return 0;
-    // // // }
 
-    // for (i = MIC_SOUND_GRADE; i > 0; i--)
-    // {
-    //     level = i * gra;
-    //     if (data > level)
-    //     {
-    //         return i;
-    //     }
-    // }
-    // return 1;
-}
 
 // Gradual_Change(&SYS.Brightness.Now, &SYS.Brightness.Target, 10);
 /*

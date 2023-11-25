@@ -139,7 +139,7 @@ typedef struct
 typedef struct
 {
     uint8_t id;              // 灯板id
-    device_shape_enum shape;   // 形状
+    app_shape_enum shape;    // 形状
     uint16_t angle;          // 角度
     uint16_t cooed_x;        // x坐标
     uint16_t cooed_y;        // y坐标

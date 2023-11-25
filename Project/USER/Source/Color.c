@@ -160,9 +160,9 @@ void StaticPixel_Cal(ImageTypeDef *image_ptr, ModuleTypeDef *module_ptr, uint8_t
 
 void ModuleColor_Cal(FrameInfro_TypeDef *image_ptr, ModuleTypeDef *module_ptr, uint8_t Pixel_Num)
 {
-    uint8_t Currnt_KF;                                                    // 当前关键帧（keyframe）编号
-    uint8_t Next_KF;                                                      // 下个关键帧（keyframe）编号
-    uint8_t Temp_FrameNum;                                                // 临时帧编号，换算为当前帧（frame）处于当前关键帧（keyframe）至下一关键帧（keyframe）的之间的帧编号
+    uint16_t Currnt_KF;                                                    // 当前关键帧（keyframe）编号
+    uint16_t Next_KF;                                                      // 下个关键帧（keyframe）编号
+    uint16_t Temp_FrameNum;                                                // 临时帧编号，换算为当前帧（frame）处于当前关键帧（keyframe）至下一关键帧（keyframe）的之间的帧编号
     Currnt_KF = module_ptr->Frame_Now / ((image_ptr->InsertNum) + 1);     // 计算当前帧 已经过的 最近/当前 关键帧
     Temp_FrameNum = module_ptr->Frame_Now % ((image_ptr->InsertNum) + 1); //
     Next_KF = Currnt_KF + 1;                                              // 计算当前帧 准备经过的 下一关键帧
@@ -183,7 +183,7 @@ void ModuleColor_Cal(FrameInfro_TypeDef *image_ptr, ModuleTypeDef *module_ptr, u
     // FrameInsert_Calculate(*(image_ptr->image_adr + (Currnt_KF * 4) + (Pixel_Num * 4) + 3), *(image_ptr->image_adr + (Next_KF * 4) + (Pixel_Num * 4) + 3), &module_ptr->W.Now, Temp_FrameNum, image_ptr->InsertNum);
 
     // // // printf("C:%2d N:%2d ,%d\r",Currnt_KF,Next_KF,*(image_ptr->image_adr + (Currnt_KF * 4 * image_ptr->PixelSum) + (Pixel_Num * 4) + 0));
-    // // // printf("C:%2d N:%2d K:%2d I:%4d\r", Currnt_KF, Next_KF, image_ptr->KeySum, image_ptr->InsertNum);
+    // // printf("C:%2d N:%2d K:%2d I:%4d tf:%d\r", Currnt_KF, Next_KF, image_ptr->KeySum, image_ptr->InsertNum,Temp_FrameNum);
 }
 
 /**
@@ -265,10 +265,10 @@ void Color_DirectChange(ColorTypeDef *light)
  * @return {*}
  */
 
-void FrameInsert_Calculate(unsigned char Current_KF_data, unsigned char Next_KF_data, unsigned char *Target, unsigned char Insert_Num, unsigned char Insert_Sum)
+void FrameInsert_Calculate(unsigned char Current_KF_data, unsigned char Next_KF_data, unsigned char *Target, uint16_t Insert_Num, uint16_t Insert_Sum)
 {
-    unsigned int temp;
-    unsigned char tempDiff;
+    uint32_t temp;
+    uint32_t tempDiff;
     if (Insert_Sum == 0) // 插帧数为0，即不插帧
     {
         *Target = Current_KF_data;

@@ -81,7 +81,7 @@
           </BeforeMake>
           <AfterMake>
             <RunUserProg1>1</RunUserProg1>
-            <RunUserProg2>0</RunUserProg2>
+            <RunUserProg2>1</RunUserProg2>
             <UserProg1Name>$K\ARM\ARMCC\bin\fromelf.exe --bin --output=@L.bin !L</UserProg1Name>
             <UserProg2Name>fromelf --L1001_Master_CMS32L051 -a -c --output=Objects\L1001_Master_CMS32L051.diis Objects\L1001_Master_CMS32L051.axf</UserProg2Name>
             <UserProg1Dos16Mode>0</UserProg1Dos16Mode>

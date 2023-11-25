@@ -1,6 +1,67 @@
 #include "Function_Init.H"
 #include "flow.h"
 
+/* 
+ * @Description: 灯效流动
+ * @param: 
+ * @return: 
+*/ 
+void effect_flow(void)
+{
+    uint8_t frameSkew;    // 帧跳跃
+    // if (play.efdetail.Speed >= 100)
+    // {
+    //     frameSkew = 1;
+    // }
+    // else
+    // {
+
+    // }
+    // if (play.efdetail.Speed)
+    // {
+    //     frameSkew = play.efdetail.Speed / 2;
+    // }
+    // else
+    // {
+    //     frameSkew = 1;
+    // }
+
+    // if (frameSkew == 0)
+    // {
+
+    // }
+    frameSkew = play.efdetail.Speed;
+
+    switch (play.efdetail.Flow)
+    {
+    case FLOW_STATIC: // 静态
+        Flow_Static();
+        break;
+    case FLOW_BREATH: // 呼吸
+        Flow_Breath(frameSkew);
+        break;
+    case FLOW_STREAM: // 流动
+        Flow_Stream(frameSkew);
+        break;
+    case FLOW_REVERB: // 来回
+        Flow_Reverberate(frameSkew);
+        break;
+     case FLOW_HOPSCO: // 跳动
+        Flow_Hopscotch(frameSkew);
+        break;
+    case FLOW_LIGHTN: // 闪电
+        Flow_Lightning(frameSkew);
+        break;
+    case FLOW_IGNITE: // 点燃
+        Flow_Ignite(frameSkew);
+        break;
+    case FLOW_RANDOM: // 随机
+        Flow_Random(frameSkew);
+        break;
+    default:
+        break;
+    }
+}
 
 /*
  * @Description: 计算灯效播放数据
@@ -9,36 +70,13 @@
 */
 void effect_play_color_calu(void)
 {
-    uint8_t speed_Val = 5;
-    switch (play.efdetail.Flow)
-    {
-    case FLOW_STATIC: // 静态
-        Flow_Static();
-        break;
-    case FLOW_BREATH: // 呼吸
-        Flow_Breath(speed_Val);
-        break;
-    case FLOW_STREAM: // 流动
-        Flow_Stream(speed_Val);
-        break;
-    case FLOW_REVERB: // 来回
-        Flow_Reverberate(speed_Val);
-        break;
-    case FLOW_HOPSCO: // 跳动
-        Flow_Hopscotch(speed_Val);
-        break;
-    case FLOW_LIGHTN: // 闪电
-        Flow_Lightning(speed_Val);
-        break;
-    case FLOW_IGNITE: // 点燃
-        Flow_Ignite(speed_Val);
-        break;
-    case FLOW_RANDOM: // 随机
-        Flow_Random(speed_Val);
-        break;
-    default:
-        break;
-    }
+    
+    // static uint8_t speed_cnt;
+    // if (++speed_cnt > (101 - play.efdetail.Speed))
+    // {
+    //     speed_cnt=0;
+        effect_flow();
+    // }
 }
 
 void Flow_Static_Init(void)
@@ -51,7 +89,7 @@ void Flow_Breath_Init(void)
     uint8_t *sur;
     uint8_t *tar;
 
-    EF_Work.FrameInfro.KeySum = play.efdetail.EfColorInf.colorNum * 2;                                   // 关键帧数
+    EF_Work.FrameInfro.KeySum = play.efdetail.EfColorInf.colorNum * 2;                               // 关键帧数
     EF_Work.FrameInfro.InsertNum = Motion_Breath_framepara;                                          // 插帧数
     EF_Work.FrameInfro.IntervalTime = 1;                                                             // 帧间隔时间
     EF_Work.FrameInfro.FrameAmount = EF_Work.FrameInfro.KeySum * (EF_Work.FrameInfro.InsertNum + 1); // 总帧数
@@ -78,7 +116,7 @@ void Flow_Stream_Init(void)
     uint16_t i, j;
     uint8_t *sur;
     uint8_t *tar;
-    EF_Work.FrameInfro.KeySum = play.efdetail.EfColorInf.colorNum;                                       // 关键帧数
+    EF_Work.FrameInfro.KeySum = play.efdetail.EfColorInf.colorNum;                                   // 关键帧数
     EF_Work.FrameInfro.InsertNum = Motion_Stream_framepara;                                          // 插帧数
     EF_Work.FrameInfro.IntervalTime = 1;                                                             // 帧间隔时间
     EF_Work.FrameInfro.FrameAmount = EF_Work.FrameInfro.KeySum * (EF_Work.FrameInfro.InsertNum + 1); // 总帧数
@@ -309,7 +347,13 @@ void Flow_Static(void) /*静态*/
 void Flow_Breath(uint8_t speed) /*呼吸*/
 {
     uint8_t i;
-    Frame_Skewing(EF_Work.FrameInfro.FrameAmount, &Tangram[0].Frame_Now, &Tangram[0].Frame_Now, speed);
+    uint8_t skew;
+    if (speed == 0)
+    {
+        speed = 1;
+    }
+    skew = speed / 7 + 1;
+    Frame_Skewing(EF_Work.FrameInfro.FrameAmount, &Tangram[0].Frame_Now, &Tangram[0].Frame_Now, skew);
     ModuleColor_Cal(&EF_Work.FrameInfro, &Tangram[0], 0);
     for (i = 1; i <= EF_Work.Module_WorkNum; i++)
     {
@@ -318,13 +362,19 @@ void Flow_Breath(uint8_t speed) /*呼吸*/
         Tangram[i].B.Now = Tangram[0].B.Now;
         Tangram[i].W.Now = Tangram[0].W.Now;
     }
-    // // // printf("%4d / %4d\r",EF_Work.FrameInfro.FrameAmount, Tangram[0].Frame_Now);
+    // printf("%4d/%4d %3d,%3d,%3d\r",EF_Work.FrameInfro.FrameAmount, Tangram[0].Frame_Now,Tangram[0].R.Now,Tangram[0].G.Now,Tangram[0].B.Now);
 }
 
 void Flow_Stream(uint8_t speed) /*流动*/
 {
     uint8_t i;
-    Frame_Skewing(EF_Work.FrameInfro.FrameAmount, &Tangram[0].Frame_Now, &Tangram[0].Frame_Now, speed);
+    uint8_t skew;
+    if (speed == 0)
+    {
+        speed = 1;
+    }
+    skew = speed / 7 + 1;
+    Frame_Skewing(EF_Work.FrameInfro.FrameAmount, &Tangram[0].Frame_Now, &Tangram[0].Frame_Now, skew);
     ModuleColor_Cal(&EF_Work.FrameInfro, &Tangram[0], 0);
     for (i = 1; i <= EF_Work.Module_WorkNum; i++)
     {
@@ -336,7 +386,13 @@ void Flow_Stream(uint8_t speed) /*流动*/
 void Flow_Reverberate(uint8_t speed) /*来回*/
 {
     uint8_t i;
-    Frame_Skewing(EF_Work.FrameInfro.FrameAmount, &Tangram[0].Frame_Now, &Tangram[0].Frame_Now, speed);
+    uint8_t skew;
+    if (speed == 0)
+    {
+        speed = 1;
+    }
+    skew = speed / 7 + 1;
+    Frame_Skewing(EF_Work.FrameInfro.FrameAmount, &Tangram[0].Frame_Now, &Tangram[0].Frame_Now, skew);
     ModuleColor_Cal(&EF_Work.FrameInfro, &Tangram[0], 0);
     for (i = 1; i <= EF_Work.Module_WorkNum; i++)
     {
@@ -353,7 +409,20 @@ void Flow_Hopscotch(uint8_t speed) /*跳动*/
     uint8_t Next_KF;        // 下个关键帧（keyframe）编号
     uint16_t Temp_FrameNum; // 临时帧编号，换算为当前帧（frame）处于当前关键帧（keyframe）至下一关键帧（keyframe）的之间的帧编号
     uint8_t Temp_FrameNum2; // 子临时帧
-    Frame_Skewing(EF_Work.FrameInfro.FrameAmount, &Tangram[0].Frame_Now, &Tangram[0].Frame_Now, speed);
+    uint8_t skew;
+    #define Hopscotch_Skew_MIN 2
+    #define Hopscotch_Skew_MAX 100
+    skew = speed / 5;
+    if (skew <= Hopscotch_Skew_MIN)
+    {
+        skew = Hopscotch_Skew_MIN;
+    }
+    if (skew >= Hopscotch_Skew_MAX)
+    {
+        skew = Hopscotch_Skew_MAX;
+    }
+
+    Frame_Skewing(EF_Work.FrameInfro.FrameAmount, &Tangram[0].Frame_Now, &Tangram[0].Frame_Now, skew);
     Currnt_KF = Tangram[0].Frame_Now / (EF_Work.FrameInfro.InsertNum + 1);     // 计算当前帧 已经过的 最近/当前 关键帧
     Temp_FrameNum = Tangram[0].Frame_Now % (EF_Work.FrameInfro.InsertNum + 1); //
     Next_KF = Currnt_KF + 1;                                                   // 计算当前帧 准备经过的 下一关键
@@ -401,7 +470,19 @@ void Flow_Lightning(uint8_t speed) /*闪电*/
     uint8_t i;
     uint8_t Currnt_KF;      // 当前关键帧（keyframe）编号
     uint16_t Temp_FrameNum; // 临时帧编号，换算为当前帧（frame）处于当前关键帧（keyframe）至下一关键帧（keyframe）的之间的帧编号
-    Frame_Skewing(EF_Work.FrameInfro.FrameAmount, &Tangram[0].Frame_Now, &Tangram[0].Frame_Now, speed);
+    uint8_t skew;
+#define Lightning_Skew_MIN 3
+#define Lightning_Skew_MAX 10
+    skew = speed / 8;
+    if (skew <= Lightning_Skew_MIN)
+    {
+        skew = Lightning_Skew_MIN;
+    }
+    if (skew >= Lightning_Skew_MAX)
+    {
+        skew = Lightning_Skew_MAX;
+    }
+    Frame_Skewing(EF_Work.FrameInfro.FrameAmount, &Tangram[0].Frame_Now, &Tangram[0].Frame_Now, skew);
     Currnt_KF = Tangram[0].Frame_Now / (EF_Work.FrameInfro.InsertNum + 1);     // 计算当前帧 已经过的 最近/当前 关键帧
     Temp_FrameNum = Tangram[0].Frame_Now % (EF_Work.FrameInfro.InsertNum + 1); //
     temp = EF_Work.FrameInfro.InsertNum / 10;
@@ -442,7 +523,19 @@ void Flow_Ignite(uint8_t speed) /*点燃*/
     uint8_t Currnt_KF;      // 当前关键帧（keyframe）编号
     uint8_t Next_KF;        // 下个关键帧（keyframe）编号
     uint16_t Temp_FrameNum; // 临时帧编号，换算为当前帧（frame）处于当前关键帧（keyframe）至下一关键帧（keyframe）的之间的帧编号
-    Frame_Skewing(EF_Work.FrameInfro.FrameAmount, &Tangram[0].Frame_Now, &Tangram[0].Frame_Now, speed);
+    uint8_t skew;
+#define Ignite_Skew_MIN 1
+#define Ignite_Skew_MAX 100
+    skew = speed / 8;
+    if (skew <= Ignite_Skew_MIN)
+    {
+        skew = Ignite_Skew_MIN;
+    }
+    if (skew >= Ignite_Skew_MAX)
+    {
+        skew = Ignite_Skew_MAX;
+    }
+    Frame_Skewing(EF_Work.FrameInfro.FrameAmount, &Tangram[0].Frame_Now, &Tangram[0].Frame_Now, skew);
     Currnt_KF = Tangram[0].Frame_Now / (EF_Work.FrameInfro.InsertNum + 1);     // 计算当前帧 已经过的 最近/当前 关键帧
     Temp_FrameNum = Tangram[0].Frame_Now % (EF_Work.FrameInfro.InsertNum + 1); //
     Next_KF = Currnt_KF + 1;                                                   // 计算当前帧 准备经过的 下一关键
@@ -470,18 +563,33 @@ void Flow_Random(uint8_t speed) /*随机*/
     static uint32_t flow_random_timer = 0;
     uint8_t i;
     uint8_t num;
-    flow_random_timer += (speed * 100);
-    if (flow_random_timer > 50000)
+    uint8_t time;
+#define Random_Skew_MIN 1
+#define Random_Skew_MAX 200
+    time = 100 - speed + 25;
+    if (time <= Random_Skew_MIN)
+    {
+        time = Random_Skew_MIN;
+    }
+    if (time >= Random_Skew_MAX)
+    {
+        time = Random_Skew_MAX;
+    }
+    EF_Work.Module_WorkNum = slave.num;
+    if (++flow_random_timer >= time)
     {
         flow_random_timer = 0;
         for (i = 0; i < slave.num; i++)
         {
-            slave.data[i].runnum = i;
             num = get_random_number() % play.efdetail.EfColorInf.colorNum;
             Tangram[i].R.Now = play.efdetail.EfColorInf.ColorID[num].color.R;
             Tangram[i].G.Now = play.efdetail.EfColorInf.ColorID[num].color.G;
             Tangram[i].B.Now = play.efdetail.EfColorInf.ColorID[num].color.B;
             Tangram[i].W.Now = play.efdetail.EfColorInf.ColorID[num].color.W;
+        }
+        for (i = 0; i < slave.num; i++)
+        {
+            slave.data[i].runnum = get_random_number() % EF_Work.Module_WorkNum;
         }
     }
 

@@ -237,8 +237,8 @@ void play_frame_reset(void);
 void play_sys_effect_init(void);
 /*生成该灯效的动画缓存*/
 void generate_play_video_buffer(void);
-/*计算出从机的运行编号*/
-void figure_slave_run_number(void);
+/*根据方向计算出从机的运行编号*/
+void figure_slave_run_number_in_direction(Direction_Enum dir);
 /*发送从机播放数据*/
 // // void transmit_slave_play_data(void);
 /*所有灯点亮同个颜色*/

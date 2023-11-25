@@ -177,11 +177,12 @@ void SYS_Init(void)
     sys_rundata_init();
     ID_Init();
     norflash_data_init();
-    play_init();
+   
     slave_online_data_init();
-    play_sys_effect_init();
-    global_setting_init();
 
+    global_setting_init();
+    play_init();
+    play_sys_effect_init();
     // schedule_factory_reset
 }
 
@@ -215,7 +216,7 @@ void KeyS_On(void)
     Key_On(&K3, keyVal, 3, 2, 50, 1, 0);
     Key_On(&K4, keyVal, 4, 2, 50, 1, 0);
     Key_On(&K5, keyVal, 5, 2, 50, 1, 0);
-
+    
 
     // // // // if (keyVal)
     // // // // {

@@ -342,9 +342,9 @@ void debug_play_last_effect(void)
 
 void debug(void)
 {
-    static uint8_t ppp;
-    ppp++;
-    UART1_Send(&ppp, 1);  
+    // static uint8_t ppp;
+    // ppp++;
+    // UART1_Send(&ppp, 1);  
     // static uint8_t i;
     // if (i)
     // {
@@ -430,6 +430,7 @@ void debug_K3(void)
 /*按键4服务调试函数*/
 void debug_K4(void)
 {
+    // print_online_slave_data();
     // // init_default_playlist();            // 出厂化内置播放表信息
     // uint8_t version[OTA_updateFLAG_SIZE];
 
@@ -471,6 +472,23 @@ void debug_K4(void)
 /*按键5服务调试函数*/
 void debug_K5(void)
 {
+    // // play_new_effect(12);
+//    static  Direction_Enum dir;
+//     if (++dir > DIRECTION_SEPARATE)
+//     {
+//         dir = 0;
+//     }
+
+    // // if (dir == DIRECTION_SEPARATE)
+    // // {
+    // //     dir = DIRECTION_CONVERGE;
+    // // }
+    // // else
+    // // {
+    // //     dir = DIRECTION_SEPARATE;
+    // // }
+    // light_in_direction(dir);
+//     light_in_direction(dir);
     // // print_get_playlist_ranklist();
     // print_get_all_ef_ranklist();
     // // set_firmware_downloading_flag();
