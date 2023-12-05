@@ -22,37 +22,765 @@ Dialog DLL:      TARMCM1.DLL V1.14.3.0
  
 <h2>Project:</h2>
 D:\SynologyDrive\L1001\Software\L1001_Master\L1001_Master_CMS32L051\Project\MDK\A5441_Master_CMS32L051.uvprojx
-Project File Date:  11/23/2023
+Project File Date:  11/30/2023
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 7 (build 960)', folder: 'E:\APP\Keil_v5\ARM\ARMCC\Bin'
-Build target 'CMS32L051'
-compiling flow.c...
-..\USER\app\appfunction.h(100): warning:  #1295-D: Deprecated declaration mcu_update_current_play_ef_index - give arg types
+Rebuild target 'CMS32L051'
+Note: source file '..\USER\fft\fft.c' - object file renamed from '.\Objects\fft.o' to '.\Objects\fft_1.o'.
+compiling FIFO.c...
+compiling gpio.c...
+compiling image.c...
+..\USER\app\appfunction.h(101): warning:  #1295-D: Deprecated declaration mcu_update_current_play_ef_index - give arg types
   void mcu_update_current_play_ef_index();                                        // 上传当前播放的灯效索引
-..\USER\flow\flow.c(98): warning:  #513-D: a value of type "color_group_TypeDef *" cannot be assigned to an entity of type "uint8_t *"
+..\USER\Source\image.c: 1 warning, 0 errors
+compiling delay.c...
+..\USER\app\appfunction.h(101): warning:  #1295-D: Deprecated declaration mcu_update_current_play_ef_index - give arg types
+  void mcu_update_current_play_ef_index();                                        // 上传当前播放的灯效索引
+..\USER\Source\delay.c: 1 warning, 0 errors
+compiling KEY.C...
+..\USER\app\appfunction.h(101): warning:  #1295-D: Deprecated declaration mcu_update_current_play_ef_index - give arg types
+  void mcu_update_current_play_ef_index();                                        // 上传当前播放的灯效索引
+..\USER\Source\KEY.C(190): warning:  #940-D: missing return statement at end of non-void function "Numeric_Keyboard" 
+  }
+..\USER\Source\KEY.C(207): warning:  #167-D: argument of type "const uint8_t (*)[10]" is incompatible with parameter of type "unsigned char *"
+  			temp = KeyNum_Match(keyval, &Numboard_KeyTable, sizeof(Numboard_KeyTable));
+..\USER\Source\KEY.C: 3 warnings, 0 errors
+compiling wdt.c...
+compiling flash_user.c...
+compiling Color.c...
+..\USER\app\appfunction.h(101): warning:  #1295-D: Deprecated declaration mcu_update_current_play_ef_index - give arg types
+  void mcu_update_current_play_ef_index();                                        // 上传当前播放的灯效索引
+..\USER\Source\Color.c(112): warning:  #167-D: argument of type "DataTypeDef *" is incompatible with parameter of type "unsigned char *"
+      FrameInsert_Calculate(*(KF_Adr + (Currnt_KF * 4 * Frame_Px_Num) + (Pixel_Num * 4) + 0), *(KF_Adr + (Next_KF * 4 * Frame_Px_Num) + (Pixel_Num * 4) + 0), &struct_adr->R, Temp_FrameNum, Frame_In_Num);
+..\USER\Source\Color.c(113): warning:  #167-D: argument of type "DataTypeDef *" is incompatible with parameter of type "unsigned char *"
+      FrameInsert_Calculate(*(KF_Adr + (Currnt_KF * 4 * Frame_Px_Num) + (Pixel_Num * 4) + 1), *(KF_Adr + (Next_KF * 4 * Frame_Px_Num) + (Pixel_Num * 4) + 1), &struct_adr->G, Temp_FrameNum, Frame_In_Num);
+..\USER\Source\Color.c(114): warning:  #167-D: argument of type "DataTypeDef *" is incompatible with parameter of type "unsigned char *"
+      FrameInsert_Calculate(*(KF_Adr + (Currnt_KF * 4 * Frame_Px_Num) + (Pixel_Num * 4) + 2), *(KF_Adr + (Next_KF * 4 * Frame_Px_Num) + (Pixel_Num * 4) + 2), &struct_adr->B, Temp_FrameNum, Frame_In_Num);
+..\USER\Source\Color.c(115): warning:  #167-D: argument of type "DataTypeDef *" is incompatible with parameter of type "unsigned char *"
+      FrameInsert_Calculate(*(KF_Adr + (Currnt_KF * 4 * Frame_Px_Num) + (Pixel_Num * 4) + 3), *(KF_Adr + (Next_KF * 4 * Frame_Px_Num) + (Pixel_Num * 4) + 3), &struct_adr->W, Temp_FrameNum, Frame_In_Num);
+..\USER\Source\Color.c(536): warning:  #167-D: argument of type "uint8_t (*)[modele_maxnum][2]" is incompatible with parameter of type "uint8_t *"
+      Bubble_Sort_2D(&temp_array, modele_maxnum, 2, 1); // 根据优先级进行排序
+..\USER\Source\Color.c: 6 warnings, 0 errors
+compiling Com.c...
+..\USER\app\appfunction.h(101): warning:  #1295-D: Deprecated declaration mcu_update_current_play_ef_index - give arg types
+  void mcu_update_current_play_ef_index();                                        // 上传当前播放的灯效索引
+..\USER\Source\Com.c(111): warning:  #940-D: missing return statement at end of non-void function "DataPackage_Extract" 
+  }
+..\USER\Source\Com.c(765): warning:  #177-D: variable "temp"  was declared but never referenced
+      uint8_t temp;
+..\USER\Source\Com.c(826): warning:  #513-D: a value of type "uint8_t (*)[91]" cannot be assigned to an entity of type "uint8_t *"
+      p_buffer = &protocol_buffer;
+..\USER\Source\Com.c(886): warning:  #188-D: enumerated type mixed with another type
+      EFpara.motion = *++p;
+..\USER\Source\Com.c(887): warning:  #188-D: enumerated type mixed with another type
+      EFpara.move = *++p;
+..\USER\Source\Com.c(888): warning:  #188-D: enumerated type mixed with another type
+      EFpara.Mode = *++p;
+..\USER\Source\Com.c(973): warning:  #513-D: a value of type "uint8_t (*)[72]" cannot be assigned to an entity of type "uint8_t *"
+      p_buffer = &protocol_buffer;
+..\USER\Source\Com.c(993): warning:  #177-D: variable "j"  was declared but never referenced
+      uint8_t i, j;
+..\USER\Source\Com.c(994): warning:  #177-D: variable "temp"  was declared but never referenced
+      uint8_t temp;
+..\USER\Source\Com.c(1034): warning:  #513-D: a value of type "uint8_t (*)[11]" cannot be assigned to an entity of type "uint8_t *"
+      p_buffer = &protocol_buffer;
+..\USER\Source\Com.c(1026): warning:  #177-D: variable "i"  was declared but never referenced
+      uint8_t i;
+..\USER\Source\Com.c(1058): warning:  #188-D: enumerated type mixed with another type
+      schedule.Action = *++p;
+..\USER\Source\Com.c(1111): warning:  #177-D: variable "temp"  was declared but never referenced
+      uint8_t temp;
+..\USER\Source\Com.c: 14 warnings, 0 errors
+compiling rtc.c...
+compiling flash.c...
+compiling retarget.c...
+compiling dma.c...
+compiling adc.c...
+compiling motion.c...
+..\USER\app\appfunction.h(101): warning:  #1295-D: Deprecated declaration mcu_update_current_play_ef_index - give arg types
+  void mcu_update_current_play_ef_index();                                        // 上传当前播放的灯效索引
+..\USER\Source\motion.c(83): warning:  #513-D: a value of type "color_group_TypeDef *" cannot be assigned to an entity of type "uint8_t *"
       sur = &EF_Buffer.color_buffer;      // 源色表指针
-..\USER\flow\flow.c(125): warning:  #513-D: a value of type "color_group_TypeDef *" cannot be assigned to an entity of type "uint8_t *"
+..\USER\Source\motion.c(72): warning:  #177-D: variable "k"  was declared but never referenced
+      uint16_t i, j, k;
+..\USER\Source\motion.c(134): warning:  #513-D: a value of type "color_group_TypeDef *" cannot be assigned to an entity of type "uint8_t *"
       sur = &EF_Buffer.color_buffer;      // 源色表指针
-..\USER\flow\flow.c(150): warning:  #513-D: a value of type "color_group_TypeDef *" cannot be assigned to an entity of type "uint8_t *"
+..\USER\Source\motion.c(161): warning:  #513-D: a value of type "color_group_TypeDef *" cannot be assigned to an entity of type "uint8_t *"
       sur = &EF_Buffer.color_buffer;      // 源色表指针
-..\USER\flow\flow.c(162): warning:  #513-D: a value of type "color_group_TypeDef *" cannot be assigned to an entity of type "uint8_t *"
+..\USER\Source\motion.c(186): warning:  #513-D: a value of type "color_group_TypeDef *" cannot be assigned to an entity of type "uint8_t *"
+      sur = &EF_Buffer.color_buffer;      // 源色表指针
+..\USER\Source\motion.c(198): warning:  #513-D: a value of type "color_group_TypeDef *" cannot be assigned to an entity of type "uint8_t *"
           sur = &EF_Buffer.color_buffer;
-..\USER\flow\flow.c(189): warning:  #513-D: a value of type "color_group_TypeDef *" cannot be assigned to an entity of type "uint8_t *"
+..\USER\Source\motion.c(225): warning:  #513-D: a value of type "color_group_TypeDef *" cannot be assigned to an entity of type "uint8_t *"
       sur = &EF_Buffer.color_buffer;      // 源色表指针
-..\USER\flow\flow.c(213): warning:  #513-D: a value of type "color_group_TypeDef *" cannot be assigned to an entity of type "uint8_t *"
+..\USER\Source\motion.c(249): warning:  #513-D: a value of type "color_group_TypeDef *" cannot be assigned to an entity of type "uint8_t *"
       sur = &EF_Buffer.color_buffer;      // 源色表指针
-..\USER\flow\flow.c(237): warning:  #513-D: a value of type "color_group_TypeDef *" cannot be assigned to an entity of type "uint8_t *"
+..\USER\Source\motion.c(273): warning:  #513-D: a value of type "color_group_TypeDef *" cannot be assigned to an entity of type "uint8_t *"
+      sur = &EF_Buffer.color_buffer;      // 源色表指针
+..\USER\Source\motion.c(296): warning:  #513-D: a value of type "color_group_TypeDef *" cannot be assigned to an entity of type "uint8_t *"
+      sur = &EF_Buffer.color_buffer;      // 源色表指针
+..\USER\Source\motion.c(817): warning:  #177-D: variable "temp"  was declared but never referenced
+      uint8_t temp;
+..\USER\Source\motion.c: 12 warnings, 0 errors
+compiling protocol.c...
+..\USER\app\appfunction.h(101): warning:  #1295-D: Deprecated declaration mcu_update_current_play_ef_index - give arg types
+  void mcu_update_current_play_ef_index();                                        // 上传当前播放的灯效索引
+..\USER\mcu_sdk\protocol.c(1237): warning:  #167-D: argument of type "const unsigned char *" is incompatible with parameter of type "uint8_t *"
+      mcu_download_reserved5(value,length);
+..\USER\mcu_sdk\protocol.c(2133): warning:  #177-D: variable "time_type"  was declared but never referenced
+              unsigned char time_type = value[1]; //0x00:鏍兼灄鏃堕棿  0x01:鏈湴鏃堕棿
+..\USER\mcu_sdk\protocol.c: 3 warnings, 0 errors
+compiling tim4.c...
+..\..\Driver\src\tim4.c(696): warning:  #188-D: enumerated type mixed with another type
+      TM40_Channel_Start(TM4_CHANNEL_0 | TM4_CHANNEL_1);
+..\..\Driver\src\tim4.c(725): warning:  #188-D: enumerated type mixed with another type
+      TM40_Channel_Start(TM4_CHANNEL_0 | TM4_CHANNEL_1);
+..\..\Driver\src\tim4.c(763): warning:  #188-D: enumerated type mixed with another type
+      TM40_Channel_Start(TM4_CHANNEL_0 | TM4_CHANNEL_1 | TM4_CHANNEL_2);
+..\..\Driver\src\tim4.c(810): warning:  #188-D: enumerated type mixed with another type
+      TM40_Channel_Start(TM4_CHANNEL_0 | TM4_CHANNEL_1 | TM4_CHANNEL_2 | TM4_CHANNEL_3);
+..\..\Driver\src\tim4.c(855): warning:  #188-D: enumerated type mixed with another type
+      TM40_Channel_Start(TM4_CHANNEL_0 | TM4_CHANNEL_1 | TM4_CHANNEL_2 | TM4_CHANNEL_3);
+..\..\Driver\src\tim4.c(1481): warning:  #188-D: enumerated type mixed with another type
+      TM41_Channel_Start(TM4_CHANNEL_0 | TM4_CHANNEL_1);
+..\..\Driver\src\tim4.c(1510): warning:  #188-D: enumerated type mixed with another type
+      TM41_Channel_Start(TM4_CHANNEL_0 | TM4_CHANNEL_1);
+..\..\Driver\src\tim4.c(1548): warning:  #188-D: enumerated type mixed with another type
+      TM41_Channel_Start(TM4_CHANNEL_0 | TM4_CHANNEL_1 | TM4_CHANNEL_2);
+..\..\Driver\src\tim4.c(1595): warning:  #188-D: enumerated type mixed with another type
+      TM41_Channel_Start(TM4_CHANNEL_0 | TM4_CHANNEL_1 | TM4_CHANNEL_2 | TM4_CHANNEL_3);
+..\..\Driver\src\tim4.c(1640): warning:  #188-D: enumerated type mixed with another type
+      TM41_Channel_Start(TM4_CHANNEL_0 | TM4_CHANNEL_1 | TM4_CHANNEL_2 | TM4_CHANNEL_3);
+..\..\Driver\src\tim4.c: 10 warnings, 0 errors
+compiling IR.C...
+..\USER\app\appfunction.h(101): warning:  #1295-D: Deprecated declaration mcu_update_current_play_ef_index - give arg types
+  void mcu_update_current_play_ef_index();                                        // 上传当前播放的灯效索引
+..\USER\Source\IR.C(58): warning:  #167-D: argument of type "const uint8_t (*)[44]" is incompatible with parameter of type "unsigned char *"
+                  IR_KeyVal = KeyNum_Match(&IR_Data2, &IR_KeyTable, sizeof(IR_KeyTable));
+..\USER\Source\IR.C: 2 warnings, 0 errors
+compiling colorbox.c...
+..\USER\app\appfunction.h(101): warning:  #1295-D: Deprecated declaration mcu_update_current_play_ef_index - give arg types
+  void mcu_update_current_play_ef_index();                                        // 上传当前播放的灯效索引
+..\USER\Source\colorbox.c: 1 warning, 0 errors
+compiling Sys.c...
+..\USER\app\appfunction.h(101): warning:  #1295-D: Deprecated declaration mcu_update_current_play_ef_index - give arg types
+  void mcu_update_current_play_ef_index();                                        // 上传当前播放的灯效索引
+..\USER\Source\Sys.c: 1 warning, 0 errors
+compiling main.c...
+..\USER\app\appfunction.h(101): warning:  #1295-D: Deprecated declaration mcu_update_current_play_ef_index - give arg types
+  void mcu_update_current_play_ef_index();                                        // 上传当前播放的灯效索引
+..\USER\Source\main.c(209): warning:  #223-D: function "clock_server" declared implicitly
+  			clock_server();	
+..\USER\Source\main.c(84): warning:  #177-D: variable "status"  was declared but never referenced
+  	MD_STATUS status;
+..\USER\Source\main.c: 3 warnings, 0 errors
+compiling uart.c...
+..\USER\app\appfunction.h(101): warning:  #1295-D: Deprecated declaration mcu_update_current_play_ef_index - give arg types
+  void mcu_update_current_play_ef_index();                                        // 上传当前播放的灯效索引
+..\USER\Source\uart.c: 1 warning, 0 errors
+compiling system.c...
+..\USER\app\appfunction.h(101): warning:  #1295-D: Deprecated declaration mcu_update_current_play_ef_index - give arg types
+  void mcu_update_current_play_ef_index();                                        // 上传当前播放的灯效索引
+..\USER\mcu_sdk\system.c(150): warning:  #177-D: variable "str"  was declared but never referenced
+      unsigned char str[10] = {0};
+..\USER\mcu_sdk\system.c: 2 warnings, 0 errors
+compiling wave.c...
+..\USER\app\appfunction.h(101): warning:  #1295-D: Deprecated declaration mcu_update_current_play_ef_index - give arg types
+  void mcu_update_current_play_ef_index();                                        // 上传当前播放的灯效索引
+..\USER\Source\wave.c(16): warning:  #550-D: variable "rising_rate"  was set but never used
+      uint16_t rising_rate=0;
+..\USER\Source\wave.c(17): warning:  #177-D: variable "temp"  was declared but never referenced
+      uint8_t temp = 0;
+..\USER\Source\wave.c: 3 warnings, 0 errors
+compiling mcu_api.c...
+..\USER\app\appfunction.h(101): warning:  #1295-D: Deprecated declaration mcu_update_current_play_ef_index - give arg types
+  void mcu_update_current_play_ef_index();                                        // 上传当前播放的灯效索引
+..\USER\mcu_sdk\mcu_api.c: 1 warning, 0 errors
+compiling A5441_Master.c...
+..\USER\app\appfunction.h(101): warning:  #1295-D: Deprecated declaration mcu_update_current_play_ef_index - give arg types
+  void mcu_update_current_play_ef_index();                                        // 上传当前播放的灯效索引
+..\USER\Source\A5441_Master.c(183): warning:  #223-D: function "global_setting_init" declared implicitly
+      global_setting_init();
+..\USER\Source\A5441_Master.c(196): warning:  #159-D: declaration is incompatible with previous "global_setting_init"  (declared at line 183)
+  void global_setting_init(void)
+..\USER\Source\A5441_Master.c(822): warning:  #177-D: variable "test"  was declared but never referenced
+      static unsigned char test;
+..\USER\Source\A5441_Master.c(839): warning:  #223-D: function "delay_20ms" declared implicitly
+      delay_20ms();
+..\USER\Source\A5441_Master.c(836): warning:  #177-D: variable "i"  was declared but never referenced
+      uint8_t i;
+..\USER\Source\A5441_Master.c(931): warning:  #167-D: argument of type "const uint8_t (*)[44]" is incompatible with parameter of type "unsigned char *"
+      temp = KeyNum_Match(KeyVal, &IR_KeyTable, sizeof(IR_KeyTable));
+..\USER\Source\A5441_Master.c(1862): warning:  #940-D: missing return statement at end of non-void function "MIC_Process" 
+  }
+..\USER\Source\A5441_Master.c(2003): warning:  #940-D: missing return statement at end of non-void function "Light_AD_Test" 
+  }
+..\USER\Source\A5441_Master.c: 9 warnings, 0 errors
+compiling sci.c...
+..\USER\app\appfunction.h(101): warning:  #1295-D: Deprecated declaration mcu_update_current_play_ef_index - give arg types
+  void mcu_update_current_play_ef_index();                                        // 上传当前播放的灯效索引
+..\..\Driver\src\sci.c: 1 warning, 0 errors
+compiling sci_user.c...
+..\USER\app\appfunction.h(101): warning:  #1295-D: Deprecated declaration mcu_update_current_play_ef_index - give arg types
+  void mcu_update_current_play_ef_index();                                        // 上传当前播放的灯效索引
+..\..\Driver\src\sci_user.c(193): warning:  #177-D: function "uart0_callback_receiveend"  was declared but never referenced
+  static void uart0_callback_receiveend(void)
+..\..\Driver\src\sci_user.c(208): warning:  #177-D: function "uart0_callback_softwareoverrun"  was declared but never referenced
+  static void uart0_callback_softwareoverrun(uint16_t rx_data)
+..\..\Driver\src\sci_user.c(501): warning:  #177-D: function "iic00_interrupt"  was declared but never referenced
+  static void iic00_interrupt(void)
+..\..\Driver\src\sci_user.c(617): warning:  #177-D: function "iic01_interrupt"  was declared but never referenced
+  static void iic01_interrupt(void)
+..\..\Driver\src\sci_user.c(1088): warning:  #177-D: function "uart2_interrupt_receive"  was declared but never referenced
+  static void uart2_interrupt_receive(void)
+..\..\Driver\src\sci_user.c(1127): warning:  #177-D: function "uart2_interrupt_send"  was declared but never referenced
+  static void uart2_interrupt_send(void)
+..\..\Driver\src\sci_user.c: 7 warnings, 0 errors
+compiling rtc_user.c...
+..\USER\app\appfunction.h(101): warning:  #1295-D: Deprecated declaration mcu_update_current_play_ef_index - give arg types
+  void mcu_update_current_play_ef_index();                                        // 上传当前播放的灯效索引
+..\..\Driver\src\rtc_user.c(247): warning:  #223-D: function "it_callback_Handle" declared implicitly
+      it_callback_Handle();
+..\..\Driver\src\rtc_user.c(47): warning:  #177-D: function "str2bcdtime"  was declared but never referenced
+  static void str2bcdtime(char date_buf[], char bcd_buf[])
+..\..\Driver\src\rtc_user.c: 3 warnings, 0 errors
+compiling adc_user.c...
+..\USER\app\appfunction.h(101): warning:  #1295-D: Deprecated declaration mcu_update_current_play_ef_index - give arg types
+  void mcu_update_current_play_ef_index();                                        // 上传当前播放的灯效索引
+..\..\Driver\src\adc_user.c: 1 warning, 0 errors
+compiling Light.c...
+..\USER\app\appfunction.h(101): warning:  #1295-D: Deprecated declaration mcu_update_current_play_ef_index - give arg types
+  void mcu_update_current_play_ef_index();                                        // 上传当前播放的灯效索引
+..\USER\Source\Light.c: 1 warning, 0 errors
+compiling tim4_user.c...
+..\USER\app\appfunction.h(101): warning:  #1295-D: Deprecated declaration mcu_update_current_play_ef_index - give arg types
+  void mcu_update_current_play_ef_index();                                        // 上传当前播放的灯效索引
+..\..\Driver\src\tim4_user.c: 1 warning, 0 errors
+compiling wdt_user.c...
+compiling driver_spi.c...
+..\USER\app\appfunction.h(101): warning:  #1295-D: Deprecated declaration mcu_update_current_play_ef_index - give arg types
+  void mcu_update_current_play_ef_index();                                        // 上传当前播放的灯效索引
+..\USER\external_memory\driver_spi.c: 1 warning, 0 errors
+compiling MEM.c...
+..\USER\app\appfunction.h(101): warning:  #1295-D: Deprecated declaration mcu_update_current_play_ef_index - give arg types
+  void mcu_update_current_play_ef_index();                                        // 上传当前播放的灯效索引
+..\USER\external_memory\MEM.c(69): warning:  #223-D: function "FlashSPI_Write" declared implicitly
+      FlashSPI_Write(buf, addr, sizeof(buf));
+..\USER\external_memory\MEM.c(79): warning:  #159-D: declaration is incompatible with previous "FlashSPI_Write"  (declared at line 69)
+  void FlashSPI_Write(uint8_t *pBuffer, uint32_t WriteAddr, uint16_t NumByteToWrite)
+..\USER\external_memory\MEM.c: 3 warnings, 0 errors
+compiling driver_w25qxx.c...
+..\USER\app\appfunction.h(101): warning:  #1295-D: Deprecated declaration mcu_update_current_play_ef_index - give arg types
+  void mcu_update_current_play_ef_index();                                        // 上传当前播放的灯效索引
+..\USER\external_memory\driver_w25qxx.c: 1 warning, 0 errors
+compiling default_data.c...
+..\USER\app\appfunction.h(101): warning:  #1295-D: Deprecated declaration mcu_update_current_play_ef_index - give arg types
+  void mcu_update_current_play_ef_index();                                        // 上传当前播放的灯效索引
+..\USER\internal_memory\default_data.c: 1 warning, 0 errors
+compiling memory.c...
+..\USER\app\appfunction.h(101): warning:  #1295-D: Deprecated declaration mcu_update_current_play_ef_index - give arg types
+  void mcu_update_current_play_ef_index();                                        // 上传当前播放的灯效索引
+..\USER\external_memory\memory.c(29): warning:  #177-D: variable "EFcolor"  was declared but never referenced
+      color_group_TypeDef EFcolor; // 色表
+..\USER\external_memory\memory.c(30): warning:  #177-D: variable "EFid"  was declared but never referenced
+      id_group_TypeDef EFid;       // id信息
+..\USER\external_memory\memory.c(242): warning:  #167-D: argument of type "unsigned int" is incompatible with parameter of type "const void *__restrict__"
+          memcpy(colordata, sector_addr + offset, sizeof(color_group_TypeDef));
+..\USER\external_memory\memory.c(284): warning:  #513-D: a value of type "unsigned int" cannot be assigned to an entity of type "uint8_t *"
+      sur = sector_addr + offset;
+..\USER\external_memory\memory.c(285): warning:  #513-D: a value of type "id_group_TypeDef *" cannot be assigned to an entity of type "uint8_t *"
+      tar = id_group;
+..\USER\external_memory\memory.c(319): warning:  #513-D: a value of type "unsigned int" cannot be assigned to an entity of type "uint8_t *"
+      sur = sector_addr + offset;
+..\USER\external_memory\memory.c(320): warning:  #513-D: a value of type "EF_para_data_TypeDef *" cannot be assigned to an entity of type "uint8_t *"
+      tar = paradata;
+..\USER\external_memory\memory.c(367): warning:  #513-D: a value of type "unsigned int" cannot be assigned to an entity of type "uint8_t *"
+      sur = sector_addr + offset;
+..\USER\external_memory\memory.c(368): warning:  #513-D: a value of type "playlist_TypeDef *" cannot be assigned to an entity of type "uint8_t *"
+      tar = list_p;
+..\USER\external_memory\memory.c(379): warning:  #177-D: variable "i"  was declared but never referenced
+      uint8_t i;
+..\USER\external_memory\memory.c(421): warning:  #513-D: a value of type "unsigned int" cannot be assigned to an entity of type "uint8_t *"
+      sur = sector_addr + offset;
+..\USER\external_memory\memory.c(422): warning:  #513-D: a value of type "schedule_TypeDef *" cannot be assigned to an entity of type "uint8_t *"
+      tar = p;
+..\USER\external_memory\memory.c: 13 warnings, 0 errors
+compiling user_memory.c...
+..\USER\app\appfunction.h(101): warning:  #1295-D: Deprecated declaration mcu_update_current_play_ef_index - give arg types
+  void mcu_update_current_play_ef_index();                                        // 上传当前播放的灯效索引
+..\USER\external_memory\user_memory.c(162): warning:  #177-D: variable "buf"  was declared but never referenced
+      uint8_t buf[256];
+..\USER\external_memory\user_memory.c(163): warning:  #177-D: variable "adr"  was declared but never referenced
+      uint32_t adr;
+..\USER\external_memory\user_memory.c(195): warning:  #167-D: argument of type "verify_Typedef *" is incompatible with parameter of type "char *__restrict__"
+      sprintf(&verify, EF_MEM_VERIFY);    // 写校验信息
+..\USER\external_memory\user_memory.c(205): warning:  #167-D: argument of type "verify_Typedef *" is incompatible with parameter of type "const char *"
+      if (strcmp(&verify, EF_MEM_VERIFY) != 0) // flash未存有校验信息
+..\USER\external_memory\user_memory.c(262): warning:  #120-D: return value type does not match the function type
+          return 0;
+..\USER\external_memory\user_memory.c(267): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "const char *"
+      ef.namelenght = strlen(dfdata[efnum].name); // 灯效名字长度
+..\USER\external_memory\user_memory.c(268): warning:  #167-D: argument of type "uint8_t (*)[15]" is incompatible with parameter of type "char *__restrict__"
+      strcpy(&ef.Name, dfdata[efnum].name);       // 拷贝灯效名字
+..\USER\external_memory\user_memory.c(268): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "const char *__restrict__"
+      strcpy(&ef.Name, dfdata[efnum].name);       // 拷贝灯效名字
+..\USER\external_memory\user_memory.c(387): warning:  #177-D: variable "ef"  was declared but never referenced
+      Efdetail_TypeDef ef;
+..\USER\external_memory\user_memory.c(389): warning:  #177-D: variable "j"  was declared but never referenced
+      uint8_t i, j;
+..\USER\external_memory\user_memory.c(460): warning:  #177-D: variable "ef"  was declared but never referenced
+      Efdetail_TypeDef ef;
+..\USER\external_memory\user_memory.c(917): warning:  #940-D: missing return statement at end of non-void function "delete_original_ef" 
+  }
+..\USER\external_memory\user_memory.c(961): warning:  #177-D: variable "efcolorinf"  was declared but never referenced
+      EfColorInf_TypeDef efcolorinf; /* 颜色数据区 */
+..\USER\external_memory\user_memory.c(1153): warning:  #177-D: variable "j"  was declared but never referenced
+      uint8_t i,j;
+..\USER\external_memory\user_memory.c: 15 warnings, 0 errors
+compiling internal_memory.c...
+..\USER\app\appfunction.h(101): warning:  #1295-D: Deprecated declaration mcu_update_current_play_ef_index - give arg types
+  void mcu_update_current_play_ef_index();                                        // 上传当前播放的灯效索引
+..\USER\internal_memory\internal_memory.c: 1 warning, 0 errors
+compiling newota.c...
+..\USER\app\appfunction.h(101): warning:  #1295-D: Deprecated declaration mcu_update_current_play_ef_index - give arg types
+  void mcu_update_current_play_ef_index();                                        // 上传当前播放的灯效索引
+..\USER\ota\newota.c(71): warning:  #167-D: argument of type "uint8_t (*)[16]" is incompatible with parameter of type "char *__restrict__"
+      sprintf(&update.startflag, FIRMWARE_UPDATE_FLAG);
+..\USER\ota\newota.c(73): warning:  #167-D: argument of type "update_Typedef *" is incompatible with parameter of type "uint8_t *"
+      FlashROM_Insert(&update, &(OCFLASH->update.data), sizeof(update));
+..\USER\ota\newota.c(73): warning:  #167-D: argument of type "update_Typedef *" is incompatible with parameter of type "uint32_t"
+      FlashROM_Insert(&update, &(OCFLASH->update.data), sizeof(update));
+..\USER\ota\newota.c(86): warning:  #167-D: argument of type "update_Typedef *" is incompatible with parameter of type "uint8_t *"
+      FlashROM_Insert(&update, &(OCFLASH->update.data), sizeof(update));
+..\USER\ota\newota.c(86): warning:  #167-D: argument of type "update_Typedef *" is incompatible with parameter of type "uint32_t"
+      FlashROM_Insert(&update, &(OCFLASH->update.data), sizeof(update));
+..\USER\ota\newota.c(97): warning:  #167-D: argument of type "uint8_t (*)[16]" is incompatible with parameter of type "const char *"
+      if (strcmp(&(OCFLASH->update.data.startflag), FIRMWARE_UPDATE_FLAG) == 0) // 检查是否含有升级标志
+..\USER\ota\newota.c: 7 warnings, 0 errors
+compiling debug.c...
+..\USER\app\appfunction.h(101): warning:  #1295-D: Deprecated declaration mcu_update_current_play_ef_index - give arg types
+  void mcu_update_current_play_ef_index();                                        // 上传当前播放的灯效索引
+..\USER\debug\debug.c(105): warning:  #167-D: argument of type "uint8_t (*)[15]" is incompatible with parameter of type "char *__restrict__"
+      sprintf(&eff.Name, "effectname test");
+..\USER\debug\debug.c(112): warning:  #188-D: enumerated type mixed with another type
+      eff.EffectType = i++;
+..\USER\debug\debug.c(113): warning:  #188-D: enumerated type mixed with another type
+      eff.Attribute = i++;
+..\USER\debug\debug.c(114): warning:  #188-D: enumerated type mixed with another type
+      eff.Direction = i++;
+..\USER\debug\debug.c(115): warning:  #188-D: enumerated type mixed with another type
+      eff.Flow = i++;
+..\USER\debug\debug.c(116): warning:  #513-D: a value of type "ColorID_TypeDef (*)[32]" cannot be assigned to an entity of type "uint8_t *"
+      pp = &eff.EfColorInf.ColorID;
+..\USER\debug\debug.c(296): warning:  #177-D: variable "i"  was declared but never referenced
+      uint8_t i;
+..\USER\debug\debug.c(574): warning:  #177-D: variable "i"  was declared but never referenced
+      uint8_t i;
+..\USER\debug\debug.c(839): warning:  #167-D: argument of type "uint8_t (*)[10]" is incompatible with parameter of type "uint8_t *"
+      transmit_protocol_frame(&buf, 9, &parse.tx_framebuf); // 通过不定长协议发送
+..\USER\debug\debug.c(839): warning:  #167-D: argument of type "uint8_t (*)[305]" is incompatible with parameter of type "uint8_t *"
+      transmit_protocol_frame(&buf, 9, &parse.tx_framebuf); // 通过不定长协议发送
+..\USER\debug\debug.c: 11 warnings, 0 errors
+compiling ota.c...
+..\USER\app\appfunction.h(101): warning:  #1295-D: Deprecated declaration mcu_update_current_play_ef_index - give arg types
+  void mcu_update_current_play_ef_index();                                        // 上传当前播放的灯效索引
+..\USER\ota\ota.c(7): warning:  #177-D: variable "i"  was declared but never referenced
+      uint16_t i, j;
+..\USER\ota\ota.c(7): warning:  #177-D: variable "j"  was declared but never referenced
+      uint16_t i, j;
+..\USER\ota\ota.c(10): warning:  #177-D: variable "p"  was declared but never referenced
+      uint8_t *p;
+..\USER\ota\ota.c(148): warning:  #167-D: argument of type "ota_data_TypeDef *" is incompatible with parameter of type "uint16_t"
+      Edit_SectorData((uint32_t)UserData2_ADDR, &(((UserData_Sector2_TypeDef *)0)->data.ota_data), (uint8_t *)&ota_data, sizeof(ota_data));
+..\USER\ota\ota.c(155): warning:  #167-D: argument of type "ota_data_TypeDef *" is incompatible with parameter of type "uint16_t"
+      Edit_SectorData((uint32_t)UserData2_ADDR, &(((UserData_Sector2_TypeDef *)0)->data.ota_data), (uint8_t *)&ota_data, sizeof(ota_data));
+..\USER\ota\ota.c: 6 warnings, 0 errors
+compiling comapp.c...
+..\USER\app\appfunction.h(101): warning:  #1295-D: Deprecated declaration mcu_update_current_play_ef_index - give arg types
+  void mcu_update_current_play_ef_index();                                        // 上传当前播放的灯效索引
+..\USER\app\comapp.c: 1 warning, 0 errors
+compiling flashapp.c...
+..\USER\app\appfunction.h(101): warning:  #1295-D: Deprecated declaration mcu_update_current_play_ef_index - give arg types
+  void mcu_update_current_play_ef_index();                                        // 上传当前播放的灯效索引
+..\USER\flashapp\flashapp.c: 1 warning, 0 errors
+compiling appfunction.c...
+..\USER\app\appfunction.h(101): warning:  #1295-D: Deprecated declaration mcu_update_current_play_ef_index - give arg types
+  void mcu_update_current_play_ef_index();                                        // 上传当前播放的灯效索引
+..\USER\app\appfunction.c(27): warning:  #167-D: argument of type "com_effect_detial_TypeDef *" is incompatible with parameter of type "const unsigned char *"
+      mcu_dp_raw_update(DPID_EFFECT_DETIAL, &comef, sizeof(comef));
+..\USER\app\appfunction.c(72): warning:  #167-D: argument of type "com_effect_sketch_TypeDef *" is incompatible with parameter of type "const unsigned char *"
+      mcu_dp_raw_update(DPID_EFFECT_SKETCH, &sketch, sizeof(sketch));
+..\USER\app\appfunction.c(94): warning:  #167-D: argument of type "com_effect_sketch_TypeDef *" is incompatible with parameter of type "const unsigned char *"
+      mcu_dp_raw_update(DPID_EFFECT_SKETCH, &sketch, sizeof(sketch));
+..\USER\app\appfunction.c(121): warning:  #167-D: argument of type "com_effect_sketch_TypeDef *" is incompatible with parameter of type "const unsigned char *"
+      mcu_dp_raw_update(DPID_PLAYLIST_EFFECT_SKETCH, &sketch, sizeof(sketch));
+..\USER\app\appfunction.c(130): warning:  #167-D: argument of type "com_ranklist_TypeDef *" is incompatible with parameter of type "const unsigned char *"
+      mcu_dp_raw_update(DPID_ALL_EFFECT_RANKLIST, &com_ranklist, sizeof(com_ranklist));
+..\USER\app\appfunction.c(132): warning:  #167-D: argument of type "comefranklist_TypeDef *" is incompatible with parameter of type "ef_ranklist_TypeDef *"
+      print_ef_ranklist(&com_ranklist.ranklist);
+..\USER\app\appfunction.c(142): warning:  #167-D: argument of type "com_ranklist_TypeDef *" is incompatible with parameter of type "const unsigned char *"
+      mcu_dp_raw_update(DPID_ORIGINAL_EFFECT_RANKLIST, &com_ranklist, sizeof(com_ranklist));
+..\USER\app\appfunction.c(143): warning:  #167-D: argument of type "comefranklist_TypeDef *" is incompatible with parameter of type "ef_ranklist_TypeDef *"
+      print_ef_ranklist(&com_ranklist.ranklist);
+..\USER\app\appfunction.c(153): warning:  #167-D: argument of type "com_ranklist_TypeDef *" is incompatible with parameter of type "const unsigned char *"
+      mcu_dp_raw_update(DPID_FAVORITES_EFFECT_RANKLIST, &com_ranklist, sizeof(com_ranklist));
+..\USER\app\appfunction.c(154): warning:  #167-D: argument of type "comefranklist_TypeDef *" is incompatible with parameter of type "ef_ranklist_TypeDef *"
+      print_ef_ranklist(&com_ranklist.ranklist);
+..\USER\app\appfunction.c(176): warning:  #167-D: argument of type "com_playlist_TypeDef *" is incompatible with parameter of type "const unsigned char *"
+      mcu_dp_raw_update(DPID_PLAY_LIST, &com_ranklist, sizeof(com_ranklist));
+..\USER\app\appfunction.c(192): warning:  #167-D: argument of type "com_play_detial_TypeDef *" is incompatible with parameter of type "const unsigned char *"
+      mcu_dp_raw_update(DPID_PLAY_DETIAL, &com, sizeof(com));
+..\USER\app\appfunction.c(216): warning:  #167-D: argument of type "com_play_detial_TypeDef *" is incompatible with parameter of type "const unsigned char *"
+      mcu_dp_raw_update(DPID_PLAY_CONTROL_DETIAL, &com, sizeof(com));
+..\USER\app\appfunction.c(234): warning:  #167-D: argument of type "com_play_control_TypeDef *" is incompatible with parameter of type "const unsigned char *"
+      mcu_dp_raw_update(DPID_PLAY_CONTROL, &com, sizeof(com));
+..\USER\app\appfunction.c(238): warning:  #167-D: argument of type "com_play_control_TypeDef *" is incompatible with parameter of type "const unsigned char *"
+      mcu_dp_raw_update(DPID_PLAY_CONTROL, &com, sizeof(com));
+..\USER\app\appfunction.c(242): warning:  #167-D: argument of type "com_play_control_TypeDef *" is incompatible with parameter of type "const unsigned char *"
+      mcu_dp_raw_update(DPID_PLAY_CONTROL, &com, sizeof(com));
+..\USER\app\appfunction.c(246): warning:  #167-D: argument of type "com_play_control_TypeDef *" is incompatible with parameter of type "const unsigned char *"
+      mcu_dp_raw_update(DPID_PLAY_CONTROL, &com, sizeof(com));
+..\USER\app\appfunction.c(268): warning:  #188-D: enumerated type mixed with another type
+          return 0;
+..\USER\app\appfunction.c(327): warning:  #167-D: argument of type "com_device_data_TypeDef *" is incompatible with parameter of type "const unsigned char *"
+      mcu_dp_raw_update(DPID_DEVICE_DETAIL, &com, (slave.num * sizeof(com_device_detail_TypeDef))); // RAW鍨嬫暟鎹笂鎶?;
+..\USER\app\appfunction.c(313): warning:  #177-D: variable "j"  was declared but never referenced
+      uint8_t i, j;
+..\USER\app\appfunction.c(375): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "com_effect_detial_TypeDef *"
+      print_com_effect_detial_log(sur); // 鎵撳嵃log
+..\USER\app\appfunction.c(548): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "com_effect_detial_TypeDef *"
+      print_com_effect_detial_log(sur); // 鎵撳嵃log
+..\USER\app\appfunction.c(561): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "com_play_detial_TypeDef *"
+      print_com_playdetial(sur);
+..\USER\app\appfunction.c(605): warning:  #188-D: enumerated type mixed with another type
+          switch_cyclemode((PlayMode_enum)(((com_play_control_TypeDef *)sur)->value));
+..\USER\app\appfunction.c(633): warning:  #167-D: argument of type "uint8_t" is incompatible with parameter of type "const unsigned char *"
+      mcu_dp_raw_update(DPID_PLAY_CONTROL, value, sizeof(com));
+..\USER\app\appfunction.c(669): warning:  #223-D: function "light_device_pairing_play" declared implicitly
+      light_device_pairing_play((app_device_control_Typedef*)sur);
+..\USER\app\appfunction.c(665): warning:  #177-D: variable "color"  was declared but never referenced
+      color_TypeDef color;
+..\USER\app\appfunction.c(666): warning:  #177-D: variable "i"  was declared but never referenced
+      uint8_t i;
+..\USER\app\appfunction.c(972): warning:  #120-D: return value type does not match the function type
+          return 0;
+..\USER\app\appfunction.c(1026): warning:  #167-D: argument of type "com_schedule_sketchlist_TypeDef *" is incompatible with parameter of type "const unsigned char *"
+      mcu_dp_raw_update(DPID_CLOCK_LIST, &com, sizeof(com));
+..\USER\app\appfunction.c(1047): warning:  #167-D: argument of type "com_schedule_detail_TypeDef *" is incompatible with parameter of type "const unsigned char *"
+      mcu_dp_raw_update(DPID_CLOCK_DETIAL, &com, sizeof(com));
+..\USER\app\appfunction.c(1066): warning:  #940-D: missing return statement at end of non-void function "mcu_download_clock_detial" 
+  }
+..\USER\app\appfunction.c(1083): warning:  #167-D: argument of type "uint8_t (*)[256]" is incompatible with parameter of type "const unsigned char *"
+      mcu_dp_raw_update(DPID_RESERVED3, &buff.data, buff.length);
+..\USER\app\appfunction.c(1128): warning:  #167-D: argument of type "com_effect_detial_TypeDef *" is incompatible with parameter of type "const unsigned char *"
+      mcu_dp_raw_update(DPID_RESERVED4, &comef, sizeof(comef));
+..\USER\app\appfunction.c(1163): warning:  #167-D: argument of type "com_current_efbright_TypeDef *" is incompatible with parameter of type "const unsigned char *"
+      mcu_dp_raw_update(DPID_RESERVED5, &com, sizeof(com));
+..\USER\app\appfunction.c: 36 warnings, 0 errors
+compiling printlog.c...
+..\USER\app\appfunction.h(101): warning:  #1295-D: Deprecated declaration mcu_update_current_play_ef_index - give arg types
+  void mcu_update_current_play_ef_index();                                        // 上传当前播放的灯效索引
+..\USER\debug\printlog.c(595): warning:  #177-D: variable "i"  was declared but never referenced
+      uint8_t i;
+..\USER\debug\printlog.c: 2 warnings, 0 errors
+compiling L0_slave.c...
+assembling startup_CMS32L051.s...
+compiling factory.c...
+..\USER\app\appfunction.h(101): warning:  #1295-D: Deprecated declaration mcu_update_current_play_ef_index - give arg types
+  void mcu_update_current_play_ef_index();                                        // 上传当前播放的灯效索引
+..\USER\factory\factory.c: 1 warning, 0 errors
+compiling slave.c...
+..\USER\app\appfunction.h(101): warning:  #1295-D: Deprecated declaration mcu_update_current_play_ef_index - give arg types
+  void mcu_update_current_play_ef_index();                                        // 上传当前播放的灯效索引
+..\USER\slave\slave.c(57): warning:  #188-D: enumerated type mixed with another type
+      x.head.dev_adr = id;                 // 握手地址
+..\USER\slave\slave.c(61): warning:  #167-D: argument of type "uint8_t *" is incompatible with parameter of type "uint16_t"
+      transmit_protocol_frame((uint8_t *)&x, &((L0_cmd_id_data_Typedef *)1)->cid, parse.tx_framebuf);
+..\USER\slave\slave.c(86): warning:  #167-D: argument of type "MES_TYPE_ENUM *" is incompatible with parameter of type "uint16_t"
+      transmit_protocol_frame((uint8_t *)&x, &((L0_cmd_id_data_Typedef *)1)->head.type, parse.tx_framebuf);
+..\USER\slave\slave.c(107): warning:  #188-D: enumerated type mixed with another type
+      x.head.dev_adr = id;              // 握手地址
+..\USER\slave\slave.c(110): warning:  #167-D: argument of type "MES_TYPE_ENUM *" is incompatible with parameter of type "uint16_t"
+      transmit_protocol_frame((uint8_t *)&x, &((L0_cmd_id_data_Typedef *)1)->head.type, parse.tx_framebuf);
+..\USER\slave\slave.c(141): warning:  #167-D: argument of type "comCmd_Typedef *" is incompatible with parameter of type "uint8_t *"
+                  get_section_from_fifo(fifobuf, bufsize, pr, 0, pack, sizeof(comCmd_Typedef));
+..\USER\slave\slave.c(261): warning:  #223-D: function "delay_10ms" declared implicitly
+              delay_10ms();
+..\USER\slave\slave.c(264): warning:  #167-D: argument of type "uint8_t (*)[100]" is incompatible with parameter of type "uint8_t *"
+              answer_sta = parse_slave_answer(&parse.fifo_buffer, sizeof(parse.fifo_buffer), &parse.read, &pWrite, &parse.rx_processbuf); //
+..\USER\slave\slave.c(264): warning:  #167-D: argument of type "uint8_t (*)[64]" is incompatible with parameter of type "uint8_t *"
+              answer_sta = parse_slave_answer(&parse.fifo_buffer, sizeof(parse.fifo_buffer), &parse.read, &pWrite, &parse.rx_processbuf); //
+..\USER\slave\slave.c(234): warning:  #177-D: variable "packstatus"  was declared but never referenced
+      uint8_t packstatus;       // 指令数据包状态
+..\USER\slave\slave.c(235): warning:  #177-D: variable "packbuff"  was declared but never referenced
+      comCmd_Typedef packbuff;
+..\USER\slave\slave.c(313): warning:  #223-D: function "delay_10ms" declared implicitly
+          delay_10ms();
+..\USER\slave\slave.c(317): warning:  #167-D: argument of type "uint8_t (*)[100]" is incompatible with parameter of type "uint8_t *"
+          answer_sta = parse_slave_answer(&parse.fifo_buffer, sizeof(parse.fifo_buffer), &parse.read, &pWrite, &parse.rx_processbuf); //
+..\USER\slave\slave.c(317): warning:  #167-D: argument of type "uint8_t (*)[64]" is incompatible with parameter of type "uint8_t *"
+          answer_sta = parse_slave_answer(&parse.fifo_buffer, sizeof(parse.fifo_buffer), &parse.read, &pWrite, &parse.rx_processbuf); //
+..\USER\slave\slave.c(302): warning:  #550-D: variable "answer_sta"  was set but never used
+      answer_status answer_sta;
+..\USER\slave\slave.c(538): warning:  #167-D: argument of type "L0_playRGBbr_Typedef *" is incompatible with parameter of type "uint16_t"
+              transmit_protocol_frame((uint8_t *)&xPlay, &((L0_cmd_playRGBbr_Typedef *)0)->dev[slave.num], &parse.tx_framebuf); // 通过不定长协议发送
+..\USER\slave\slave.c(538): warning:  #167-D: argument of type "uint8_t (*)[305]" is incompatible with parameter of type "uint8_t *"
+              transmit_protocol_frame((uint8_t *)&xPlay, &((L0_cmd_playRGBbr_Typedef *)0)->dev[slave.num], &parse.tx_framebuf); // 通过不定长协议发送
+..\USER\slave\slave.c(583): warning:  #167-D: argument of type "L0_playCOLOR_Typedef *" is incompatible with parameter of type "uint16_t"
+              transmit_protocol_frame((uint8_t *)&xPlay, &((L0_cmd_playCOLOR_Typedef *)0)->dev[slave.num], &parse.tx_framebuf); // 通过不定长协议发送
+..\USER\slave\slave.c(583): warning:  #167-D: argument of type "uint8_t (*)[305]" is incompatible with parameter of type "uint8_t *"
+              transmit_protocol_frame((uint8_t *)&xPlay, &((L0_cmd_playCOLOR_Typedef *)0)->dev[slave.num], &parse.tx_framebuf); // 通过不定长协议发送
+..\USER\slave\slave.c(623): warning:  #167-D: argument of type "uint8_t (*)[194]" is incompatible with parameter of type "uint8_t *"
+          transmit_protocol_frame(&buffer, size, &parse.tx_framebuf); // 通过不定长协议发送
+..\USER\slave\slave.c(623): warning:  #167-D: argument of type "uint8_t (*)[305]" is incompatible with parameter of type "uint8_t *"
+          transmit_protocol_frame(&buffer, size, &parse.tx_framebuf); // 通过不定长协议发送
+..\USER\slave\slave.c(698): warning:  #188-D: enumerated type mixed with another type
+                  slave.data[i].shape = xShape->shape;
+..\USER\slave\slave.c: 23 warnings, 0 errors
+compiling play.c...
+..\USER\app\appfunction.h(101): warning:  #1295-D: Deprecated declaration mcu_update_current_play_ef_index - give arg types
+  void mcu_update_current_play_ef_index();                                        // 上传当前播放的灯效索引
+..\USER\play\play.c(169): warning:  #940-D: missing return statement at end of non-void function "get_list_next_num" 
+  }
+..\USER\play\play.c(212): warning:  #940-D: missing return statement at end of non-void function "switch_lastnext_effect" 
+  }
+..\USER\play\play.c(196): warning:  #177-D: variable "playdetail"  was declared but never referenced
+      playdetail_TypeDef playdetail;
+..\USER\play\play.c(358): warning:  #167-D: argument of type "uint8_t (*)[60]" is incompatible with parameter of type "uint8_t *"
+         permute_list_in_random(&play.detail.list, play.detail.listefsum); // 生成随机播放
+..\USER\play\play.c(669): warning:  #167-D: argument of type "mini_device_detail_TypeDef (*)[32]" is incompatible with parameter of type "mini_device_detail_TypeDef *"
+          bubble_sort_location(&minidevice.data, minidevice.num, ORDINATE); // 根据纵坐标排序    
+..\USER\play\play.c(685): warning:  #167-D: argument of type "mini_device_detail_TypeDef (*)[32]" is incompatible with parameter of type "mini_device_detail_TypeDef *"
+          bubble_sort_location(&minidevice.data, minidevice.num, ABSCISSA); // 根据横坐标排序
+..\USER\play\play.c(701): warning:  #167-D: argument of type "mini_device_detail_TypeDef (*)[32]" is incompatible with parameter of type "mini_device_detail_TypeDef *"
+          bubble_sort_location(&minidevice.data, minidevice.num, XandY); // 根据横纵坐标排序
+..\USER\play\play.c(974): warning:  #167-D: argument of type "uint8_t (*)[8]" is incompatible with parameter of type "uint8_t *"
+      transmit_protocol_frame(&buffer, sizeof(buffer), &parse.tx_framebuf); // 通过不定长协议发送
+..\USER\play\play.c(974): warning:  #167-D: argument of type "uint8_t (*)[305]" is incompatible with parameter of type "uint8_t *"
+      transmit_protocol_frame(&buffer, sizeof(buffer), &parse.tx_framebuf); // 通过不定长协议发送
+..\USER\play\play.c(964): warning:  #177-D: variable "size"  was declared but never referenced
+      uint16_t size;
+..\USER\play\play.c(1065): warning:  #167-D: argument of type "L0_playRGBbr_Typedef *" is incompatible with parameter of type "uint16_t"
+          transmit_protocol_frame((uint8_t *)&xPlay, &((L0_cmd_playRGBbr_Typedef *)0)->dev[slave.num], &parse.tx_framebuf); // 通过不定长协议发送
+..\USER\play\play.c(1065): warning:  #167-D: argument of type "uint8_t (*)[305]" is incompatible with parameter of type "uint8_t *"
+          transmit_protocol_frame((uint8_t *)&xPlay, &((L0_cmd_playRGBbr_Typedef *)0)->dev[slave.num], &parse.tx_framebuf); // 通过不定长协议发送
+..\USER\play\play.c(1106): warning:  #167-D: argument of type "L0_playCOLOR_Typedef *" is incompatible with parameter of type "uint16_t"
+          transmit_protocol_frame((uint8_t *)&xPlay, &((L0_cmd_playCOLOR_Typedef*)0)->dev[slave.num], &parse.tx_framebuf); // 通过不定长协议发送
+..\USER\play\play.c(1106): warning:  #167-D: argument of type "uint8_t (*)[305]" is incompatible with parameter of type "uint8_t *"
+          transmit_protocol_frame((uint8_t *)&xPlay, &((L0_cmd_playCOLOR_Typedef*)0)->dev[slave.num], &parse.tx_framebuf); // 通过不定长协议发送
+..\USER\play\play.c(1130): warning:  #167-D: argument of type "L0_playCOLOR_Typedef *" is incompatible with parameter of type "uint16_t"
+          transmit_protocol_frame((uint8_t *)&xPlay, &((L0_cmd_playCOLOR_Typedef *)0)->dev[1], &parse.tx_framebuf); // 通过不定长协议发送
+..\USER\play\play.c(1130): warning:  #167-D: argument of type "uint8_t (*)[305]" is incompatible with parameter of type "uint8_t *"
+          transmit_protocol_frame((uint8_t *)&xPlay, &((L0_cmd_playCOLOR_Typedef *)0)->dev[1], &parse.tx_framebuf); // 通过不定长协议发送
+..\USER\play\play.c(1153): warning:  #167-D: argument of type "L0_playRGBbr_Typedef *" is incompatible with parameter of type "uint16_t"
+          transmit_protocol_frame((uint8_t *)&xPlay, &((L0_cmd_playRGBbr_Typedef *)0)->dev[1], &parse.tx_framebuf); // 通过不定长协议发送
+..\USER\play\play.c(1153): warning:  #167-D: argument of type "uint8_t (*)[305]" is incompatible with parameter of type "uint8_t *"
+          transmit_protocol_frame((uint8_t *)&xPlay, &((L0_cmd_playRGBbr_Typedef *)0)->dev[1], &parse.tx_framebuf); // 通过不定长协议发送
+..\USER\play\play.c(1199): warning:  #167-D: argument of type "L0_playRGBbr_Typedef *" is incompatible with parameter of type "uint16_t"
+          transmit_protocol_frame((uint8_t *)&xPlay, &((L0_cmd_playRGBbr_Typedef *)0)->dev[slave.num], &parse.tx_framebuf); // 通过不定长协议发送
+..\USER\play\play.c(1199): warning:  #167-D: argument of type "uint8_t (*)[305]" is incompatible with parameter of type "uint8_t *"
+          transmit_protocol_frame((uint8_t *)&xPlay, &((L0_cmd_playRGBbr_Typedef *)0)->dev[slave.num], &parse.tx_framebuf); // 通过不定长协议发送
+..\USER\play\play.c(1235): warning:  #177-D: variable "j"  was declared but never referenced
+      uint8_t i, j;
+..\USER\play\play.c(1279): warning:  #167-D: argument of type "uint8_t (*)[60]" is incompatible with parameter of type "uint8_t *"
+      move_data_to_first_in_list(play.detail.efindex, &play.detail.list, play.detail.listefsum); // 调整列表
+..\USER\play\play.c(1301): warning:  #167-D: argument of type "uint8_t (*)[60]" is incompatible with parameter of type "uint8_t *"
+          permute_list_in_random(&play.detail.list, play.detail.listefsum); // 生成随机播放
+..\USER\play\play.c(1317): warning:  #177-D: variable "playdetail"  was declared but never referenced
+      playdetail_TypeDef playdetail;
+..\USER\play\play.c(1432): warning:  #167-D: argument of type "L0_playCOLOR_Typedef *" is incompatible with parameter of type "uint16_t"
+          transmit_protocol_frame((uint8_t *)&xPlay, &((L0_cmd_playCOLOR_Typedef*)0)->dev[slave.num], &parse.tx_framebuf); // 通过不定长协议发送
+..\USER\play\play.c(1432): warning:  #167-D: argument of type "uint8_t (*)[305]" is incompatible with parameter of type "uint8_t *"
+          transmit_protocol_frame((uint8_t *)&xPlay, &((L0_cmd_playCOLOR_Typedef*)0)->dev[slave.num], &parse.tx_framebuf); // 通过不定长协议发送
+..\USER\play\play.c(1392): warning:  #177-D: variable "kel"  was declared but never referenced
+      uint16_t kel;
+..\USER\play\play.c: 28 warnings, 0 errors
+compiling master.c...
+..\USER\app\appfunction.h(101): warning:  #1295-D: Deprecated declaration mcu_update_current_play_ef_index - give arg types
+  void mcu_update_current_play_ef_index();                                        // 上传当前播放的灯效索引
+..\USER\master\master.c(49): warning:  #940-D: missing return statement at end of non-void function "get_norflash_firmware_version" 
+  }
+..\USER\master\master.c(65): warning:  #167-D: argument of type "uint8_t (*)[32]" is incompatible with parameter of type "char *__restrict__"
+      sprintf(&download, FIRMWARE_DOWNLOAD_FLAG);
+..\USER\master\master.c(66): warning:  #167-D: argument of type "uint8_t (*)[32]" is incompatible with parameter of type "uint8_t *"
+      FlashROM_Insert(&download, &(OCFLASH->user.data.FW_downloadFLAG), sizeof(download));
+..\USER\master\master.c(66): warning:  #167-D: argument of type "uint8_t (*)[32]" is incompatible with parameter of type "uint32_t"
+      FlashROM_Insert(&download, &(OCFLASH->user.data.FW_downloadFLAG), sizeof(download));
+..\USER\master\master.c(78): warning:  #167-D: argument of type "uint8_t (*)[32]" is incompatible with parameter of type "char *__restrict__"
+      sprintf(&download, FIRMWARE_IN_FLASH_FLAG);
+..\USER\master\master.c(79): warning:  #167-D: argument of type "uint8_t (*)[32]" is incompatible with parameter of type "uint8_t *"
+      FlashROM_Insert(&download, &(OCFLASH->user.data.FW_downloadFLAG), sizeof(download));
+..\USER\master\master.c(79): warning:  #167-D: argument of type "uint8_t (*)[32]" is incompatible with parameter of type "uint32_t"
+      FlashROM_Insert(&download, &(OCFLASH->user.data.FW_downloadFLAG), sizeof(download));
+..\USER\master\master.c(94): warning:  #167-D: argument of type "uint8_t (*)[32]" is incompatible with parameter of type "uint8_t *"
+      FlashROM_Insert(&download, &(OCFLASH->user.data.FW_downloadFLAG), sizeof(download));
+..\USER\master\master.c(94): warning:  #167-D: argument of type "uint8_t (*)[32]" is incompatible with parameter of type "uint32_t"
+      FlashROM_Insert(&download, &(OCFLASH->user.data.FW_downloadFLAG), sizeof(download));
+..\USER\master\master.c(108): warning:  #167-D: argument of type "uint8_t (*)[32]" is incompatible with parameter of type "char *"
+      if (my_strcmp(&(OCFLASH->user.data.FW_downloadFLAG), FIRMWARE_IN_FLASH_FLAG) == 0) // 妫�鏌ユ槸鍚﹀惈鏈夊浐浠跺湪鏈湴鏍囧織
+..\USER\master\master.c(111): warning:  #167-D: argument of type "uint8_t (*)[16]" is incompatible with parameter of type "uint8_t *"
+          get_norflash_firmware_version(&version, sizeof(firmware_inf.version));
+..\USER\master\master.c(112): warning:  #167-D: argument of type "uint8_t (*)[16]" is incompatible with parameter of type "char *"
+          if (my_strcmp(&version, &firmware_inf.version)) // 鐗堟湰涓嶄竴鑷?
+..\USER\master\master.c(112): warning:  #167-D: argument of type "const uint8_t (*)[16]" is incompatible with parameter of type "char *"
+          if (my_strcmp(&version, &firmware_inf.version)) // 鐗堟湰涓嶄竴鑷?
+..\USER\master\master.c(114): warning:  #223-D: function "erase_firmware_block" declared implicitly
+              erase_firmware_block();
+..\USER\master\master.c(120): warning:  #223-D: function "erase_firmware_block" declared implicitly
+              erase_firmware_block();
+..\USER\master\master.c(126): warning:  #167-D: argument of type "uint8_t (*)[32]" is incompatible with parameter of type "const char *"
+      else if (strcmp(&(OCFLASH->user.data.FW_downloadFLAG), FIRMWARE_DOWNLOAD_FLAG) == 0)
+..\USER\master\master.c(802): warning:  #177-D: variable "offtime"  was declared but never referenced
+      time_HM_TypeDef offtime; // 鍔ㄤ綔鍏抽棴鏃堕棿
+..\USER\master\master.c(982): warning:  #940-D: missing return statement at end of non-void function "wifi_fifo_send_ISR" 
+  }
+..\USER\master\master.c(1074): warning:  #223-D: function "change_rhythm_mode" declared implicitly
+          change_rhythm_mode();
+..\USER\master\master.c(1019): warning:  #177-D: variable "temp"  was declared but never referenced
+      static unsigned char temp;
+..\USER\master\master.c(1021): warning:  #177-D: variable "str"  was declared but never referenced
+      unsigned char *str;
+..\USER\master\master.c(1022): warning:  #177-D: variable "Level_Num_Temp"  was declared but never referenced
+      uint8_t Level_Num_Temp;
+..\USER\master\master.c(1024): warning:  #177-D: variable "i"  was declared but never referenced
+      uint16_t i, j;
+..\USER\master\master.c(1024): warning:  #177-D: variable "j"  was declared but never referenced
+      uint16_t i, j;
+..\USER\master\master.c(1025): warning:  #177-D: variable "p"  was declared but never referenced
+      uint8_t *p;
+..\USER\master\master.c(1236): warning:  #167-D: argument of type "uint8_t (*)[100]" is incompatible with parameter of type "uint8_t *"
+      fifo_parse(&parse.fifo_buffer, sizeof(parse.fifo_buffer), &parse.read, &pWrite, &parse.rx_processbuf); // 涓嶅畾闀垮崗璁В鏋?
+..\USER\master\master.c(1236): warning:  #167-D: argument of type "uint8_t (*)[64]" is incompatible with parameter of type "uint8_t *"
+      fifo_parse(&parse.fifo_buffer, sizeof(parse.fifo_buffer), &parse.read, &pWrite, &parse.rx_processbuf); // 涓嶅畾闀垮崗璁В鏋?
+..\USER\master\master.c(1255): warning:  #159-D: declaration is incompatible with previous "change_rhythm_mode"  (declared at line 1074)
+  void change_rhythm_mode(void)
+..\USER\master\master.c(1311): warning:  #167-D: argument of type "uint8_t (*)[60]" is incompatible with parameter of type "uint8_t *"
+          invert_list(&allef.list, allef.num); // 鍊掑簭
+..\USER\master\master.c(1313): warning:  #167-D: argument of type "uint8_t (*)[60]" is incompatible with parameter of type "uint8_t *"
+      i = search_dataindex_in_list(play.detail.efindex, &allef.list, allef.num); // 鎵惧埌褰撳墠鐏晥鍦ㄥ叏閮ㄧ伅鏁堜腑鐨勪綅缃?
+..\USER\master\master.c(1318): warning:  #167-D: argument of type "uint8_t (*)[60]" is incompatible with parameter of type "uint8_t *"
+      move_data_to_first_in_list(allef.list[i], &allef.list, allef.num);      // 鎸嚦绗竴浣?
+..\USER\master\master.c(1327): warning:  #223-D: function "modify_playsource" declared implicitly
+                  modify_playsource(SOURCE_FREE);
+..\USER\master\master.c(1336): warning:  #223-D: function "modify_playsource" declared implicitly
+                  modify_playsource(SOURCE_FREE);
+..\USER\master\master.c(1306): warning:  #177-D: variable "num"  was declared but never referenced
+      uint8_t num;
+..\USER\master\master.c(1307): warning:  #177-D: variable "j"  was declared but never referenced
+      uint8_t i, j;
+..\USER\master\master.c(1405): warning:  #167-D: argument of type "const uint8_t *" is incompatible with parameter of type "unsigned char *"
+          Light_Level_Change(&play.work.brightness.set, &play.work.brightness.dir, bright_table, sizeof(bright_table));
+..\USER\master\master.c(1418): warning:  #223-D: function "Value_Step_Change" declared implicitly
+      Value_Step_Change(&play.work.brightness.set, &play.work.brightness.dir, bright_table[sizeof(bright_table) - 1], bright_table[0], 1);
+..\USER\master\master.c(1450): warning:  #177-D: variable "Brightness_Temp"  was declared but never referenced
+      uint8_t Brightness_Temp;
+..\USER\master\master.c: 39 warnings, 0 errors
+compiling ProtocolCom.c...
+..\USER\app\appfunction.h(101): warning:  #1295-D: Deprecated declaration mcu_update_current_play_ef_index - give arg types
+  void mcu_update_current_play_ef_index();                                        // 上传当前播放的灯效索引
+..\USER\protocolcom\ProtocolCom.c: 1 warning, 0 errors
+compiling flow.c...
+..\USER\app\appfunction.h(101): warning:  #1295-D: Deprecated declaration mcu_update_current_play_ef_index - give arg types
+  void mcu_update_current_play_ef_index();                                        // 上传当前播放的灯效索引
+..\USER\flow\flow.c(79): warning:  #513-D: a value of type "color_group_TypeDef *" cannot be assigned to an entity of type "uint8_t *"
+      sur = &EF_Buffer.color_buffer;      // 源色表指针
+..\USER\flow\flow.c(106): warning:  #513-D: a value of type "color_group_TypeDef *" cannot be assigned to an entity of type "uint8_t *"
+      sur = &EF_Buffer.color_buffer;      // 源色表指针
+..\USER\flow\flow.c(131): warning:  #513-D: a value of type "color_group_TypeDef *" cannot be assigned to an entity of type "uint8_t *"
+      sur = &EF_Buffer.color_buffer;      // 源色表指针
+..\USER\flow\flow.c(143): warning:  #513-D: a value of type "color_group_TypeDef *" cannot be assigned to an entity of type "uint8_t *"
+          sur = &EF_Buffer.color_buffer;
+..\USER\flow\flow.c(170): warning:  #513-D: a value of type "color_group_TypeDef *" cannot be assigned to an entity of type "uint8_t *"
+      sur = &EF_Buffer.color_buffer;      // 源色表指针
+..\USER\flow\flow.c(194): warning:  #513-D: a value of type "color_group_TypeDef *" cannot be assigned to an entity of type "uint8_t *"
+      sur = &EF_Buffer.color_buffer;      // 源色表指针
+..\USER\flow\flow.c(218): warning:  #513-D: a value of type "color_group_TypeDef *" cannot be assigned to an entity of type "uint8_t *"
       sur = &EF_Buffer.color_buffer;      // 源色表指针
 ..\USER\flow\flow.c: 8 warnings, 0 errors
+compiling mic.c...
+..\USER\app\appfunction.h(101): warning:  #1295-D: Deprecated declaration mcu_update_current_play_ef_index - give arg types
+  void mcu_update_current_play_ef_index();                                        // 上传当前播放的灯效索引
+..\USER\mic\mic.c(31): warning:  #186-D: pointless comparison of unsigned integer with zero
+      if (out < MIC_PULSE_MIN)
+..\USER\mic\mic.c(181): warning:  #167-D: argument of type "uint16_t (*)[65]" is incompatible with parameter of type "uint16_t *"
+          mic.avg = get_average(&xadc.micbuf, (sizeof(xadc.micbuf) / sizeof(uint16_t))); // 鑾峰彇澹伴煶鍧囧�?
+..\USER\mic\mic.c(135): warning:  #177-D: variable "i"  was declared but never referenced
+      uint8_t i;
+..\USER\mic\mic.c(136): warning:  #177-D: variable "temp"  was declared but never referenced
+      uint16_t temp;
+..\USER\mic\mic.c(137): warning:  #177-D: variable "sound"  was declared but never referenced
+      uint32_t sound;    
+..\USER\mic\mic.c(138): warning:  #177-D: variable "diff"  was declared but never referenced
+      uint16_t diff;
+..\USER\mic\mic.c(139): warning:  #177-D: variable "threshold"  was declared but never referenced
+      uint16_t threshold;
+..\USER\mic\mic.c(368): warning:  #225-D: the format string ends before this argument
+      PRINT(fft, "%lf,%lf,%lf,%lf,%lf,%lf,%lf,%lf,%lf,%lf,%lf,%lf,%lf,%lf", data_of_N_FFT[20].real,data_of_N_FFT[1].real,data_of_N_FFT[2].real,data_of_N_FFT[3].real,data_of_N_FFT[4].real,data_of_N_FFT[5].real,data_of_N_FFT[6].real,data_of_N_FFT[7].real,data_of_N_FFT[8].real,data_of_N_FFT[9].real,data_of_N_FFT[10].real,data_of_N_FFT[11].real,data_of_N_FFT[12].real,data_of_N_FFT[13].real,data_of_N_FFT[14].real);
+..\USER\mic\mic.c: 9 warnings, 0 errors
+compiling calibration.c...
+..\USER\app\appfunction.h(101): warning:  #1295-D: Deprecated declaration mcu_update_current_play_ef_index - give arg types
+  void mcu_update_current_play_ef_index();                                        // 上传当前播放的灯效索引
+..\USER\calibration\calibration.c: 1 warning, 0 errors
+compiling boot.c...
+..\USER\app\appfunction.h(101): warning:  #1295-D: Deprecated declaration mcu_update_current_play_ef_index - give arg types
+  void mcu_update_current_play_ef_index();                                        // 上传当前播放的灯效索引
+..\USER\L0\boot.c(32): warning:  #167-D: argument of type "uint32_t *" is incompatible with parameter of type "uint8_t *"
+              write_32bit_data(&pack.info.addr, addr);
+..\USER\L0\boot.c(33): warning:  #167-D: argument of type "uint16_t *" is incompatible with parameter of type "uint8_t *"
+              write_16bit_data(&pack.info.size, size);
+..\USER\L0\boot.c(35): warning:  #167-D: argument of type "large_package_Typedef *" is incompatible with parameter of type "uint8_t *"
+              transmit_protocol_frame(&pack, L0_DATAHEAD_SIZE + size, parse.tx_framebuf);
+..\USER\L0\boot.c(61): warning:  #167-D: argument of type "uint32_t *" is incompatible with parameter of type "uint8_t *"
+              write_32bit_data(&pack.info.addr, addr);
+..\USER\L0\boot.c(62): warning:  #167-D: argument of type "uint16_t *" is incompatible with parameter of type "uint8_t *"
+              write_16bit_data(&pack.info.size, size);
+..\USER\L0\boot.c(65): warning:  #167-D: argument of type "small_package_Typedef *" is incompatible with parameter of type "uint8_t *"
+              transmit_protocol_frame(&pack, sizeof(pack), parse.tx_framebuf);
+..\USER\L0\boot.c(220): warning:  #167-D: argument of type "uint32_t *" is incompatible with parameter of type "uint8_t *"
+          write_32bit_data(&pack.info.addr, 0);
+..\USER\L0\boot.c(221): warning:  #167-D: argument of type "uint16_t *" is incompatible with parameter of type "uint8_t *"
+          write_16bit_data(&pack.info.size, 0);
+..\USER\L0\boot.c(223): warning:  #167-D: argument of type "large_package_Typedef *" is incompatible with parameter of type "uint8_t *"
+          transmit_protocol_frame(&pack, L0_DATAHEAD_SIZE + sizeof(UID_Type), parse.tx_framebuf);
+..\USER\L0\boot.c(241): warning:  #167-D: argument of type "uint32_t *" is incompatible with parameter of type "uint8_t *"
+          write_32bit_data(&pack.info.addr, 0);
+..\USER\L0\boot.c(242): warning:  #167-D: argument of type "uint16_t *" is incompatible with parameter of type "uint8_t *"
+          write_16bit_data(&pack.info.size, 0);
+..\USER\L0\boot.c(244): warning:  #167-D: argument of type "large_package_Typedef *" is incompatible with parameter of type "uint8_t *"
+          transmit_protocol_frame(&pack, L0_DATAHEAD_SIZE + sizeof(firmware_inf_TypeDef), parse.tx_framebuf);
+..\USER\L0\boot.c(263): warning:  #167-D: argument of type "uint32_t *" is incompatible with parameter of type "uint8_t *"
+          write_32bit_data(&pack.info.addr, 0);
+..\USER\L0\boot.c(264): warning:  #167-D: argument of type "uint16_t *" is incompatible with parameter of type "uint8_t *"
+          write_16bit_data(&pack.info.size, 0);
+..\USER\L0\boot.c(266): warning:  #167-D: argument of type "large_package_Typedef *" is incompatible with parameter of type "uint8_t *"
+          transmit_protocol_frame(&pack, L0_DATAHEAD_SIZE + sizeof(firmware_inf_TypeDef), parse.tx_framebuf);
+..\USER\L0\boot.c: 16 warnings, 0 errors
+compiling version.c...
+..\USER\app\appfunction.h(101): warning:  #1295-D: Deprecated declaration mcu_update_current_play_ef_index - give arg types
+  void mcu_update_current_play_ef_index();                                        // 上传当前播放的灯效索引
+..\USER\version\version.c: 1 warning, 0 errors
+compiling parse.c...
+..\USER\app\appfunction.h(101): warning:  #1295-D: Deprecated declaration mcu_update_current_play_ef_index - give arg types
+  void mcu_update_current_play_ef_index();                                        // 上传当前播放的灯效索引
+..\USER\parse\parse.c: 1 warning, 0 errors
+compiling system_CMS32L051.c...
+compiling L0.c...
+..\USER\app\appfunction.h(101): warning:  #1295-D: Deprecated declaration mcu_update_current_play_ef_index - give arg types
+  void mcu_update_current_play_ef_index();                                        // 上传当前播放的灯效索引
+..\USER\L0\L0.c: 1 warning, 0 errors
+compiling fft.c...
+..\USER\app\appfunction.h(101): warning:  #1295-D: Deprecated declaration mcu_update_current_play_ef_index - give arg types
+  void mcu_update_current_play_ef_index();                                        // 上传当前播放的灯效索引
+..\USER\fft\fft.c: 1 warning, 0 errors
 linking...
-Program Size: Code=35116 RO-data=2008 RW-data=548 ZI-data=6564  
+Program Size: Code=37076 RO-data=2128 RW-data=560 ZI-data=6504  
 FromELF: creating hex file...
 After Build - User command #1: E:\APP\Keil_v5\\ARM\ARMCC\bin\fromelf.exe --bin --output=L1001_Master_CMS32L051.bin .\Objects\L1001_Master_CMS32L051.axf
 After Build - User command #2: fromelf --L1001_Master_CMS32L051 -a -c --output=Objects\L1001_Master_CMS32L051.diis Objects\L1001_Master_CMS32L051.axf
 Fatal error: Q3900U: Unrecognized option '--L1001_Master_CMS32L051'.
 Finished: 0 information, 0 warning, 0 error and 1 fatal error messages.
-".\Objects\L1001_Master_CMS32L051.axf" - 0 Error(s), 8 Warning(s).
+".\Objects\L1001_Master_CMS32L051.axf" - 0 Error(s), 316 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -80,9 +808,9 @@ Package Vendor: Cmsemicon
 
    * Component: Cmsemicon::Device:Startup:1.0.0
       Include file:  Device\Source\userdefine.h
-      Source file:   Device\Source\ARM\startup_CMS32L051.s
       Source file:   Device\Source\system_CMS32L051.c
-Build Time Elapsed:  00:00:03
+      Source file:   Device\Source\ARM\startup_CMS32L051.s
+Build Time Elapsed:  00:00:08
 </pre>
 </body>
 </html>

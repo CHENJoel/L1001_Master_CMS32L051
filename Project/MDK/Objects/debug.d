@@ -30,7 +30,7 @@
 .\objects\debug.o: ..\USER\Include\Light.H
 .\objects\debug.o: ..\USER\Include\key.h
 .\objects\debug.o: ..\USER\Include\Com.H
-.\objects\debug.o: ..\USER\Include\fft.h
+.\objects\debug.o: ..\USER\fft\fft.h
 .\objects\debug.o: ..\USER\Include\uart.h
 .\objects\debug.o: ..\USER\Include\uart.h
 .\objects\debug.o: ..\USER\Include\A5441_Master.h

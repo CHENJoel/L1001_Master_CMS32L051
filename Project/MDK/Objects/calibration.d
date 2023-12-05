@@ -31,7 +31,7 @@
 .\objects\calibration.o: ..\USER\Include\Light.H
 .\objects\calibration.o: ..\USER\Include\key.h
 .\objects\calibration.o: ..\USER\Include\Com.H
-.\objects\calibration.o: ..\USER\Include\fft.h
+.\objects\calibration.o: ..\USER\fft\fft.h
 .\objects\calibration.o: ..\USER\Include\uart.h
 .\objects\calibration.o: ..\USER\Include\uart.h
 .\objects\calibration.o: ..\USER\Include\A5441_Master.h

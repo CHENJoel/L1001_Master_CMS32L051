@@ -30,7 +30,7 @@
 .\objects\comapp.o: ..\USER\Include\Light.H
 .\objects\comapp.o: ..\USER\Include\key.h
 .\objects\comapp.o: ..\USER\Include\Com.H
-.\objects\comapp.o: ..\USER\Include\fft.h
+.\objects\comapp.o: ..\USER\fft\fft.h
 .\objects\comapp.o: ..\USER\Include\uart.h
 .\objects\comapp.o: ..\USER\Include\uart.h
 .\objects\comapp.o: ..\USER\Include\A5441_Master.h

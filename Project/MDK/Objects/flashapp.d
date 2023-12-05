@@ -30,7 +30,7 @@
 .\objects\flashapp.o: ..\USER\Include\Light.H
 .\objects\flashapp.o: ..\USER\Include\key.h
 .\objects\flashapp.o: ..\USER\Include\Com.H
-.\objects\flashapp.o: ..\USER\Include\fft.h
+.\objects\flashapp.o: ..\USER\fft\fft.h
 .\objects\flashapp.o: ..\USER\Include\uart.h
 .\objects\flashapp.o: ..\USER\Include\uart.h
 .\objects\flashapp.o: ..\USER\Include\A5441_Master.h

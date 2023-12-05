@@ -4,12 +4,17 @@
 #include "slave.h"
 // #include "play.h"
 #pragma pack(push, 1)
+// // // // // // // // // // // // // // typedef enum
+// // // // // // // // // // // // // // {
+// // // // // // // // // // // // // //     ONLY_BRIGHTNESS,   // 只调节亮度信息
+// // // // // // // // // // // // // //     MODITIFY_EFFECT,   // 编辑整体灯效信息
+// // // // // // // // // // // // // // } ef_bright_flag_enum; // 亮度调节标志
 typedef struct
 {
-    uint8_t idex;            /* 索引 */
-    Efdetail_TypeDef Efdata; /* 灯效详情 */
-    uint8_t checksum;        /* 校验和 */
-} com_effect_detial_TypeDef; // 灯效详情
+    uint8_t idex;             /* 索引 */
+    Efdetail_TypeDef Efdata;  /* 灯效详情 */
+    uint8_t checksum;         /* 校验和 */
+} com_effect_detial_TypeDef;  // 灯效详情
 #pragma pack(pop)
 /*********************************************************************/
 #pragma pack(push, 1)
@@ -76,6 +81,18 @@ typedef struct
 } com_play_detial_TypeDef;     // 播放列表详情
 #pragma pack(pop)
 /*********************************************************************/
+#pragma pack(push, 1)
+
+typedef struct
+{
+    uint8_t efidex;             /* 索引 */
+    uint8_t Brightness1;        /* 亮度1 初始亮度/律动的最低亮度 */
+    uint8_t Brightness2;        /* 亮度2 律动最高亮度*/
+} com_current_efbright_TypeDef; // 当前灯效亮度值
+
+#pragma pack(pop)
+
+/*********************************************************************/
 typedef enum /*APP下发指令枚举*/
 {
     ASK_EFSKETCH,                 // 请求效果概述
@@ -90,7 +107,7 @@ typedef enum /*APP下发指令枚举*/
     ASK_EFFECT_RANKLIST,          // 请求灯效相关的顺序表(全部、自定义、收藏)
     ASK_PLAY_EFSKETCH,            // 请求效果概述
     REAERVE_CMD11,                // 保留
-    DELETE_PLAYLIST_RANKLISTLIST, // 删除播放列表中某个详情表
+    DELETE_PLAYLIST_RANKLISTLIST, // 删除播放列表中某个详情表 不使用
     SWITCH_PLAYLIST,              // 切换播放列表
     ASK_PLAYDETAIL,               // 请求播放详情
     ASK_PLAYSTATUS,               // 请求播放状态

@@ -30,7 +30,7 @@
 .\objects\main.o: ..\USER\Include\Color.H
 .\objects\main.o: ..\USER\Include\key.h
 .\objects\main.o: ..\USER\Include\Com.H
-.\objects\main.o: ..\USER\Include\fft.h
+.\objects\main.o: ..\USER\fft\fft.h
 .\objects\main.o: ..\USER\Include\uart.h
 .\objects\main.o: ..\USER\Include\uart.h
 .\objects\main.o: ..\USER\Include\A5441_Master.h

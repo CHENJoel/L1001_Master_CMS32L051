@@ -4,7 +4,7 @@
  * @Date: 2023-05-19 11:16:26
  * @LastEditors: DESKTOP-AKTRQKB\MY sandote@163.com
  * .chen sandote@163.om
- * @LastEditTime: 2023-11-18 11:27:36
+ * @LastEditTime: 2023-12-05 15:14:16
  * @FilePath: \L1001_Master_CMS32L051\Project\USER\app\appfunction.h
  * @Description:
  *
@@ -43,11 +43,12 @@ typedef struct
 
 /*校验通信数据是否正确*/
 uint8_t com_dataverify(uint8_t *sur, uint16_t size);
-/*mcu上报灯效详情*/
-void mcu_update_efdetail(uint8_t efnum);
+//
+void mcu_update_ef_detail(uint8_t efindex); // 上报灯效详情
+void mcu_update_current_ef_detail(void);  // 上报当前播放的灯效详情
 //
 void mcu_update_efsketch(com_issue_cmd_TypeDef *p); // 根据指令上报灯效概述
-void mcu_update_one_efsketch(uint8_t efnum); // 上报某灯效概述
+void mcu_update_one_efsketch(uint8_t efnum);        // 上报某灯效概述
 /*mcu上报灯效概述-从播放列表的dp上传*/
 void mcu_update_playlist_efsketch(com_issue_cmd_TypeDef *p);
 
@@ -60,10 +61,10 @@ void mcu_update_originalef_ranklist(void);
 void mcu_update_favoritesef_ranklist(void);
 /*mcu上报播放列表的顺序表*/
 void mcu_update_playlist_ranklist(void);
-/*mcu上报播放详情*/
-void mcu_update_playdetail(uint8_t playnum);
-/*mcu上报当前播放详情*/
-void mcu_update_current_playdetail(void);
+//
+void mcu_update_playdetail(uint8_t playnum); // 上报某个“播放列表详情”
+void mcu_update_current_playdetail(void);    // 上报当前正在播放的“播放列表详情”
+//
 /*mcu上报播放状态*/
 void mcu_update_playstatus(void);
 
@@ -144,5 +145,9 @@ void mcu_download_reserved3(uint8_t *sur, uint16_t length);        // 下载DP数据
 //
 void mcu_update_current_play_efdetail(void); // 上报当前播放的灯效信息
 void mcu_update_reserved4(void);             // 上传dp信息（保留4）
+//
+void mcu_update_current_ef_brightness(void); // 上传播放的灯效的亮度信息
+void mcu_download_ef_brightness(uint8_t *sur, uint16_t length); // 下载灯效亮度信息
+void mcu_download_reserved5(uint8_t *sur, uint16_t length); // 下载DP信息（保留5）
 //
 #endif

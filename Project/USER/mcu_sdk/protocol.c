@@ -177,7 +177,7 @@ void all_data_update(void)
     mcu_update_switch_indicator();
     mcu_update_auto_brightness_switch();
     mcu_update_auto_brightness_mode();
-    mcu_update_brightness_auto();
+    // mcu_update_brightness_auto();
     // // #error "请在此处理可下发可上报数据及只上报数据示例,处理完成后删除该行"
     /*
     //此代码为平台自动生成，请按照实际数据修改每个可下发可上报函数和只上报函数
@@ -1234,6 +1234,7 @@ static unsigned char dp_download_reserved5_handle(const unsigned char value[], u
     */
     printlog("<dp_download_reserved5_handle>\r");
     //There should be a report after processing the DP
+    mcu_download_reserved5(value,length);
     ret = mcu_dp_raw_update(DPID_RESERVED5,value,length);
     if(ret == SUCCESS)
         return SUCCESS;

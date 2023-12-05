@@ -30,7 +30,7 @@
 .\objects\printlog.o: ..\USER\Include\Light.H
 .\objects\printlog.o: ..\USER\Include\key.h
 .\objects\printlog.o: ..\USER\Include\Com.H
-.\objects\printlog.o: ..\USER\Include\fft.h
+.\objects\printlog.o: ..\USER\fft\fft.h
 .\objects\printlog.o: ..\USER\Include\uart.h
 .\objects\printlog.o: ..\USER\Include\uart.h
 .\objects\printlog.o: ..\USER\Include\A5441_Master.h

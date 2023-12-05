@@ -6,11 +6,29 @@ play_TypeDef play;
 const uint8_t bright_table[5] = {5, 25, 55, 75, 100};
 // const uint8_t bright_table[5] = {1, 15, 40, 75, 100};
 
+/*
+ * @Description: 修改播放源
+ * @param:
+ * @return:
+ */
+void modify_playsource(playsource_enum source)
+{
+    if (play.source == source) // 播放源发生改变时，代表“播放列表详情”也改变
+    {
+        play.source = source;
+        mcu_update_current_playdetail(); // 上报当前正在播放的“播放列表详情”
+    }
+    else
+    {
+        play.source = source;
+    }
+}
+
 /*播放初始化*/
 void play_init(void)
 {
     switch_playlist(0); // 切换至默认播放列表
-    play.source = SOURCE_LIST;
+    modify_playsource(SOURCE_LIST);
     play.playmode = PLAY_IN_SEQUENCE;
     memset(&play.detail.history, NULL_EFFECTNUM, sizeof(play.detail.history));
     // print_play_history();
@@ -153,7 +171,6 @@ uint8_t get_list_next_num(uint8_t *list, uint8_t size, uint8_t num)
 /*切换灯效*/
 uint8_t switch_effect(uint8_t efnum)
 {
-    // // ef_ranklist_TypeDef eflist;
     uint8_t i;
     printlog("switch effect num:%d\r",efnum);
     if (efnum==255)
@@ -161,22 +178,11 @@ uint8_t switch_effect(uint8_t efnum)
         printlog("[error] switch wrong effect num :%d\r", efnum);
         return 0;
     }
-    // // get_allef_ranklist(&eflist);
-    // // for (i = 0; i < eflist.num; i++)
-    // // {
-    // //     if (eflist.list[i] == efnum) // 顺序表内存在被切换的灯效
-    // //     {
-    // //         j = 1;
-    // //         break;
-    // //     }
-    // // }
-
     for (i = 0; i < play.detail.listefsum; i++)
     {
         if (play.detail.list[i] == efnum) // 顺序表内存在被切换的灯效
         {
             play_new_effect(efnum);
-            // push_playnum_in_history(efnum);
             // print_playstatus();
             return 1;
         }
@@ -308,27 +314,20 @@ uint8_t switch_playlist(uint8_t listnum)
 {
     playlist_ranklist_TypeDef playlist;
     uint8_t i;
-    // // uint8_t j = 0;
     printlog("switch playlist num:%d\r",listnum);
-    // if (listnum == play.detail.listindex) // 与当前播放表一致
-    // {
-    //     printlog("[warning]switch same playlist num :%d\r", listnum);
-    //     return 0;
-    // }
     get_playlist_ranklist(&playlist);
     for (i = 0; i < playlist.num; i++)
     {
-       if (playlist.list[i] == listnum) // 顺序表内存在被切换的列表号
-       {
+        if (playlist.list[i] == listnum) // 顺序表内存在被切换的列表号
+        {
             start_play_list(listnum);
+            mcu_update_current_playdetail(); // 上报当前正在播放的“播放列表详情”
+            mcu_update_playstatus();         // 自动上报播放状态
             return 1;
-
-       }
+        }
     }
     printlog("[error] switch wrong playlist num :%d\r", listnum);
     return 0;
-
-
 }
 
 /*------------------------------------------------------------------------------------------------------------------------------------*/
@@ -734,7 +733,7 @@ void figure_slave_run_number_in_direction(Direction_Enum dir)
     }
     print_direction(dir);
     printlog("Module_WorkNum:%d\r", EF_Work.Module_WorkNum);
-    print_mini_device_data(&minidevice);
+    // print_mini_device_data(&minidevice);
 }
 
 
@@ -801,8 +800,6 @@ void play_effect_video(void)
             else
             {
             }
-
-        
             transmit_playdata_COLOR();
        
         }
@@ -842,8 +839,10 @@ void play_sys_effect_init(void)
 */ 
 void play_current_effect(void)
 {
-    load_local_effect_data();
-    preprocess_play_effect();
+    play.control_mode = PLAYING_MODE;
+    load_local_effect_data();     // 加载灯效信息
+    preprocess_play_effect();     // 预处理播放数据
+    load_current_ef_brightness(); // 加载亮度
 }
 
 
@@ -854,8 +853,8 @@ void play_current_effect(void)
 */ 
 void play_free_effect(uint8_t efnum)
 {
-    play.source = SOURCE_FREE;
     play_new_effect(efnum);
+    modify_playsource(SOURCE_FREE);
 }
 
 /*
@@ -866,14 +865,9 @@ void play_free_effect(uint8_t efnum)
 void play_new_effect(uint8_t efnum)
 {
     printlog("play_new_effect:%d\r",efnum);
-    // if (play.detail.efindex == efnum)
-    // {
-    //     return;
-    // }
     play.detail.efindex = efnum;
     play.work.playtime_cnt = 0;
     play_current_effect();
-    // mcu_update_current_play_ef_index();
     mcu_update_playstatus();            // mcu上报播放状态
     mcu_update_current_play_efdetail(); // 上报当前播放的灯效信息
 }
@@ -884,11 +878,11 @@ void play_new_effect(uint8_t efnum)
 */ 
 void preprocess_play_effect(void)
 {
-    play.work.global_setting.brightness_set = play.efdetail.Brightness1;
+    // // play.work.global_setting.brightness_set = play.efdetail.Brightness1;
     play_frame_reset();
     EF_Work.FrameInfro.image_adr = (uint8_t *)&EF_Work.Color_buffer; // 色表缓存区
     figure_slave_run_number_in_direction(play.efdetail.Direction);
-    generate_play_video_buffer();
+    generate_play_video_buffer();   // 生成该灯效的动画缓存
 }
 
 /*
@@ -902,6 +896,10 @@ void play_preview_effect(Efdetail_TypeDef* efdetail)
     printlog("play_preview_effect\r");
     load_preview_effect_data(efdetail);
     preprocess_play_effect();
+    if (play.efdetail.EffectType != RHYTHM_TYPE)
+    {
+        play.work.brightness.set = play.efdetail.Brightness1;
+    }
 }
 
 // // // // /*
@@ -1291,8 +1289,7 @@ void start_play_list(uint8_t listindex)
 {
     playdetail_TypeDef playdetail;
     printlog("start_play_list:%d\r",listindex);
-    play.source = SOURCE_LIST;
-    play.status = RUN;
+    
     play.detail.listindex = listindex;
     get_playdetail(&playdetail, play.detail.listindex);
     memcpy(&play.detail.list, &playdetail.list, sizeof(play.detail.list));
@@ -1306,6 +1303,8 @@ void start_play_list(uint8_t listindex)
     play.detail.idex_inlist = 0;                                     // 列表中第一个灯效
     play.detail.efindex = play.detail.list[play.detail.idex_inlist]; // 取出灯效索引
     switch_effect(play.detail.efindex);                              // 切换灯效
+    play.status = RUN;
+    modify_playsource(SOURCE_LIST);
 }
 
 /* 
@@ -1317,13 +1316,12 @@ void end_play_list(void)
 {
     playdetail_TypeDef playdetail;
     printlog("end_play_list:%d\r", play.detail.listindex);
-    play.source = SOURCE_FREE; // 结束列表播放，转为自由播放
-    
+    modify_playsource(SOURCE_FREE);  // 结束列表播放，转为自由播放
+
     /*
     play.status = RUN;         // 保持当前灯效
     */
 }
-
 
 /* 
  * @Description: 重新加载当前播放列表
@@ -1369,13 +1367,68 @@ void reload_current_play_list(void)
         }
         else // 当前正在播放的列表已经被删除
         {
-            end_play_list();    // 结束列表播放
+            switch_playlist(0); // 切到默认列表播放
         }
     }
     else
     {
+        /*
+        正常情况下至少会存在一个默认列表（不会被删除掉），不会执行到这里
+        */
         end_play_list();    // 结束列表播放
     }
 }
 
 
+/* 
+ * @Description: 测试显示fft
+ * @param: 
+ * @return: 
+*/ 
+void transmit_play_fft(void)
+{
+    uint8_t i;
+    L0_cmd_playCOLOR_Typedef xPlay;
+    uint16_t kel;
+    uint16_t col;
+    if (slave.num) // 有设备在线的时候才发送数据
+    {
+        xPlay.head.dev_adr = ADDR_PUBLIC;      // 设备地址
+        xPlay.head.cmd = CMD_SLAVE_PLAY_COLOR; // 播放灯光 “COLOR”格式
+        xPlay.head.type = MES_ASK;             // 发出请求
+        xPlay.playnum = slave.num;
+        for (i = 0; i < xPlay.playnum; i++)
+        {
+            xPlay.dev[i].cid = slave.data[i].id;
+            // xPlay.dev[i].br = play.work.brightness.now;
+            // // if (Tangram[slave.data[i].runnum].W.Now == RGB_COLOR)
+            // // {
+            // //     xPlay.dev[i].type = RGB_COLOR;
+            // //     xPlay.dev[i].R = Tangram[slave.data[i].runnum].R.Now;
+            // //     xPlay.dev[i].G = Tangram[slave.data[i].runnum].G.Now;
+            // //     xPlay.dev[i].B = Tangram[slave.data[i].runnum].B.Now;
+            // // }
+            // // else // KELVIN_COLOR
+            // // {
+            // //     xPlay.dev[i].type = KELVIN_COLOR;
+            // //     kel = Tangram[slave.data[i].runnum].R.Now << 8;
+            // //     kel |= Tangram[slave.data[i].runnum].G.Now;
+            // //     xPlay.dev[i].R = kel / 100;
+            // //     xPlay.dev[i].G = 0;
+            // //     xPlay.dev[i].B = 0;
+            // // }
+            // col = (uint16_t )dd[i].real>>2;
+            if (col>255)
+            {
+               col=255;
+            }
+            
+            xPlay.dev[i].br = 100;
+            xPlay.dev[i].type = RGB_COLOR;
+            xPlay.dev[i].R = col;
+            xPlay.dev[i].G = 255 - col;
+            xPlay.dev[i].B = 0;
+        }
+        transmit_protocol_frame((uint8_t *)&xPlay, &((L0_cmd_playCOLOR_Typedef*)0)->dev[slave.num], &parse.tx_framebuf); // 通过不定长协议发送
+    }
+}

@@ -30,7 +30,7 @@
 .\objects\wave.o: ..\USER\Include\Light.H
 .\objects\wave.o: ..\USER\Include\key.h
 .\objects\wave.o: ..\USER\Include\Com.H
-.\objects\wave.o: ..\USER\Include\fft.h
+.\objects\wave.o: ..\USER\fft\fft.h
 .\objects\wave.o: ..\USER\Include\uart.h
 .\objects\wave.o: ..\USER\Include\uart.h
 .\objects\wave.o: ..\USER\Include\A5441_Master.h

@@ -189,10 +189,10 @@ void factoryreset_norflash(void)
     schedule_factory_reset();
     clear_all_ef_ranklist();            // 删除灯效列表
     init_default_playlist();            // 出厂化内置播放表信息
-    memset(&verify, 0, sizeof(verify)); // 清零
-    sprintf(&verify, EF_MEM_VERIFY);    // 写校验信息
     copy_built_in_ef_to_norflash();     // 初始化灯效信息
     init_default_global_setting();      // 全局设置初始化成默认数据
+    memset(&verify, 0, sizeof(verify)); // 清零
+    sprintf(&verify, EF_MEM_VERIFY);    // 写校验信息
     //----------------------------------------------------------------
     save_effect_verify(&verify); // 存入校验信息
 }
@@ -244,6 +244,8 @@ void save_effect_verify(verify_Typedef *p)
     printlog("save_effect_verify\r");
 }
 
+
+
 /* 
  * @Description: 重置内置原生灯效
  * @param: 
@@ -267,26 +269,112 @@ void reset_built_in_effect(uint8_t efnum)
     ef.EffectType = dfdata[efnum].EffectType;   // 拷贝灯效类型
     ef.Flow = dfdata[efnum].Flow;               // 拷贝动态效果
     arry = dfdata[efnum].data;
-    for (j = 0; j < 8; j++) // 拷贝颜色数据
+    if (dfdata[efnum].EffectType == STATIC_TYPE)    // 静态灯效
     {
-        if ((*(*(arry + j) + 0) == 255) && (*(*(arry + j) + 1) == 255) && (*(*(arry + j) + 2) == 255) && (*(*(arry + j) + 3) == 255))
+        if (slave.num == 0) // 当前没有连接任何灯板
         {
-            break; // 遇到结束颜色标志,结束拷贝
+            ef.EfColorInf.colorNum=1;
+            ef.EfColorInf.ColorID[j].id = 0;
+            ef.EfColorInf.ColorID[j].color.R = *(*(arry + 0) + 0); // 存第一个颜色
+            ef.EfColorInf.ColorID[j].color.G = *(*(arry + 0) + 1);
+            ef.EfColorInf.ColorID[j].color.B = *(*(arry + 0) + 2);
+            ef.EfColorInf.ColorID[j].color.W = *(*(arry + 0) + 3);
         }
-        ef.EfColorInf.ColorID[j].id = 0;    
-        ef.EfColorInf.ColorID[j].color.R = *(*(arry + j) + 0);
-        ef.EfColorInf.ColorID[j].color.G = *(*(arry + j) + 1);
-        ef.EfColorInf.ColorID[j].color.B = *(*(arry + j) + 2);
-        ef.EfColorInf.ColorID[j].color.W = *(*(arry + j) + 3);
-        ef.EfColorInf.colorNum++;
+        else // 以当前连接的灯板作为
+        {
+            ef.EfColorInf.colorNum = slave.num; // 颜色数量等于设备数量
+            for (j = 0; j < ef.EfColorInf.colorNum; j++)
+            {
+                ef.EfColorInf.ColorID[j].id = slave.data[j].id;
+                ef.EfColorInf.ColorID[j].color.R = *(*(arry + 0) + 0); // 都存第一个颜色
+                ef.EfColorInf.ColorID[j].color.G = *(*(arry + 0) + 1);
+                ef.EfColorInf.ColorID[j].color.B = *(*(arry + 0) + 2);
+                ef.EfColorInf.ColorID[j].color.W = *(*(arry + 0) + 3);
+            }
+        }
     }
-    ef.Speed = default_ef_Speed;                   // 缺省值
-    ef.Brightness1 = default_ef_Brightness1;       // 缺省值
+    else
+    {
+        for (j = 0; j < EfColor_SizeNum; j++) // 拷贝颜色数据
+        {
+            if ((*(*(arry + j) + 0) == 255) && (*(*(arry + j) + 1) == 255) && (*(*(arry + j) + 2) == 255) && (*(*(arry + j) + 3) == 255))
+            {
+                break; // 遇到结束颜色标志,结束拷贝
+            }
+            ef.EfColorInf.ColorID[j].id = 0;
+            ef.EfColorInf.ColorID[j].color.R = *(*(arry + j) + 0);
+            ef.EfColorInf.ColorID[j].color.G = *(*(arry + j) + 1);
+            ef.EfColorInf.ColorID[j].color.B = *(*(arry + j) + 2);
+            ef.EfColorInf.ColorID[j].color.W = *(*(arry + j) + 3);
+            ef.EfColorInf.colorNum++;
+        }
+    }
+    ef.Brightness1 = dfdata[efnum].Brightness1;
+    ef.Speed = dfdata[efnum].Speed;
+    ef.Direction = dfdata[efnum].Direction;
     ef.Brightness2 = default_ef_Brightness2;       // 缺省值
     ef.MicSensitivity = default_ef_MicSensitivity; // 缺省值
     ef.Attribute = default_ef_Attribute;           // 缺省值
-    ef.Direction = default_ef_Direction;           // 缺省值
     save_effect(&ef, efnum);
+}
+
+// // // /* 
+// // //  * @Description: 重设内置静态灯效颜色数据
+// // //  * @param: 
+// // //  * @return: 
+// // // */
+// // // void reset_built_in_static_effect(uint8_t efindex)
+// // // {
+// // //     Efdetail_TypeDef ef;
+// // //     uint8_t j;
+// // //     p_arry arry;
+// // //     printlog("reset built in static effect:%d\r", efindex);
+// // //     memset(&ef, 0, sizeof(ef));                   // 数据清零
+// // //     ef.namelenght = strlen(dfdata[efindex].name); // 灯效名字长度
+// // //     strcpy(&ef.Name, dfdata[efindex].name);       // 拷贝灯效名字
+// // //     ef.EffectType = dfdata[efindex].EffectType;   // 拷贝灯效类型
+// // //     ef.Flow = dfdata[efindex].Flow;               // 拷贝动态效果
+// // //     arry = dfdata[efindex].data;
+// // //     ef.EfColorInf.colorNum = slave.num; // 颜色数量等于设备数量
+// // //     for (j = 0; j < ef.EfColorInf.colorNum; j++)
+// // //     {
+// // //         ef.EfColorInf.ColorID[j].id = slave.data[j].id;
+// // //         ef.EfColorInf.ColorID[j].color.R = *(*(arry + 0) + 0); // 都存第一个颜色
+// // //         ef.EfColorInf.ColorID[j].color.G = *(*(arry + 0) + 1);
+// // //         ef.EfColorInf.ColorID[j].color.B = *(*(arry + 0) + 2);
+// // //         ef.EfColorInf.ColorID[j].color.W = *(*(arry + 0) + 3);
+// // //     }
+// // //     ef.Brightness1 = dfdata[efindex].Brightness1;
+// // //     ef.Speed = dfdata[efindex].Speed;
+// // //     ef.Direction = dfdata[efindex].Direction;
+// // //     ef.Brightness2 = default_ef_Brightness2;       // 缺省值
+// // //     ef.MicSensitivity = default_ef_MicSensitivity; // 缺省值
+// // //     ef.Attribute = default_ef_Attribute;           // 缺省值
+// // //     save_effect(&ef, efindex);
+// // // }
+
+
+/*
+ * @Description: 重设全部内置静态灯效颜色数据
+ * @param:
+ * @return:
+ */
+void reset_all_built_in_static_effect(void)
+{
+    uint8_t efindex;
+    uint8_t i;
+    for (i = 0; i < built_in_ef_num; i++)
+    {
+        efindex = built_in_ef_basenum + i;
+        if (dfdata[efindex].EffectType == STATIC_TYPE) // 仅重新生成静态灯效信息
+        {
+            reset_built_in_effect(efindex);
+        }
+        else
+        {
+
+        }
+    }
 }
 
 /* 
@@ -302,31 +390,6 @@ void copy_built_in_ef_to_norflash(void)
     for (i = 0; i < built_in_ef_num; i++)
     {
         reset_built_in_effect(i);
-        // // // // // // // // // // // memset(&ef, 0, sizeof(ef));              // 数据清零
-        // // // // // // // // // // // ef.namelenght = strlen(dfdata[i].name); // 灯效名字长度
-        // // // // // // // // // // // strcpy(&ef.Name, dfdata[i].name);       // 拷贝灯效名字
-        // // // // // // // // // // // ef.EffectType = dfdata[i].EffectType;    // 拷贝灯效类型
-        // // // // // // // // // // // ef.Flow = dfdata[i].Flow;                // 拷贝动态效果
-        // // // // // // // // // // // arry = dfdata[i].data;
-        // // // // // // // // // // // for (j = 0; j < 8; j++) // 拷贝颜色数据
-        // // // // // // // // // // // {
-        // // // // // // // // // // //     if ((*(*(arry + j) + 0) == 255) && (*(*(arry + j) + 1) == 255) && (*(*(arry + j) + 2) == 255) && (*(*(arry + j) + 3) == 255))
-        // // // // // // // // // // //     {
-        // // // // // // // // // // //         break; // 遇到结束颜色标志,结束拷贝
-        // // // // // // // // // // //     }
-        // // // // // // // // // // //     ef.EfColorInf.ColorID[j].color.R = *(*(arry + j) + 0);
-        // // // // // // // // // // //     ef.EfColorInf.ColorID[j].color.G = *(*(arry + j) + 1);
-        // // // // // // // // // // //     ef.EfColorInf.ColorID[j].color.B = *(*(arry + j) + 2);
-        // // // // // // // // // // //     ef.EfColorInf.ColorID[j].color.W = *(*(arry + j) + 3);
-        // // // // // // // // // // //     ef.EfColorInf.colorNum++;
-        // // // // // // // // // // // }
-        // // // // // // // // // // // ef.Speed = default_ef_Speed;                   // 缺省值
-        // // // // // // // // // // // ef.Brightness1 = default_ef_Brightness1;       // 缺省值
-        // // // // // // // // // // // ef.Brightness2 = default_ef_Brightness2;       // 缺省值
-        // // // // // // // // // // // ef.MicSensitivity = default_ef_MicSensitivity; // 缺省值
-        // // // // // // // // // // // ef.Attribute = default_ef_Attribute;           // 缺省值
-        // // // // // // // // // // // ef.Direction = default_ef_Direction;           // 缺省值
-        // // // // // // // // // // // save_effect(&ef, i);
     }
     printlog("copy_built_in_ef_to_norflash\r");
     memset((uint8_t *)&allef_ranklist, 0, sizeof(allef_ranklist));
@@ -460,11 +523,39 @@ void search_norflash_ranklist(void)
 
 /*******************************************************************************************************************************************************/
 
-/*读出灯效*/
-void get_effect_detail(Efdetail_TypeDef *p, uint8_t efnum)
+/* 
+ * @Description: 获取灯效详情
+ * @param: 指针
+ * @param: 灯效索引
+ * @return: 
+*/ 
+void get_effect_detail(Efdetail_TypeDef *p, uint8_t efindex)
 {
-    FLASHSPI_PageRead((uint8_t *)p, (uint32_t)&NORFLASH->efdata.data.effect.efdata[efnum], sizeof(Efdetail_TypeDef));
+    FLASHSPI_PageRead((uint8_t *)p, (uint32_t)&NORFLASH->efdata.data.effect.efdata[efindex], sizeof(Efdetail_TypeDef));
 }
+
+/* 
+ * @Description: 获取灯效的亮度1
+ * @param: 灯效索引
+ * @param: 亮度1的指针
+ * @return: 
+*/ 
+void get_effect_brightness1(uint8_t efindex,uint8_t *bright1)
+{
+    FLASHSPI_PageRead(bright1, (uint32_t)&NORFLASH->efdata.data.effect.efdata[efindex].Brightness1, sizeof(uint8_t));
+}
+
+/* 
+ * @Description: 获取灯效的亮度2
+ * @param: 灯效索引
+ * @param: 亮度2的指针
+ * @return: 
+*/ 
+void get_effect_brightness2(uint8_t efindex,uint8_t *bright2)
+{
+    FLASHSPI_PageRead(bright2, (uint32_t)&NORFLASH->efdata.data.effect.efdata[efindex].Brightness2, sizeof(uint8_t));
+}
+
 /*读出自定义灯效*/
 uint8_t get_original_effect(Efdetail_TypeDef *p, uint8_t efnum)
 {
@@ -553,7 +644,7 @@ void get_global_setting(global_setting_TypeDef *p)
 /*存储灯效*/
 void save_effect(Efdetail_TypeDef *p, uint8_t efnum)
 {
-    printlog("Saving effect: %d\r", efnum);
+    printlog(">>Saving effect: %d\r", efnum);
     FlashSPI_Insert((uint8_t *)p, (uint32_t)&NORFLASH->efdata.data.effect.efdata[efnum], sizeof(Efdetail_TypeDef));
 }
 /*存储自定义灯效*/
@@ -931,14 +1022,17 @@ uint8_t delete_favorites_ef(uint8_t efnum)
 uint8_t delete_playlist(uint8_t listnum)
 {
     playlist_ranklist_TypeDef ranklist;                    // 列表信息
+    playdetail_TypeDef playdetail;                         // 被删的播放详情
+    printlog("delete playlist :%d\r", listnum);
     get_playlist_ranklist(&ranklist);                      // 获取列表信息
-    delete_num_from_playlist_ranklist(&ranklist, listnum); // 删除索引
-    save_playlist_ranklist(&ranklist);
-    if (play.detail.idex_inlist == listnum) // 被删列表正在播放
+    delete_num_from_playlist_ranklist(&ranklist, listnum); // 从总表中删除该索引
+    save_playlist_ranklist(&ranklist);                     // 保存
+    memset(&playdetail, 0, sizeof(playdetail));            // 被删的播放详情 置零
+    save_playdetail(&playdetail, listnum);                 // 保存
+    if (play.detail.idex_inlist == listnum)                // 被删列表正在播放
     {
-        end_play_list();
+        printlog("delete current playlist\r");
     }
-
     return 1;
 }
 
@@ -955,6 +1049,7 @@ uint8_t add_playlist(playdetail_TypeDef *p, uint8_t listnum)
     get_playlist_ranklist(&ranklist);
     add_num_from_playlist_ranklist(&ranklist, listnum);
     save_playlist_ranklist(&ranklist);
+    mcu_update_current_playdetail(); // 上报当前正在播放的“播放列表详情”
     return 1;
 }
 
@@ -1008,7 +1103,7 @@ void copy_schedule_detail_to_com(clock_detail_TypeDef *sur, com_schedule_detail_
 uint8_t add_clock_schedule(clock_detail_TypeDef *p, uint8_t num)
 {
     clock_list_TypeDef schedule;
-    printlog("add_clock_schedule %d\r",num);
+    printlog("add_clock_schedule:%d\r",num);
     uint8_t i;
     get_all_schedule(&schedule);
     if ((schedule.num != 0) && (num > schedule.num || num >= SCHEDULE_NUM))
@@ -1056,7 +1151,7 @@ uint8_t delete_schedule(uint8_t num)
     clock_list_TypeDef schedule;
     clock_list_TypeDef schedule_new;
     uint8_t i,j;
-    printlog("delete_schedule\r");
+    printlog("delete_schedule:%d\r",num);
     get_all_schedule(&schedule);
     if (num > schedule.num || num >= SCHEDULE_NUM || schedule.num == 0)
     {
@@ -1121,4 +1216,42 @@ void clear_device_identify(void)
     buff.length = 2;    // 默认字节长度
     memset(&buff.data, 0, sizeof(buff.data));
     save_device_identify(&buff);
+}
+
+/*-------------------------------------------------------------------------*/
+
+/* 
+ * @Description: 修改灯效的亮度信息
+ * @param: 灯效索引
+ * @param: 亮度
+ * @return: 
+*/
+void modify_effect_brightness(uint8_t efindex, uint8_t bright1, uint8_t bright2)
+{
+    Efdetail_TypeDef efdetail; // 灯效详情
+    printlog("modify effect brightness [%d]->%d,%d\r", efindex, bright1, bright2);
+    if (bright1 < 1 || bright1 > 100)
+    {
+        printlog("error: invalid brightness\r");
+        return;
+    }
+    get_effect_detail(&efdetail, efindex); // 读出原灯效详情
+    efdetail.Brightness1 = bright1;        // 修改成新亮度
+    efdetail.Brightness2 = bright2;        //  
+    save_effect(&efdetail, efindex);       // 保存
+    //
+    mcu_update_current_ef_brightness(); // 上传播放的灯效的亮度信息
+    mcu_update_current_ef_detail();     // 上报当前播放的灯效详情
+}
+
+/* 
+ * @Description: 加载当前灯效的亮度
+ * @param: 
+ * @return: 
+*/
+void load_current_ef_brightness(void)
+{
+    get_effect_brightness1(play.detail.efindex, &play.efdetail.Brightness1); // 从存储中重新加载
+    get_effect_brightness2(play.detail.efindex, &play.efdetail.Brightness2);
+    play.work.brightness.set = play.efdetail.Brightness1;
 }

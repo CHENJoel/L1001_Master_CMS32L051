@@ -4,10 +4,10 @@
 #include "Function_Init.H"
 #include "comapp.h"
 #include "L0_slave.h"
-// #define printlog_enabled     // 使能打印log
-#define virtual_device  // 虚拟灯板信息
 
-
+/* OTA固件生成需要确认的地方 */
+// // #define printlog_enabled // 使能打印log
+// // #define virtual_device   // 虚拟灯板信息
 
 //断言
 #define vAssertCalled(char,int) printf("Error:%s,%d\r\n",char,int)
@@ -27,7 +27,9 @@
     #define printnumlog(num) printf("[num:%d]\r",num)
 #endif
 
-#define PRINT(window, fmt, args...) printlog("{"#window"}"fmt"\n", ##args)
+// #define PRINT(window, fmt, args...) printlog("{"#window"}"fmt"\n", ##args)
+#define PRINT(window, fmt, args...) printf("{"#window"}"fmt"\n", ##args)
+
 
 // C语言示例代码
 //         1.首先定义宏函数简化后期工作（ARMCC/ARMGCC/GCC编译器）：

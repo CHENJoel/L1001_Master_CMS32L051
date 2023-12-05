@@ -198,26 +198,4 @@ void Value_Step_Change(unsigned char *DataVAL, unsigned char *Direction, unsigne
 }
 
 
-/*
-    Value_Step_Change(&CW_Color.Set, &CW_Color.Direction, Color_CW_Array[sizeof(Color_CW_Array) - 1], Color_CW_Array[0], 1);
-    if (CW_Color.Set == Color_CW_Array[sizeof(Color_CW_Array) - 1])
-    {
-        Twinkle_SET(1, 8, 8, 100);
-        if (Color_LongRelease)
-        {
-            TouchReset_Color(); // 长按完成后复位触摸
-            CW_Color.Direction = 0;
-            Twinkle_SET(0, 7, 7, 100); // 结束闪烁
-        }
-    }
-    else if (CW_Color.Set == Color_CW_Array[0])
-    {
-        Twinkle_SET(1, 8, 8, 100);
-        if (Color_LongRelease)
-        {
-            TouchReset_Color(); // 长按完成后复位触摸
-            CW_Color.Direction = 1;
-            Twinkle_SET(0, 7, 7, 100); // 结束闪烁
-        }
-    }
-*/
+

@@ -31,7 +31,7 @@
 .\objects\parse.o: ..\USER\Include\Light.H
 .\objects\parse.o: ..\USER\Include\key.h
 .\objects\parse.o: ..\USER\Include\Com.H
-.\objects\parse.o: ..\USER\Include\fft.h
+.\objects\parse.o: ..\USER\fft\fft.h
 .\objects\parse.o: ..\USER\Include\uart.h
 .\objects\parse.o: ..\USER\Include\uart.h
 .\objects\parse.o: ..\USER\Include\A5441_Master.h

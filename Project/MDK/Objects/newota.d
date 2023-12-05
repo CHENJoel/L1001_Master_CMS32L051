@@ -31,7 +31,7 @@
 .\objects\newota.o: ..\USER\Include\Light.H
 .\objects\newota.o: ..\USER\Include\key.h
 .\objects\newota.o: ..\USER\Include\Com.H
-.\objects\newota.o: ..\USER\Include\fft.h
+.\objects\newota.o: ..\USER\fft\fft.h
 .\objects\newota.o: ..\USER\Include\uart.h
 .\objects\newota.o: ..\USER\Include\uart.h
 .\objects\newota.o: ..\USER\Include\A5441_Master.h

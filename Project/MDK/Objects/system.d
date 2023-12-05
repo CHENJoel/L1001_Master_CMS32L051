@@ -34,7 +34,7 @@
 .\objects\system.o: ..\USER\Include\Light.H
 .\objects\system.o: ..\USER\Include\key.h
 .\objects\system.o: ..\USER\Include\Com.H
-.\objects\system.o: ..\USER\Include\fft.h
+.\objects\system.o: ..\USER\fft\fft.h
 .\objects\system.o: ..\USER\Include\uart.h
 .\objects\system.o: ..\USER\Include\uart.h
 .\objects\system.o: ..\USER\Include\A5441_Master.h

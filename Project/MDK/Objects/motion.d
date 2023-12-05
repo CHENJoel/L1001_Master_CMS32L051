@@ -30,7 +30,7 @@
 .\objects\motion.o: ..\USER\Include\Light.H
 .\objects\motion.o: ..\USER\Include\key.h
 .\objects\motion.o: ..\USER\Include\Com.H
-.\objects\motion.o: ..\USER\Include\fft.h
+.\objects\motion.o: ..\USER\fft\fft.h
 .\objects\motion.o: ..\USER\Include\uart.h
 .\objects\motion.o: ..\USER\Include\uart.h
 .\objects\motion.o: ..\USER\Include\A5441_Master.h

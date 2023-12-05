@@ -34,7 +34,7 @@
 .\objects\mcu_api.o: ..\USER\Include\Light.H
 .\objects\mcu_api.o: ..\USER\Include\key.h
 .\objects\mcu_api.o: ..\USER\Include\Com.H
-.\objects\mcu_api.o: ..\USER\Include\fft.h
+.\objects\mcu_api.o: ..\USER\fft\fft.h
 .\objects\mcu_api.o: ..\USER\Include\uart.h
 .\objects\mcu_api.o: ..\USER\Include\uart.h
 .\objects\mcu_api.o: ..\USER\Include\A5441_Master.h

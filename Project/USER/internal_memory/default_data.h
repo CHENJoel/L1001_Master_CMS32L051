@@ -5,7 +5,7 @@
  * @LastEditors: DESKTOP-AKTRQKB\MY sandote@163.com
 .chen sandote@163.om
  * .chen sandote@163.om
- * @LastEditTime: 2023-10-28 10:54:04
+ * @LastEditTime: 2023-11-30 13:20:45
  * @FilePath: \L1001_Master_CMS32L051\Project\USER\internal_memory\default_data.h
  * @Description:
  *
@@ -22,7 +22,10 @@ typedef struct
     p_arry data;                /* 灯效颜色指针*/
     EffectType_Enum EffectType; /* 灯效类型 */
     Flow_Enum Flow;             /* 动态效果 */
-} df_data_TypeDef; /*内置灯效信息*/
+    uint8_t Brightness1;        /* 亮度1 初始亮度/律动的最低亮度 */
+    uint8_t Speed;              /* 速度 */
+    Direction_Enum Direction;   /* 运动方向 */
+} df_data_TypeDef;              /*内置灯效信息*/
 extern const uint8_t df_playlist[30];
 // extern const uint8_t df_playlist[15];
 extern const df_data_TypeDef dfdata[built_in_ef_num];

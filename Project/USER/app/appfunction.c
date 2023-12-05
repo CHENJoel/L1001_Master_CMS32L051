@@ -12,16 +12,33 @@ uint8_t com_dataverify(uint8_t *sur, uint16_t size)
     return 1;
 }
 
-/*mcu上报灯效详情*/
-void mcu_update_efdetail(uint8_t efnum)
+/*---------------------------------------------------------------------------------*/
+/* 
+ * @Description: 上报灯效详情
+ * @param: 
+ * @return: 
+*/ 
+void mcu_update_ef_detail(uint8_t efindex)
 {
     com_effect_detial_TypeDef comef;
-    comef.idex = efnum;
-    get_effect_detail(&comef.Efdata, efnum);
+    comef.idex = efindex;
+    get_effect_detail(&comef.Efdata, efindex);
     comef.checksum = (uint8_t)checksum_calculate((uint8_t *)&comef, sizeof(comef) - 1);
     mcu_dp_raw_update(DPID_EFFECT_DETIAL, &comef, sizeof(comef));
     print_effect_detial(&comef.Efdata, comef.idex);
 }
+
+/* 
+ * @Description: 上报当前播放的灯效详情
+ * @param: 
+ * @return: 
+*/ 
+void mcu_update_current_ef_detail(void)
+{
+    mcu_update_ef_detail(play.detail.efindex);
+}
+
+/*---------------------------------------------------------------------------------*/
 
 /* 
  * @Description: 根据指令上报灯效概述
@@ -159,7 +176,12 @@ void mcu_update_playlist_ranklist(void)
     mcu_dp_raw_update(DPID_PLAY_LIST, &com_ranklist, sizeof(com_ranklist));
     print_com_playlist_ranklist(&com_ranklist);
 }
-/*mcu上报播放详情*/
+
+/* 
+ * @Description: 上报某个“播放列表详情”
+ * @param: 
+ * @return: 
+*/ 
 void mcu_update_playdetail(uint8_t playnum)
 {
     com_play_detial_TypeDef com;
@@ -170,13 +192,26 @@ void mcu_update_playdetail(uint8_t playnum)
     mcu_dp_raw_update(DPID_PLAY_DETIAL, &com, sizeof(com));
     // print_playdetial(&com.pldata, com.idex);
 }
-/*mcu上报当前播放详情*/
+
+/* 
+ * @Description: 上报当前正在播放的“播放列表详情”
+ * @param: 
+ * @return: 
+*/ 
 void mcu_update_current_playdetail(void)
 {
     com_play_detial_TypeDef com;
-    printlog("mcu_update_current_playdetail:%d\r",play.detail.listindex);
-    get_playdetail(&com.pldata, play.detail.listindex);
-    com.idex = play.detail.listindex;
+    if (play.source == SOURCE_LIST)
+    {
+        printlog("mcu_update_current_playdetail:%d\r", play.detail.listindex);
+        get_playdetail(&com.pldata, play.detail.listindex);
+        com.idex = play.detail.listindex;
+    }
+    else
+    {
+        printlog("mcu_update_current_playdetail -> not in list play\r");
+        memset(&com, 0, sizeof(com));
+    }
     com.checksum = (uint8_t)checksum_calculate((uint8_t *)&com, (uint16_t)sizeof(com) - 1);
     mcu_dp_raw_update(DPID_PLAY_CONTROL_DETIAL, &com, sizeof(com));
     // // // // printhex_my(&com, sizeof(com));
@@ -258,7 +293,13 @@ void mcu_download_device_detail(uint8_t *sur, uint16_t length)
         refresh_slave_data(&device);
     }
     save_all_slave_data(&slave);
+    reset_all_built_in_static_effect(); // 每次更新坐标信息，都重设内置静态灯效颜色数据
     print_slave_data();
+    /* 上传顺序表，触发app重新查询所有灯效概述 */
+    mcu_update_allef_ranklist();
+    mcu_update_originalef_ranklist();
+    mcu_update_favoritesef_ranklist();
+    //
     // // // // enter_playing_effect_mode();    // 进入正常播放灯效模式
 }
 
@@ -343,6 +384,12 @@ uint8_t mcu_download_effect_detail_handle(uint8_t *sur, uint16_t length)
     mcu_update_allef_ranklist();
     mcu_update_originalef_ranklist();
     mcu_update_favoritesef_ranklist();
+    if (play.detail.efindex == (uint8_t)(((com_effect_detial_TypeDef *)sur)->idex)) 
+    {
+        play_current_effect();  // 当前播放灯效被修改，则需重新加载灯效信息
+    }
+
+
     return 1;
 }
 
@@ -364,7 +411,7 @@ uint8_t mcu_download_issue_cmd_handle(uint8_t *sur, uint16_t length)
         break;
     case ASK_EFDETAIL: /*效果详情*/
         printlog(" >> ASK_EFDETAIL\r");
-        mcu_update_efdetail(p->data[0]); // mcu上报灯效详情
+        mcu_update_ef_detail(p->data[0]); // mcu上报灯效详情
         break;
     case DELETE_ORIGINAL_EF: /*删除自定义灯效*/
         printlog("DELETE_ORIGINAL_EF\r");
@@ -418,7 +465,7 @@ uint8_t mcu_download_issue_cmd_handle(uint8_t *sur, uint16_t length)
         break;
     case REAERVE_CMD11: /*保留*/
         break;
-    case DELETE_PLAYLIST_RANKLISTLIST: /*删除播放列表中某个详情表*/ 
+    case DELETE_PLAYLIST_RANKLISTLIST: /*删除播放列表中某个详情表*/
         /* 与23（DELETE_PLAYLIST）重复*/
         // // // printlog(" >> DELETE_PLAYLIST_RANKLISTLIST\r");
         // // // delete_playlist(p->data[0]);
@@ -427,12 +474,10 @@ uint8_t mcu_download_issue_cmd_handle(uint8_t *sur, uint16_t length)
     case SWITCH_PLAYLIST: /*切换播放列表*/
         printlog(" >> SWITCH_PLAYLIST\r");
         switch_playlist(p->data[0]);
-        mcu_update_current_playdetail(); // 自动上报当前播放详情
-        mcu_update_playstatus();         // 自动上报播放状态
         break;
     case ASK_PLAYDETAIL: /*请求播放详情*/
         printlog(" >> ASK_PLAYDETAIL\r");
-        mcu_update_playdetail(p->data[0]);
+        mcu_update_playdetail(p->data[0]); // 上报某个“播放列表详情”
         break;
     case ASK_PLAYSTATUS: /*请求播放状态*/
         printlog(" >> ASK_PLAYSTATUS\r");
@@ -465,20 +510,22 @@ uint8_t mcu_download_issue_cmd_handle(uint8_t *sur, uint16_t length)
     case PLAY_TEMP_EFFECT: /*播放临时灯效*/
         printlog(" >> PLAY_TEMP_EFFECT\r");
         play_free_effect(p->data[0]);
-        mcu_update_current_playdetail(); // 自动上报当前播放详情
+        mcu_update_current_playdetail(); // 上报当前正在播放的“播放列表详情”
         mcu_update_playstatus();         // 自动上报播放状态
         break;
     case RESET_BUILTIN_EF: /* 重置内置灯效 */
         printlog(" >> RESET_BUILTIN_EF\r");
         reset_built_in_effect(p->data[0]);
         mcu_update_one_efsketch(p->data[0]);
+        mcu_update_ef_detail(p->data[0]); // mcu上报灯效详情
         break;
 
     case DELETE_PLAYLIST: // 删除播放列表
         printlog(" >> DELETE_PLAYLIST\r");
         delete_playlist(p->data[0]);
         reload_current_play_list();
-        mcu_update_playlist_ranklist();
+        mcu_update_playlist_ranklist();  // 上传新的总表
+        mcu_update_current_playdetail(); // 上报当前正在播放的“播放列表详情”
         break;
     case ASK_DEVICE_DETAILS: // 请求灯板信息
         mcu_update_device_detail();
@@ -500,21 +547,6 @@ void mcu_download_effect_preview(uint8_t *sur, uint16_t length)
     printlog("<effect_preview>\r");
     print_com_effect_detial_log(sur); // 打印log
     enter_preview_effect_mode(&(((com_effect_detial_TypeDef*)sur)->Efdata));
-    // // print_effect_detial();
-   // print_com_playdetial(sur);
-//    com_effect_detial_TypeDef p;
-//    printlog("\r\r\r{effect_preview}\r\r");
-//    memcpy(&p, value, sizeof(p));
-//    if ((uint8_t)checksum_calculate(value, length - 1) == p.sum)
-//    {
-//        print_com_effect_detial_log(&p); // 打印log
-//    }
-//    else
-//    {
-//        printlog("check sum err\r");
-//        configASSERT(0);
-//        printhex_my(value, length);
-//    }
 }
 
 /*针对DPID_PLAY_DETIAL的处理函数*/
@@ -816,9 +848,7 @@ void mcu_update_switch_mic(void)
 void mcu_download_bright_val(uint8_t bri)
 {
     printlog("mcu_download_bright_val:%d\r", bri);
-    play.work.global_setting.autobright_ensta = DISABLE_STA; // 关闭自动调光
-    play.work.global_setting.brightness_set = bri;
-    save_global_setting(&play.work.global_setting);
+
 }
 
 /*
@@ -828,8 +858,8 @@ void mcu_download_bright_val(uint8_t bri)
  */
 void mcu_update_bright_val(void)
 {
-    printlog("mcu_update_bright_val:%d\r", play.work.global_setting.brightness_set);
-    mcu_dp_value_update(DPID_BRIGHT_VAL, play.work.global_setting.brightness_set); // VALUE型数据上报;
+    // printlog("mcu_update_bright_val:%d\r", play.work.global_setting.brightness_set);
+    // mcu_dp_value_update(DPID_BRIGHT_VAL, play.work.global_setting.brightness_set); // VALUE型数据上报;
 }
 
 /*---------------------------------------------------------------------------------*/
@@ -891,8 +921,8 @@ void mcu_download_auto_brightness_mode(uint8_t num)
 */ 
 void mcu_update_auto_brightness_mode(void)
 {
-    printlog("mcu_update_auto_brightness_switch:%d\r", play.work.global_setting.autobright_ensta);
-    mcu_dp_enum_update(DPID_AUTO_BRIGHTNESS_MODE, play.work.global_setting.autobright_ensta);
+    printlog("mcu_update_auto_brightness_switch:%d\r", play.work.global_setting.autobrightType);
+    mcu_dp_enum_update(DPID_AUTO_BRIGHTNESS_MODE, play.work.global_setting.autobrightType);
 }
 
 
@@ -904,9 +934,9 @@ void mcu_update_auto_brightness_mode(void)
 */ 
 void mcu_download_brightness_auto(uint8_t bright)
 {
-    printlog("mcu_download_brightness_auto:%d\r",bright);
-    play.work.global_setting.brightness_set = bright;
-    save_global_setting(&play.work.global_setting);
+    // // // printlog("mcu_download_brightness_auto:%d\r",bright);
+    // // // play.work.global_setting.brightness_set = bright;
+    // // // save_global_setting(&play.work.global_setting);
 }
 
 /* 
@@ -917,8 +947,8 @@ void mcu_download_brightness_auto(uint8_t bright)
 */ 
 void mcu_update_brightness_auto(void)
 {
-   printlog("mcu_update_brightness_auto:%d\r",play.work.global_setting.brightness_set);
-   mcu_dp_value_update(DPID_BRIGHTNESS_AUTO, play.work.global_setting.brightness_set); // VALUE型数据上报;
+// // //    printlog("mcu_update_brightness_auto:%d\r",play.work.global_setting.brightness_set);
+// // //    mcu_dp_value_update(DPID_BRIGHTNESS_AUTO, play.work.global_setting.brightness_set); // VALUE型数据上报;
 }
 
 
@@ -975,24 +1005,23 @@ void mcu_update_clock_list(void)
     printlog("mcu_update_clock_list\r");
     get_all_schedule(&schedule);
     memset(&com, 0, sizeof(com));
-    if (schedule.num < SCHEDULE_NUM)
+    if (schedule.num > SCHEDULE_NUM)
     {
-        com.num = schedule.num;
-        for (i = 0; i < schedule.num; i++)
-        {
-            com.list[i].index = i;
-            com.list[i].en_sta = schedule.list[i].en_sta;                       // 启用状态
-            com.list[i].action = schedule.list[i].action;                       // 动作类型
-            com.list[i].actiontime.hou_HM = schedule.list[i].actiontime.hou_HM; // 动作时间
-            com.list[i].actiontime.min_HM = schedule.list[i].actiontime.min_HM; // 动作时间
-            com.list[i].repeat.week = schedule.list[i].repeat.week;             // 星期计划
-        }
+        schedule.num = SCHEDULE_NUM;
+        printlog("[error] schedule num is too big:%d\r",schedule.num);
     }
-    else
+
+    com.num = schedule.num;
+    for (i = 0; i < schedule.num; i++)
     {
-        printlog("[error] schedule data exception \r");
-        printAssert();
+        com.list[i].index = i;
+        com.list[i].en_sta = schedule.list[i].en_sta;                       // 启用状态
+        com.list[i].action = schedule.list[i].action;                       // 动作类型
+        com.list[i].actiontime.hou_HM = schedule.list[i].actiontime.hou_HM; // 动作时间
+        com.list[i].actiontime.min_HM = schedule.list[i].actiontime.min_HM; // 动作时间
+        com.list[i].repeat.week = schedule.list[i].repeat.week;             // 星期计划
     }
+
     com.checksum = (uint8_t)checksum_calculate((uint8_t *)&com, (uint16_t)sizeof(com) - 1);
     mcu_dp_raw_update(DPID_CLOCK_LIST, &com, sizeof(com));
 }
@@ -1033,7 +1062,7 @@ uint8_t mcu_download_clock_detial(uint8_t *sur, uint16_t length)
     print_clock_detial(&schedule_detail);
     add_clock_schedule(&schedule_detail, ((com_schedule_detail_TypeDef *)sur)->index);
     mcu_update_clock_list();
-    print_all_clock_detail();
+    // print_all_clock_detail();
 }
 
 
@@ -1108,6 +1137,57 @@ void mcu_update_current_play_efdetail(void)
 void mcu_update_reserved4(void) 
 {
     mcu_update_current_play_efdetail();
+}
+
+/*-------------------------------------------------------------------------*/
+
+/* 
+ * @Description: 上传播放的灯效的亮度信息
+ * @param: 
+ * @return: 
+*/ 
+void mcu_update_current_ef_brightness(void) 
+{
+    com_current_efbright_TypeDef com;
+    load_current_ef_brightness(); // 加载当前灯效的亮度
+    com.efidex = play.detail.efindex;
+    com.Brightness1 = play.efdetail.Brightness1;
+    if (play.efdetail.EffectType != RHYTHM_TYPE)
+    {
+        com.Brightness2 = 101;  // 应app要求，非律动模式此值填101
+    }
+    else
+    {
+        com.Brightness2 = play.efdetail.Brightness2;
+    }
+    mcu_dp_raw_update(DPID_RESERVED5, &com, sizeof(com));
+}
+/* 
+ * @Description: 下载灯效亮度信息
+ * @param: 
+ * @param: 
+ * @return: 
+*/ 
+void mcu_download_ef_brightness(uint8_t *sur, uint16_t length)
+{
+    modify_effect_brightness(((com_current_efbright_TypeDef *)sur)->efidex, ((com_current_efbright_TypeDef *)sur)->Brightness1, ((com_current_efbright_TypeDef *)sur)->Brightness2);
+    if (((com_current_efbright_TypeDef *)sur)->efidex == play.detail.efindex)   // 更新的是当前播放的灯效
+    {
+        load_current_ef_brightness();                            // 加载当前灯效的亮度
+        play.work.global_setting.autobright_ensta = DISABLE_STA; // 关闭自动调光
+        save_global_setting(&play.work.global_setting);
+    }
+}
+
+/* 
+ * @Description: 下载DP信息（保留5）
+ * @param: 
+ * @param: 
+ * @return: 
+*/ 
+void mcu_download_reserved5(uint8_t *sur, uint16_t length)
+{
+    mcu_download_ef_brightness(sur, length);
 }
 
 /*-------------------------------------------------------------------------*/

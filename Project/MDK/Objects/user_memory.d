@@ -31,7 +31,7 @@
 .\objects\user_memory.o: ..\USER\Include\Light.H
 .\objects\user_memory.o: ..\USER\Include\key.h
 .\objects\user_memory.o: ..\USER\Include\Com.H
-.\objects\user_memory.o: ..\USER\Include\fft.h
+.\objects\user_memory.o: ..\USER\fft\fft.h
 .\objects\user_memory.o: ..\USER\Include\uart.h
 .\objects\user_memory.o: ..\USER\Include\uart.h
 .\objects\user_memory.o: ..\USER\Include\A5441_Master.h

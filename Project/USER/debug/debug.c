@@ -430,6 +430,7 @@ void debug_K3(void)
 /*按键4服务调试函数*/
 void debug_K4(void)
 {
+
     // print_online_slave_data();
     // // init_default_playlist();            // 出厂化内置播放表信息
     // uint8_t version[OTA_updateFLAG_SIZE];
@@ -472,6 +473,7 @@ void debug_K4(void)
 /*按键5服务调试函数*/
 void debug_K5(void)
 {
+    
     // // play_new_effect(12);
 //    static  Direction_Enum dir;
 //     if (++dir > DIRECTION_SEPARATE)

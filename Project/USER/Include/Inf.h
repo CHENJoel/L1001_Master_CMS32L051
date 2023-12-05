@@ -18,7 +18,7 @@
 #define all_ef_num built_in_ef_num + original_ef_num // 全部灯效数量
 
 #define default_ef_Speed 50
-#define default_ef_Brightness1 50
+#define default_ef_Brightness1 1
 #define default_ef_Brightness2 100
 #define default_ef_MicSensitivity 100
 #define default_ef_Attribute ORIGIN

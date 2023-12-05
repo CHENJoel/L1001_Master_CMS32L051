@@ -30,7 +30,7 @@
 .\objects\rtc_user.o: ..\USER\Include\Light.H
 .\objects\rtc_user.o: ..\USER\Include\key.h
 .\objects\rtc_user.o: ..\USER\Include\Com.H
-.\objects\rtc_user.o: ..\USER\Include\fft.h
+.\objects\rtc_user.o: ..\USER\fft\fft.h
 .\objects\rtc_user.o: ..\USER\Include\uart.h
 .\objects\rtc_user.o: ..\USER\Include\uart.h
 .\objects\rtc_user.o: ..\USER\Include\A5441_Master.h

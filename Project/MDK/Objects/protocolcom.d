@@ -30,7 +30,7 @@
 .\objects\protocolcom.o: ..\USER\Include\Light.H
 .\objects\protocolcom.o: ..\USER\Include\key.h
 .\objects\protocolcom.o: ..\USER\Include\Com.H
-.\objects\protocolcom.o: ..\USER\Include\fft.h
+.\objects\protocolcom.o: ..\USER\fft\fft.h
 .\objects\protocolcom.o: ..\USER\Include\uart.h
 .\objects\protocolcom.o: ..\USER\Include\uart.h
 .\objects\protocolcom.o: ..\USER\Include\A5441_Master.h

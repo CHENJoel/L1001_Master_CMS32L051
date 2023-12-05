@@ -31,7 +31,7 @@
 .\objects\internal_memory.o: ..\USER\Include\Light.H
 .\objects\internal_memory.o: ..\USER\Include\key.h
 .\objects\internal_memory.o: ..\USER\Include\Com.H
-.\objects\internal_memory.o: ..\USER\Include\fft.h
+.\objects\internal_memory.o: ..\USER\fft\fft.h
 .\objects\internal_memory.o: ..\USER\Include\uart.h
 .\objects\internal_memory.o: ..\USER\Include\uart.h
 .\objects\internal_memory.o: ..\USER\Include\A5441_Master.h

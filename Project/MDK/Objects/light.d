@@ -30,7 +30,7 @@
 .\objects\light.o: ..\USER\Include\Color.H
 .\objects\light.o: ..\USER\Include\key.h
 .\objects\light.o: ..\USER\Include\Com.H
-.\objects\light.o: ..\USER\Include\fft.h
+.\objects\light.o: ..\USER\fft\fft.h
 .\objects\light.o: ..\USER\Include\uart.h
 .\objects\light.o: ..\USER\Include\uart.h
 .\objects\light.o: ..\USER\Include\A5441_Master.h

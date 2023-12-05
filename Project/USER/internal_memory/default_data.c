@@ -3,38 +3,38 @@
 #define endingcolor 255, 255, 255, 255, // 结束颜色标志，用于判断当前为最后一个颜色
 const df_data_TypeDef dfdata[built_in_ef_num] =
 {
-    {"Reading",     (p_arry)df_White_4000K,  STATIC_TYPE, FLOW_STATIC },/*0*/
-    {"Working",     (p_arry)df_White_3500K,  STATIC_TYPE, FLOW_STATIC },/*1*/
-    {"3000K",       (p_arry)df_White_3000K,  STATIC_TYPE, FLOW_STATIC },/*2*/
-    {"Night light", (p_arry)df_White_2700K,  STATIC_TYPE, FLOW_STATIC },/*3*/
-    {"vitality",    (p_arry)df_Vitality,     STATIC_TYPE, FLOW_STATIC },/*4*/
-    {"Spring",      (p_arry)df_Spring,       STATIC_TYPE, FLOW_STATIC },/*5*/
-    {"Summer",      (p_arry)df_Summer,       STATIC_TYPE, FLOW_STATIC },/*6*/
-    {"Autumn",      (p_arry)df_Autumn,       STATIC_TYPE, FLOW_STATIC },/*7*/
-    {"Winter",      (p_arry)df_Winter,       STATIC_TYPE, FLOW_STATIC },/*8*/
-    {"Cyberpunk",   (p_arry)df_Cyberpunk,    STATIC_TYPE, FLOW_STATIC },/*9*/
+    {"Reading",     (p_arry)df_White_4000K,  STATIC_TYPE, FLOW_STATIC, 100, 50, DIRECTION_DOWN   },/*0*/
+    {"Working",     (p_arry)df_White_3500K,  STATIC_TYPE, FLOW_STATIC, 100, 50, DIRECTION_DOWN   },/*1*/
+    {"3000K",       (p_arry)df_White_3000K,  STATIC_TYPE, FLOW_STATIC, 80 , 50, DIRECTION_DOWN   },/*2*/
+    {"Night light", (p_arry)df_White_2700K,  STATIC_TYPE, FLOW_STATIC, 20 , 50, DIRECTION_DOWN   },/*3*/
+    {"vitality",    (p_arry)df_Vitality,     STATIC_TYPE, FLOW_STATIC, 100, 50, DIRECTION_DOWN   },/*4*/
+    {"Spring",      (p_arry)df_Spring,       STATIC_TYPE, FLOW_STATIC, 100, 50, DIRECTION_DOWN   },/*5*/
+    {"Summer",      (p_arry)df_Summer,       STATIC_TYPE, FLOW_STATIC, 100, 50, DIRECTION_DOWN   },/*6*/
+    {"Autumn",      (p_arry)df_Autumn,       STATIC_TYPE, FLOW_STATIC, 100, 50, DIRECTION_DOWN   },/*7*/
+    {"Winter",      (p_arry)df_Winter,       STATIC_TYPE, FLOW_STATIC, 100, 50, DIRECTION_DOWN   },/*8*/
+    {"Cyberpunk",   (p_arry)df_Cyberpunk,    STATIC_TYPE, FLOW_STATIC, 100, 50, DIRECTION_DOWN   },/*9*/
 
-    {"Deep Breath", (p_arry)df_Deep_Breath,  DYNAMIC_TYPE,FLOW_BREATH },/*10*/
-    {"Sweet",       (p_arry)df_Sweet,        DYNAMIC_TYPE,FLOW_BREATH },/*11*/
-    {"Romantic",    (p_arry)df_Romantic,     DYNAMIC_TYPE,FLOW_STREAM },/*12*/
-    {"Aurora",      (p_arry)df_Aurora,       DYNAMIC_TYPE,FLOW_REVERB },/*13*/
-    {"Ocean",       (p_arry)df_Ocean,        DYNAMIC_TYPE,FLOW_REVERB },/*14*/
-    {"lightning",   (p_arry)df_lightning,    DYNAMIC_TYPE,FLOW_LIGHTN },/*15*/
-    {"fireworks",   (p_arry)df_fireworks,    DYNAMIC_TYPE,FLOW_IGNITE },/*16*/
-    {"Snake",       (p_arry)df_Snake,        DYNAMIC_TYPE,FLOW_STREAM },/*17*/
-    {"Bouncy ball", (p_arry)df_BouncyBall,   DYNAMIC_TYPE,FLOW_REVERB },/*18*/
-    {"Lightsaber",  (p_arry)df_Lightsaber,   DYNAMIC_TYPE,FLOW_IGNITE },/*19*/
-    {"Thanksgiving",(p_arry)df_Thanksgiving, DYNAMIC_TYPE,FLOW_REVERB },/*20*/
-    {"Halloween",   (p_arry)df_Halloween,    DYNAMIC_TYPE,FLOW_IGNITE },/*21*/
-    {"Christmas",   (p_arry)df_Christmas,    DYNAMIC_TYPE,FLOW_HOPSCO },/*22*/
-    {"Colorful",    (p_arry)df_Colorful,     DYNAMIC_TYPE,FLOW_RANDOM },/*23*/
-    {"Kaleidoscope",(p_arry)df_Kaleidoscope, DYNAMIC_TYPE,FLOW_RANDOM },/*24*/
+    {"Deep Breath", (p_arry)df_Deep_Breath,  DYNAMIC_TYPE,FLOW_BREATH, 80 , 50, DIRECTION_DOWN    },/*10*/
+    {"Sweet",       (p_arry)df_Sweet,        DYNAMIC_TYPE,FLOW_BREATH, 100, 50, DIRECTION_DOWN    },/*11*/
+    {"Romantic",    (p_arry)df_Romantic,     DYNAMIC_TYPE,FLOW_STREAM, 100, 10, DIRECTION_DOWN    },/*12*/
+    {"Aurora",      (p_arry)df_Aurora,       DYNAMIC_TYPE,FLOW_REVERB, 100, 95, DIRECTION_DOWN    },/*13*/
+    {"Ocean",       (p_arry)df_Ocean,        DYNAMIC_TYPE,FLOW_REVERB, 100, 10, DIRECTION_RIGHT   },/*14*/
+    {"lightning",   (p_arry)df_lightning,    DYNAMIC_TYPE,FLOW_LIGHTN, 100, 95, DIRECTION_DOWN    },/*15*/
+    {"fireworks",   (p_arry)df_fireworks,    DYNAMIC_TYPE,FLOW_IGNITE, 100, 50, DIRECTION_UP      },/*16*/
+    {"Snake",       (p_arry)df_Snake,        DYNAMIC_TYPE,FLOW_STREAM, 100, 95, DIRECTION_RIGHT   },/*17*/
+    {"Bouncy ball", (p_arry)df_BouncyBall,   DYNAMIC_TYPE,FLOW_REVERB, 100, 80, DIRECTION_CONVERGE},/*18*/
+    {"Lightsaber",  (p_arry)df_Lightsaber,   DYNAMIC_TYPE,FLOW_IGNITE, 100, 80, DIRECTION_UP      },/*19*/
+    {"Thanksgiving",(p_arry)df_Thanksgiving, DYNAMIC_TYPE,FLOW_REVERB, 100, 50, DIRECTION_DOWN    },/*20*/
+    {"Halloween",   (p_arry)df_Halloween,    DYNAMIC_TYPE,FLOW_IGNITE, 100, 95, DIRECTION_DOWN    },/*21*/
+    {"Christmas",   (p_arry)df_Christmas,    DYNAMIC_TYPE,FLOW_HOPSCO, 100, 95, DIRECTION_UP      },/*22*/
+    {"Colorful",    (p_arry)df_Colorful,     DYNAMIC_TYPE,FLOW_RANDOM, 100, 70, DIRECTION_DOWN    },/*23*/
+    {"Kaleidoscope",(p_arry)df_Kaleidoscope, DYNAMIC_TYPE,FLOW_RANDOM, 100, 50, DIRECTION_DOWN    },/*24*/
 
-    {"Rhythm"   ,   (p_arry)df_Rhythm,       RHYTHM_TYPE,FLOW_RANDOM },/*25*/
-    {"Meditation",  (p_arry)df_Meditation,   RHYTHM_TYPE,FLOW_BREATH },/*26*/
-    {"GamingTime",  (p_arry)df_GamingTime,   RHYTHM_TYPE,FLOW_LIGHTN },/*27*/
-    {"Disco",       (p_arry)df_Disco,        RHYTHM_TYPE,FLOW_REVERB },/*28*/
-    {"Dance Party", (p_arry)df_DanceParty,   RHYTHM_TYPE,FLOW_RANDOM },/*29*/
+    {"Rhythm"   ,   (p_arry)df_Rhythm,       RHYTHM_TYPE,FLOW_RANDOM, 100, 50, DIRECTION_DOWN    },/*25*/
+    {"Meditation",  (p_arry)df_Meditation,   RHYTHM_TYPE,FLOW_BREATH, 50 , 50, DIRECTION_DOWN    },/*26*/
+    {"GamingTime",  (p_arry)df_GamingTime,   RHYTHM_TYPE,FLOW_LIGHTN, 100, 50, DIRECTION_DOWN    },/*27*/
+    {"Disco",       (p_arry)df_Disco,        RHYTHM_TYPE,FLOW_REVERB, 100, 50, DIRECTION_SEPARATE},/*28*/
+    {"Dance Party", (p_arry)df_DanceParty,   RHYTHM_TYPE,FLOW_RANDOM, 100, 50, DIRECTION_DOWN    },/*29*/
 };
 // const uint8_t df_playlist[15] = {10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24};
 const uint8_t df_playlist[30] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29};

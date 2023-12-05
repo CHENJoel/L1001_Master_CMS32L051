@@ -30,7 +30,7 @@
 .\objects\tim4_user.o: ..\USER\Include\Light.H
 .\objects\tim4_user.o: ..\USER\Include\key.h
 .\objects\tim4_user.o: ..\USER\Include\Com.H
-.\objects\tim4_user.o: ..\USER\Include\fft.h
+.\objects\tim4_user.o: ..\USER\fft\fft.h
 .\objects\tim4_user.o: ..\USER\Include\uart.h
 .\objects\tim4_user.o: ..\USER\Include\uart.h
 .\objects\tim4_user.o: ..\USER\Include\A5441_Master.h

@@ -9,28 +9,15 @@
 void effect_flow(void)
 {
     uint8_t frameSkew;    // 帧跳跃
-    // if (play.efdetail.Speed >= 100)
-    // {
-    //     frameSkew = 1;
-    // }
-    // else
-    // {
 
-    // }
-    // if (play.efdetail.Speed)
-    // {
-    //     frameSkew = play.efdetail.Speed / 2;
-    // }
-    // else
-    // {
-    //     frameSkew = 1;
-    // }
-
-    // if (frameSkew == 0)
-    // {
-
-    // }
-    frameSkew = play.efdetail.Speed;
+    if (play.efdetail.EffectType == RHYTHM_TYPE) // 律动模式
+    {
+        frameSkew = mic.frequ;
+    }
+    else
+    {
+        frameSkew = play.efdetail.Speed;
+    }
 
     switch (play.efdetail.Flow)
     {
@@ -70,13 +57,7 @@ void effect_flow(void)
 */
 void effect_play_color_calu(void)
 {
-    
-    // static uint8_t speed_cnt;
-    // if (++speed_cnt > (101 - play.efdetail.Speed))
-    // {
-    //     speed_cnt=0;
-        effect_flow();
-    // }
+    effect_flow();
 }
 
 void Flow_Static_Init(void)
@@ -295,28 +276,31 @@ void Flow_Random_Init(void)
 void Flow_Static(void) /*静态*/
 {
     uint8_t i, j;
-    uint8_t flag;
+    // // // // uint8_t flag;
     EF_Work.Module_WorkNum = slave.num;
 
-    if (play.efdetail.EfColorInf.colorNum == 1 && (play.efdetail.EfColorInf.ColorID[0].id == 0x00 || play.efdetail.EfColorInf.ColorID[0].id == 0xFF))
-    {
-        /* 全部播放同个颜色 */
-        for (i = 0; i < slave.num; i++)
-        {
-            slave.data[i].runnum = i;
-            Tangram[i].R.Now = play.efdetail.EfColorInf.ColorID[0].color.R;
-            Tangram[i].G.Now = play.efdetail.EfColorInf.ColorID[0].color.G;
-            Tangram[i].B.Now = play.efdetail.EfColorInf.ColorID[0].color.B;
-            Tangram[i].W.Now = play.efdetail.EfColorInf.ColorID[0].color.W;
-        }
-    }
-    else
-    {
+    // // if (play.efdetail.EfColorInf.colorNum == 1 && (play.efdetail.EfColorInf.ColorID[0].id == 0x00 || play.efdetail.EfColorInf.ColorID[0].id == 0xFF))
+    // // {
+    // //     /* 全部播放同个颜色 */
+    // //     for (i = 0; i < slave.num; i++)
+    // //     {
+    // //         slave.data[i].runnum = i;
+    // //         Tangram[i].R.Now = play.efdetail.EfColorInf.ColorID[0].color.R;
+    // //         Tangram[i].G.Now = play.efdetail.EfColorInf.ColorID[0].color.G;
+    // //         Tangram[i].B.Now = play.efdetail.EfColorInf.ColorID[0].color.B;
+    // //         Tangram[i].W.Now = play.efdetail.EfColorInf.ColorID[0].color.W;
+    // //     }
+    // // }
+    // // else
+    // // {
         /* 根据id播放对应的颜色 */
         for (i = 0; i < slave.num; i++)
         {
             slave.data[i].runnum = i; // 每个灯板对应一个运行号
-            flag = 0;
+            Tangram[i].R.Now = 0;     // 默认不显示灯色
+            Tangram[i].G.Now = 0;
+            Tangram[i].B.Now = 0;
+            Tangram[i].W.Now = 0;
             for (j = 0; j < play.efdetail.EfColorInf.colorNum; j++)
             {
                 if (slave.data[i].id == play.efdetail.EfColorInf.ColorID[j].id) // 对已定义的id上色
@@ -325,24 +309,11 @@ void Flow_Static(void) /*静态*/
                     Tangram[i].G.Now = play.efdetail.EfColorInf.ColorID[j].color.G;
                     Tangram[i].B.Now = play.efdetail.EfColorInf.ColorID[j].color.B;
                     Tangram[i].W.Now = play.efdetail.EfColorInf.ColorID[j].color.W;
-                    flag = 1;
                     break;
                 }
             }
-            if (flag == 0)
-            {
-                Tangram[i].R.Now = 0;
-                Tangram[i].G.Now = 0;
-                Tangram[i].B.Now = 0;
-                Tangram[i].W.Now = 0;
-                // // flag = get_random_number() % play.efdetail.EfColorInf.colorNum; // 未定义的id上随机色
-                // // Tangram[i].R.Now = play.efdetail.EfColorInf.ColorID[flag].color.R;
-                // // Tangram[i].G.Now = play.efdetail.EfColorInf.ColorID[flag].color.G;
-                // // Tangram[i].B.Now = play.efdetail.EfColorInf.ColorID[flag].color.B;
-                // // Tangram[i].W.Now = play.efdetail.EfColorInf.ColorID[flag].color.W;
-            }
         }
-    }
+    // // }
 }
 void Flow_Breath(uint8_t speed) /*呼吸*/
 {
@@ -472,8 +443,8 @@ void Flow_Lightning(uint8_t speed) /*闪电*/
     uint16_t Temp_FrameNum; // 临时帧编号，换算为当前帧（frame）处于当前关键帧（keyframe）至下一关键帧（keyframe）的之间的帧编号
     uint8_t skew;
 #define Lightning_Skew_MIN 3
-#define Lightning_Skew_MAX 10
-    skew = speed / 8;
+#define Lightning_Skew_MAX 100
+    skew = speed / 3;
     if (skew <= Lightning_Skew_MIN)
     {
         skew = Lightning_Skew_MIN;

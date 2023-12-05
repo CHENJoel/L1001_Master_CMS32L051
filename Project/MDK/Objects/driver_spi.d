@@ -31,7 +31,7 @@
 .\objects\driver_spi.o: ..\USER\Include\Light.H
 .\objects\driver_spi.o: ..\USER\Include\key.h
 .\objects\driver_spi.o: ..\USER\Include\Com.H
-.\objects\driver_spi.o: ..\USER\Include\fft.h
+.\objects\driver_spi.o: ..\USER\fft\fft.h
 .\objects\driver_spi.o: ..\USER\Include\uart.h
 .\objects\driver_spi.o: ..\USER\Include\uart.h
 .\objects\driver_spi.o: ..\USER\Include\A5441_Master.h

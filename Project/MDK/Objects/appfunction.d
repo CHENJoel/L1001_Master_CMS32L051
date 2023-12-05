@@ -30,7 +30,7 @@
 .\objects\appfunction.o: ..\USER\Include\Light.H
 .\objects\appfunction.o: ..\USER\Include\key.h
 .\objects\appfunction.o: ..\USER\Include\Com.H
-.\objects\appfunction.o: ..\USER\Include\fft.h
+.\objects\appfunction.o: ..\USER\fft\fft.h
 .\objects\appfunction.o: ..\USER\Include\uart.h
 .\objects\appfunction.o: ..\USER\Include\uart.h
 .\objects\appfunction.o: ..\USER\Include\A5441_Master.h

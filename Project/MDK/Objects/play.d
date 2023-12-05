@@ -31,7 +31,7 @@
 .\objects\play.o: ..\USER\Include\Light.H
 .\objects\play.o: ..\USER\Include\key.h
 .\objects\play.o: ..\USER\Include\Com.H
-.\objects\play.o: ..\USER\Include\fft.h
+.\objects\play.o: ..\USER\fft\fft.h
 .\objects\play.o: ..\USER\Include\uart.h
 .\objects\play.o: ..\USER\Include\uart.h
 .\objects\play.o: ..\USER\Include\A5441_Master.h

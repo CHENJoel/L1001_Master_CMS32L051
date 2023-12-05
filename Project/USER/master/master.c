@@ -3,7 +3,7 @@
  * @Author: DESKTOP-AKTRQKB\MY sandote@163.com
  * @Date: 2023-06-07 10:04:26
  * @LastEditors: DESKTOP-AKTRQKB\MY sandote@163.com
- * @LastEditTime: 2023-11-25 14:34:45
+ * @LastEditTime: 2023-12-05 16:28:40
  * @FilePath: \L1001_Master_CMS32L051\Project\USER\master\master.c
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -13,6 +13,7 @@ sys_TypeDef sys;
 adcdma_task_TypeDef xadc;
 FlagTypeDef flag;
 fifo_t uart1_fifo;
+TwinkleTypeDef Twinkle;
 
 /* 
  * @Description: wifi模组初始化
@@ -455,6 +456,8 @@ void adc_dma_start(void)
     // }
 
     // // // DMA_Stop(DMA_VECTOR_ADC);
+    // LED_Red_on();
+    // LED_Red_flash();
     xadc.index = ADC_KEY_INDEX;
     ADC_Stop();
     ADC_Start(ADC_CHANNEL_2);
@@ -639,9 +642,9 @@ uint8_t auto_brightness(void)
  */
 void set_global_brightness(uint8_t val)
 {
-    play.work.global_setting.brightness_set = val;
-    save_global_brightness_set();
-    mcu_update_bright_val();
+    // play.work.global_setting.brightness_set = val;
+    // save_global_brightness_set();
+    // mcu_update_bright_val();
     // // // mcu_update_brightness_auto();
 }
 // 数据转BCD码
@@ -1033,7 +1036,6 @@ void KeyS_Click(void)
             play.work.sw_status = SW_ON;
         }
         mcu_update_switch_led();
-
         debug_K1();
     }
     if (KEY2_Click)
@@ -1058,11 +1060,12 @@ void KeyS_Click(void)
     if (KEY4_Click)
     {
         debug_K4();
+        modify_brightness_level();
         // debug_play_next_effect();
         // test_click_brightness(0);
 
-        Light_Level_Change(&play.work.global_setting.brightness_set, &play.work.brightness.dir, bright_table, sizeof(bright_table));
-        set_global_brightness(play.work.global_setting.brightness_set);
+       
+        // // set_global_brightness(play.work.global_setting.brightness_set);
         // // mcu_update_brightness_auto();
     }
     if (KEY5_Click)
@@ -1113,6 +1116,10 @@ void KeyS_Click(void)
     if (KEY5_LongOnce)
     {
     }
+    if (KEY4_Long)
+    {
+        modify_brightness_step(KEY4_LongRelease);
+    }
 
     KEY1_AllClick_Reset;
     KEY2_AllClick_Reset;
@@ -1146,37 +1153,32 @@ void Lignt_Control(void)
         }
         else
         {
-            // if (play.clock.status == CLOCK_ON)
-            // {
-            //     play.work.brightness.now = play.clock.bright;
-            // }
-            // else
-            // {
-                if (play.work.global_setting.autobright_ensta == ENABLE_STA)
-                {
-                    play.work.global_setting.brightness_set = auto_brightness();
-                    if (play.work.brightness.tar != play.work.global_setting.brightness_set)
-                    {
-                        mcu_update_bright_val();
-                    }
-                }
-                // // else
-                // // {
-                // //     play.work.global_setting.brightness_set = play.efdetail.Brightness1;
-                // // }
-                play.work.brightness.tar = play.work.global_setting.brightness_set;
-                Gradual_Change(&play.work.brightness.now, &play.work.brightness.tar, 10);
-            // // }
+            if (play.work.global_setting.autobright_ensta == ENABLE_STA)
+            {
+                play.work.brightness.tar = auto_brightness(); // 自动亮度
+            }
+            else
+            {
+                play.work.brightness.tar = play.work.brightness.set;
+            }
+            if (Twinkle.On_Flag == 0)
+            {
+                Gradual_Change(&play.work.brightness.now, &play.work.brightness.tar, 3);
+            }
+            else    
+            {
+                // 闪烁程序控制亮度
+            }
         }
     }
     else
     {
         play.work.brightness.tar = 0;
-        Gradual_Change(&play.work.brightness.now, &play.work.brightness.tar, 10);
+        Gradual_Change(&play.work.brightness.now, &play.work.brightness.tar, 3);
     }
+    twinkle_remind(&play.work.brightness.now, &play.work.brightness.tar);   // 闪烁
     // // printlog("now:%3d,tar:%3d\r",play.work.brightness.now,play.work.brightness.tar);
 }
-
 
 /* 
  * @Description: 串口应用初始化
@@ -1217,9 +1219,7 @@ void uart_app_init(void)
 */ 
 void sys_tick_init(void)
 {
-    IT_Init(RTC_64MHZ, 2);  // 4ms间隔中断一次
-    IT_Start();
-    INTC_EnableIRQ(IT_IRQn);
+
     User_TM40_IntervalTimer(TM4_CHANNEL_0, 500);
     INTC_EnableIRQ(TM00_IRQn);
 }
@@ -1324,7 +1324,7 @@ void switch_next_free_effect(NL_enum nl)
         {
             if (efdetail.EffectType == RHYTHM_TYPE)
             {
-                play.source = SOURCE_FREE;
+                modify_playsource(SOURCE_FREE);
                 play_new_effect(allef.list[i]);
                 return;
             }
@@ -1333,7 +1333,7 @@ void switch_next_free_effect(NL_enum nl)
         {
             if (efdetail.EffectType != RHYTHM_TYPE)
             {
-                play.source = SOURCE_FREE;
+                modify_playsource(SOURCE_FREE);
                 play_new_effect(allef.list[i]);
                 return;
             }
@@ -1352,4 +1352,149 @@ void wifi_service(void)
     // {
         wifi_uart_service();
     // }
+}
+
+/* 
+ * @Description: 自动保存灯效亮度
+ * @param: 
+ * @return: 
+*/ 
+void autosave_effect_bright(uint8_t reset)
+{
+#define BRIGHTNESS_SAVE_TIME 178                 // 亮度自动保存时间 178*28ms 约5秒
+    static uint8_t bright_last = 0;              // 上次亮度值
+    static uint8_t bright_steady_time = 0;       // 稳定时间
+    if (play.efdetail.EffectType == RHYTHM_TYPE) // 律动模式
+    {
+        bright_steady_time = 0;
+    }
+    if (reset)
+    {
+        bright_steady_time = 0;
+    }
+    if (bright_last != play.work.brightness.set)
+    {
+        bright_steady_time = 0;
+    }
+    else
+    {
+        if (bright_steady_time < 0xFF)
+        {
+            bright_steady_time++;
+        }
+    }
+    if (bright_steady_time == BRIGHTNESS_SAVE_TIME) // 亮度设置值稳定后
+    {
+        if (play.work.brightness.set != play.efdetail.Brightness1)  // 亮度有修改时
+        {
+            modify_effect_brightness(play.detail.efindex, play.work.brightness.set, 1); // 将亮度保存进当前灯效
+        }
+    }
+    bright_last = play.work.brightness.set;
+}
+
+/* 
+ * @Description: 修改亮度级别
+ * @param: 
+ * @return: 
+*/
+void modify_brightness_level(void)
+{
+    if (play.work.sw_status == SW_ON)
+    {
+        Light_Level_Change(&play.work.brightness.set, &play.work.brightness.dir, bright_table, sizeof(bright_table));
+        autosave_effect_bright(1);
+    }
+}
+
+/*
+ * @Description: 长按调亮度
+ * @param: 长按释放标志
+ * @return:
+ */
+void modify_brightness_step(uint8_t release)
+{
+
+    Value_Step_Change(&play.work.brightness.set, &play.work.brightness.dir, bright_table[sizeof(bright_table) - 1], bright_table[0], 1);
+    if (play.work.brightness.set == bright_table[sizeof(bright_table) - 1])
+    {
+        // Twinkle_SET(1, 15, 15, 30);
+        if (release)
+        {
+            play.work.brightness.dir = 0;
+            // Twinkle_SET(0, 15, 15, 30); // 结束闪烁
+        }
+    }
+    else if (play.work.brightness.set == bright_table[0])
+    {
+        // Twinkle_SET(1, 15, 15, 30);
+        if (release)
+        {
+            play.work.brightness.dir = 1;
+            // Twinkle_SET(0, 15, 15, 30); // 结束闪烁
+        }
+    }
+    autosave_effect_bright(1);
+}
+
+/* 
+ * @Description: 闪烁提醒
+ * @param: 输出当前亮度
+ * @param: 输入目标亮度
+ * @return: 
+*/ 
+void twinkle_remind(uint8_t* now, uint8_t* tar)
+{
+    static uint8_t BaseTimeCNT;
+    uint8_t Period;
+    uint8_t Brightness_Temp;
+    Period = Twinkle.Bright_Time + Twinkle.Dark_Time; // 闪烁周期时间
+    if (Twinkle.Target > 0)
+    {
+        Twinkle.On_Flag = 1; // 闪烁目标次数不为0时，自动打开闪烁标志位，开启闪烁
+    }
+    if (Twinkle.On_Flag)
+    {
+        BaseTimeCNT++;
+        if (BaseTimeCNT <= Twinkle.Dark_Time) // 暗阶段
+        {
+            if (*tar <= (100 - Twinkle.Bias)) // Bias不可大于127
+            {
+                *now = *tar + Twinkle.Bias;
+            }
+            else
+            {
+                *now = *tar - Twinkle.Bias;
+            }
+        }
+        else // 亮阶段
+        {
+            *now = *tar;
+            if (BaseTimeCNT >= Period) // 完整闪烁周期完成
+            {
+                Twinkle.Count++;
+                if (Twinkle.Count >= Twinkle.Target) // 完成目标闪烁次数
+                {
+                    Twinkle.On_Flag = 0;
+                    Twinkle.Count = 0;
+                    Twinkle.Target = 0;
+                    BaseTimeCNT = 0;
+                }
+                BaseTimeCNT = 0;
+            }
+        }
+    }
+}
+
+
+/* 
+ * @Description: 间隔定时器中断服务函数
+ * @param: 
+ * @return: 
+*/ 
+void it_callback_Handle(void)
+{
+    
+
+    // LED_Red_flash();
 }

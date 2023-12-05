@@ -31,7 +31,7 @@
 .\objects\driver_w25qxx.o: ..\USER\Include\Light.H
 .\objects\driver_w25qxx.o: ..\USER\Include\key.h
 .\objects\driver_w25qxx.o: ..\USER\Include\Com.H
-.\objects\driver_w25qxx.o: ..\USER\Include\fft.h
+.\objects\driver_w25qxx.o: ..\USER\fft\fft.h
 .\objects\driver_w25qxx.o: ..\USER\Include\uart.h
 .\objects\driver_w25qxx.o: ..\USER\Include\uart.h
 .\objects\driver_w25qxx.o: ..\USER\Include\A5441_Master.h

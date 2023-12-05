@@ -31,7 +31,7 @@
 .\objects\boot.o: ..\USER\Include\Light.H
 .\objects\boot.o: ..\USER\Include\key.h
 .\objects\boot.o: ..\USER\Include\Com.H
-.\objects\boot.o: ..\USER\Include\fft.h
+.\objects\boot.o: ..\USER\fft\fft.h
 .\objects\boot.o: ..\USER\Include\uart.h
 .\objects\boot.o: ..\USER\Include\uart.h
 .\objects\boot.o: ..\USER\Include\A5441_Master.h

@@ -31,7 +31,7 @@
 .\objects\version.o: ..\USER\Include\Light.H
 .\objects\version.o: ..\USER\Include\key.h
 .\objects\version.o: ..\USER\Include\Com.H
-.\objects\version.o: ..\USER\Include\fft.h
+.\objects\version.o: ..\USER\fft\fft.h
 .\objects\version.o: ..\USER\Include\uart.h
 .\objects\version.o: ..\USER\Include\uart.h
 .\objects\version.o: ..\USER\Include\A5441_Master.h

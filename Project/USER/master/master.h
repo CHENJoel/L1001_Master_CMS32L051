@@ -2,13 +2,32 @@
  * @Author: DESKTOP-AKTRQKB\MY sandote@163.com
  * @Date: 2023-06-07 10:05:07
  * @LastEditors: DESKTOP-AKTRQKB\MY sandote@163.com
- * @LastEditTime: 2023-11-17 13:31:21
+ * @LastEditTime: 2023-11-30 14:53:30
  * @FilePath: \L1001_Master_CMS32L051\Project\USER\master\master.h
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
 #ifndef _MASTER_H
 #define _MASTER_H
 #include "Function_Init.H"
+
+
+typedef struct
+{
+    unsigned char Target;	   //目标.闪烁次数
+    unsigned char Count;	   //已完成.闪烁次数
+    unsigned char Bright_Time; //亮.时长
+    unsigned char Dark_Time;   //暗.时长
+    unsigned char On_Flag;	   //闪烁标志
+    unsigned char Bias;		   //闪烁幅度
+} TwinkleTypeDef;
+extern TwinkleTypeDef Twinkle;
+
+#define Twinkle_SET(TimesSET, BrightTime, DarkTime,TwinkleBias) \
+    Twinkle.Target = TimesSET;                      \
+    Twinkle.Bright_Time = BrightTime;               \
+    Twinkle.Dark_Time = DarkTime;\
+    Twinkle.Bias = TwinkleBias
+
 
 typedef enum
 {
@@ -110,10 +129,17 @@ enum
     ADC_FINISH_INDEX, // 结束索引
 };
 
+typedef enum
+{
+    semaphore_take,
+    semaphore_give,
+}semaphore_enum;
+
 typedef struct
 {
     uint8_t index;
-    uint16_t micbuf[100];
+    semaphore_enum mic_semop;
+    uint16_t micbuf[65];
     uint16_t keybuf;
     uint16_t cdsbuf;
 }adcdma_task_TypeDef;
@@ -195,4 +221,12 @@ void switch_next_free_effect(NL_enum nl); // 切换下一个自由灯效
 
 //
 void wifi_service(void); // wifi服务函数
+//
+void autosave_effect_bright(uint8_t reset); // 自动保存灯效亮度
+//
+void modify_brightness_level(void);           // 修改亮度级别
+void modify_brightness_step(uint8_t release); // 长按调亮度
+//
+void twinkle_remind(uint8_t *now, uint8_t *tar); // 闪烁提醒
+
 #endif

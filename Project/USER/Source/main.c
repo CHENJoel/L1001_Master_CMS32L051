@@ -2,9 +2,9 @@
  * @Author: DESKTOP-AKTRQKB\MY sandote@163.com
  * @Date: 2022-10-17 11:28:51
  * @LastEditors: DESKTOP-AKTRQKB\MY sandote@163.com
- * @LastEditTime: 2023-11-24 16:57:42
+ * @LastEditTime: 2023-12-05 11:49:34
  * @FilePath: \L1001_Master_CMS32L051\Project\USER\Source\main.c
- * @Description: ï¿½ï¿½ï¿½ï¿½Ä¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½`customMade`, ï¿½ï¿½koroFileHeaderï¿½é¿´ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+ * @Description: ???????????,??????`customMade`, ??koroFileHeader?????? ????????: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
 /***********************************************************************************************************************
 * Copyright (C) . All rights reserved.
@@ -113,6 +113,9 @@ int main()
 	
 	
 	/* ADC_Init(); */
+	IT_Init(RTC_64MHZ, 32);  // Ô¼32us¼ä¸ôÖÐ¶ÏÒ»´Î 32/ms 
+    IT_Start();
+    INTC_EnableIRQ(IT_IRQn);
 	ADC_Set_HardTrigger(1, AD_TRG_IT);
 	ADC_Set_Clock(CLOCK_DIV16, 0x0DU);
 	// start_mic_sample();
@@ -170,14 +173,21 @@ int main()
 		if (T_28MS_FLAG_GetBit)
 		{
 			T_28MS_FLAG_ClrBit();
-			process_mic_data();
+			// process_mic_data();
+
+
 			Lignt_Control();
 			play_effect_video();
 			adc_dma_start();	
+			autosave_effect_bright(0);
 		}
 		if (T_100MS_FLAG_GetBit)
 		{
 			T_100MS_FLAG_ClrBit();
+			// fft_test();
+			// adc_dma_start();
+			// // processfft();
+			// // adc_dma_start();
 			// // // LED_Red_flash();
 			// // // LED_Blue_flash();
 		}

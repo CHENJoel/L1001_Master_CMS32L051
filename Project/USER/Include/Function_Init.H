@@ -10,7 +10,7 @@
 .chen sandote@163.om
 .chen sandote@163.om
 .chen sandote@163.om
- * @LastEditTime: 2023-11-22 14:31:06
+ * @LastEditTime: 2023-12-02 11:25:39
  * @FilePath: \L1001_Master_CMS32L051\Project\USER\Include\Function_Init.H
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -93,6 +93,7 @@
 
 #define MAXNUM_32_BIT 0xFFFFFFFF
 
+/* OTA固件生成需要确认的地方 */
 
 // #define OLD_VERSION 1
 

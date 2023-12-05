@@ -64,23 +64,23 @@ typedef struct /*  */
 
 typedef enum
 {
-    SW_OFF,
-    SW_ON,
+    SW_OFF, // ¹ØµÆ
+    SW_ON,  // ¿ªµÆ
 } sw_status_enum;
 
 typedef struct
 {
-    uint8_t now;    // µ±Ç°Öµ
-    uint8_t tar;    // Ä¿±êÖµ
-    uint8_t dir;    // ·½Ïò
+    uint8_t now;   // µ±Ç°Öµ
+    uint8_t tar;   // Ä¿±êÖµ
+    uint8_t set;   // ´æ´¢Öµ
+    uint8_t dir;   // ·½Ïò
 } NTSD_VAL_TypeDef;
 
 typedef enum
 {
     RHYTHM_OFF,
     RHYTHM_ON,
-}rhythm_enum;
-
+} rhythm_enum;
 
 typedef struct
 {
@@ -261,6 +261,7 @@ void transmit_playdata_RGBbr(void);                    // ·¢ËÍ¡°RGBbr¡±¸ñÊ½µÄ²¥·
 void transmit_playdata_COLOR(void); // ·¢ËÍ¡°COLOR¡±¸ñÊ½µÄ²¥·ÅÊı¾İ
 void transmit_playsame_RGBbr(L0_playRGBbr_Typedef *x); // ¹ã²¥·¢ËÍ¡°RGBbr¡±¸ñÊ½µÄ²¥·ÅÊı¾İ
 
+void transmit_play_fft(void); //²âÊÔÏÔÊ¾fft
 //void light_device_pairing_play(app_device_control_Typedef *x); //µÆ°åÏÔÊ¾Åä¶Ô×´Ì¬
 
 //

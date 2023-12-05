@@ -30,7 +30,7 @@
 .\objects\default_data.o: ..\USER\Include\Light.H
 .\objects\default_data.o: ..\USER\Include\key.h
 .\objects\default_data.o: ..\USER\Include\Com.H
-.\objects\default_data.o: ..\USER\Include\fft.h
+.\objects\default_data.o: ..\USER\fft\fft.h
 .\objects\default_data.o: ..\USER\Include\uart.h
 .\objects\default_data.o: ..\USER\Include\uart.h
 .\objects\default_data.o: ..\USER\Include\A5441_Master.h

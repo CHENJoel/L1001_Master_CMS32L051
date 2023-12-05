@@ -30,7 +30,7 @@
 .\objects\slave.o: ..\USER\Include\Light.H
 .\objects\slave.o: ..\USER\Include\key.h
 .\objects\slave.o: ..\USER\Include\Com.H
-.\objects\slave.o: ..\USER\Include\fft.h
+.\objects\slave.o: ..\USER\fft\fft.h
 .\objects\slave.o: ..\USER\Include\uart.h
 .\objects\slave.o: ..\USER\Include\uart.h
 .\objects\slave.o: ..\USER\Include\A5441_Master.h

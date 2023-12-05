@@ -2103,17 +2103,6 @@ void watchdog_test(void)
 
 
 
-/* 
- * @Description: 间隔定时器中断服务函数
- * @param: 
- * @return: 
-*/ 
-void it_callback_Handle(void)
-{
-    
-
-
-}
 
 
 

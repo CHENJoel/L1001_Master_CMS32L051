@@ -30,7 +30,7 @@
 .\objects\delay.o: ..\USER\Include\Light.H
 .\objects\delay.o: ..\USER\Include\key.h
 .\objects\delay.o: ..\USER\Include\Com.H
-.\objects\delay.o: ..\USER\Include\fft.h
+.\objects\delay.o: ..\USER\fft\fft.h
 .\objects\delay.o: ..\USER\Include\uart.h
 .\objects\delay.o: ..\USER\Include\uart.h
 .\objects\delay.o: ..\USER\Include\A5441_Master.h

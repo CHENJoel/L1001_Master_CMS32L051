@@ -30,7 +30,7 @@
 .\objects\colorbox.o: ..\USER\Include\Light.H
 .\objects\colorbox.o: ..\USER\Include\key.h
 .\objects\colorbox.o: ..\USER\Include\Com.H
-.\objects\colorbox.o: ..\USER\Include\fft.h
+.\objects\colorbox.o: ..\USER\fft\fft.h
 .\objects\colorbox.o: ..\USER\Include\uart.h
 .\objects\colorbox.o: ..\USER\Include\uart.h
 .\objects\colorbox.o: ..\USER\Include\A5441_Master.h
