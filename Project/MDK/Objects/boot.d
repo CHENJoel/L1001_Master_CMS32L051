@@ -72,4 +72,5 @@
 .\objects\boot.o: ..\USER\mic\mic.h
 .\objects\boot.o: ..\USER\calibration\calibration.H
 .\objects\boot.o: ..\USER\app\appfunction.h
+.\objects\boot.o: ..\USER\log\log.h
 .\objects\boot.o: ..\USER\debug\printlog.h

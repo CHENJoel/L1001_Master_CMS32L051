@@ -71,4 +71,5 @@
 .\objects\colorbox.o: ..\USER\mic\mic.h
 .\objects\colorbox.o: ..\USER\calibration\calibration.H
 .\objects\colorbox.o: ..\USER\app\appfunction.h
+.\objects\colorbox.o: ..\USER\log\log.h
 .\objects\colorbox.o: ..\USER\debug\printlog.h

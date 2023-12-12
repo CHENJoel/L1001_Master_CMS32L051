@@ -71,4 +71,5 @@
 .\objects\default_data.o: ..\USER\mic\mic.h
 .\objects\default_data.o: ..\USER\calibration\calibration.H
 .\objects\default_data.o: ..\USER\app\appfunction.h
+.\objects\default_data.o: ..\USER\log\log.h
 .\objects\default_data.o: ..\USER\debug\printlog.h

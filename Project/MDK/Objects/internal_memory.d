@@ -72,4 +72,5 @@
 .\objects\internal_memory.o: ..\USER\mic\mic.h
 .\objects\internal_memory.o: ..\USER\calibration\calibration.H
 .\objects\internal_memory.o: ..\USER\app\appfunction.h
+.\objects\internal_memory.o: ..\USER\log\log.h
 .\objects\internal_memory.o: ..\USER\debug\printlog.h

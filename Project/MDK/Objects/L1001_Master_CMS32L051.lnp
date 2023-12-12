@@ -60,6 +60,7 @@
 ".\objects\l0.o"
 ".\objects\l0_slave.o"
 ".\objects\fft_1.o"
+".\objects\log.o"
 ".\objects\startup_cms32l051.o"
 ".\objects\system_cms32l051.o"
 --strict --scatter ".\Objects\L1001_Master_CMS32L051.sct"

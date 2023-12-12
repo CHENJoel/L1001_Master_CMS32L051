@@ -34,8 +34,8 @@
 #define PRODUCT_KEY "lhrbvicwsqvfuz0g"    //开发平台创建产品后生成的16位字符产品唯一标识
 
 /* OTA固件生成需要确认的地方 */
-#define MCU_VER "1.2.33"         //用户的软件版本,用于MCU固件升级,MCU升级版本需修改
-// // #define MCU_VER "1.0.10"    
+// #define MCU_VER "1.2.37"         //用户的软件版本,用于MCU固件升级,MCU升级版本需修改
+#define MCU_VER "1.2.32"    
 // // #define MCU_VER "0.0.02"  // 测试ota
 // // #define MCU_VER "1.0.99"  // 测试ota
 /*  模块工作方式选择,只能三选一,推荐使用防误触模式  */

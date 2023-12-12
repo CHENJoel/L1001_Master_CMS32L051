@@ -72,4 +72,5 @@
 .\objects\fft_1.o: ..\USER\mic\mic.h
 .\objects\fft_1.o: ..\USER\calibration\calibration.H
 .\objects\fft_1.o: ..\USER\app\appfunction.h
+.\objects\fft_1.o: ..\USER\log\log.h
 .\objects\fft_1.o: ..\USER\debug\printlog.h

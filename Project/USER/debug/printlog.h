@@ -6,7 +6,7 @@
 #include "L0_slave.h"
 
 /* OTA固件生成需要确认的地方 */
-// // #define printlog_enabled // 使能打印log
+// #define printlog_enabled // 使能打印log
 // // #define virtual_device   // 虚拟灯板信息
 
 //断言

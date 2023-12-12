@@ -5,7 +5,7 @@
  * @LastEditors: DESKTOP-AKTRQKB\MY sandote@163.com
 .chen sandote@163.om
  * .chen sandote@163.om
- * @LastEditTime: 2023-12-01 17:21:12
+ * @LastEditTime: 2023-12-12 17:21:04
  * @FilePath: \L1001_Master_CMS32L051\Project\USER\version\version.c
  * @Description:
  *
@@ -37,3 +37,29 @@ void print_firmware_information(void)
     // // printstr_my((uint8_t *)&firmware_inf.date, sizeof(firmware_inf.date));
     // // printlog("-----------------------------------\r\n");
 }
+/*
+
+
+2023/12/06
+
+1、调整灯效Lightning
+
+2023/12/12
+1、添加log代码上传服务器
+2、解决由静态色温灯效切换动态灯效，灯狂闪问题
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+*/

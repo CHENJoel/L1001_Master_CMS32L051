@@ -3,7 +3,7 @@
  * @Author: DESKTOP-AKTRQKB\MY sandote@163.com
  * @Date: 2023-06-07 10:04:26
  * @LastEditors: DESKTOP-AKTRQKB\MY sandote@163.com
- * @LastEditTime: 2023-12-05 16:28:40
+ * @LastEditTime: 2023-12-12 11:28:40
  * @FilePath: \L1001_Master_CMS32L051\Project\USER\master\master.c
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -591,6 +591,7 @@ void autoswitch_effects_in_list(void)
                     {
                         play.work.playtime_cnt = 0;
                         switch_next_ef_in_list();
+                        log_to_server(ACT_LISTPLAY);
                     }
                 }
             }
@@ -908,9 +909,10 @@ void clock_server(void)
                             {
                                 start_clock_task(&clock_list.list[i], &rtc);
                                 close_clock_task();
+                                log_to_server(ACT_CLOCK);
                             }
                         }
-											}
+                    }
                  }
             }
         }
@@ -1036,7 +1038,9 @@ void KeyS_Click(void)
             play.work.sw_status = SW_ON;
         }
         mcu_update_switch_led();
+        log_to_server(ACT_KEY);
         debug_K1();
+        
     }
     if (KEY2_Click)
     {
@@ -1072,6 +1076,7 @@ void KeyS_Click(void)
     {
         debug_K5();
         change_rhythm_mode();
+        
     }
     /*************************************/
 
@@ -1199,7 +1204,8 @@ void uart_app_init(void)
 	*/
 	// // // UART0_Init(SystemCoreClock, 76800); // 实际为76800
 	UART0_Init(SystemCoreClock, 115200); // 实际为115200
-	UART1_Init(SystemCoreClock, 76800); // 实际为9600
+    UART1_Init(SystemCoreClock, 115200); // 实际为9600
+	// UART1_Init(SystemCoreClock, 76800); // 实际为9600
 	UART1_Receive(&Uart1_rx_data, 1);
 	printf("\nHello,I am Matser\n");
     wifi_fifo_init();
@@ -1497,4 +1503,24 @@ void it_callback_Handle(void)
     
 
     // LED_Red_flash();
+}
+
+/* 
+
+ * @Description: 大小端互换
+ * @param: 
+ * @param: 
+ * @param: 
+ * @return: 
+*/ 
+void* endian_swap(void *dest, const void *src, uint8_t size)
+{
+    uint8_t i;
+    uint8_t *pdest = (uint8_t *)dest;  
+    const uint8_t *psrc  = (const uint8_t *)src;  
+    for (i = 0; i < size / 2; i++)
+    {
+        pdest[i] = psrc[size - i - 1];
+    }
+    return dest; 
 }

@@ -72,4 +72,5 @@
 .\objects\newota.o: ..\USER\mic\mic.h
 .\objects\newota.o: ..\USER\calibration\calibration.H
 .\objects\newota.o: ..\USER\app\appfunction.h
+.\objects\newota.o: ..\USER\log\log.h
 .\objects\newota.o: ..\USER\debug\printlog.h

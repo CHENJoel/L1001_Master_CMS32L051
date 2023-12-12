@@ -71,5 +71,6 @@
 .\objects\delay.o: ..\USER\mic\mic.h
 .\objects\delay.o: ..\USER\calibration\calibration.H
 .\objects\delay.o: ..\USER\app\appfunction.h
+.\objects\delay.o: ..\USER\log\log.h
 .\objects\delay.o: ..\USER\debug\printlog.h
 .\objects\delay.o: ..\USER\Include\delay.H

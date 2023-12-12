@@ -1,5 +1,6 @@
 
 #include "Function_Init.H"
+
 /*校验通信数据是否正确*/
 uint8_t com_dataverify(uint8_t *sur, uint16_t size)
 {
@@ -21,22 +22,15 @@ uint8_t com_dataverify(uint8_t *sur, uint16_t size)
 void mcu_update_ef_detail(uint8_t efindex)
 {
     com_effect_detial_TypeDef comef;
+    printlog("mcu_update_ef_detail\r");
     comef.idex = efindex;
     get_effect_detail(&comef.Efdata, efindex);
     comef.checksum = (uint8_t)checksum_calculate((uint8_t *)&comef, sizeof(comef) - 1);
     mcu_dp_raw_update(DPID_EFFECT_DETIAL, &comef, sizeof(comef));
-    print_effect_detial(&comef.Efdata, comef.idex);
+    // print_effect_detial(&comef.Efdata, comef.idex);
 }
 
-/* 
- * @Description: 上报当前播放的灯效详情
- * @param: 
- * @return: 
-*/ 
-void mcu_update_current_ef_detail(void)
-{
-    mcu_update_ef_detail(play.detail.efindex);
-}
+
 
 /*---------------------------------------------------------------------------------*/
 
@@ -280,16 +274,15 @@ void mcu_download_device_detail(uint8_t *sur, uint16_t length)
     uint8_t i, j;
     com_device_detail_TypeDef com;
     device_detail_TypeDef device;
+    uint16_t data;
     printlog("<mcu_download_device_detail>\r");
     j = length / sizeof(com_device_detail_TypeDef); // 算出设备数量
     for (i = 0; i < j; i++)
     {
         memset(&device, 0, sizeof(device));
         memcpy(&com, sur + (sizeof(com) * i), sizeof(com));
-        device.id = com.id;
-        device.angle = com.angle;   
-        device.cooed_x = com.cooed_x;
-        device.cooed_y = com.cooed_y;
+        endian_swap(&device.cooed_x, &com.cooed_x, sizeof(device.cooed_x)); // 大小端转换
+        endian_swap(&device.cooed_y, &com.cooed_y, sizeof(device.cooed_y)); // 大小端转换
         refresh_slave_data(&device);
     }
     save_all_slave_data(&slave);
@@ -319,6 +312,8 @@ void mcu_update_device_detail(void)
         com.data[i].id = slave.data[i].id;
         com.data[i].shape = convert_device_shape_data(slave.data[i].shape);
         com.data[i].angle = slave.data[i].angle;
+        endian_swap(&com.data[i].cooed_x, &slave.data[i].cooed_x, sizeof(com. data[i].cooed_x)); // 大小端转换
+        endian_swap(&com.data[i].cooed_y, &slave.data[i].cooed_y, sizeof(com.data[i].cooed_y)); // 大小端转换
         com.data[i].cooed_x = slave.data[i].cooed_x;
         com.data[i].cooed_y = slave.data[i].cooed_y;
     }
@@ -544,7 +539,7 @@ uint8_t mcu_download_issue_cmd_handle(uint8_t *sur, uint16_t length)
 /*针对DPID_EFFECT_PREVIEW的处理函数*/
 void mcu_download_effect_preview(uint8_t *sur, uint16_t length)
 {
-    printlog("<effect_preview>\r");
+    printlog("\r<effect_preview>\r");
     print_com_effect_detial_log(sur); // 打印log
     enter_preview_effect_mode(&(((com_effect_detial_TypeDef*)sur)->Efdata));
 }
@@ -884,7 +879,7 @@ void mcu_download_auto_brightness_switch(uint8_t bool)
 }
 
 /* 
- * @Description: 上传自动亮度的开关
+ * @Description: 上传自动亮度的开关状态
  * @param: 
  * @return: 
 */ 
@@ -892,6 +887,25 @@ void mcu_update_auto_brightness_switch(void)
 {
     printlog("mcu_update_auto_brightness_switch:%d\r", play.work.global_setting.autobright_ensta);
     mcu_dp_bool_update(DPID_AUTO_BRIGHTNESS_SWITCH,play.work.global_setting.autobright_ensta);
+}
+
+/* 
+ * @Description: 修改自动亮度开关
+ * @param: 
+ * @return: 
+*/ 
+void modify_auto_brightness_switch(enable_status_enum en)
+{
+    if (en == DISABLE_STA)
+    {
+       play.work.global_setting.autobright_ensta  = DISABLE_STA; // 失能状态
+    }
+    else
+    {
+        play.work.global_setting.autobright_ensta  = ENABLE_STA; // 使能状态
+    }
+    save_global_setting(&play.work.global_setting);
+    mcu_update_auto_brightness_switch();    // 上传自动亮度的开关状态
 }
 
 /*---------------------------------------------------------------------------------*/
@@ -1114,14 +1128,10 @@ void mcu_download_reserved3(uint8_t *sur, uint16_t length)
  * @param:
  * @return:
  */
-void mcu_update_current_play_efdetail(void)
+void mcu_update_current_ef_detail(void)
 {
     com_effect_detial_TypeDef comef;
-    /*
-        comef.idex = efnum;
-        get_effect_detail(&comef.Efdata, efnum);
-        */
-    printlog("mcu_update_current_play_efdetail\r");
+    printlog("mcu_update_current_ef_detail\r");
     comef.idex = play.detail.efindex;
     memcpy(&comef.Efdata, &play.efdetail, sizeof(comef.Efdata));
     comef.checksum = (uint8_t)checksum_calculate((uint8_t *)&comef, sizeof(comef) - 1);
@@ -1136,7 +1146,7 @@ void mcu_update_current_play_efdetail(void)
 */ 
 void mcu_update_reserved4(void) 
 {
-    mcu_update_current_play_efdetail();
+    mcu_update_current_ef_detail();
 }
 
 /*-------------------------------------------------------------------------*/
@@ -1149,6 +1159,7 @@ void mcu_update_reserved4(void)
 void mcu_update_current_ef_brightness(void) 
 {
     com_current_efbright_TypeDef com;
+    printlog("mcu_update_current_ef_brightness\r");
     load_current_ef_brightness(); // 加载当前灯效的亮度
     com.efidex = play.detail.efindex;
     com.Brightness1 = play.efdetail.Brightness1;
@@ -1160,6 +1171,7 @@ void mcu_update_current_ef_brightness(void)
     {
         com.Brightness2 = play.efdetail.Brightness2;
     }
+    printhex_my(&com, sizeof(com));
     mcu_dp_raw_update(DPID_RESERVED5, &com, sizeof(com));
 }
 /* 
@@ -1170,12 +1182,12 @@ void mcu_update_current_ef_brightness(void)
 */ 
 void mcu_download_ef_brightness(uint8_t *sur, uint16_t length)
 {
+    printlog("mcu_download_ef_brightness\r");
     modify_effect_brightness(((com_current_efbright_TypeDef *)sur)->efidex, ((com_current_efbright_TypeDef *)sur)->Brightness1, ((com_current_efbright_TypeDef *)sur)->Brightness2);
-    if (((com_current_efbright_TypeDef *)sur)->efidex == play.detail.efindex)   // 更新的是当前播放的灯效
+    if (((com_current_efbright_TypeDef *)sur)->efidex == play.detail.efindex) // 正常情况下，更新的就是当前播放的灯效
     {
-        load_current_ef_brightness();                            // 加载当前灯效的亮度
-        play.work.global_setting.autobright_ensta = DISABLE_STA; // 关闭自动调光
-        save_global_setting(&play.work.global_setting);
+        load_current_ef_brightness();               // 加载当前灯效的亮度
+        modify_auto_brightness_switch(DISABLE_STA); // 关闭自动调光
     }
 }
 
@@ -1191,3 +1203,13 @@ void mcu_download_reserved5(uint8_t *sur, uint16_t length)
 }
 
 /*-------------------------------------------------------------------------*/
+
+/* 
+ * @Description: 日志上传服务器
+ * @param: 
+ * @return: 
+*/ 
+void log_to_server(LOG_CODE code)
+{
+    mcu_dp_raw_update(DPID_RESERVED10,&code,sizeof(LOG_CODE));
+}

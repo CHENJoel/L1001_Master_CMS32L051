@@ -71,4 +71,5 @@
 .\objects\sci_user.o: ..\USER\mic\mic.h
 .\objects\sci_user.o: ..\USER\calibration\calibration.H
 .\objects\sci_user.o: ..\USER\app\appfunction.h
+.\objects\sci_user.o: ..\USER\log\log.h
 .\objects\sci_user.o: ..\USER\debug\printlog.h

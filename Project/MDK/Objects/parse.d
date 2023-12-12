@@ -72,4 +72,5 @@
 .\objects\parse.o: ..\USER\mic\mic.h
 .\objects\parse.o: ..\USER\calibration\calibration.H
 .\objects\parse.o: ..\USER\app\appfunction.h
+.\objects\parse.o: ..\USER\log\log.h
 .\objects\parse.o: ..\USER\debug\printlog.h

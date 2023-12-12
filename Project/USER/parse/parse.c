@@ -116,10 +116,18 @@ __weak void protocol_rxdata_handle(uint8_t *p, uint16_t len)
  */
 void transmit_protocol_frame(uint8_t *sur, uint16_t len, uint8_t *txbuf)
 {
+    uint8_t *p;
     if (len > PROCESS_TXDATA_LMT)
     {
         return; // 数据长度超长无效
     }
+    DMA_Stop(DMA_VECTOR_ST0);
+    p=&DMAVEC->CTRL[CTRL_DATA_ST0].DMACT;
+    p++;
+    // while (DMAVEC->CTRL[CTRL_DATA_ST0].DMACT != 0)
+    // {
+    //     ;
+    // }
     txbuf[0] = FRAME_HEAD;                              // 帧头
     memcpy(&txbuf[1], sur, len);                        // 拷贝源数据段
     txbuf[len + 1] = len;                               // 数据段长度低八位

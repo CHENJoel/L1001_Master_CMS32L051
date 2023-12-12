@@ -71,4 +71,5 @@
 .\objects\flow.o: ..\USER\mic\mic.h
 .\objects\flow.o: ..\USER\calibration\calibration.H
 .\objects\flow.o: ..\USER\app\appfunction.h
+.\objects\flow.o: ..\USER\log\log.h
 .\objects\flow.o: ..\USER\debug\printlog.h

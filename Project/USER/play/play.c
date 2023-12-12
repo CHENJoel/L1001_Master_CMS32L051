@@ -869,7 +869,8 @@ void play_new_effect(uint8_t efnum)
     play.work.playtime_cnt = 0;
     play_current_effect();
     mcu_update_playstatus();            // mcu上报播放状态
-    mcu_update_current_play_efdetail(); // 上报当前播放的灯效信息
+    mcu_update_current_ef_detail();     // 上报当前播放的灯效信息
+    mcu_update_current_ef_brightness(); // 上传播放的灯效的亮度信息
 }
 
 /* 
@@ -1022,7 +1023,7 @@ void transmit_buffer_data(uint8_t *sur, uint16_t len)
     {
         return;
     }
-    DMA_Stop(DMA_VECTOR_ST0);
+    // // DMA_Stop(DMA_VECTOR_ST0);
     DMA_Start(DMA_VECTOR_ST0, CTRL_DATA_ST0, DMA_MODE_NORMAL, DMA_SIZE_BYTE, len, sur, (void *)&SCI0->TXD0);
     DMA_Enable(DMA_VECTOR_ST0);
     DMA_Trigger(DMA_VECTOR_ST0);

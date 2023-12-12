@@ -71,4 +71,5 @@
 .\objects\adc_user.o: ..\USER\mic\mic.h
 .\objects\adc_user.o: ..\USER\calibration\calibration.H
 .\objects\adc_user.o: ..\USER\app\appfunction.h
+.\objects\adc_user.o: ..\USER\log\log.h
 .\objects\adc_user.o: ..\USER\debug\printlog.h

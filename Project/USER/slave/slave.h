@@ -25,10 +25,10 @@ typedef enum
 
 typedef enum
 {
-    APP_SQUARE = 1,
-    APP_BTRIANGLE = 2,
-    APP_MTRIANGLE = 3,
-    APP_STRIANGLE = 4,
+    APP_SQUARE = 1,    // 正方形
+    APP_BTRIANGLE = 2, // 大三角形
+    APP_MTRIANGLE = 3, // 中三角形
+    APP_STRIANGLE = 4, // 小三角形
 } app_shape_enum;
 
 typedef struct

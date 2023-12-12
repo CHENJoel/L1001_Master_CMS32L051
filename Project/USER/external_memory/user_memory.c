@@ -1241,6 +1241,7 @@ void modify_effect_brightness(uint8_t efindex, uint8_t bright1, uint8_t bright2)
     save_effect(&efdetail, efindex);       // 保存
     //
     mcu_update_current_ef_brightness(); // 上传播放的灯效的亮度信息
+    mcu_update_current_ef_detail();     // 上报当前播放的灯效信息
     mcu_update_current_ef_detail();     // 上报当前播放的灯效详情
 }
 

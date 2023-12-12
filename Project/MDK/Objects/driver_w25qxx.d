@@ -72,4 +72,5 @@
 .\objects\driver_w25qxx.o: ..\USER\mic\mic.h
 .\objects\driver_w25qxx.o: ..\USER\calibration\calibration.H
 .\objects\driver_w25qxx.o: ..\USER\app\appfunction.h
+.\objects\driver_w25qxx.o: ..\USER\log\log.h
 .\objects\driver_w25qxx.o: ..\USER\debug\printlog.h

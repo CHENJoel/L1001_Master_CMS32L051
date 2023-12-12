@@ -72,4 +72,5 @@
 .\objects\user_memory.o: ..\USER\mic\mic.h
 .\objects\user_memory.o: ..\USER\calibration\calibration.H
 .\objects\user_memory.o: ..\USER\app\appfunction.h
+.\objects\user_memory.o: ..\USER\log\log.h
 .\objects\user_memory.o: ..\USER\debug\printlog.h

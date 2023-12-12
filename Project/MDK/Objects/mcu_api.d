@@ -72,4 +72,5 @@
 .\objects\mcu_api.o: ..\USER\mic\mic.h
 .\objects\mcu_api.o: ..\USER\calibration\calibration.H
 .\objects\mcu_api.o: ..\USER\app\appfunction.h
+.\objects\mcu_api.o: ..\USER\log\log.h
 .\objects\mcu_api.o: ..\USER\debug\printlog.h

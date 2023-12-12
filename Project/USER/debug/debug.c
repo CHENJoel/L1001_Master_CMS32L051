@@ -343,8 +343,11 @@ void debug_play_last_effect(void)
 void debug(void)
 {
     // static uint8_t ppp;
+    // // uint8_t ppp;
     // ppp++;
-    // UART1_Send(&ppp, 1);  
+    // // ppp=0x5a; //
+    // UART0_Send(ppp);
+    // // UART1_Send(&ppp, 1);  
     // static uint8_t i;
     // if (i)
     // {
@@ -397,6 +400,7 @@ void debug_K1_LONG(void)
 /*按键1服务调试函数*/
 void debug_K1(void)
 {
+    // log_to_server();
     // printf("\rK1\r");
     // debug_add_original_ef();
     // slave_light_in_turn();

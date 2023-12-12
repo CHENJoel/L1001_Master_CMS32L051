@@ -72,4 +72,5 @@
 .\objects\driver_spi.o: ..\USER\mic\mic.h
 .\objects\driver_spi.o: ..\USER\calibration\calibration.H
 .\objects\driver_spi.o: ..\USER\app\appfunction.h
+.\objects\driver_spi.o: ..\USER\log\log.h
 .\objects\driver_spi.o: ..\USER\debug\printlog.h

@@ -71,4 +71,5 @@
 .\objects\printlog.o: ..\USER\mic\mic.h
 .\objects\printlog.o: ..\USER\calibration\calibration.H
 .\objects\printlog.o: ..\USER\app\appfunction.h
+.\objects\printlog.o: ..\USER\log\log.h
 .\objects\printlog.o: ..\USER\debug\printlog.h

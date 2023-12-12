@@ -71,4 +71,5 @@
 .\objects\tim4_user.o: ..\USER\mic\mic.h
 .\objects\tim4_user.o: ..\USER\calibration\calibration.H
 .\objects\tim4_user.o: ..\USER\app\appfunction.h
+.\objects\tim4_user.o: ..\USER\log\log.h
 .\objects\tim4_user.o: ..\USER\debug\printlog.h

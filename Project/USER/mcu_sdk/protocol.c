@@ -1232,7 +1232,7 @@ static unsigned char dp_download_reserved5_handle(const unsigned char value[], u
     //RAW type data processing
     
     */
-    printlog("<dp_download_reserved5_handle>\r");
+    // // printlog("<dp_download_reserved5_handle>\r");
     //There should be a report after processing the DP
     mcu_download_reserved5(value,length);
     ret = mcu_dp_raw_update(DPID_RESERVED5,value,length);

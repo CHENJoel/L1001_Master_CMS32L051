@@ -73,7 +73,7 @@ void print_flow(Flow_Enum num)
 void print_direction(Direction_Enum num)
 {
 #if defined(printlog_enabled)
-    printf("\rDirection:");
+    printf("Direction:");
     switch (num)
     {
     case DIRECTION_UP:
@@ -160,7 +160,7 @@ void print_effect_detial(Efdetail_TypeDef *p, uint8_t efnum)
 {
 #if defined(printlog_enabled)
     uint8_t i = 0;
-    printf("\r---------------------------------------------------\r");
+    printf("---------------- effect detial ----------------\r");
     printf("idex:%d\r", efnum);
     printf("namelenght:%d\r", p->namelenght);
     printf("Name:");
@@ -183,7 +183,7 @@ void print_effect_detial(Efdetail_TypeDef *p, uint8_t efnum)
             printf("\r");
         }
     }
-    printf("\r");
+    printf("\r----------------\r");
 #endif // printlog_enabled
 }
 

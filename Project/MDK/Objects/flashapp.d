@@ -71,4 +71,5 @@
 .\objects\flashapp.o: ..\USER\mic\mic.h
 .\objects\flashapp.o: ..\USER\calibration\calibration.H
 .\objects\flashapp.o: ..\USER\app\appfunction.h
+.\objects\flashapp.o: ..\USER\log\log.h
 .\objects\flashapp.o: ..\USER\debug\printlog.h

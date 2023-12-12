@@ -2,7 +2,7 @@
  * @Author: DESKTOP-AKTRQKB\MY sandote@163.com
  * @Date: 2022-10-17 11:28:51
  * @LastEditors: DESKTOP-AKTRQKB\MY sandote@163.com
- * @LastEditTime: 2023-12-05 11:49:34
+ * @LastEditTime: 2023-12-12 14:47:16
  * @FilePath: \L1001_Master_CMS32L051\Project\USER\Source\main.c
  * @Description: ???????????,??????`customMade`, ??koroFileHeader?????? ????????: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -113,7 +113,7 @@ int main()
 	
 	
 	/* ADC_Init(); */
-	IT_Init(RTC_64MHZ, 32);  // 约32us间隔中断一次 32/ms 
+	IT_Init(RTC_64MHZ, 10);  // 约32us间隔中断一次 32/ms 
     IT_Start();
     INTC_EnableIRQ(IT_IRQn);
 	ADC_Set_HardTrigger(1, AD_TRG_IT);
@@ -149,12 +149,11 @@ int main()
 	// adc_dma_start();
 	while (1)
 	{
-		wifi_fifo_send_ISR(); 
+		// // wifi_fifo_send_ISR(); 
 		if (T_4MS_FLAG_GetBit)
 		{
 			T_4MS_FLAG_ClrBit();
 			WDT_Restart();
-			
 			wifi_service();
 		}
 		if (T_8MS_FLAG_GetBit)
@@ -166,30 +165,28 @@ int main()
 			T_20MS_FLAG_ClrBit();
 			KeyS_On();						
 			KeyS_Click();
-			LED_Display_20ms();
+			// LED_Display_20ms();
 			WDT_Restart();
-			// debug();
 		}
 		if (T_28MS_FLAG_GetBit)
 		{
 			T_28MS_FLAG_ClrBit();
-			// process_mic_data();
-
+		
 
 			Lignt_Control();
 			play_effect_video();
-			adc_dma_start();	
+			process_mic_data();
+			adc_dma_start();
+			// fft_test();
+			// adc_dma_start();
 			autosave_effect_bright(0);
 		}
 		if (T_100MS_FLAG_GetBit)
 		{
 			T_100MS_FLAG_ClrBit();
-			// fft_test();
-			// adc_dma_start();
-			// // processfft();
-			// // adc_dma_start();
-			// // // LED_Red_flash();
-			// // // LED_Blue_flash();
+
+
+			debug();
 		}
 		if (T_200MS_FLAG_GetBit)
 		{
@@ -204,7 +201,7 @@ int main()
 		{
 			T_1000MS_FLAG_ClrBit();
 			
-			// debug();
+			
 			autoswitch_effects_in_list();
 			clock_server();	
 		}

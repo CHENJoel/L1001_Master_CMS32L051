@@ -180,7 +180,10 @@ void ModuleColor_Cal(FrameInfro_TypeDef *image_ptr, ModuleTypeDef *module_ptr, u
     FrameInsert_Calculate(*(image_ptr->image_adr + (Currnt_KF * 4) + (Pixel_Num * 4) + 0), *(image_ptr->image_adr + (Next_KF * 4) + (Pixel_Num * 4) + 0), &module_ptr->R.Now, Temp_FrameNum, image_ptr->InsertNum);
     FrameInsert_Calculate(*(image_ptr->image_adr + (Currnt_KF * 4) + (Pixel_Num * 4) + 1), *(image_ptr->image_adr + (Next_KF * 4) + (Pixel_Num * 4) + 1), &module_ptr->G.Now, Temp_FrameNum, image_ptr->InsertNum);
     FrameInsert_Calculate(*(image_ptr->image_adr + (Currnt_KF * 4) + (Pixel_Num * 4) + 2), *(image_ptr->image_adr + (Next_KF * 4) + (Pixel_Num * 4) + 2), &module_ptr->B.Now, Temp_FrameNum, image_ptr->InsertNum);
-    // FrameInsert_Calculate(*(image_ptr->image_adr + (Currnt_KF * 4) + (Pixel_Num * 4) + 3), *(image_ptr->image_adr + (Next_KF * 4) + (Pixel_Num * 4) + 3), &module_ptr->W.Now, Temp_FrameNum, image_ptr->InsertNum);
+    // // // module_ptr->W.Now=*(image_ptr->image_adr + (Currnt_KF * 4));    // 颜色类型标志位
+    /*
+    FrameInsert_Calculate(*(image_ptr->image_adr + (Currnt_KF * 4) + (Pixel_Num * 4) + 3), *(image_ptr->image_adr + (Next_KF * 4) + (Pixel_Num * 4) + 3), &module_ptr->W.Now, Temp_FrameNum, image_ptr->InsertNum);
+    */
 
     // // // printf("C:%2d N:%2d ,%d\r",Currnt_KF,Next_KF,*(image_ptr->image_adr + (Currnt_KF * 4 * image_ptr->PixelSum) + (Pixel_Num * 4) + 0));
     // // printf("C:%2d N:%2d K:%2d I:%4d tf:%d\r", Currnt_KF, Next_KF, image_ptr->KeySum, image_ptr->InsertNum,Temp_FrameNum);

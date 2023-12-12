@@ -71,4 +71,5 @@
 .\objects\a5441_master.o: ..\USER\mic\mic.h
 .\objects\a5441_master.o: ..\USER\calibration\calibration.H
 .\objects\a5441_master.o: ..\USER\app\appfunction.h
+.\objects\a5441_master.o: ..\USER\log\log.h
 .\objects\a5441_master.o: ..\USER\debug\printlog.h

@@ -339,7 +339,7 @@
               <MiscControls></MiscControls>
               <Define></Define>
               <Undefine></Undefine>
-              <IncludePath>..\USER\Include;..\..\Driver\inc;..\USER\mcu_sdk;..\USER\ota;..\USER\internal_memory;..\USER\external_memory;..\USER\debug;..\USER\app;..\USER\flashapp;..\USER\master;..\USER\play;..\USER\slave;..\USER\factory;..\USER\version;..\USER\parse;..\USER\protocolcom;..\USER\flow;..\USER\mic;..\USER\calibration;..\USER\L0;..\USER\fft</IncludePath>
+              <IncludePath>..\USER\Include;..\..\Driver\inc;..\USER\mcu_sdk;..\USER\ota;..\USER\internal_memory;..\USER\external_memory;..\USER\debug;..\USER\app;..\USER\flashapp;..\USER\master;..\USER\play;..\USER\slave;..\USER\factory;..\USER\version;..\USER\parse;..\USER\protocolcom;..\USER\flow;..\USER\mic;..\USER\calibration;..\USER\L0;..\USER\fft;..\USER\log</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -907,6 +907,16 @@
               <FileName>fft.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\USER\fft\fft.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>user_log</GroupName>
+          <Files>
+            <File>
+              <FileName>log.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\USER\log\log.c</FilePath>
             </File>
           </Files>
         </Group>

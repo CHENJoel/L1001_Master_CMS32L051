@@ -71,4 +71,5 @@
 .\objects\light.o: ..\USER\mic\mic.h
 .\objects\light.o: ..\USER\calibration\calibration.H
 .\objects\light.o: ..\USER\app\appfunction.h
+.\objects\light.o: ..\USER\log\log.h
 .\objects\light.o: ..\USER\debug\printlog.h

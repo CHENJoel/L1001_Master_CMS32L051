@@ -71,4 +71,5 @@
 .\objects\slave.o: ..\USER\mic\mic.h
 .\objects\slave.o: ..\USER\calibration\calibration.H
 .\objects\slave.o: ..\USER\app\appfunction.h
+.\objects\slave.o: ..\USER\log\log.h
 .\objects\slave.o: ..\USER\debug\printlog.h

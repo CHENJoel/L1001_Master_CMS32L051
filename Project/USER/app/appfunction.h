@@ -4,7 +4,7 @@
  * @Date: 2023-05-19 11:16:26
  * @LastEditors: DESKTOP-AKTRQKB\MY sandote@163.com
  * .chen sandote@163.om
- * @LastEditTime: 2023-12-05 15:14:16
+ * @LastEditTime: 2023-12-12 11:30:55
  * @FilePath: \L1001_Master_CMS32L051\Project\USER\app\appfunction.h
  * @Description:
  *
@@ -12,7 +12,7 @@
  */
 #ifndef APPFUNCTION_H
 #define APPFUNCTION_H
-
+#include "log.h"
 /*************************************************************/
 /*DPID_DEVICE_CONTROL*/
 
@@ -45,7 +45,6 @@ typedef struct
 uint8_t com_dataverify(uint8_t *sur, uint16_t size);
 //
 void mcu_update_ef_detail(uint8_t efindex); // 上报灯效详情
-void mcu_update_current_ef_detail(void);  // 上报当前播放的灯效详情
 //
 void mcu_update_efsketch(com_issue_cmd_TypeDef *p); // 根据指令上报灯效概述
 void mcu_update_one_efsketch(uint8_t efnum);        // 上报某灯效概述
@@ -124,8 +123,9 @@ void mcu_update_switch_indicator(void);           // 上传指示灯开关状态
 void mcu_download_switch_mic(uint8_t bool); // 下载麦克风开关状态
 void mcu_update_switch_mic(void);           // 上传麦克风开关状态
 //
-void mcu_download_auto_brightness_switch(uint8_t bool); // 下载自动亮度的开关
-void mcu_update_auto_brightness_switch(void);           // 上传自动亮度的开关
+void mcu_download_auto_brightness_switch(uint8_t bool);    // 下载自动亮度的开关
+void mcu_update_auto_brightness_switch(void);              // 上传自动亮度的开关状态
+void modify_auto_brightness_switch(enable_status_enum en); // 修改自动亮度开关
 //
 void mcu_download_auto_brightness_mode(uint8_t num); // 下载自动亮度的模式
 void mcu_update_auto_brightness_mode(void);          // 上传自动亮度的模式
@@ -143,11 +143,14 @@ void mcu_update_device_indentify(void);                            // 上传设备配
 void mcu_download_device_indentify(uint8_t *sur, uint16_t length); // 下载设备配对标识
 void mcu_download_reserved3(uint8_t *sur, uint16_t length);        // 下载DP数据（保留3）
 //
-void mcu_update_current_play_efdetail(void); // 上报当前播放的灯效信息
+void mcu_update_current_ef_detail(void); // 上报当前播放的灯效信息
 void mcu_update_reserved4(void);             // 上传dp信息（保留4）
 //
 void mcu_update_current_ef_brightness(void); // 上传播放的灯效的亮度信息
 void mcu_download_ef_brightness(uint8_t *sur, uint16_t length); // 下载灯效亮度信息
 void mcu_download_reserved5(uint8_t *sur, uint16_t length); // 下载DP信息（保留5）
+//
+void log_to_server(LOG_CODE code);
+
 //
 #endif

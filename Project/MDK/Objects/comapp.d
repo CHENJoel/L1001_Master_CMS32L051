@@ -71,4 +71,5 @@
 .\objects\comapp.o: ..\USER\mic\mic.h
 .\objects\comapp.o: ..\USER\calibration\calibration.H
 .\objects\comapp.o: ..\USER\app\appfunction.h
+.\objects\comapp.o: ..\USER\log\log.h
 .\objects\comapp.o: ..\USER\debug\printlog.h

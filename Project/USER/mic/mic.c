@@ -2,7 +2,9 @@
 #include "mic.h"
 
 mic_TypeDef mic;
-
+datalog_TypeDef miclog;
+longdatalog_TypeDef longmiclog;
+rangelevel_TypeDef micrange;
 /*
  * @Description: 获取声音脉冲强度
  * @param:
@@ -97,6 +99,8 @@ uint8_t get_sound_intensity(uint32_t data, uint16_t sens)
         grade = 100;
     }
     return grade;
+    //----------------------------------------------------------------
+
 }
 
 /* 
@@ -137,101 +141,72 @@ void process_mic_data(void)
     uint32_t sound;    
     uint16_t diff;
     uint16_t threshold;
-    /*
-    mic.avg = get_average(&xadc.micbuf, (sizeof(xadc.micbuf) / sizeof(uint16_t)));
-    // mic.sum = get_summation(&xadc.micbuf, (sizeof(xadc.micbuf) / sizeof(uint16_t)));
-    // // play.efdetail.MicSensitivity = 90;
-    // // play.efdetail.Brightness2 = 100;
-    // // play.efdetail.Brightness1 = 10;
-    // mic.avg=800;
-    // sound = mic.avg * play.efdetail.MicSensitivity;
-    // // sound = mic.avg * 100;
 
-    // if (sound > 0xFFF)
+    // play.efdetail.Brightness1=0;
+    // play.efdetail.Brightness2=100;
+    // play.efdetail.MicSensitivity=100;
+
+
+    // if (play.work.global_setting.microphone_ensta==ENABLE_STA)
     // {
-    //     sound = 0xFFF;
-    // }
-    // mic.grade = get_sound_intensity(sound, 0xFFF);
-    threshold = 40 * (101 - play.efdetail.MicSensitivity);
-    // // if (threshold==0)
-    // // {
-    // //    threshold=40;
-    // // }
-
-    mic.grade = get_sound_intensity(mic.avg, threshold);
-    diff = play.efdetail.Brightness2 - play.efdetail.Brightness1;
-
-    temp = diff / 5;
-    temp=100;
-    mic.bri_tar = play.efdetail.Brightness1 + temp * mic.grade;
-
-    if (mic.bri_tar > play.efdetail.Brightness2)
-    {
-        mic.bri_tar = play.efdetail.Brightness2;
-    }
-
-    // mic.grade = get_sound_intensity(mic.avg, 400);
-    // mic.bri_tar = mic.grade * (100 / MIC_SOUND_GRADE);
-    */
-    // // play.efdetail.MicSensitivity = 95;
-    // // play.efdetail.Brightness1 = 100;
-    // // play.efdetail.Brightness2 = 10;
-    if (play.work.global_setting.microphone_ensta==ENABLE_STA)
-    {
         mic.avg = get_average(&xadc.micbuf, (sizeof(xadc.micbuf) / sizeof(uint16_t))); // 获取声音均值
-        mic.sound = get_sound_intensity(mic.avg, play.efdetail.MicSensitivity);        // 获取声音强度
-    }
-    else
-    {
-        mic.sound = 100;
-    }
-    mic.pulse = get_mic_pulse(mic.sound);                                                                   // 获取声音脉冲强度
+        // // mic.sound = get_sound_intensity(mic.avg, play.efdetail.MicSensitivity);        // 获取声音强度
+    // }
+    // else
+    // {
+    //     mic.sound = 100;
+    // }
+    put_data_in_log(&miclog, mic.avg, sizeof(miclog.data) / sizeof(miclog.data[0]));
+    mic.logavg = get_avg_in_log(&miclog);
+    // // mic.longavg = get_avg_in_log(&longmiclog);
+    calculate_refer_range(mic.logavg,play.efdetail.MicSensitivity);
+    mic.sound = get_sound(mic.logavg);
+    mic.pulse = get_mic_pulse(mic.logavg); 
+    // // mic.pulse = get_mic_pulse(mic.sound);                                                                   // 获取声音脉冲强度
     convert_mic_frequency(mic.pulse);                                                                       // 计算脉冲频率
+
     mic.bri_tar = convert_bright_in_range(mic.sound, play.efdetail.Brightness1, play.efdetail.Brightness2); // 输出亮度转换成区间值
-    if (mic.bri_tar > mic.bri_now)
+    
+    // // put_data_in_log(&longmiclog,mic.avg,sizeof(longmiclog.data)/sizeof(longmiclog.data[0]));
+    // if (mic.bri_tar > mic.bri_now)
+    // {
+    //     Gradual_Change(&mic.bri_now, &mic.bri_tar, 60);
+    // }
+    // else
+    // {
+    //     Gradual_Change(&mic.bri_now, &mic.bri_tar, 50);
+    // }
+
+    Gradual_Change(&mic.bri_now, &mic.bri_tar, 60);
+    // // mic.bri_now= mic.bri_tar ;
+    if (mic.bri_now > 100)
     {
-        Gradual_Change(&mic.bri_now, &mic.bri_tar, 60);
+        mic.bri_now = 255;
+    }
+
+    if (mic.logavg > mic.logavg_last)
+    {
+        mic.differ = mic.logavg - mic.logavg_last;
     }
     else
     {
-        Gradual_Change(&mic.bri_now, &mic.bri_tar, 10);
+        mic.differ = 0;
     }
+
+    mic.logavg_last = mic.logavg;
+
+    // PRINT(bir, "%d,%d", mic.logavg, mic.bri_now);
     // // PRINT(mic, "%d,%d", mic.avg,mic.sum);
-    // // PRINT(mic, "%d", mic.avg);
+    // PRINT(mic, "%d,%d", mic.avg,mic.logavg);
+    // PRINT(avg, "%d,%d,%d", mic.logavg, micrange.min_level, micrange.max_level);
+    // PRINT(avg, "%d,%d", mic.logavg,mic.longavg);
+    // PRINT(dif, "%d,%d", mic.logavg,mic.differ);
+    // PRINT(avg, "%d,%d,%d",mic.avg, mic.logavg,mic.longavg);
+    // PRINT(mic, "%d,%d,%d", mic.avg, mic.sound,mic.logavg);
     //  PRINT(sum, "%d", mic.sum);
     // mic.bri_now=mic.avg/41;
     // PRINT(bri_now, "%d", mic.bri_now);
     // PRINT(mic, "%d,%d,%d", mic.avg,mic.grade,mic.bri_tar);
-    // // // // if (DMAVEC->CTRL[CTRL_DATA_ADC].DMACT == 0)
-    // // // // {
-    // // //     // convert_to_real_mic_val(&mic.buffer, MIC_BUF_SIZE);
-    // // //     // mic.avg = get_average(&mic.buffer, MIC_BUF_SIZE);
-    // // //     // mic.grade = get_sound_intensity(mic.avg, 4000);
-    // // //     // if (mic.grade < 3)
-    // // //     // {
-    // // //     //     mic.grade = 2;
-    // // //     // }
-
-    // // //     mic.bri_tar = mic.grade * (100 / MIC_SOUND_GRADE);
-    // // //     // mic.bri_tar=temp
-    // // //      // if (mic.bri_now < temp)
-    // // //     // {
-    // // //     //     mic.bri_now = temp;
-    // // //     //     // // mic.bri_now = mic.bri_tar;
-    // // //     // }
-    // // //     // else
-    // // //     // {
-    // // //     //     temp=0;
-    // // //     //     Gradual_Change(&mic.bri_now,&temp,10);
-    // // //     // }
-    // // //     if (mic.bri_tar>mic.bri_now)
-    // // //     {
-    // // //         Gradual_Change(&mic.bri_now,&mic.bri_tar,60);
-    // // //     }
-    // // //     else
-    // // //     {
-    // // //         Gradual_Change(&mic.bri_now,&mic.bri_tar,4);
-    // // //     }
 
     // // //     // printlog("bri_now %d",mic.bri_now);
     // // //     //  PRINT(bri_now, "%d", mic.bri_now);
@@ -355,18 +330,52 @@ void rhythm_mode(void)
 void fft_test(void)
 {
     uint8_t i;
+    uint16_t data[FFT_N/2];
+    uint16_t lastdata[FFT_N/2];
+    uint16_t num=0;
+    #ifndef printlog_enabled
+    LED_Red_off();
+    LED_Blue_off();
     for ( i = 0; i < FFT_N; i++)
     {
         Refresh_Data(i,(double)xadc.micbuf[i]);
+        PRINT(mic, "%d",xadc.micbuf[i]);
     }
     // data_of_N_FFT[FFT_N] = {5120,0,4096,0,3072,0,4096,0,5120,0,4096,0,3072,0,4096,0,5120,0,4096,0,3072,0,4096,0,5120,0,4096,0,3072,0,4096,0,5120,0,4096,0,3072,0,4096,0,5120,0,4096,0,3072,0,4096,0,5120,0,4096,0,3072,0,4096,0,5120,0,4096,0,3072,0,4096,0,
 
 // };		
     Init_FFT();
-    FFT();
+    FFT();      // 4ms
     abs_fft();
-    PRINT(fft, "%lf,%lf,%lf,%lf,%lf,%lf,%lf,%lf,%lf,%lf,%lf,%lf,%lf,%lf", data_of_N_FFT[20].real,data_of_N_FFT[1].real,data_of_N_FFT[2].real,data_of_N_FFT[3].real,data_of_N_FFT[4].real,data_of_N_FFT[5].real,data_of_N_FFT[6].real,data_of_N_FFT[7].real,data_of_N_FFT[8].real,data_of_N_FFT[9].real,data_of_N_FFT[10].real,data_of_N_FFT[11].real,data_of_N_FFT[12].real,data_of_N_FFT[13].real,data_of_N_FFT[14].real);
+
+    for (i = 0; i < sizeof(data) / sizeof(uint16_t); i++)
+    {
+        data[i] = (uint16_t)data_of_N_FFT[i].real;
+    }
     
+    
+    
+    for (i = 0; i < sizeof(data) / sizeof(uint16_t); i++)
+    {
+        if (data[i]> lastdata[i])
+        {
+           num++;
+        }
+    }
+
+
+    for (i = 0; i < sizeof(data) / sizeof(uint16_t); i++)
+    {
+        lastdata[i] = data[i];
+    }
+    num*=100;
+    PRINT(num, "%d",num);       
+    PRINT(fft, "%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d",data[1],data[1],data[2],data[3],data[4],data[5],data[6],data[7],data[8],data[9],data[10],data[11],data[12],data[13],data[14],data[15]);       
+    // / // LED_Blue_on();
+    // PRINT(fft, "%lf,%lf,%lf,%lf,%lf,%lf,%lf,%lf,%lf,%lf,%lf,%lf,%lf,%lf,%lf,%lf", data_of_N_FFT[30].real,data_of_N_FFT[1].real,data_of_N_FFT[2].real,data_of_N_FFT[3].real,data_of_N_FFT[4].real,data_of_N_FFT[5].real,data_of_N_FFT[6].real,data_of_N_FFT[7].real,data_of_N_FFT[8].real,data_of_N_FFT[9].real,data_of_N_FFT[10].real,data_of_N_FFT[11].real,data_of_N_FFT[12].real,data_of_N_FFT[13].real,data_of_N_FFT[14].real,data_of_N_FFT[15].real);
+    // // PRINT(fft, "%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d", (uint32_t)data_of_N_FFT[0].real,(uint32_t)data_of_N_FFT[1].real,(uint32_t)data_of_N_FFT[2].real,(uint32_t)data_of_N_FFT[3].real,(uint32_t)data_of_N_FFT[4].real,(uint32_t)data_of_N_FFT[5].real,(uint32_t)data_of_N_FFT[6].real,(uint32_t)data_of_N_FFT[7].real,(uint32_t)data_of_N_FFT[8].real,(uint32_t)data_of_N_FFT[9].real,(uint32_t)data_of_N_FFT[10].real,(uint32_t)data_of_N_FFT[11].real,(uint32_t)data_of_N_FFT[12].real,(uint32_t)data_of_N_FFT[13].real,(uint32_t)data_of_N_FFT[14].real,(uint32_t)data_of_N_FFT[15].real);
+    // // PRINT(fft, "%lf", data_of_N_FFT[0].real);
+    // LED_Red_on();
     // printf("fft");
     // for ( i = 0; i < FFT_N/2; i++)
     // {
@@ -375,4 +384,104 @@ void fft_test(void)
     // }
 			
     // // // PRINT(fft, "%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d", data_of_N_FFT[0].real,data_of_N_FFT[1].real,data_of_N_FFT[2].real,data_of_N_FFT[3].real,data_of_N_FFT[4].real,data_of_N_FFT[5].real,data_of_N_FFT[6].real,data_of_N_FFT[7].real,data_of_N_FFT[9].real,data_of_N_FFT[10].real,data_of_N_FFT[11].real,data_of_N_FFT[12].real,data_of_N_FFT[13].real,data_of_N_FFT[14].real,data_of_N_FFT[15].real);
+    #endif
+}
+
+void init_data_log(datalog_TypeDef *log)
+{
+    my_memset(log, 0, sizeof(datalog_TypeDef));
+}
+
+void put_data_in_log(datalog_TypeDef *log, uint16_t data,uint8_t len)
+{
+    log->data[log->pw] = data;
+    if (++log->pw >= len)
+    {
+        log->pw = 0;
+    }
+    if (++log->cnt >= len)
+    {
+        log->cnt = len;
+    }
+
+    // // // if (++log->pw >= (sizeof(log->data) / sizeof(log->data[0])))
+    // // // {
+    // // //    log->pw = 0;
+    // // // }
+    // // // if (++log->cnt>= (sizeof(log->data) / sizeof(log->data[0])))
+    // // // {
+    // // //     log->cnt = (sizeof(log->data) / sizeof(log->data[0]));
+    // // // }
+    
+}
+
+uint16_t get_avg_in_log(datalog_TypeDef *log)
+{
+    uint8_t i;
+    uint32_t sum = 0;
+    for (i = 0; i < log->cnt; i++)
+    {
+        sum += log->data[i];
+    }
+    return sum / log->cnt;
+}
+
+
+/* 
+ * @Description: 计算基准范围
+ * @param: 
+ * @return: 
+*/
+void calculate_refer_range(uint16_t data, uint8_t sens)
+{
+#define RANGE_CALCULATE_TIME 250
+#define MIN_RANG 200       
+    uint16_t range;
+    if (micrange.max_val < data)
+    {
+        micrange.max_val = data; // 求最大值
+    }
+    if (micrange.min_val > data)
+    {
+        micrange.min_val = data; // 求最小值
+    }
+    if (micrange.cnt <= RANGE_CALCULATE_TIME)
+    {
+        micrange.cnt++;
+    }
+    else
+    {
+        micrange.cnt = 0;
+        micrange.max_level = micrange.max_val * 1;
+        micrange.min_level = micrange.min_val;
+        micrange.max_val = 0;
+        micrange.min_val = 0xFFFF;
+        range = micrange.max_level - micrange.min_level;
+        if (range < MIN_RANG)
+        {
+            range = MIN_RANG;
+        }
+        range = range * (120 - sens) / 100;
+        micrange.max_level = micrange.min_level + range;    
+    }
+}
+
+uint8_t get_sound(uint16_t data)
+{
+    uint16_t range;
+    range = micrange.max_level - micrange.min_level;
+    if (data > micrange.max_level)
+    {
+        data = micrange.max_level;
+    }
+    if (data < micrange.min_level)
+    {
+        data = micrange.min_level;
+    }
+    data -= micrange.min_level;
+    return data * 100 / range;
+    // // // // // // // // // // data = data * 100 / range;
+     // // // // // // // // // // data = data / 20;
+    // // // // // // // // // // data = (data + 1) * 20;
+    // // // // // // // // // // return data;
 }

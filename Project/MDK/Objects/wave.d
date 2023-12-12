@@ -71,4 +71,5 @@
 .\objects\wave.o: ..\USER\mic\mic.h
 .\objects\wave.o: ..\USER\calibration\calibration.H
 .\objects\wave.o: ..\USER\app\appfunction.h
+.\objects\wave.o: ..\USER\log\log.h
 .\objects\wave.o: ..\USER\debug\printlog.h

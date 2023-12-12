@@ -2,7 +2,7 @@
  * @Author: DESKTOP-AKTRQKB\MY sandote@163.com
  * @Date: 2023-06-07 10:05:07
  * @LastEditors: DESKTOP-AKTRQKB\MY sandote@163.com
- * @LastEditTime: 2023-11-30 14:53:30
+ * @LastEditTime: 2023-12-09 14:43:47
  * @FilePath: \L1001_Master_CMS32L051\Project\USER\master\master.h
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -105,7 +105,7 @@ typedef enum
 typedef struct
 {
     uint8_t firmware_dowmload; // 固件下载
-    OTA_STATUS_ENUM ota_state; //
+    OTA_STATUS_ENUM                                                                                                                                                                                                         ota_state; //
     uint8_t wifi_state;
     uint8_t rtc_checkOK; // RCT校准完成
     SYS_ERROR_ENUM errorcode;
@@ -139,7 +139,7 @@ typedef struct
 {
     uint8_t index;
     semaphore_enum mic_semop;
-    uint16_t micbuf[65];
+    uint16_t micbuf[64];
     uint16_t keybuf;
     uint16_t cdsbuf;
 }adcdma_task_TypeDef;
@@ -228,5 +228,7 @@ void modify_brightness_level(void);           // 修改亮度级别
 void modify_brightness_step(uint8_t release); // 长按调亮度
 //
 void twinkle_remind(uint8_t *now, uint8_t *tar); // 闪烁提醒
-
+//
+void* endian_swap(void *dest, const void *src, uint8_t size); // 大小端互换
+//
 #endif

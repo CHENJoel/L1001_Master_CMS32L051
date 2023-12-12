@@ -68,6 +68,7 @@
 .\objects\play.o: ..\USER\mic\mic.h
 .\objects\play.o: ..\USER\calibration\calibration.H
 .\objects\play.o: ..\USER\app\appfunction.h
+.\objects\play.o: ..\USER\log\log.h
 .\objects\play.o: ..\USER\debug\printlog.h
 .\objects\play.o: ..\USER\L0\L0_slave.h
 .\objects\play.o: ..\USER\L0\L0.H
